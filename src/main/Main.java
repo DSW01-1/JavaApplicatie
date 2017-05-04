@@ -1,9 +1,9 @@
 package main;
 
 import javafx.application.Application;
-import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import pane.MainMenu;
 
 public class Main extends Application
 {
@@ -12,12 +12,12 @@ public class Main extends Application
 	{
 		try
 		{
-			BorderPane root = new BorderPane();
-			Scene scene = new Scene(root, 400, 400);
-			scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			
+			MainMenu mainMenu = new MainMenu();
+			Scene scene = new Scene(mainMenu, ScreenProperties.getScreenWidth(), ScreenProperties.getScreenHeight());
+			scene.getStylesheets().add("css/application.css");
+
 			primaryStage.setMaximized(true);
-			primaryStage.setScene(scene);			
+			primaryStage.setScene(scene);
 			primaryStage.show();
 		}
 		catch (Exception e)
