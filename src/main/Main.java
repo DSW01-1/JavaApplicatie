@@ -2,22 +2,24 @@ package main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import pane.MainMenu;
 
 public class Main extends Application
 {
+	private static Stage primaryStage;
+
 	@Override
 	public void start(Stage primaryStage)
 	{
 		try
 		{
-			MainMenu mainMenu = new MainMenu();
-			Scene scene = new Scene(mainMenu, ScreenProperties.getScreenWidth(), ScreenProperties.getScreenHeight());
-			scene.getStylesheets().add("css/application.css");
+			Main.primaryStage = primaryStage;
+
+			SwitchPane(new MainMenu());
 
 			primaryStage.setMaximized(true);
-			primaryStage.setScene(scene);
 			primaryStage.show();
 		}
 		catch (Exception e)
@@ -29,5 +31,13 @@ public class Main extends Application
 	public static void main(String[] args)
 	{
 		launch(args);
+	}
+
+	public static void SwitchPane(Pane pane)
+	{
+		Scene scene = new Scene(pane, ScreenProperties.getScreenWidth(), ScreenProperties.getScreenHeight());
+		scene.getStylesheets().add("css/application.css");
+
+		primaryStage.setScene(scene);
 	}
 }
