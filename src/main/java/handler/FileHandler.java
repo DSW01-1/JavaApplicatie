@@ -1,4 +1,4 @@
-package handler;
+package main.java.handler;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class FileHandler
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			e.getStackTrace();
 		}
 	}
 }

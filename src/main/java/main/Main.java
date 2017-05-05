@@ -1,10 +1,10 @@
-package main;
+package main.java.main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import pane.MainMenu;
+import main.java.pane.MainMenu;
 
 public class Main extends Application
 {
@@ -36,7 +36,7 @@ public class Main extends Application
 	public static void SwitchPane(Pane pane)
 	{
 		Scene scene = new Scene(pane, ScreenProperties.getScreenWidth(), ScreenProperties.getScreenHeight());
-		scene.getStylesheets().add("css/application.css");
+		scene.getStylesheets().add(Constants.styleSheetLocation + "application.css");
 
 		primaryStage.setScene(scene);
 	}

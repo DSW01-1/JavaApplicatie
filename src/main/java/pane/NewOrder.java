@@ -1,14 +1,14 @@
-package pane;
+package main.java.pane;
 
-import handler.JsonHandler;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import main.Language;
-import main.Main;
-import main.Vector2;
+import main.java.handler.JsonHandler;
+import main.java.main.Language;
+import main.java.main.Main;
+import main.java.main.Vector2;
 
 public class NewOrder extends Pane
 {
@@ -28,8 +28,9 @@ public class NewOrder extends Pane
 		});
 		getChildren().add(btnBackToMainMenu);
 
-		CreateLeftColumn();
-		CreateRightColumn();
+		//TODO create columns
+		//CreateLeftColumn();
+		//CreateRightColumn();
 	}
 
 	private void CreateLeftColumn()

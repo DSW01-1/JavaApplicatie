@@ -1,13 +1,13 @@
-package pane;
+package main.java.pane;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import main.Language;
-import main.Main;
-import main.ScreenProperties;
-import main.Vector2;
+import main.java.main.Language;
+import main.java.main.Main;
+import main.java.main.ScreenProperties;
+import main.java.main.Vector2;
 
 public class MainMenu extends Pane
 {

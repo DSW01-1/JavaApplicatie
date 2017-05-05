@@ -1,8 +1,8 @@
-package handler;
+package main.java.handler;
 
 import com.google.gson.Gson;
 
-import pane.Product;
+import main.java.pane.Product;
 
 public class JsonHandler
 {
