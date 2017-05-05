@@ -8,3 +8,10 @@
 {
 	-fx-background-color: rgb(190,200,205);
 }
+
+#product
+{
+	-fx-background-color: rgb(188,207,216);
+	-fx-border-width: 0 0 1 0;
+	-fx-border-color: black;
+}

@@ -8,6 +8,7 @@ import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.pane.base.StyledButton;
 
 public class MainMenu extends Pane
 {

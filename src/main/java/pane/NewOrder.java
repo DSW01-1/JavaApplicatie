@@ -1,14 +1,18 @@
 package main.java.pane;
 
+import java.util.ArrayList;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import main.java.handler.JsonHandler;
+import main.java.database.DatabaseConnection;
 import main.java.main.Language;
 import main.java.main.Main;
+import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.pane.base.StyledButton;
+import main.java.pane.base.StyledScrollPane;
 
 public class NewOrder extends Pane
 {
@@ -28,27 +32,35 @@ public class NewOrder extends Pane
 		});
 		getChildren().add(btnBackToMainMenu);
 
-		//TODO create columns
-		//CreateLeftColumn();
-		//CreateRightColumn();
+		CreateLeftColumn();
+		CreateRightColumn();
 	}
 
 	private void CreateLeftColumn()
 	{
 		VBox vb = new VBox();
+		vb.setMaxWidth(200);
 
-		Product[] productArray = JsonHandler.GetAvailableProducts();
+		ArrayList<String> productList = DatabaseConnection.GetAvailableProducts();
 
-		for (int i = 0; i < productArray.length; i++)
+		if (productList.size() > 0)
 		{
-			vb.getChildren().add(productArray[i]);
+			for (int i = 0; i < productList.size(); i++)
+			{
+				vb.getChildren().add(new Product(productList.get(i)));
+			}
+			getChildren().add(new StyledScrollPane(vb, new Vector2(200, 400),
+					new Vector2(ScreenProperties.getScreenWidth() / 4, ScreenProperties.getScreenHeight() / 3 - 200)));
 		}
-
-		ScrollPane scrollPane = new ScrollPane();
 	}
 
 	private void CreateRightColumn()
 	{
-		ScrollPane scrollPane = new ScrollPane();
+		VBox vb = new VBox();
+		vb.setMaxWidth(200);
+
+		getChildren().add(new StyledScrollPane(vb, new Vector2(200, 400), new Vector2(
+				ScreenProperties.getScreenWidth() / 4 * 3 - 200, ScreenProperties.getScreenHeight() / 3 - 200)));
+
 	}
 }

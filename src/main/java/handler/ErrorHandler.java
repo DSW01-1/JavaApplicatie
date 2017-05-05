@@ -1,5 +1,6 @@
 package main.java.handler;
 
-public class JsonHandler
+public class ErrorHandler
 {
+
 }

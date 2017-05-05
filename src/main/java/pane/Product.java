@@ -4,10 +4,9 @@ import javafx.scene.layout.Pane;
 
 public class Product extends Pane
 {
-	private String name;
-	
 	public Product(String name)
 	{
-		this.name = name;
+		setId("product");
+		setPrefSize(200, 50);
 	}
 }

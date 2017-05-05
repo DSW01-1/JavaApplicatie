@@ -1,4 +1,4 @@
-package main.java.pane;
+package main.java.pane.base;
 
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
