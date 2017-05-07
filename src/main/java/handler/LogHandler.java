@@ -7,8 +7,13 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Optional;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 import main.java.constant.ErrorConstants;
+import main.java.main.Language;
 
 public class LogHandler
 {
@@ -33,7 +38,6 @@ public class LogHandler
 			{
 				if (ste.getClassName().startsWith("main.java."))
 				{
-					System.out.println(ste.getFileName());
 					writer.println(
 							ste.getClassName() + ", " + ste.getMethodName() + " on line :" + ste.getLineNumber());
 				}
@@ -43,7 +47,7 @@ public class LogHandler
 		}
 		catch (IOException ex)
 		{
-			System.out.println("hehfwui");
+			// TODO
 		}
 
 	}
@@ -59,6 +63,31 @@ public class LogHandler
 	// avoid this warning
 	public static void ShowWarning(String warning)
 	{
-		// TODO
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Warning!");
+		alert.setHeaderText(warning);
+	}
+
+	public static boolean ShowWarning(String warning, String action)
+	{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setTitle("Warning!");
+		alert.setHeaderText(warning);
+
+		ButtonType buttonTypeAction = new ButtonType(action);
+		ButtonType buttonTypeConfirmation = new ButtonType(Language.getTranslation("btn.cancel"));
+
+		alert.getButtonTypes().setAll(buttonTypeConfirmation, buttonTypeAction);
+
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == buttonTypeAction)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 }

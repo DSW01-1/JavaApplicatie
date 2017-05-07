@@ -26,7 +26,7 @@ public class ProductPane extends Pane
 
 		AddText(name);
 
-		if (columnSide == "left")
+		if (columnSide.equals("left"))
 		{
 			AddShoppingCart();
 		}
@@ -59,7 +59,7 @@ public class ProductPane extends Pane
 		{
 			public void handle(MouseEvent event)
 			{
-				parentScript.moveProduct("right", pane);
+				parentScript.MoveProduct("right", pane);
 			}
 		});		
 	}
@@ -92,7 +92,7 @@ public class ProductPane extends Pane
 		{
 			public void handle(MouseEvent event)
 			{
-				parentScript.moveProduct("left", pane);
+				parentScript.MoveProduct("left", pane);
 			}
 		});
 	}

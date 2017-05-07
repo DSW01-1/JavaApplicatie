@@ -1,5 +1,6 @@
 package main.java.database;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import main.java.constant.Constants;
 import main.java.constant.ErrorConstants;
 import main.java.handler.LogHandler;
 import main.java.main.Language;
+import main.java.pane.NewOrder;
 
 public class DatabaseConnection
 {
@@ -19,7 +21,7 @@ public class DatabaseConnection
 	private static String password = "usbw";
 
 	/**
-	 * Create a connection with the database *
+	 * Create a connection with the database
 	 * 
 	 * @return Connection
 	 */
@@ -43,16 +45,50 @@ public class DatabaseConnection
 		}
 		catch (SQLException e)
 		{
+			// If the error code is the connection error code
 			if (e.getSQLState().startsWith(ErrorConstants.ConnectionException))
 			{
 				LogHandler.WriteErrorToLogFile(e, "Could not create a connection with the database");
+
+				boolean doAction = LogHandler.ShowWarning(Language.getTranslation("warning.nodatabaseconnection"),
+						Language.getTranslation("btn.openDatabaseApplication"));
+
+				if (doAction)
+				{
+					try
+					{
+						String cmd = "sqlserver\\usbwebserver.exe";
+						Runtime.getRuntime().exec(cmd);
+
+						Thread.sleep(6000);
+						
+						conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/", connectionProps);
+					}
+					catch (IOException ex)
+					{
+						LogHandler.WriteErrorToLogFile(ex, "Could not run external application");
+					}
+					catch (InterruptedException ex)
+					{
+						LogHandler.WriteErrorToLogFile(ex, "Thread sleep was interrupted");
+					}
+					catch (SQLException ex)
+					{
+						if (ex.getSQLState().startsWith(ErrorConstants.ConnectionException))
+						{
+							//Second attempt, break off
+							LogHandler.WriteErrorToLogFile(ex, "Second attempt to connect to database, failed. Returning null");
+							return null;
+						}
+					}
+				}
 			}
 		}
 		return conn;
 	}
 
 	/**
-	 * Get all the available products for ordering from the database *
+	 * Get all the available products for ordering from the database
 	 * 
 	 * @return ArrayList<String> An array of product names
 	 */
@@ -75,10 +111,6 @@ public class DatabaseConnection
 				{
 					products.add(rs.getString("name"));
 				}
-			}
-			else
-			{
-				LogHandler.ShowWarning(Language.getTranslation("warning.nodatabaseconnection"));
 			}
 		}
 		catch (SQLException e)
