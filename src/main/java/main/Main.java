@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import main.java.constant.Constants;
 import main.java.pane.MainMenu;
 
 public class Main extends Application
@@ -24,6 +25,7 @@ public class Main extends Application
 		}
 		catch (Exception e)
 		{
+			//TODO
 			e.printStackTrace();
 		}
 	}

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class FileHandler
+public class FileIOHandler
 {
 	public static void CreateNewFile(File file)
 	{
@@ -14,6 +14,7 @@ public class FileHandler
 		}
 		catch (IOException e)
 		{
+			//TODO
 			e.getStackTrace();
 		}
 	}

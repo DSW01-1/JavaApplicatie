@@ -16,6 +16,8 @@ import main.java.pane.base.StyledScrollPane;
 
 public class NewOrder extends Pane
 {
+	private VBox rightColumnVBox, leftColumnVBox;
+
 	public NewOrder()
 	{
 		super();
@@ -34,12 +36,16 @@ public class NewOrder extends Pane
 
 		CreateLeftColumn();
 		CreateRightColumn();
+
+		StyledButton orderButton = new StyledButton(Language.getTranslation("btn.order"), new Vector2(
+				ScreenProperties.getScreenWidth() / 4 * 3 - 200, ScreenProperties.getScreenHeight() / 3 + 210));
+		getChildren().add(orderButton);
 	}
 
 	private void CreateLeftColumn()
 	{
-		VBox vb = new VBox();
-		vb.setMaxWidth(200);
+		leftColumnVBox = new VBox();
+		leftColumnVBox.setMaxWidth(200);
 
 		ArrayList<String> productList = DatabaseConnection.GetAvailableProducts();
 
@@ -47,20 +53,33 @@ public class NewOrder extends Pane
 		{
 			for (int i = 0; i < productList.size(); i++)
 			{
-				vb.getChildren().add(new Product(productList.get(i)));
+				leftColumnVBox.getChildren().add(new ProductPane(productList.get(i), "left", this));
 			}
-			getChildren().add(new StyledScrollPane(vb, new Vector2(200, 400),
+			getChildren().add(new StyledScrollPane(leftColumnVBox, new Vector2(200, 400),
 					new Vector2(ScreenProperties.getScreenWidth() / 4, ScreenProperties.getScreenHeight() / 3 - 200)));
 		}
 	}
 
 	private void CreateRightColumn()
 	{
-		VBox vb = new VBox();
-		vb.setMaxWidth(200);
+		rightColumnVBox = new VBox();
+		rightColumnVBox.setMaxWidth(200);
 
-		getChildren().add(new StyledScrollPane(vb, new Vector2(200, 400), new Vector2(
+		getChildren().add(new StyledScrollPane(rightColumnVBox, new Vector2(200, 400), new Vector2(
 				ScreenProperties.getScreenWidth() / 4 * 3 - 200, ScreenProperties.getScreenHeight() / 3 - 200)));
+	}
 
+	public void moveProduct(String fromSide, ProductPane product)
+	{
+		if (fromSide == "right")
+		{
+			rightColumnVBox.getChildren().remove(product);
+			leftColumnVBox.getChildren().add(new ProductPane(product.name, "left", this));
+		}
+		else
+		{
+			rightColumnVBox.getChildren().add(new ProductPane(product.name, "right", this));
+			leftColumnVBox.getChildren().remove(product);
+		}
 	}
 }

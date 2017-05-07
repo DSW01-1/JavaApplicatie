@@ -10,6 +10,7 @@ public class StyledScrollPane extends ScrollPane
 	public StyledScrollPane(Node node, Vector2 size, Vector2 pos)
 	{
 		super(node);
+		setId("styledScrollPane");
 		setHbarPolicy(ScrollBarPolicy.NEVER);
 		setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
 		setPrefSize(size.getX(), size.getY());

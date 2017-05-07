@@ -3,6 +3,8 @@ package main.java.main;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import main.java.constant.Constants;
+
 public class Language
 {
 
