@@ -27,7 +27,7 @@ public class LogHandler
 
 		try
 		{
-			PrintWriter writer = new PrintWriter(new FileOutputStream(new File(ErrorConstants.errorLogFile), true));
+			PrintWriter writer = new PrintWriter(new FileOutputStream(new File(ErrorConstants.GetErrorLogFile()), true));
 
 			writer.println("=============================================================================");
 			writer.println(dateFormat.format(date));
@@ -48,6 +48,7 @@ public class LogHandler
 		catch (IOException ex)
 		{
 			// TODO
+			ex.printStackTrace();
 		}
 
 	}
@@ -59,8 +60,11 @@ public class LogHandler
 		// TODO
 	}
 
-	// Shows the user a warning. The user might need to do a certain action to
-	// avoid this warning
+	/**
+	 * Shows a general warning
+	 * 
+	 * @param warning
+	 */
 	public static void ShowWarning(String warning)
 	{
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -68,6 +72,15 @@ public class LogHandler
 		alert.setHeaderText(warning);
 	}
 
+	/**
+	 * Shows a waning screen with two buttons, cancel and another provided one
+	 * 
+	 * @param warning
+	 *            The warning text
+	 * @param action
+	 *            The text for the other button
+	 * @return boolean, true if the user pressed the action button
+	 */
 	public static boolean ShowWarning(String warning, String action)
 	{
 		Alert alert = new Alert(AlertType.CONFIRMATION);

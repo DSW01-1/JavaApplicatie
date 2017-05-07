@@ -13,7 +13,6 @@ import main.java.constant.Constants;
 import main.java.constant.ErrorConstants;
 import main.java.handler.LogHandler;
 import main.java.main.Language;
-import main.java.pane.NewOrder;
 
 public class DatabaseConnection
 {
@@ -50,6 +49,9 @@ public class DatabaseConnection
 			{
 				LogHandler.WriteErrorToLogFile(e, "Could not create a connection with the database");
 
+				// Show a warning that the application could not connect to the
+				// database,
+				// if the user clicks on [Start Database] return true
 				boolean doAction = LogHandler.ShowWarning(Language.getTranslation("warning.nodatabaseconnection"),
 						Language.getTranslation("btn.openDatabaseApplication"));
 
@@ -57,27 +59,35 @@ public class DatabaseConnection
 				{
 					try
 					{
+						// Try to open the webserver
 						String cmd = "sqlserver\\usbwebserver.exe";
 						Runtime.getRuntime().exec(cmd);
 
+						// Wait for 6 seconds, hopefully enough time for the
+						// webserver to start mysql
 						Thread.sleep(6000);
-						
+
+						// Retry to make a connection
 						conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/", connectionProps);
 					}
 					catch (IOException ex)
 					{
+						// Could not open the application, maybe the exe file is
+						// not there
 						LogHandler.WriteErrorToLogFile(ex, "Could not run external application");
 					}
 					catch (InterruptedException ex)
 					{
+						// For some reason the 6 second wait was interrupted
 						LogHandler.WriteErrorToLogFile(ex, "Thread sleep was interrupted");
 					}
 					catch (SQLException ex)
 					{
 						if (ex.getSQLState().startsWith(ErrorConstants.ConnectionException))
 						{
-							//Second attempt, break off
-							LogHandler.WriteErrorToLogFile(ex, "Second attempt to connect to database, failed. Returning null");
+							// Second attempt, break off and give up
+							LogHandler.WriteErrorToLogFile(ex,
+									"Second attempt to connect to database, failed. Returning null");
 							return null;
 						}
 					}

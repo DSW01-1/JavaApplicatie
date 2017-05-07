@@ -19,11 +19,14 @@ public class NewOrder extends Pane
 {
 	private VBox rightColumnVBox, leftColumnVBox;
 
+	//NewOrder constructor
 	public NewOrder()
 	{
 		super();
+		//Styling ID
 		setId("background");
 
+		//Back to menu button
 		StyledButton btnBackToMainMenu = new StyledButton(Language.getTranslation("btn.backToMainMenu"),
 				new Vector2(10, 10));
 		btnBackToMainMenu.setOnAction(new EventHandler<ActionEvent>()
@@ -35,9 +38,11 @@ public class NewOrder extends Pane
 		});
 		getChildren().add(btnBackToMainMenu);
 
+		//Create the columns
 		CreateLeftColumn();
 		CreateRightColumn();
 
+		//The order button, can't be pressed if no items are in the right column
 		StyledButton orderButton = new StyledButton(Language.getTranslation("btn.order"), new Vector2(
 				ScreenProperties.getScreenWidth() / 4 * 3 - 200, ScreenProperties.getScreenHeight() / 3 + 210));
 		getChildren().add(orderButton);
@@ -51,13 +56,16 @@ public class NewOrder extends Pane
 	{
 		leftColumnVBox = new VBox();
 
+		//Delete the current column if it already exists
 		if (leftColumnVBox.getChildren().size() > 0)
 		{
 			leftColumnVBox.getChildren().removeAll();
 		}
 
+		//The max width of the column
 		leftColumnVBox.setMaxWidth(200);
 
+		//Get all products available
 		ArrayList<String> productList = DatabaseConnection.GetAvailableProducts();
 
 		// If there are products in the database, add them to the list
