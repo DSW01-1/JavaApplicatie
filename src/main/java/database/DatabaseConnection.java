@@ -41,6 +41,7 @@ public class DatabaseConnection
 		catch (ClassNotFoundException e)
 		{
 			LogHandler.WriteErrorToLogFile(e, "Class not found");
+			LogHandler.ShowWarning(Language.getTranslation("warning.nojdbcclass"));
 		}
 		catch (SQLException e)
 		{

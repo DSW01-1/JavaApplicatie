@@ -2,17 +2,22 @@ package main.java.pane;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
+import main.java.pane.base.StyledPane;
 
-public class MainMenu extends Pane
+public class MainMenu extends StyledPane
 {
 	public MainMenu()
+	{
+	}
+	
+	@Override
+	public void InitPane()
 	{
 		CreateButtons();
 	}

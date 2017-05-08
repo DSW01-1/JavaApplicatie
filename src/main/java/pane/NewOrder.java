@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import main.java.database.DatabaseConnection;
 import main.java.main.Language;
@@ -13,20 +12,26 @@ import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
+import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
 
-public class NewOrder extends Pane
+public class NewOrder extends StyledPane
 {
 	private VBox rightColumnVBox, leftColumnVBox;
 
-	//NewOrder constructor
+	// NewOrder constructor
 	public NewOrder()
 	{
 		super();
-		//Styling ID
+		// Styling ID
 		setId("background");
 
-		//Back to menu button
+	}
+
+	@Override
+	public void InitPane()
+	{
+		// Back to menu button
 		StyledButton btnBackToMainMenu = new StyledButton(Language.getTranslation("btn.backToMainMenu"),
 				new Vector2(10, 10));
 		btnBackToMainMenu.setOnAction(new EventHandler<ActionEvent>()
@@ -38,14 +43,17 @@ public class NewOrder extends Pane
 		});
 		getChildren().add(btnBackToMainMenu);
 
-		//Create the columns
+		// Create the columns
 		CreateLeftColumn();
 		CreateRightColumn();
 
-		//The order button, can't be pressed if no items are in the right column
+		// The order button, can't be pressed if no items are in the right
+		// column
 		StyledButton orderButton = new StyledButton(Language.getTranslation("btn.order"), new Vector2(
 				ScreenProperties.getScreenWidth() / 4 * 3 - 200, ScreenProperties.getScreenHeight() / 3 + 210));
 		getChildren().add(orderButton);
+
+		AddProductsToLeftColumn();
 	}
 
 	/**
@@ -56,16 +64,25 @@ public class NewOrder extends Pane
 	{
 		leftColumnVBox = new VBox();
 
-		//Delete the current column if it already exists
+		// Delete the current column if it already exists
 		if (leftColumnVBox.getChildren().size() > 0)
 		{
 			leftColumnVBox.getChildren().removeAll();
 		}
 
-		//The max width of the column
+		// The max width of the column
 		leftColumnVBox.setMaxWidth(200);
 
-		//Get all products available
+		getChildren().add(new StyledScrollPane(leftColumnVBox, new Vector2(200, 400),
+				new Vector2(ScreenProperties.getScreenWidth() / 4, ScreenProperties.getScreenHeight() / 3 - 200)));
+	}
+
+	/**
+	 * Add products from the database to the
+	 */
+	private void AddProductsToLeftColumn()
+	{
+		// Get all products available
 		ArrayList<String> productList = DatabaseConnection.GetAvailableProducts();
 
 		// If there are products in the database, add them to the list
@@ -87,9 +104,6 @@ public class NewOrder extends Pane
 
 			leftColumnVBox.getChildren().add(text);
 		}
-
-		getChildren().add(new StyledScrollPane(leftColumnVBox, new Vector2(200, 400),
-				new Vector2(ScreenProperties.getScreenWidth() / 4, ScreenProperties.getScreenHeight() / 3 - 200)));
 	}
 
 	/**

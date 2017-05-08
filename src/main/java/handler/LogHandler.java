@@ -27,6 +27,12 @@ public class LogHandler
 
 		try
 		{
+			File file = new File("Logs");
+			if(!file.exists())
+			{
+				file.mkdirs();
+			}
+			
 			PrintWriter writer = new PrintWriter(new FileOutputStream(new File(ErrorConstants.GetErrorLogFile()), true));
 
 			writer.println("=============================================================================");

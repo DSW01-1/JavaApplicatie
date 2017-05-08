@@ -2,10 +2,10 @@ package main.java.main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import main.java.constant.Constants;
 import main.java.pane.MainMenu;
+import main.java.pane.base.StyledPane;
 
 public class Main extends Application
 {
@@ -25,7 +25,7 @@ public class Main extends Application
 		}
 		catch (Exception e)
 		{
-			//TODO
+			// TODO
 			e.printStackTrace();
 		}
 	}
@@ -35,11 +35,13 @@ public class Main extends Application
 		launch(args);
 	}
 
-	public static void SwitchPane(Pane pane)
+	public static void SwitchPane(StyledPane pane)
 	{
 		Scene scene = new Scene(pane, ScreenProperties.getScreenWidth(), ScreenProperties.getScreenHeight());
 		scene.getStylesheets().add(Constants.styleSheetLocation + "application.css");
 
 		primaryStage.setScene(scene);
+		pane.InitPane();
+
 	}
 }
