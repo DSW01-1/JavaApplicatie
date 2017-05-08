@@ -35,13 +35,7 @@ public class DatabaseConnection
 		try
 		{
 			// Try to create the connection
-			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/", connectionProps);
-		}
-		catch (ClassNotFoundException e)
-		{
-			LogHandler.WriteErrorToLogFile(e, "Class not found");
-			LogHandler.ShowWarning(Language.getTranslation("warning.nojdbcclass"));
 		}
 		catch (SQLException e)
 		{
@@ -75,7 +69,9 @@ public class DatabaseConnection
 					{
 						// Could not open the application, maybe the exe file is
 						// not there
+						LogHandler.ShowWarning(Language.getTranslation("warning.couldnotopenserver"));
 						LogHandler.WriteErrorToLogFile(ex, "Could not run external application");
+
 					}
 					catch (InterruptedException ex)
 					{
@@ -126,7 +122,14 @@ public class DatabaseConnection
 		}
 		catch (SQLException e)
 		{
-			LogHandler.WriteErrorToLogFile(e, "SQL Exception: " + e.getSQLState() + ", Check list for error");
+			if (e.getSQLState().startsWith("42"))
+			{
+				LogHandler.WriteErrorToLogFile(e, "SQL Exception: Table does not exist");
+			}
+			else
+			{
+				LogHandler.WriteErrorToLogFile(e, "SQL Exception: " + e.getSQLState() + ", Check list for error");
+			}
 		}
 		catch (NullPointerException e)
 		{
@@ -134,5 +137,10 @@ public class DatabaseConnection
 		}
 
 		return products;
+	}
+
+	private void SetupProductTable()
+	{
+		String sql = "CREATE TABLE REGISTRATION (id INTEGER not NULL,  first VARCHAR(255), last VARCHAR(255), age INTEGER, PRIMARY KEY ( id ))";
 	}
 }

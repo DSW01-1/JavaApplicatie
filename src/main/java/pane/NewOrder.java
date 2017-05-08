@@ -78,7 +78,7 @@ public class NewOrder extends StyledPane
 	}
 
 	/**
-	 * Add products from the database to the
+	 * Add products from the database to the left column
 	 */
 	private void AddProductsToLeftColumn()
 	{
