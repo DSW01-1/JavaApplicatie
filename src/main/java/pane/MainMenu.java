@@ -9,16 +9,10 @@ import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
-import main.java.pane.tab.BPPTab;
-import main.java.pane.tab.RobotTab;
-import main.java.pane.tab.TSPTab;
 
 public class MainMenu extends StyledPane
 {
-	public MainMenu()
-	{
-	}
-	
+
 	@Override
 	public void InitPane()
 	{
@@ -50,7 +44,7 @@ public class MainMenu extends StyledPane
 		{
 			public void handle(ActionEvent arg0)
 			{
-				//TODO
+				// TODO
 			}
 		});
 		getChildren().add(orderHistoryButton);
@@ -63,10 +57,10 @@ public class MainMenu extends StyledPane
 			public void handle(ActionEvent arg0)
 			{
 				StyledPane[] tabArray =
-						{ new TspSimulation() };
+				{ new TspSimulation() };
 
 				String[] nameArray =
-						{ "TSP" };
+				{ "TSP" };
 
 				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 			}
@@ -80,7 +74,7 @@ public class MainMenu extends StyledPane
 		{
 			public void handle(ActionEvent arg0)
 			{
-				//Exits the application
+				// Exits the application
 				Stage stage = (Stage) exitButton.getScene().getWindow();
 				stage.close();
 			}

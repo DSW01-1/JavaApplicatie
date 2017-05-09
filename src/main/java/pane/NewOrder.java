@@ -33,7 +33,6 @@ public class NewOrder extends StyledPane
 		super();
 		// Styling ID
 		setId("background");
-
 	}
 
 	@Override
@@ -95,7 +94,15 @@ public class NewOrder extends StyledPane
 					userData[i] = formItems[i].getText();
 				}
 
-				JsonHandler.SaveOrderToJSON(userData);
+				ArrayList<String> productNames = new ArrayList<String>();
+
+				for (int i = 0; i < rightColumnVBox.getChildren().size(); i++)
+				{
+					ProductPane product = (ProductPane) rightColumnVBox.getChildren().get(i);
+					productNames.add(product.name);
+				}
+
+				JsonHandler.SaveOrderToJSON(userData, productNames);
 
 				StyledPane[] tabArray =
 				{ new RobotTab(), new TSPTab(), new BPPTab() };
