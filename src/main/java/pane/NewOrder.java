@@ -14,6 +14,10 @@ import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
+import main.java.pane.base.StyledTab;
+import main.java.pane.tab.BPPTab;
+import main.java.pane.tab.RobotTab;
+import main.java.pane.tab.TSPTab;
 
 public class NewOrder extends StyledPane
 {
@@ -52,6 +56,19 @@ public class NewOrder extends StyledPane
 		StyledButton orderButton = new StyledButton(Language.getTranslation("btn.order"), new Vector2(
 				ScreenProperties.getScreenWidth() / 4 * 3 - 200, ScreenProperties.getScreenHeight() / 3 + 210));
 		getChildren().add(orderButton);
+		orderButton.setOnAction(new EventHandler<ActionEvent>()
+		{
+			public void handle(ActionEvent event)
+			{
+				StyledPane[] tabArray =
+				{ new RobotTab(), new TSPTab(), new BPPTab() };
+
+				String[] nameArray =
+				{ "Robot", "TSP", "BPP" };
+
+				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
+			}
+		});
 
 		AddProductsToLeftColumn();
 	}
