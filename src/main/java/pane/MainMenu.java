@@ -58,17 +58,10 @@ public class MainMenu extends StyledPane
 			public void handle(ActionEvent arg0)
 			{
 				StyledPane[] tabArray =
-<<<<<<< HEAD
-						{ new TspSimulation(), new BppSimulation()};
+				{ new TspSimulation(), new BppSimulation() };
 
 				String[] nameArray =
-						{ "TSP","BPP" };
-=======
-				{ new TspSimulation() };
-
-				String[] nameArray =
-				{ "TSP" };
->>>>>>> 623a086d317c36212cbb25e1e8b6742fc83a0b91
+				{ "TSP", "BPP" };
 
 				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 			}
