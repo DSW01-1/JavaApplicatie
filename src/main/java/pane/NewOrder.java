@@ -4,9 +4,13 @@ import java.util.ArrayList;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import main.java.database.DatabaseConnection;
+import main.java.handler.JsonHandler;
 import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
@@ -14,7 +18,6 @@ import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
-import main.java.pane.base.StyledTab;
 import main.java.pane.tab.BPPTab;
 import main.java.pane.tab.RobotTab;
 import main.java.pane.tab.TSPTab;
@@ -22,6 +25,7 @@ import main.java.pane.tab.TSPTab;
 public class NewOrder extends StyledPane
 {
 	private VBox rightColumnVBox, leftColumnVBox;
+	private TextField[] formItems;
 
 	// NewOrder constructor
 	public NewOrder()
@@ -50,16 +54,49 @@ public class NewOrder extends StyledPane
 		// Create the columns
 		CreateLeftColumn();
 		CreateRightColumn();
+		CreateForm();
+
+		AddProductsToLeftColumn();
+	}
+
+	private void CreateForm()
+	{
+		GridPane form = new GridPane();
+		form.setLayoutX(ScreenProperties.getScreenWidth() / 4 * 2.5f);
+		form.setLayoutY(300);
+		form.setHgap(15);
+		form.setVgap(15);
+
+		String[] labelArray =
+		{ "form.firstname", "form.lastname", "form.address", "form.zipcode", "form.city" };
+
+		formItems = new TextField[labelArray.length];
+
+		for (int i = 0; i < labelArray.length; i++)
+		{
+			form.add(new Label(Language.getTranslation(labelArray[i])), 0, i);
+			TextField textField = new TextField();
+
+			form.add(textField, 1, i);
+			formItems[i] = textField;
+		}
 
 		// The order button, can't be pressed if no items are in the right
 		// column
-		StyledButton orderButton = new StyledButton(Language.getTranslation("btn.order"), new Vector2(
-				ScreenProperties.getScreenWidth() / 4 * 3 - 200, ScreenProperties.getScreenHeight() / 3 + 210));
-		getChildren().add(orderButton);
+		StyledButton orderButton = new StyledButton(Language.getTranslation("btn.order"));
 		orderButton.setOnAction(new EventHandler<ActionEvent>()
 		{
 			public void handle(ActionEvent event)
 			{
+				String[] userData = new String[formItems.length];
+
+				for (int i = 0; i < userData.length; i++)
+				{
+					userData[i] = formItems[i].getText();
+				}
+
+				JsonHandler.SaveOrderToJSON(userData);
+
 				StyledPane[] tabArray =
 				{ new RobotTab(), new TSPTab(), new BPPTab() };
 
@@ -69,8 +106,9 @@ public class NewOrder extends StyledPane
 				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 			}
 		});
+		form.add(orderButton, 1, labelArray.length);
+		getChildren().add(form);
 
-		AddProductsToLeftColumn();
 	}
 
 	/**
@@ -91,7 +129,7 @@ public class NewOrder extends StyledPane
 		leftColumnVBox.setMaxWidth(200);
 
 		getChildren().add(new StyledScrollPane(leftColumnVBox, new Vector2(200, 400),
-				new Vector2(ScreenProperties.getScreenWidth() / 4, ScreenProperties.getScreenHeight() / 3 - 200)));
+				new Vector2(100, ScreenProperties.getScreenHeight() / 3 - 200)));
 	}
 
 	/**
@@ -131,8 +169,8 @@ public class NewOrder extends StyledPane
 		rightColumnVBox = new VBox();
 		rightColumnVBox.setMaxWidth(200);
 
-		getChildren().add(new StyledScrollPane(rightColumnVBox, new Vector2(200, 400), new Vector2(
-				ScreenProperties.getScreenWidth() / 4 * 3 - 200, ScreenProperties.getScreenHeight() / 3 - 200)));
+		getChildren().add(new StyledScrollPane(rightColumnVBox, new Vector2(200, 400),
+				new Vector2(350, ScreenProperties.getScreenHeight() / 3 - 200)));
 	}
 
 	/**
