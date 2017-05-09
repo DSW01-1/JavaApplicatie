@@ -13,6 +13,8 @@ import main.java.constant.Constants;
 import main.java.constant.ErrorConstants;
 import main.java.handler.LogHandler;
 import main.java.main.Language;
+import main.java.main.Vector2;
+import main.java.main.product.Product;
 
 public class DatabaseConnection
 {
@@ -99,9 +101,9 @@ public class DatabaseConnection
 	 * 
 	 * @return ArrayList<String> An array of product names
 	 */
-	public static ArrayList<String> GetAvailableProducts()
+	public static ArrayList<Product> GetAvailableProducts()
 	{
-		ArrayList<String> products = new ArrayList<String>();
+		ArrayList<Product> products = new ArrayList<Product>();
 
 		try
 		{
@@ -116,7 +118,8 @@ public class DatabaseConnection
 
 				while (rs.next())
 				{
-					products.add(rs.getString("name"));
+					products.add(new Product(rs.getInt("id"), rs.getString("name"),
+							new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("size")));
 				}
 			}
 		}
