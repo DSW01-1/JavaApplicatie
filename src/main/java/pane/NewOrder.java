@@ -15,6 +15,7 @@ import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.main.product.Product;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
@@ -145,14 +146,14 @@ public class NewOrder extends StyledPane
 	private void AddProductsToLeftColumn()
 	{
 		// Get all products available
-		ArrayList<String> productList = DatabaseConnection.GetAvailableProducts();
+		ArrayList<Product> productList = DatabaseConnection.GetAvailableProducts();
 
 		// If there are products in the database, add them to the list
 		if (productList.size() > 0)
 		{
 			for (int i = 0; i < productList.size(); i++)
 			{
-				leftColumnVBox.getChildren().add(new ProductPane(productList.get(i), "left", this));
+				leftColumnVBox.getChildren().add(new ProductPane(productList.get(i).GetName(), "left", this));
 			}
 		}
 		// Else, there might not be a connection or there are actually no
