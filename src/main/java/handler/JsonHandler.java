@@ -16,6 +16,7 @@ import java.util.Date;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import main.java.constant.Constants;
 import main.java.main.product.CustomerInfo;
 import main.java.main.product.Order;
 
@@ -52,8 +53,14 @@ public class JsonHandler
 			DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd-HH-mm-ss-SSS");
 			Date date = new Date();
 
+			File jsonOrdersDirectory = new File(Constants.jsonOrderDirectory);
+			if (!jsonOrdersDirectory.exists())
+			{
+				jsonOrdersDirectory.mkdir();
+			}
+
 			PrintWriter writer = new PrintWriter(
-					new FileOutputStream(new File("JsonOrders/[" + dateFormat.format(date) + "]jsonFile.json"), true));
+					new FileOutputStream(new File(jsonOrdersDirectory + "/[" + dateFormat.format(date) + "]jsonFile.json"), true));
 			writer.print(json);
 			writer.close();
 		}

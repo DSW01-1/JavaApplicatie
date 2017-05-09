@@ -1,8 +1,6 @@
 package main.java.graphs;
 
-import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import main.java.constant.Constants;
 import main.java.main.ScreenProperties;
@@ -28,23 +26,20 @@ public class Grid extends GridPane
 				final GridTile tile = new GridTile(new Vector2(x, y));
 				tile.setWidth(tileSize);
 				tile.setHeight(tileSize);
-				tile.setOnMouseClicked(new EventHandler<MouseEvent>()
+				tile.setOnMouseClicked(event ->
 				{
-					public void handle(MouseEvent event)
+					if (isInteractive)
 					{
-						if (isInteractive)
+						GraphicsContext gc = tile.getGraphicsContext2D();
+						if (!tile.IsSelected())
 						{
-							GraphicsContext gc = tile.getGraphicsContext2D();
-							if (!tile.IsSelected())
-							{
-								gc.fillOval(10, 10, tileSize - 20, tileSize - 20);
-								tile.SetSelected(true);
-							}
-							else
-							{
-								gc.clearRect(0, 0, tileSize, tileSize);
-								tile.SetSelected(false);
-							}
+							gc.fillOval(10, 10, tileSize - 20, tileSize - 20);
+							tile.SetSelected(true);
+						}
+						else
+						{
+							gc.clearRect(0, 0, tileSize, tileSize);
+							tile.SetSelected(false);
 						}
 					}
 				});

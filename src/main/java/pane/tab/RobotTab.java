@@ -13,7 +13,7 @@ public class RobotTab extends StyledPane
 
 	public RobotTab()
 	{
-		grid = new Grid(false);
+		grid = new Grid(true);
 		getChildren().add(grid);
 
 		CreateControlButtons();
@@ -25,60 +25,23 @@ public class RobotTab extends StyledPane
 		gridPane.setLayoutX(ScreenProperties.getScreenWidth() / 4 * 3);
 		gridPane.setLayoutY(ScreenProperties.getScreenHeight() / 8);
 		gridPane.setVgap(15);
+		getChildren().add(gridPane);
 
 		String[] buttonNameArray =
 		{ "btn.start", "btn.pause", "btn.reset", "btn.hardEmpty", "btn.softEmpty" };
 
 		Runnable[] codeArray = new Runnable[buttonNameArray.length];
 
-		codeArray[0] = new Runnable()
-		{
-			public void run()
-			{
-				// TODO Auto-generated method stub
-			}
-		};
-
-		codeArray[1] = new Runnable()
-		{
-			public void run()
-			{
-				// TODO Auto-generated method stub
-			}
-		};
-
-		codeArray[2] = new Runnable()
-		{
-			public void run()
-			{
-				// TODO Auto-generated method stub
-			}
-		};
-
-		codeArray[3] = new Runnable()
-		{
-			public void run()
-			{
-				// TODO Auto-generated method stub
-			}
-		};
-
-		codeArray[4] = new Runnable()
-		{
-			public void run()
-			{
-				// TODO Auto-generated method stub
-			}
-		};
+		codeArray[0] = () -> System.out.println("");
+		codeArray[1] = () -> System.out.println("");
+		codeArray[2] = () -> System.out.println("");
+		codeArray[3] = () -> System.out.println("");
+		codeArray[4] = () -> System.out.println("");
 
 		for (int i = 0; i < 5; i++)
 		{
 			StyledButton styledButton = new StyledButton(Language.getTranslation(buttonNameArray[i]), codeArray[i]);
 			gridPane.add(styledButton, 0, i);
-
 		}
-
-		getChildren().add(gridPane);
-
 	}
 }
