@@ -8,23 +8,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import main.java.constant.Constants;
+import main.java.main.product.Product;
 
 public class ProductPane extends Pane
 {
 	private NewOrder parentScript;
 	private ProductPane pane;
-	public String name;
+	private Product product;
 	
-	public ProductPane(String name, String columnSide, NewOrder parentScript)
+
+	public ProductPane(Product product, String columnSide, NewOrder parentScript)
 	{
-		this.name = name;
+		this.product = product;
 		this.parentScript = parentScript;
-		pane = this;		
-		
+		pane = this;
+
 		setId("product");
 		setPrefSize(200, 50);
 
-		AddText(name);
+		AddText(product.GetName());
 
 		if (columnSide.equals("left"))
 		{
@@ -39,13 +41,23 @@ public class ProductPane extends Pane
 
 	private void AddRemoveButton()
 	{
-		ImageView image = new ImageView();
-		image.setImage(new Image(Constants.xImage));
-		image.setFitWidth(30);
-		image.setPreserveRatio(true);
-		image.setLayoutX(160);
-		image.setLayoutY(5);
-		getChildren().add(image);
+		ImageView imageView = new ImageView();
+		
+		try
+		{
+			Image image = new Image(Constants.xImage);
+			imageView.setImage(image);
+		}
+		catch (IllegalArgumentException e)
+		{
+			e.printStackTrace();
+		}
+
+		imageView.setFitWidth(30);
+		imageView.setPreserveRatio(true);
+		imageView.setLayoutX(160);
+		imageView.setLayoutY(5);
+		getChildren().add(imageView);
 
 		Pane clickPane = new Pane();
 		clickPane.setPrefSize(50, 45);
@@ -61,7 +73,7 @@ public class ProductPane extends Pane
 			{
 				parentScript.MoveProduct("right", pane);
 			}
-		});		
+		});
 	}
 
 	private void AddText(String name)
@@ -72,13 +84,23 @@ public class ProductPane extends Pane
 
 	private void AddShoppingCart()
 	{
-		ImageView image = new ImageView();
-		image.setImage(new Image(Constants.shoppingCartImage));
-		image.setFitWidth(30);
-		image.setPreserveRatio(true);
-		image.setLayoutX(160);
-		image.setLayoutY(5);
-		getChildren().add(image);
+		ImageView imageView = new ImageView();
+		
+		try
+		{
+			Image image = new Image(Constants.shoppingCartImage);
+			imageView.setImage(image);
+		}
+		catch (IllegalArgumentException e)
+		{
+			e.printStackTrace();
+		}
+		
+		imageView.setFitWidth(30);
+		imageView.setPreserveRatio(true);
+		imageView.setLayoutX(160);
+		imageView.setLayoutY(5);
+		getChildren().add(imageView);
 
 		Pane clickPane = new Pane();
 		clickPane.setPrefSize(50, 45);
@@ -95,5 +117,10 @@ public class ProductPane extends Pane
 				parentScript.MoveProduct("left", pane);
 			}
 		});
+	}
+	
+	public Product GetProduct()
+	{
+		return product;
 	}
 }

@@ -15,6 +15,7 @@ import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.main.product.Product;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
@@ -33,7 +34,6 @@ public class NewOrder extends StyledPane
 		super();
 		// Styling ID
 		setId("background");
-
 	}
 
 	@Override
@@ -95,7 +95,15 @@ public class NewOrder extends StyledPane
 					userData[i] = formItems[i].getText();
 				}
 
-				JsonHandler.SaveOrderToJSON(userData);
+				ArrayList<String> productID = new ArrayList<String>();
+
+				for (int i = 0; i < rightColumnVBox.getChildren().size(); i++)
+				{
+					ProductPane product = (ProductPane) rightColumnVBox.getChildren().get(i);
+					productID.add(Integer.toString(product.GetProduct().GetId()));
+				}
+
+				JsonHandler.SaveOrderToJSON(userData, productID);
 
 				StyledPane[] tabArray =
 				{ new RobotTab(), new TSPTab(), new BPPTab() };
@@ -138,7 +146,7 @@ public class NewOrder extends StyledPane
 	private void AddProductsToLeftColumn()
 	{
 		// Get all products available
-		ArrayList<String> productList = DatabaseConnection.GetAvailableProducts();
+		ArrayList<Product> productList = DatabaseConnection.GetAvailableProducts();
 
 		// If there are products in the database, add them to the list
 		if (productList.size() > 0)
@@ -181,17 +189,17 @@ public class NewOrder extends StyledPane
 	 * @param product
 	 *            the product object
 	 */
-	public void MoveProduct(String fromSide, ProductPane product)
+	public void MoveProduct(String fromSide, ProductPane productPane)
 	{
 		if (fromSide.equals("right"))
 		{
-			rightColumnVBox.getChildren().remove(product);
-			leftColumnVBox.getChildren().add(new ProductPane(product.name, "left", this));
+			rightColumnVBox.getChildren().remove(productPane);
+			leftColumnVBox.getChildren().add(new ProductPane(productPane.GetProduct(), "left", this));
 		}
 		else
 		{
-			rightColumnVBox.getChildren().add(new ProductPane(product.name, "right", this));
-			leftColumnVBox.getChildren().remove(product);
+			rightColumnVBox.getChildren().add(new ProductPane(productPane.GetProduct(), "right", this));
+			leftColumnVBox.getChildren().remove(productPane);
 		}
 	}
 }

@@ -23,6 +23,9 @@ public class BaseTabPane extends StyledPane
 		CreateTabPane();
 	}
 
+	/**
+	 * Create the tabpane
+	 */
 	private void CreateTabPane()
 	{
 		tabPane = new StyledTabPane();
