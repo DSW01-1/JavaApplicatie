@@ -1,12 +1,18 @@
 package main.java.handler;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
+import main.java.constant.ErrorConstants;
 import main.java.main.product.CustomerInfo;
 import main.java.main.product.Order;
 
@@ -15,7 +21,7 @@ public class JsonHandler
 
 	public static void SaveOrderToJSON(String[] userData, ArrayList<String> poductnames)
 	{
-		Gson gson = new Gson();
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
 		Order order = new Order();
 		CustomerInfo cusInfo = new CustomerInfo();
@@ -32,7 +38,21 @@ public class JsonHandler
 		order.setDate(dateFormat.format(date));
 
 		order.setProductnumber(poductnames);
-
-		System.out.println(gson.toJson(order));
+		
+		WriteOrderToJSON(gson.toJson(order));
+	}
+	
+	public static void WriteOrderToJSON(String json)
+	{
+		try
+		{
+			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("jsonFile.json"), true));
+			writer.print(json);
+			writer.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			LogHandler.WriteErrorToLogFile(e, "JSON File Not Found");
+		}
 	}
 }
