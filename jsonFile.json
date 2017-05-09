@@ -1,0 +1,13 @@
+{
+  "customerinfo": {
+    "firstname": "Jelle",
+    "lastname": "van Ommen",
+    "adress": "Koekangerveldweg 2",
+    "zipcode": "7958PW",
+    "city": "Koekange"
+  },
+  "date": "2017-05-09",
+  "productnumber": [
+    "Sweater"
+  ]
+}

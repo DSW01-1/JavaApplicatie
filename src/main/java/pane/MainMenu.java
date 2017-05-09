@@ -13,10 +13,7 @@ import main.java.pane.base.StyledPane;
 
 public class MainMenu extends StyledPane
 {
-	public MainMenu()
-	{
-	}
-	
+
 	@Override
 	public void InitPane()
 	{
@@ -48,7 +45,7 @@ public class MainMenu extends StyledPane
 		{
 			public void handle(ActionEvent arg0)
 			{
-				//TODO
+				// TODO
 			}
 		});
 		getChildren().add(orderHistoryButton);
@@ -61,10 +58,17 @@ public class MainMenu extends StyledPane
 			public void handle(ActionEvent arg0)
 			{
 				StyledPane[] tabArray =
+<<<<<<< HEAD
 						{ new TspSimulation(), new BppSimulation()};
 
 				String[] nameArray =
 						{ "TSP","BPP" };
+=======
+				{ new TspSimulation() };
+
+				String[] nameArray =
+				{ "TSP" };
+>>>>>>> 623a086d317c36212cbb25e1e8b6742fc83a0b91
 
 				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 			}
@@ -78,7 +82,7 @@ public class MainMenu extends StyledPane
 		{
 			public void handle(ActionEvent arg0)
 			{
-				//Exits the application
+				// Exits the application
 				Stage stage = (Stage) exitButton.getScene().getWindow();
 				stage.close();
 			}
