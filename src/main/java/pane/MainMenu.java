@@ -9,6 +9,9 @@ import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
+import main.java.pane.tab.BPPTab;
+import main.java.pane.tab.RobotTab;
+import main.java.pane.tab.TSPTab;
 
 public class MainMenu extends StyledPane
 {
@@ -22,9 +25,6 @@ public class MainMenu extends StyledPane
 		CreateButtons();
 	}
 
-	/**
-	 * Create the Main Menu buttons
-	 */
 	private void CreateButtons()
 	{
 		setPrefSize(ScreenProperties.getScreenWidth(), ScreenProperties.getScreenHeight());
@@ -40,6 +40,7 @@ public class MainMenu extends StyledPane
 				Main.SwitchPane(new NewOrder());
 			}
 		});
+
 		getChildren().add(newOrderButton);
 
 		// Order History Button
@@ -61,7 +62,13 @@ public class MainMenu extends StyledPane
 		{
 			public void handle(ActionEvent arg0)
 			{
-				//TODO
+				StyledPane[] tabArray =
+						{ new TspSimulation() };
+
+				String[] nameArray =
+						{ "TSP" };
+
+				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 			}
 		});
 		getChildren().add(simulationsButton);

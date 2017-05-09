@@ -8,3 +8,4 @@ lib/
 src/main/resources/icons/
 sqlserver/
 Logs/
+.idea/
