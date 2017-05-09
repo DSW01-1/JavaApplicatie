@@ -10,7 +10,7 @@ import main.java.pane.base.StyledPane;
  * Created by Jordi Smit on 5/9/2017.
  */
 public class BppSimulation extends StyledPane {
-
+    private TextField boxSize;
     public BppSimulation(){
         //back to main menu
         StyledButton orderHistoryButton = new StyledButton("Go back to menu",
@@ -26,7 +26,7 @@ public class BppSimulation extends StyledPane {
         //box size field
         TextField boxSize = new TextField();
         getChildren().add(boxSize);
+        Box box1 = new Box(10);
     }
-
 
 }
