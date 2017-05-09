@@ -12,4 +12,7 @@ public class Constants
 	public static String iconLocation = "main/resources/icons/";
 	public static String shoppingCartImage = iconLocation + "shoppingcart.png";
 	public static String xImage = iconLocation + "x.png";
+	
+	//Size of the grid
+	public static int gridSize = 5;
 }

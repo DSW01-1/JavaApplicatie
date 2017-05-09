@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import main.java.constant.Constants;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 
@@ -15,12 +16,12 @@ public class Grid extends GridPane
 	{
 		setGridLinesVisible(true);
 
-		int gridSize = 5;
+		int gridSize = Constants.gridSize;
 		int tileSize = (ScreenProperties.getScreenHeight() / 2) / gridSize;
 
 		for (int y = 0; y < gridSize; y++)
 		{
-			for (int x = gridSize - 1; x > -1; x--)
+			for (int x = 0; x < gridSize; x++)
 			{
 				final GridTile tile = new GridTile(new Vector2(x, y));
 				tile.setWidth(tileSize);
@@ -29,10 +30,10 @@ public class Grid extends GridPane
 				{
 					public void handle(MouseEvent event)
 					{
-						System.out.println("X=" +tile.coords.getX() + ", Y=" +tile.coords.getY());
+						System.out.println("X=" + tile.coords.getX() + ", Y=" + tile.coords.getY());
 					}
 				});
-				add(tile, x, y);
+				add(tile, x, gridSize - 1 - y);
 			}
 		}
 

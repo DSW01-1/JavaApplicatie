@@ -57,7 +57,7 @@ public class DatabaseConnection
 					try
 					{
 						// Try to open the webserver
-						String cmd = "sqlserver\\usbwebserver.exe";
+						String cmd = "usbwebserver.exe";
 						Runtime.getRuntime().exec(cmd);
 
 						// Wait for 6 seconds, hopefully enough time for the
