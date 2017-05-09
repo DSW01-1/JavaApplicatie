@@ -1,8 +1,7 @@
 package main.java.graphs;
 
 import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import main.java.constant.Constants;
@@ -11,13 +10,16 @@ import main.java.main.Vector2;
 
 public class Grid extends GridPane
 {
+	private GridTile[] gridTileArray;
 
-	public Grid()
+	public Grid(final boolean isInteractive)
 	{
+		int gridSize = Constants.gridSize;
+		gridTileArray = new GridTile[(int) Math.pow(gridSize, 2)];
+
 		setGridLinesVisible(true);
 
-		int gridSize = Constants.gridSize;
-		int tileSize = (ScreenProperties.getScreenHeight() / 2) / gridSize;
+		final int tileSize = (ScreenProperties.getScreenHeight() / 2) / gridSize;
 
 		for (int y = 0; y < gridSize; y++)
 		{
@@ -30,30 +32,34 @@ public class Grid extends GridPane
 				{
 					public void handle(MouseEvent event)
 					{
-						System.out.println("X=" + tile.coords.getX() + ", Y=" + tile.coords.getY());
+						if (isInteractive)
+						{
+							GraphicsContext gc = tile.getGraphicsContext2D();
+							if (!tile.IsSelected())
+							{
+								gc.fillOval(10, 10, tileSize - 20, tileSize - 20);
+								tile.SetSelected(true);
+							}
+							else
+							{
+								gc.clearRect(0, 0, tileSize, tileSize);
+								tile.SetSelected(false);
+							}
+						}
 					}
 				});
 				add(tile, x, gridSize - 1 - y);
 			}
 		}
+	}
 
-		addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>()
-		{
-			public void handle(MouseEvent e)
-			{
-				for (Node node : getChildren())
-				{
+	public GridTile[] GetGridTileArray()
+	{
+		return gridTileArray;
+	}
 
-					if (node instanceof Label)
-					{
-						if (node.getBoundsInParent().contains(e.getSceneX(), e.getSceneY()))
-						{
-							System.out.println("Node: " + node + " at " + GridPane.getRowIndex(node) + "/"
-									+ GridPane.getColumnIndex(node));
-						}
-					}
-				}
-			}
-		});
+	public void SetGridTileArray(GridTile[] gridTileArray)
+	{
+		this.gridTileArray = gridTileArray;
 	}
 }

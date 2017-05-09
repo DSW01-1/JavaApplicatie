@@ -6,7 +6,6 @@ import main.java.pane.base.StyledTabPane;
 
 public class BaseTabPane extends StyledPane
 {
-	private StyledTabPane tabPane;
 	private StyledPane[] tabArray;
 	private String[] name;
 
@@ -28,7 +27,7 @@ public class BaseTabPane extends StyledPane
 	 */
 	private void CreateTabPane()
 	{
-		tabPane = new StyledTabPane();
+		StyledTabPane tabPane = new StyledTabPane();
 
 		for (int i = 0; i < tabArray.length; i++)
 		{

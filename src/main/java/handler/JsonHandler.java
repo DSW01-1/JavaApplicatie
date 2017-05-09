@@ -86,11 +86,11 @@ public class JsonHandler
 		}
 		catch (FileNotFoundException e)
 		{
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "File Not found");
 		}
 		catch (IOException e)
 		{
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "IO Exception");
 		}
 		return order;
 	}

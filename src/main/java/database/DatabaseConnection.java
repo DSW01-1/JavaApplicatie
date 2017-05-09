@@ -141,9 +141,4 @@ public class DatabaseConnection
 
 		return products;
 	}
-
-	private void SetupProductTable()
-	{
-		String sql = "CREATE TABLE REGISTRATION (id INTEGER not NULL,  first VARCHAR(255), last VARCHAR(255), age INTEGER, PRIMARY KEY ( id ))";
-	}
 }

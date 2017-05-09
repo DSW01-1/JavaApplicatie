@@ -33,8 +33,7 @@ public class Main extends Application
 		}
 		catch (Exception e)
 		{
-			// TODO
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "Exception");
 		}
 	}
 
