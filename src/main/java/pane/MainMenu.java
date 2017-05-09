@@ -7,6 +7,7 @@ import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.pane.BppSimulationSrc.BppSimulation;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 
@@ -57,10 +58,17 @@ public class MainMenu extends StyledPane
 			public void handle(ActionEvent arg0)
 			{
 				StyledPane[] tabArray =
+<<<<<<< HEAD
+						{ new TspSimulation(), new BppSimulation()};
+
+				String[] nameArray =
+						{ "TSP","BPP" };
+=======
 				{ new TspSimulation() };
 
 				String[] nameArray =
 				{ "TSP" };
+>>>>>>> 623a086d317c36212cbb25e1e8b6742fc83a0b91
 
 				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 			}
