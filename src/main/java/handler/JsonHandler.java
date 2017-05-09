@@ -3,16 +3,19 @@ package main.java.handler;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Date;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import main.java.constant.ErrorConstants;
 import main.java.main.product.CustomerInfo;
 import main.java.main.product.Order;
 
@@ -50,7 +53,7 @@ public class JsonHandler
 			Date date = new Date();
 
 			PrintWriter writer = new PrintWriter(
-					new FileOutputStream(new File("[" + dateFormat.format(date) + "]jsonFile.json"), true));
+					new FileOutputStream(new File("JsonOrders/[" + dateFormat.format(date) + "]jsonFile.json"), true));
 			writer.print(json);
 			writer.close();
 		}
@@ -58,5 +61,37 @@ public class JsonHandler
 		{
 			LogHandler.WriteErrorToLogFile(e, "JSON File Not Found");
 		}
+	}
+
+	public static Order GetNewestOrder()
+	{
+		Gson gson = new Gson();
+		Order order = null;
+		File[] jsonDirectory = new File("JsonOrders").listFiles();
+
+		Arrays.sort(jsonDirectory, new Comparator<File>()
+		{
+			public int compare(File f1, File f2)
+			{
+				return ((File) f1).getName().compareTo(((File) f2).getName());
+			}
+		});
+
+		try
+		{
+			FileReader reader = new FileReader(
+					new File("JsonOrders/" + jsonDirectory[jsonDirectory.length - 1].getName()));
+			order = gson.fromJson(reader, Order.class);
+			reader.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		return order;
 	}
 }
