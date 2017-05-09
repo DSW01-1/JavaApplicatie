@@ -95,15 +95,15 @@ public class NewOrder extends StyledPane
 					userData[i] = formItems[i].getText();
 				}
 
-				ArrayList<String> productNames = new ArrayList<String>();
+				ArrayList<String> productID = new ArrayList<String>();
 
 				for (int i = 0; i < rightColumnVBox.getChildren().size(); i++)
 				{
 					ProductPane product = (ProductPane) rightColumnVBox.getChildren().get(i);
-					productNames.add(product.name);
+					productID.add(Integer.toString(product.GetProduct().GetId()));
 				}
 
-				JsonHandler.SaveOrderToJSON(userData, productNames);
+				JsonHandler.SaveOrderToJSON(userData, productID);
 
 				StyledPane[] tabArray =
 				{ new RobotTab(), new TSPTab(), new BPPTab() };
@@ -153,7 +153,7 @@ public class NewOrder extends StyledPane
 		{
 			for (int i = 0; i < productList.size(); i++)
 			{
-				leftColumnVBox.getChildren().add(new ProductPane(productList.get(i).GetName(), "left", this));
+				leftColumnVBox.getChildren().add(new ProductPane(productList.get(i), "left", this));
 			}
 		}
 		// Else, there might not be a connection or there are actually no
@@ -189,17 +189,17 @@ public class NewOrder extends StyledPane
 	 * @param product
 	 *            the product object
 	 */
-	public void MoveProduct(String fromSide, ProductPane product)
+	public void MoveProduct(String fromSide, ProductPane productPane)
 	{
 		if (fromSide.equals("right"))
 		{
-			rightColumnVBox.getChildren().remove(product);
-			leftColumnVBox.getChildren().add(new ProductPane(product.name, "left", this));
+			rightColumnVBox.getChildren().remove(productPane);
+			leftColumnVBox.getChildren().add(new ProductPane(productPane.GetProduct(), "left", this));
 		}
 		else
 		{
-			rightColumnVBox.getChildren().add(new ProductPane(product.name, "right", this));
-			leftColumnVBox.getChildren().remove(product);
+			rightColumnVBox.getChildren().add(new ProductPane(productPane.GetProduct(), "right", this));
+			leftColumnVBox.getChildren().remove(productPane);
 		}
 	}
 }

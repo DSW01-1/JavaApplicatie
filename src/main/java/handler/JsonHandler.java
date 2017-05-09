@@ -19,7 +19,7 @@ import main.java.main.product.Order;
 public class JsonHandler
 {
 
-	public static void SaveOrderToJSON(String[] userData, ArrayList<String> poductnames)
+	public static void SaveOrderToJSON(String[] userData, ArrayList<String> productID)
 	{
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
@@ -37,16 +37,20 @@ public class JsonHandler
 		Date date = new Date();
 		order.setDate(dateFormat.format(date));
 
-		order.setProductnumber(poductnames);
-		
+		order.setProductnumber(productID);
+
 		WriteOrderToJSON(gson.toJson(order));
 	}
-	
+
 	public static void WriteOrderToJSON(String json)
 	{
 		try
 		{
-			PrintWriter writer = new PrintWriter(new FileOutputStream(new File("jsonFile.json"), true));
+			DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd-HH-mm-ss-SSS");
+			Date date = new Date();
+
+			PrintWriter writer = new PrintWriter(
+					new FileOutputStream(new File("[" + dateFormat.format(date) + "]jsonFile.json"), true));
 			writer.print(json);
 			writer.close();
 		}

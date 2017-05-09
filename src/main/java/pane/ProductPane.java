@@ -8,23 +8,25 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import main.java.constant.Constants;
+import main.java.main.product.Product;
 
 public class ProductPane extends Pane
 {
 	private NewOrder parentScript;
 	private ProductPane pane;
-	public String name;
+	private Product product;
+	
 
-	public ProductPane(String name, String columnSide, NewOrder parentScript)
+	public ProductPane(Product product, String columnSide, NewOrder parentScript)
 	{
-		this.name = name;
+		this.product = product;
 		this.parentScript = parentScript;
 		pane = this;
 
 		setId("product");
 		setPrefSize(200, 50);
 
-		AddText(name);
+		AddText(product.GetName());
 
 		if (columnSide.equals("left"))
 		{
@@ -115,5 +117,10 @@ public class ProductPane extends Pane
 				parentScript.MoveProduct("left", pane);
 			}
 		});
+	}
+	
+	public Product GetProduct()
+	{
+		return product;
 	}
 }
