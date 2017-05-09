@@ -9,6 +9,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import main.java.main.Main;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
@@ -22,6 +23,13 @@ public class TspSimulation extends StyledPane {
 
         // back to menu button
         StyledButton goBackToMenu = new StyledButton("Go back to menu", new Vector2(15,15), new Vector2(250, 50));
+        goBackToMenu.setOnAction(new EventHandler<ActionEvent>()
+        {
+            public void handle(ActionEvent aEvent)
+            {
+                Main.SwitchPane(new MainMenu());
+            }
+        });
         getChildren().add(goBackToMenu);
 
 
