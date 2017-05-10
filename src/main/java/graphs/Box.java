@@ -1,9 +1,11 @@
 package main.java.graphs;
 
+import java.util.ArrayList;
+
 public class Box {
 
     private int volume = 10;
-    int[] contents = new int[10];
+    private ArrayList<Product> products= new ArrayList();
     //x is location in contents array
     int x = 0;
 
@@ -11,11 +13,10 @@ public class Box {
         return size < volume;
     }
 
-    public void addProduct(int size){
+    public void addProduct(Product product){
         //geen check of hij past omdat dat al in het algoritme gebeurt.
-        this.contents[x] = size;
-        this.volume -= size;
-        x++;
+        this.products.add(product);
+        this.volume -= product.GetSize();
     }
 
     public Box returnBox(){
