@@ -48,5 +48,10 @@
       <artifactId>JavaApplicatie</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+      <dependency>
+          <groupId>JavaApplicatie</groupId>
+          <artifactId>JavaApplicatie</artifactId>
+          <version>0.0.1-SNAPSHOT</version>
+      </dependency>
   </dependencies>
 </project>

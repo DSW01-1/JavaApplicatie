@@ -5,11 +5,12 @@ import main.java.graphs.Product;
 import java.util.ArrayList;
 public class NextFit {
 
-    private ArrayList<Box> returnBoxes = new ArrayList<Box>();
+    public ArrayList<Box> returnBoxes = new ArrayList<Box>();
     private Box firstBox = new Box(10);
     private boolean fitted = false;
     private Box currentBox = firstBox;
     public ArrayList<Box> executeNextFit(ArrayList<Product> products){
+        returnBoxes.clear();
         returnBoxes.add(firstBox);
         for (Product product : products){
                 if(currentBox.checkFit(product.GetSize())&& !fitted){
@@ -23,6 +24,8 @@ public class NextFit {
             }
             fitted = false;
         }
+        System.out.println(returnBoxes.size() + " box(es) needed");
+        System.out.println();
         return returnBoxes;
     }
 
