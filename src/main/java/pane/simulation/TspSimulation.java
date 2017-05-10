@@ -1,4 +1,4 @@
-package main.java.pane;
+package main.java.pane.simulation;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -11,6 +11,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import main.java.main.Main;
 import main.java.main.Vector2;
+import main.java.pane.MainMenu;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 

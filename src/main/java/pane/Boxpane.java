@@ -1,4 +1,4 @@
-package main.java.pane.bppSimulationSrc;
+package main.java.pane;
 import javafx.scene.shape.Rectangle;
 import main.java.pane.base.StyledPane;
 
