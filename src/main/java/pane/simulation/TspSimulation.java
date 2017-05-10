@@ -1,19 +1,22 @@
 package main.java.pane.simulation;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import main.java.graphs.Grid;
+import main.java.graphs.GridTile;
 import main.java.main.Main;
 import main.java.main.Vector2;
 import main.java.pane.MainMenu;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
+
+import java.util.ArrayList;
 
 public class TspSimulation extends StyledPane {
 
@@ -34,6 +37,18 @@ public class TspSimulation extends StyledPane {
         getChildren().add(goBackToMenu);
 
 
+        Grid newGrid = new Grid(true);
+        getChildren().add(newGrid);
+        newGrid.setLayoutX(300);
+        newGrid.setLayoutY(15);
+
+        ListView<String> ConsoleList = new ListView<String>();
+
+        ConsoleList.setLayoutX(15);
+        ConsoleList.setLayoutY(570);
+        ConsoleList.setPrefWidth(825);
+        ConsoleList.setPrefHeight(250);
+        getChildren().add(ConsoleList);
 
         // RADIO BUTTONS
         Label lblChooseAlgorithm = new Label("Algoritmes");
@@ -83,7 +98,24 @@ public class TspSimulation extends StyledPane {
         {
             public void handle(ActionEvent arg0)
             {
+                ConsoleList.getItems().clear();
+                ConsoleList.getItems().add(ConsoleList.getItems().size(), "[DEBUG] Starting Algorithm 'nearest neighbour'");
 
+
+                ConsoleList.getItems().add(ConsoleList.getItems().size(), "[DEBUG] Searching for Coordinates");
+
+                ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
+                if(activeTiles.size() > 0){
+                    ConsoleList.getItems().add(ConsoleList.getItems().size(), String.format("[DEBUG] %s coordinates found, starting algorithm", activeTiles.size()));
+                }else{
+                    ConsoleList.getItems().add(ConsoleList.getItems().size(), String.format("[DEBUG] %s coordinates found, algorithm has been cancelled", activeTiles.size()));
+
+                }
+
+                for(GridTile activeTile : activeTiles){
+
+                    System.out.println(String.format("Active tile: x={0}, y={1} ",activeTile.getXcoord(), activeTile.getYcoord()));
+                }
             }
         });
         getChildren().add(startButton);
