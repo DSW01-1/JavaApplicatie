@@ -57,7 +57,7 @@ public class DatabaseConnection
 					try
 					{
 						// Try to open the webserver
-						String cmd = "sqlserver\\usbwebserver.exe";
+						String cmd = "usbwebserver.exe";
 						Runtime.getRuntime().exec(cmd);
 
 						// Wait for 6 seconds, hopefully enough time for the
@@ -140,10 +140,5 @@ public class DatabaseConnection
 		}
 
 		return products;
-	}
-
-	private void SetupProductTable()
-	{
-		String sql = "CREATE TABLE REGISTRATION (id INTEGER not NULL,  first VARCHAR(255), last VARCHAR(255), age INTEGER, PRIMARY KEY ( id ))";
 	}
 }

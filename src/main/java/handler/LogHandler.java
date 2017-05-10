@@ -28,12 +28,13 @@ public class LogHandler
 		try
 		{
 			File file = new File("Logs");
-			if(!file.exists())
+			if (!file.exists())
 			{
 				file.mkdirs();
 			}
-			
-			PrintWriter writer = new PrintWriter(new FileOutputStream(new File(ErrorConstants.GetErrorLogFile()), true));
+
+			PrintWriter writer = new PrintWriter(
+					new FileOutputStream(new File(ErrorConstants.GetErrorLogFile()), true));
 
 			writer.println("=============================================================================");
 			writer.println(dateFormat.format(date));
@@ -53,8 +54,7 @@ public class LogHandler
 		}
 		catch (IOException ex)
 		{
-			// TODO
-			ex.printStackTrace();
+			LogHandler.WriteErrorToLogFile(ex, "IOException");
 		}
 
 	}
@@ -100,13 +100,6 @@ public class LogHandler
 
 		Optional<ButtonType> result = alert.showAndWait();
 
-		if (result.get() == buttonTypeAction)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return result.get() == buttonTypeAction;
 	}
 }
