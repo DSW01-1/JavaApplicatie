@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class Box {
 
-    private int volume = 10;
-    private ArrayList<Product> products= new ArrayList();
-    //x is location in contents array
-    int x = 0;
+    private int volume;
+
+    public Box(int volume){
+        this.volume = volume;
+    }
+    private ArrayList<Product> products = new ArrayList<Product>();
 
     public boolean checkFit(int size){
         return size < volume;
@@ -19,7 +21,4 @@ public class Box {
         this.volume -= product.GetSize();
     }
 
-    public Box returnBox(){
-        return this;
-    }
 }

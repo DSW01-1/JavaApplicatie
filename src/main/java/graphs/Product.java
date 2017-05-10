@@ -9,6 +9,10 @@ public class Product
 	private Vector2 coords;
 	private int size;
 
+	public Product(int size){
+		this.size = size;
+	}
+
 	public Product(int id, String name, Vector2 coords, int size)
 	{
 		this.id = id;

@@ -3,9 +3,11 @@ package main.java.pane.simulation;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TextField;
+import main.java.algorithms.bpp.NextFit;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
+import main.java.algorithms.bpp.NextFit;
 
 public class BppSimulation extends StyledPane
 {
@@ -24,8 +26,14 @@ public class BppSimulation extends StyledPane
 			}
 		});
 		getChildren().add(orderHistoryButton);
-		// box size field
+		//textfield to enter product size
+		TextField productSize = new TextField();
+		getChildren().add(productSize);
+		//button to confirm adding product, and check if int.
+		StyledButton =
 
+		NextFit nextFit = new NextFit();
 	}
+
 
 }
