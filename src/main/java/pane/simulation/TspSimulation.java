@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
 import main.java.main.Main;
@@ -20,10 +21,15 @@ import java.util.ArrayList;
 
 public class TspSimulation extends StyledPane {
 
+    public ListView<String> ConsoleList = new ListView<String>();
+    public static TspSimulation tspSimulation;
+
     public TspSimulation(){
 
         int xPoint = 15;
         int yPoint = 15;
+
+        tspSimulation = this;
 
         // back to menu button
         StyledButton goBackToMenu = new StyledButton("Go back to menu", new Vector2(15,15), new Vector2(250, 50));
@@ -41,8 +47,6 @@ public class TspSimulation extends StyledPane {
         getChildren().add(newGrid);
         newGrid.setLayoutX(300);
         newGrid.setLayoutY(15);
-
-        ListView<String> ConsoleList = new ListView<String>();
 
         ConsoleList.setLayoutX(15);
         ConsoleList.setLayoutY(570);
@@ -94,29 +98,20 @@ public class TspSimulation extends StyledPane {
         // START + STOP BUTTON
         StyledButton startButton = new StyledButton("Play",
                 new Vector2(15,245), new Vector2(115, 30));
-        startButton.setOnAction(new EventHandler<ActionEvent>()
-        {
-            public void handle(ActionEvent arg0)
+        startButton.setOnAction(event ->
             {
                 ConsoleList.getItems().clear();
-                ConsoleList.getItems().add(ConsoleList.getItems().size(), "[DEBUG] Starting Algorithm 'nearest neighbour'");
-
-
-                ConsoleList.getItems().add(ConsoleList.getItems().size(), "[DEBUG] Searching for Coordinates");
+                addConsoleItem("Starting Algorithm 'nearest neighbour'", "DEBUG");
+                addConsoleItem("Searching for Coordinates", "DEBUG");
 
                 ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
                 if(activeTiles.size() > 0){
-                    ConsoleList.getItems().add(ConsoleList.getItems().size(), String.format("[DEBUG] %s coordinates found, starting algorithm", activeTiles.size()));
+                    addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
+                    NearestNeighbour algoritme = new NearestNeighbour(activeTiles, this);
                 }else{
-                    ConsoleList.getItems().add(ConsoleList.getItems().size(), String.format("[DEBUG] %s coordinates found, algorithm has been cancelled", activeTiles.size()));
-
+                    addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()), "DEBUG");
                 }
 
-                for(GridTile activeTile : activeTiles){
-
-                    System.out.println(String.format("Active tile: x={0}, y={1} ",activeTile.getXcoord(), activeTile.getYcoord()));
-                }
-            }
         });
         getChildren().add(startButton);
 
@@ -197,8 +192,11 @@ public class TspSimulation extends StyledPane {
         lblResAlg4.setFont(Font.font ("Century Gothic", 14));
         getChildren().add(lblResAlg4);
 
-
-
-
     }
+
+    public void addConsoleItem(String Message, String msgType){
+        ConsoleList.getItems().add(ConsoleList.getItems().size(), String.format("[%s] %s",msgType,Message));
+    }
+
+
 }
