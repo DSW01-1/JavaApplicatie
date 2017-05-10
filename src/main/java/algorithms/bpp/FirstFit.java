@@ -6,11 +6,10 @@ import java.util.ArrayList;
 
 public class FirstFit {
     private ArrayList<Box> returnBoxen = new ArrayList();
-    private Box firstBox = new Box(10);
     private boolean fitted = false;
 
     public ArrayList<Box> executeFirstFit(ArrayList<Product> products) {
-        returnBoxen.add(firstBox);
+        returnBoxen.clear();
         for (Product product : products) {
             for (Box currentBox : returnBoxen) {
                 if (currentBox.checkFit(product.GetSize())&&fitted==false) {
@@ -25,6 +24,9 @@ public class FirstFit {
             }
             fitted = false;
         }
+        System.out.println(returnBoxen.size() + " box(es) needed");
+        System.out.println();
+
         return returnBoxen;
     }
 }

@@ -10,11 +10,10 @@ public class BruteForce {
     private ArrayList<Box> latestBoxes= new ArrayList<Box>();
     private ArrayList<Product> productList = new ArrayList<Product>();
     private int leastBoxAmount;
-    private Box firstBox = new Box(10);
     private boolean fitted;
     public ArrayList<Box> executeBruteForce(ArrayList<Product> products){
+        returnBoxes.clear();
         productList=products;
-        latestBoxes.add(firstBox);
         for(int i=0;i<=products.size();i++) {
             for (Product product : productList) {
                 for (Box currentBox : latestBoxes) {
@@ -36,6 +35,8 @@ public class BruteForce {
             }
             Collections.rotate(productList,1);
         }
+        System.out.println(returnBoxes.size() + " box(es) needed");
+        System.out.println();
         return returnBoxes;
     }
 }

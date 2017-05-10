@@ -9,7 +9,6 @@ public class Box {
     }
     private ArrayList<Product> products = new ArrayList<Product>();
     private int volume;
-
     public boolean checkFit(int size){
         return size <= volume;
     }
