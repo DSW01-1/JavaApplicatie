@@ -27,7 +27,6 @@ public class Grid extends GridPane
 			{
 				final GridTile tile = new GridTile(new Vector2(x, y));
 
-
 				tile.setWidth(tileSize);
 				tile.setHeight(tileSize);
 				tile.setOnMouseClicked(event ->
@@ -37,7 +36,7 @@ public class Grid extends GridPane
 						GraphicsContext gc = tile.getGraphicsContext2D();
 						if (!tile.IsSelected())
 						{
-							gc.fillOval(10, 10, tileSize - 20, tileSize - 20);
+							gc.fillOval(tileSize / 3, tileSize / 3, tileSize / 3, tileSize / 3);
 							tile.SetSelected(true);
 						}
 						else
@@ -59,11 +58,14 @@ public class Grid extends GridPane
 		return gridTileArray;
 	}
 
-	public ArrayList<GridTile> getSelectedTiles(){
+	public ArrayList<GridTile> getSelectedTiles()
+	{
 		ArrayList<GridTile> selectedTiles = new ArrayList<>();
 
-		for (GridTile currentTile : this.gridTileArray) {
-			if(currentTile.IsSelected()){
+		for (GridTile currentTile : this.gridTileArray)
+		{
+			if (currentTile.IsSelected())
+			{
 				selectedTiles.add(currentTile);
 			}
 		}

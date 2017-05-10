@@ -11,9 +11,9 @@ public class CustomerInfo
 	@SerializedName("lastname")
 	@Expose
 	private String lastname;
-	@SerializedName("adress")
+	@SerializedName("address")
 	@Expose
-	private String adress;
+	private String address;
 	@SerializedName("zipcode")
 	@Expose
 	private String zipcode;
@@ -41,14 +41,14 @@ public class CustomerInfo
 		this.lastname = lastname;
 	}
 
-	public String getAdress()
+	public String getAddress()
 	{
-		return adress;
+		return address;
 	}
 
-	public void setAdress(String adress)
+	public void setAddress(String adress)
 	{
-		this.adress = adress;
+		this.address = adress;
 	}
 
 	public String getZipcode()

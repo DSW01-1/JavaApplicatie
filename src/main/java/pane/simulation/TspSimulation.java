@@ -2,14 +2,12 @@ package main.java.pane.simulation;
 
 import java.util.ArrayList;
 
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
@@ -30,13 +28,14 @@ public class TspSimulation extends StyledPane
 
 	public TspSimulation()
 	{
+		//TODO
 		int xPoint = 15;
 		int yPoint = 15;
 
 		tspSimulation = this;
 
 		// back to menu button
-		StyledButton goBackToMenu = new StyledButton("Go back to menu", new Vector2(15, 15), new Vector2(250, 50));
+		StyledButton goBackToMenu = new StyledButton(Language.getTranslation("btn.backToMainMenu"), new Vector2(15, 15), new Vector2(250, 50));
 		goBackToMenu.setOnAction(event ->
 		{
 			Main.SwitchPane(new MainMenu());
@@ -56,10 +55,7 @@ public class TspSimulation extends StyledPane
 		getChildren().add(consoleList);
 
 		// RADIO BUTTONS
-		Label lblChooseAlgorithm = new Label("Algoritmes");
-		lblChooseAlgorithm.setLayoutX(15);
-		lblChooseAlgorithm.setLayoutY(105);
-		lblChooseAlgorithm.setFont(Font.font("Century Gothic", 20));
+		StyledLabel lblChooseAlgorithm = new StyledLabel("Algoritmes", new Vector2(15, 105), 20);
 		getChildren().add(lblChooseAlgorithm);
 
 		// RADIOBUTTONS
@@ -124,7 +120,7 @@ public class TspSimulation extends StyledPane
 		getChildren().add(progression);
 
 		// RESULTS
-		StyledLabel lblResults = new StyledLabel(Language.getTranslation("btn.results"), new Vector2(15, 340));
+		StyledLabel lblResults = new StyledLabel(Language.getTranslation("btn.results"), new Vector2(15, 340), 20);
 		getChildren().add(lblResults);
 
 		Rectangle rectResults = new Rectangle(15, 370, 250, 130);
@@ -138,7 +134,8 @@ public class TspSimulation extends StyledPane
 		int[] resultY = new int[]
 		{ 380, 410, 440, 470 };
 		String[] resultNames = new String[]
-		{ "Nearest Neighbour", "Multiple Fragment", "Volledige Enumeratie", "Eigen Algoritme" };
+		{ Language.getTranslation("btn.nearestNeighbour"), Language.getTranslation("btn.multipleFragment"),
+				Language.getTranslation("btn.totalEnumeration"), Language.getTranslation("btn.ownAlgorithm") };
 
 		for (int cnt = 0; cnt < 4; cnt++)
 		{
@@ -147,17 +144,10 @@ public class TspSimulation extends StyledPane
 		}
 
 		// RESULTS IN MS
-		StyledLabel lblResAlg1 = new StyledLabel("1 ms ", new Vector2(210, 380));
-		getChildren().add(lblResAlg1);
-
-		StyledLabel lblResAlg2 = new StyledLabel("3 ms ", new Vector2(210, 410));
-		getChildren().add(lblResAlg2);
-
-		StyledLabel lblResAlg3 = new StyledLabel("2.5 ms ", new Vector2(210, 440));
-		getChildren().add(lblResAlg3);
-
-		StyledLabel lblResAlg4 = new StyledLabel("10 ms", new Vector2(210, 470));
-		getChildren().add(lblResAlg4);
+		getChildren().add(new StyledLabel("1 ms ", new Vector2(210, 380)));
+		getChildren().add(new StyledLabel("3 ms ", new Vector2(210, 410)));
+		getChildren().add(new StyledLabel("2.5 ms ", new Vector2(210, 440)));
+		getChildren().add(new StyledLabel("10 ms", new Vector2(210, 470)));
 
 	}
 
