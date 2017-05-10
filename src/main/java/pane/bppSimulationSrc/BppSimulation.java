@@ -1,4 +1,4 @@
-package main.java.pane.BppSimulationSrc;
+package main.java.pane.bppSimulationSrc;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,9 +24,7 @@ public class BppSimulation extends StyledPane {
         });
         getChildren().add(orderHistoryButton);
         //box size field
-        TextField boxSize = new TextField();
-        getChildren().add(boxSize);
-        Box box1 = new Box(10);
+
     }
 
 }
