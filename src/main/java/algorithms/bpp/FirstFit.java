@@ -25,7 +25,6 @@ public class FirstFit {
             fitted = false;
         }
         System.out.println(returnBoxen.size() + " box(es) needed");
-        System.out.println();
 
         return returnBoxen;
     }
