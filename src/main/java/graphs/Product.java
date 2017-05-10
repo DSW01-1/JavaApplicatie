@@ -1,4 +1,4 @@
-package main.java.main.product;
+package main.java.graphs;
 
 import main.java.main.Vector2;
 

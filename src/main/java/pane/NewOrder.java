@@ -2,20 +2,18 @@ package main.java.pane;
 
 import java.util.ArrayList;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import main.java.database.DatabaseConnection;
+import main.java.graphs.Product;
 import main.java.handler.JsonHandler;
 import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
-import main.java.main.product.Product;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
@@ -42,13 +40,7 @@ public class NewOrder extends StyledPane
 		// Back to menu button
 		StyledButton btnBackToMainMenu = new StyledButton(Language.getTranslation("btn.backToMainMenu"),
 				new Vector2(10, 10));
-		btnBackToMainMenu.setOnAction(new EventHandler<ActionEvent>()
-		{
-			public void handle(ActionEvent aEvent)
-			{
-				Main.SwitchPane(new MainMenu());
-			}
-		});
+		btnBackToMainMenu.setOnAction(event -> Main.SwitchPane(new MainMenu()));
 		getChildren().add(btnBackToMainMenu);
 
 		// Create the columns
@@ -84,35 +76,32 @@ public class NewOrder extends StyledPane
 		// The order button, can't be pressed if no items are in the right
 		// column
 		StyledButton orderButton = new StyledButton(Language.getTranslation("btn.order"));
-		orderButton.setOnAction(new EventHandler<ActionEvent>()
+		orderButton.setOnAction(event ->
 		{
-			public void handle(ActionEvent event)
+			String[] userData = new String[formItems.length];
+
+			for (int i = 0; i < userData.length; i++)
 			{
-				String[] userData = new String[formItems.length];
-
-				for (int i = 0; i < userData.length; i++)
-				{
-					userData[i] = formItems[i].getText();
-				}
-
-				ArrayList<String> productID = new ArrayList<String>();
-
-				for (int i = 0; i < rightColumnVBox.getChildren().size(); i++)
-				{
-					ProductPane product = (ProductPane) rightColumnVBox.getChildren().get(i);
-					productID.add(Integer.toString(product.GetProduct().GetId()));
-				}
-
-				JsonHandler.SaveOrderToJSON(userData, productID);
-
-				StyledPane[] tabArray =
-				{ new RobotTab(), new TSPTab(), new BPPTab() };
-
-				String[] nameArray =
-				{ "Robot", "TSP", "BPP" };
-
-				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
+				userData[i] = formItems[i].getText();
 			}
+
+			ArrayList<String> productID = new ArrayList<String>();
+
+			for (int i = 0; i < rightColumnVBox.getChildren().size(); i++)
+			{
+				ProductPane product = (ProductPane) rightColumnVBox.getChildren().get(i);
+				productID.add(Integer.toString(product.GetProduct().GetId()));
+			}
+
+			JsonHandler.SaveOrderToJSON(userData, productID);
+
+			StyledPane[] tabArray =
+			{ new RobotTab(), new TSPTab(), new BPPTab() };
+
+			String[] nameArray =
+			{ "Robot", "TSP", "BPP" };
+
+			Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 		});
 		form.add(orderButton, 1, labelArray.length);
 		getChildren().add(form);

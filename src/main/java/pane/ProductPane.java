@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import main.java.constant.Constants;
-import main.java.main.product.Product;
+import main.java.graphs.Product;
 
 public class ProductPane extends Pane
 {

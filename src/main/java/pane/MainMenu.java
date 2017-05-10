@@ -7,9 +7,10 @@ import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
-import main.java.pane.bppSimulationSrc.BppSimulation;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
+import main.java.pane.simulation.BppSimulation;
+import main.java.pane.simulation.TspSimulation;
 
 public class MainMenu extends StyledPane
 {

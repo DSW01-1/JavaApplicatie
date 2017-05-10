@@ -1,4 +1,4 @@
-package main.java.pane.bppSimulationSrc;
+package main.java.graphs;
 
 /**
  * Created by Jordi Smit on 5/9/2017.
