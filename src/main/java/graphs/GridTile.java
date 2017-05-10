@@ -19,6 +19,17 @@ public class GridTile extends Canvas
 		return coords;
 	}
 
+	public double getXcoord() {
+		double xCoord = coords.getX();
+
+		return xCoord;
+	}
+	public double getYcoord() {
+		double yCoord = coords.getY();
+
+		return yCoord;
+	}
+
 	public boolean IsSelected()
 	{
 		return isSelected;

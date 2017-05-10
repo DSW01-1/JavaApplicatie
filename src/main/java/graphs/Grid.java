@@ -6,14 +6,16 @@ import main.java.constant.Constants;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 
+import java.util.ArrayList;
+
 public class Grid extends GridPane
 {
-	private GridTile[] gridTileArray;
+	private ArrayList<GridTile> gridTileArray;
 
 	public Grid(final boolean isInteractive)
 	{
 		int gridSize = Constants.gridSize;
-		gridTileArray = new GridTile[(int) Math.pow(gridSize, 2)];
+		gridTileArray = new ArrayList<GridTile>();
 
 		setGridLinesVisible(true);
 
@@ -24,6 +26,8 @@ public class Grid extends GridPane
 			for (int x = 0; x < gridSize; x++)
 			{
 				final GridTile tile = new GridTile(new Vector2(x, y));
+
+
 				tile.setWidth(tileSize);
 				tile.setHeight(tileSize);
 				tile.setOnMouseClicked(event ->
@@ -44,17 +48,26 @@ public class Grid extends GridPane
 					}
 				});
 				add(tile, x, gridSize - 1 - y);
+				gridTileArray.add(tile);
+
 			}
 		}
 	}
 
-	public GridTile[] GetGridTileArray()
+	public ArrayList<GridTile> GetGridTileArray()
 	{
 		return gridTileArray;
 	}
 
-	public void SetGridTileArray(GridTile[] gridTileArray)
-	{
-		this.gridTileArray = gridTileArray;
+	public ArrayList<GridTile> getSelectedTiles(){
+		ArrayList<GridTile> selectedTiles = new ArrayList<>();
+
+		for (GridTile currentTile : this.gridTileArray) {
+			if(currentTile.IsSelected()){
+				selectedTiles.add(currentTile);
+			}
+		}
+
+		return selectedTiles;
 	}
 }
