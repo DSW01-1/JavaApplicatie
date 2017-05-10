@@ -2,7 +2,7 @@ package main.java.graphs;
 
 import main.java.main.Vector2;
 
-public class Product
+public class Product implements Comparable
 {
 	private int id;
 	private String name;
@@ -39,5 +39,21 @@ public class Product
 	public int GetSize()
 	{
 		return size;
+	}
+
+	@Override
+	public int compareTo(Object o) {
+		int returnedInt=0;
+		Product compared = (Product) o;
+		if(this.size<compared.size){
+			returnedInt=-1;
+		}
+		if(this.size==compared.size){
+			returnedInt=0;
+		}
+		if(this.size>compared.size){
+			returnedInt=1;
+		}
+		return returnedInt;
 	}
 }
