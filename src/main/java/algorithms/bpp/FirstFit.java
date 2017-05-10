@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class FirstFit {
     private ArrayList<Box> returnBoxen = new ArrayList();
-    private Box firstBox = new Box();
+    private Box firstBox = new Box(10);
     private boolean fitted = false;
 
     public ArrayList<Box> executeFirstFit(ArrayList<Product> products) {
@@ -19,7 +19,7 @@ public class FirstFit {
                 }
             }
             if (fitted == false) {
-                Box newBox = new Box();
+                Box newBox = new Box(10);
                 returnBoxen.add(newBox);
                 newBox.addProduct(product);
             }
