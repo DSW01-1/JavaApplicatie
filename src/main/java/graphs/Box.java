@@ -10,14 +10,15 @@ public class Box {
     public boolean checkFit(int size){
         return size < volume;
     }
+
     public void addProduct(int size){
-        if(checkFit(size)) {
-            this.contents[x] = size;
-            this.volume -= size;
-            x++;
-        }
-        else{
-            //printmessage not possible
-        }
+        //geen check of hij past omdat dat al in het algoritme gebeurt.
+        this.contents[x] = size;
+        this.volume -= size;
+        x++;
+    }
+
+    public Box returnBox(){
+        return this;
     }
 }
