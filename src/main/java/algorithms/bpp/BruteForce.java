@@ -12,51 +12,36 @@ public class BruteForce
 	private int leastBoxAmount = 1000;
 	private boolean fitted;
 
-	public ArrayList<Box> executeBruteForce(ArrayList<Product> products)
-	{
+	public ArrayList<Box> executeBruteForce(ArrayList<Product> products) {
 		ArrayList<Product> productList = products;
-		for (int i = 0; i <= products.size(); i++)
-		{
-			for (Product product : productList)
-			{
-				for (Box currentBox : latestBoxes)
-				{
-					if (currentBox.checkFit(product.GetSize()) && fitted == false)
-					{
+		leastBoxAmount=1000;
+		for (int i = 1; i <= products.size(); i++) {
+			for (Product product : productList) {
+				for (Box currentBox : latestBoxes) {
+					if (currentBox.checkFit(product.GetSize()) && fitted == false) {
 						currentBox.addProduct(product);
 						fitted = true;
 					}
 				}
-				if (!fitted)
-				{
-					Box newBox = new Box(10);
-					latestBoxes.add(newBox);
-					newBox.addProduct(product);
+				if (!fitted) {
+					Box currentBox = new Box(10);
+					currentBox.addProduct(product);
+					latestBoxes.add(currentBox);
 				}
 				fitted = false;
 			}
-			if (leastBoxAmount == 0)
-			{
-				leastBoxAmount = latestBoxes.size();
-				System.out.println(leastBoxAmount + "hier washet 0");
-				returnBoxes = latestBoxes;
-			}
-			else if (latestBoxes.size() < leastBoxAmount)
-			{
+			if (latestBoxes.size() < leastBoxAmount) {
 				System.out.println(latestBoxes.size());
+				System.out.println(leastBoxAmount>latestBoxes.size());
 				leastBoxAmount = latestBoxes.size();
 				returnBoxes = latestBoxes;
 			}
+			latestBoxes.clear();
 			Collections.rotate(productList, 1);
 		}
+		System.out.println(returnBoxes);
 		System.out.println(returnBoxes.size() + " box(es) needed");
-		return returnBoxes;
-	}
 
-	public void clearAlgorithmCache()
-	{
-		returnBoxes.clear();
-		leastBoxAmount = 0;
-		latestBoxes.clear();
+		return returnBoxes;
 	}
 }
