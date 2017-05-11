@@ -1,7 +1,6 @@
 package main.java.database;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -16,8 +15,6 @@ import main.java.graphs.Product;
 import main.java.handler.LogHandler;
 import main.java.main.Language;
 import main.java.main.Vector2;
-import main.java.main.product.CustomerInfo;
-import main.java.main.product.Order;
 
 public class DatabaseConnection
 {
@@ -110,20 +107,14 @@ public class DatabaseConnection
 
 		try
 		{
-			Connection conn = Connect();
+			// Path of the product table
+			String table = Constants.databaseName + "." + Constants.productTableName;
+			ResultSet rs = GetDataFromDatabase("select * from " + table);
 
-			if (conn != null)
+			while (rs.next())
 			{
-				// Path of the product table
-				String table = Constants.databaseName + "." + Constants.productTableName;
-				PreparedStatement preparedStatement = conn.prepareStatement("select * from " + table);
-				ResultSet rs = preparedStatement.executeQuery();
-
-				while (rs.next())
-				{
-					products.add(new Product(rs.getInt("id"), rs.getString("name"),
-							new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("size")));
-				}
+				products.add(new Product(rs.getInt("id"), rs.getString("name"),
+						new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("size")));
 			}
 		}
 		catch (SQLException e)
@@ -137,65 +128,31 @@ public class DatabaseConnection
 				LogHandler.WriteErrorToLogFile(e, "SQL Exception: " + e.getSQLState() + ", Check list for error");
 			}
 		}
-		catch (NullPointerException e)
-		{
-			LogHandler.WriteErrorToLogFile(e, "Nullpointer, Connection may not exist");
-		}
-
 		return products;
 	}
 
-	public static ArrayList<Order> GetAllOrders()
+	/**
+	 * Get all data from the given statement
+	 * @param statement
+	 * @return
+	 */
+	public static ResultSet GetDataFromDatabase(String statement)
 	{
-		ArrayList<Order> orderList = new ArrayList<Order>();
+		Connection conn = Connect();
+		ResultSet rs = null;
 
-		try
+		if (conn != null)
 		{
-			Connection conn = Connect();
-
-			if (conn != null)
+			try
 			{
-				// Path of the product table
-				String table = Constants.databaseName + "." + Constants.orderTableName;
-				PreparedStatement preparedStatement = conn.prepareStatement("select * from " + table);
-				ResultSet rs = preparedStatement.executeQuery();
-
-				while (rs.next())
-				{
-					CustomerInfo cusInfo = new CustomerInfo();
-					cusInfo.setFirstname(rs.getString("firstname"));
-					cusInfo.setLastname(rs.getString("lastname"));
-					cusInfo.setAddress(rs.getString("address"));
-					cusInfo.setZipcode(rs.getString("zipcode"));
-					cusInfo.setCity(rs.getString("city"));
-
-					Order order = new Order();
-					order.setCustomerinfo(cusInfo);
-					order.setDate(rs.getString("date"));
-					order.setOrderid(rs.getString("orderid"));
-
-					Array array = rs.getArray("products");
-					String[] productArray = (String[]) array.getArray();
-					ArrayList<String> products = new ArrayList<String>();
-
-					for (String product : productArray)
-					{
-						products.add(product);
-					}
-					order.setProductnumber(products);
-					orderList.add(order);
-				}
+				PreparedStatement preparedStatement = conn.prepareStatement(statement);
+				rs = preparedStatement.executeQuery();
+			}
+			catch (SQLException e)
+			{
+				e.printStackTrace();
 			}
 		}
-		catch (SQLException e)
-		{
-
-		}
-		catch (NullPointerException e)
-		{
-			LogHandler.WriteErrorToLogFile(e, "Nullpointer, Connection may not exist");
-		}
-
-		return orderList;
+		return rs;
 	}
 }
