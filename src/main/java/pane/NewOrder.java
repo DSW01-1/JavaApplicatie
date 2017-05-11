@@ -26,14 +26,6 @@ public class NewOrder extends StyledPane
 	private VBox rightColumnVBox, leftColumnVBox;
 	private TextField[] formItems;
 
-	// NewOrder constructor
-	public NewOrder()
-	{
-		super();
-		// Styling ID
-		setId("background");
-	}
-
 	@Override
 	public void InitPane()
 	{

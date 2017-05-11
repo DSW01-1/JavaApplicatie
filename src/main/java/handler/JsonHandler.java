@@ -31,7 +31,7 @@ public class JsonHandler
 		CustomerInfo cusInfo = new CustomerInfo();
 		cusInfo.setFirstname(userData[0]);
 		cusInfo.setLastname(userData[1]);
-		cusInfo.setAdress(userData[2]);
+		cusInfo.setAddress(userData[2]);
 		cusInfo.setZipcode(userData[3]);
 		cusInfo.setCity(userData[4]);
 

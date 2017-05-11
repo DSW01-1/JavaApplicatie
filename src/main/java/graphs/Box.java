@@ -8,8 +8,7 @@ public class Box {
         this.volume = volume;
     }
     private ArrayList<Product> products = new ArrayList<Product>();
-    private int volume = 10;
-
+    private int volume;
     public boolean checkFit(int size){
         return size <= volume;
     }
@@ -17,7 +16,10 @@ public class Box {
     public void addProduct(Product product){
         //not necessary to check fit, done in algorithm
         this.products.add(product);
-        this.volume -= product.GetSize();
+        this.volume = this.volume-product.GetSize();
     }
 
+    public void clearBox(){
+        this.products.clear();
+    }
 }

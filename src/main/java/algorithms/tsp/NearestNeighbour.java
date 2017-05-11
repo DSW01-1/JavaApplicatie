@@ -1,41 +1,48 @@
 package main.java.algorithms.tsp;
 
+import java.util.ArrayList;
+
 import main.java.constant.Constants;
 import main.java.graphs.GridTile;
-import main.java.main.Vector2;
 import main.java.pane.simulation.TspSimulation;
-
-import java.util.ArrayList;
 
 public class NearestNeighbour
 {
-    ArrayList<GridTile> tileOrder;
-    ArrayList<GridTile> CoordList;
-    TspSimulation simulatie;
+	ArrayList<GridTile> tileOrder;
+	ArrayList<GridTile> CoordList;
+	TspSimulation simulatie;
 
-    public NearestNeighbour(ArrayList<GridTile> selectedTiles, TspSimulation simulatie){
+	public NearestNeighbour(ArrayList<GridTile> selectedTiles, TspSimulation simulatie)
+	{
+		// DEFINING ARRAYLISTS
+		tileOrder = new ArrayList<GridTile>();
+		CoordList = selectedTiles;
+		this.simulatie = simulatie;
 
-        // DEFINING ARRAYLISTS
-        tileOrder = new ArrayList<GridTile>();
-        CoordList = selectedTiles;
-        this.simulatie = simulatie;
+		// SEARCH FOR FIRST TILE
+		int indexFirstTile = findFirstTile();
+	}
 
-
-        // SEARCH FOR FIRST TILE
-        int indexFirstTile = findFirstTile();
-
-    }
-
+<<<<<<< HEAD
     private int findFirstTile(){
         int index = 0;
         int x = 0;
         int y = 0;
         boolean found = false;
         int step = 0;
+=======
+	private int findFirstTile()
+	{
+		int index = 0;
+		int x = 0;
+		int y = 0;
+		boolean found = false;
+>>>>>>> 2e0a5f4a7f45648916f1e0242914f5f145b491a5
 
-        simulatie.addConsoleItem("Searching for first coordinate", "DEBUG");
-        simulatie.addConsoleItem("Moving to first coordinate (0, 0)", "DEBUG");
+		simulatie.addConsoleItem("Searching for first coordinate", "DEBUG");
+		simulatie.addConsoleItem("Moving to first coordinate (0, 0)", "DEBUG");
 
+<<<<<<< HEAD
         simulatie.addConsoleItem(String.format("=====| LOOP THROUGH ARRAY |====="), "DEBUG");
         int test = 1;
         for(GridTile tile : CoordList){
@@ -97,9 +104,19 @@ public class NearestNeighbour
             for(GridTile tile : CoordList){
                 boolean xOk = (tile.getXcoord() == x);
                 boolean yOk = (tile.getYcoord() == y);
+=======
+		while (!found)
+		{
+			int i = 0;
+			for (GridTile tile : CoordList)
+			{
+				boolean xOk = (tile.getXcoord() == x);
+				boolean yOk = (tile.getYcoord() == y);
+>>>>>>> 2e0a5f4a7f45648916f1e0242914f5f145b491a5
 
-                System.out.printf("%s - %s \n", tile.getXcoord(), tile.getYcoord());
+				System.out.printf("%s - %s \n", tile.getXcoord(), tile.getYcoord());
 
+<<<<<<< HEAD
                 if(xOk && yOk){
                     found = true;
                     simulatie.addConsoleItem(String.format("Coordinate %s is correct!, moving to the next step",i), "DEBUG");
@@ -126,7 +143,43 @@ public class NearestNeighbour
                 */
             //}
         }
+=======
+				if (xOk && yOk)
+				{
+					found = true;
+					simulatie.addConsoleItem(String.format("Coordinate %s is correct!, moving to the next step", i),
+							"DEBUG");
+					// index = i;
+					break;
+				}
+				else
+				{
+					simulatie.addConsoleItem(String.format("Coordinate %s is incorrect!, moving on", i), "DEBUG");
+				}
+				i++;
+			}
+			if (!found)
+			{
+				if (x == y && x < Constants.gridSize)
+				{
+					x++;
+					simulatie.addConsoleItem(String.format("Moving to new Coordinate, (%s, %s)", x, y), "DEBUG");
+				}
+				else if (y < Constants.gridSize)
+				{
+					y++;
+					simulatie.addConsoleItem(String.format("Moving to new Coordinate, (%s, %s)", x, y), "DEBUG");
+				}
+				else
+				{
+					simulatie.addConsoleItem("Coordinate not found", "DEBUG");
+					found = true;
+				}
+			}
 
-        return index;
-    }
+		}
+>>>>>>> 2e0a5f4a7f45648916f1e0242914f5f145b491a5
+
+		return index;
+	}
 }

@@ -11,6 +11,7 @@ public class DecreasingFirstFit {
     private boolean fitted;
 
     public ArrayList<Box> executeDecreasingFirstFit(ArrayList<Product> products){
+        returnBoxes.clear();
         Collections.sort(products);
         Collections.reverse(products);
         for (Product product : products) {
