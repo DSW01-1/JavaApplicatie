@@ -7,14 +7,12 @@ import java.util.ArrayList;
 public class NextFit
 {
 	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
-	private Box firstBox = new Box(10);
 	private boolean fitted = false;
-	private Box currentBox = firstBox;
+	private Box currentBox = new Box(10);
 
-	public ArrayList<Box> executeNextFit(ArrayList<Product> products)
-	{
+	public ArrayList<Box> executeNextFit(ArrayList<Product> products) {
 		returnBoxes.clear();
-		returnBoxes.add(firstBox);
+		returnBoxes.add(currentBox);
 		for (Product product : products)
 		{
 			if (currentBox.checkFit(product.GetSize()) && !fitted)
@@ -24,15 +22,15 @@ public class NextFit
 			}
 			if (!fitted)
 			{
-				Box i = new Box(10);
-				returnBoxes.add(i);
-				i.addProduct(product);
+				currentBox = new Box(10);
+				currentBox.addProduct(product);
+				returnBoxes.add(currentBox);
 			}
 			fitted = false;
 		}
+		currentBox= new Box(10);
 		System.out.println(returnBoxes.size() + " box(es) needed");
-		System.out.println();
+		System.out.println(returnBoxes);
 		return returnBoxes;
 	}
-
 }
