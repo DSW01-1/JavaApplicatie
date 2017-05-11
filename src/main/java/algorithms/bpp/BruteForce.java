@@ -14,7 +14,7 @@ public class BruteForce
 	private boolean fitted;
 	private int x;
 	public ArrayList<Box> executeBruteForce(ArrayList<Product> products) {
-		while(x<products.size()-1) {
+		while(x<=products.size()) {
 			for (Product product : products) {
 				for (Box currentBox : latestBoxes) {
 					if (currentBox.checkFit(product.GetSize()) && fitted == false) {
