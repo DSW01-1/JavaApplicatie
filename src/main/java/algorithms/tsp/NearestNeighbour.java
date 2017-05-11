@@ -1,6 +1,7 @@
 package main.java.algorithms.tsp;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import main.java.constant.Constants;
 import main.java.graphs.GridTile;
@@ -18,10 +19,19 @@ public class NearestNeighbour
 		tileOrder = new ArrayList<GridTile>();
 		CoordList = selectedTiles;
 		this.simulatie = simulatie;
+		List<Integer> usedIndex = new ArrayList<>();
+
 
 		// SEARCH FOR FIRST TILE
 		int indexFirstTile = findFirstTile();
+		usedIndex.add(indexFirstTile);
+
+		
+
+
 	}
+
+
 
     private int findFirstTile(){
         int index = 0;
@@ -34,134 +44,54 @@ public class NearestNeighbour
 		simulatie.addConsoleItem("Moving to first coordinate (0, 0)", "DEBUG");
 
 
-        //while (!found){
-            //String cnt = (i < 9) ? String.format("0%d",i+1) : String.format("%d",i+1) ;
-        //    simulatie.addConsoleItem(String.format("=====| NEXT COORDINATE (x: %s ,y: %s)",x,y), "DEBUG");
+        while (!found) {
+			//String cnt = (i < 9) ? String.format("0%d",i+1) : String.format("%d",i+1) ;
+			//    simulatie.addConsoleItem(String.format("=====| NEXT COORDINATE (x: %s ,y: %s)",x,y), "DEBUG");
 
-        //    int i = 0;
+
 
             /* ===== COORDLIST LOOP 1 ===== */
-            //for(GridTile tile : CoordList){
-            //    boolean xOk = (tile.getXcoord() == x);
-            //    boolean yOk = (tile.getYcoord() == y);
+			int i = 0;
+			for (GridTile tile : CoordList) {
+				boolean xOk = (tile.getXcoord() == x);
+				boolean yOk = (tile.getYcoord() == y);
 
-            //    System.out.printf("%s - %s \n", tile.getXcoord(), tile.getYcoord());
+				System.out.printf("%s - %s \n", tile.getXcoord(), tile.getYcoord());
 
-            //    if(xOk && yOk){
-            //        found = true;
-            //        simulatie.addConsoleItem(String.format("Tile %s is correct!, moving to the next step",i), "DEBUG");
-            //        //index = i;
-            //        //break;
-            //    }else{
-            //        simulatie.addConsoleItem(String.format("Tile %s is incorrect!,",i), "DEBUG");
-            //    }
-            //    i++;
-            //}
+				if (xOk && yOk) {
+					found = true;
+					simulatie.addConsoleItem(String.format("Tile %s is correct!, moving to the next step", i), "DEBUG");
+					index = i;
+					break;
+				} else {
+					simulatie.addConsoleItem(String.format("Tile %s is incorrect!,", i), "DEBUG");
+				}
+				i++;
+			}
 
-            /* ===== LOOP 1 ===== */
-            // lozde looop
-            //  if(!found){
-            //    if(step < (Constants.gridSize * 2) ){
-            //        if(y > 0 && x < (Constants.gridSize - 1)){
-            //            y--;
-            //            x++;
-            //        }else{
-            //            if(step < (Constants.gridSize - 1) ){  // 1e 5 stappen
-            //                step++;
-            //                y = step;//Constants.gridSize - 1;
-            //                x = 0;//step - (Constants.gridSize - 1);
-            //            }else{  // 2e 5 stappen
-            //                step++;
-            //                y = (Constants.gridSize - 1);
-            //                x = step - (Constants.gridSize - 1);
-            //            }
-            //        }
-            //    }else{
-            //        found = true;
-            //    }
-            //}
-
-
-            //for(GridTile tile : CoordList){
-            //    boolean xOk = (tile.getXcoord() == x);
-            //    boolean yOk = (tile.getYcoord() == y);
-
-			//	if (xOk && yOk)
-			//	{
-			//		found = true;
-			//		simulatie.addConsoleItem(String.format("Coordinate %s is correct!, moving to the next step", i),
-			//				"DEBUG");
-			//		// index = i;
-			//		break;
-			//	}
-			//	else
-			//	{
-			//		simulatie.addConsoleItem(String.format("Coordinate %s is incorrect!, moving on", i), "DEBUG");
-			//	}
-			//	i++;
-			//}
-
-
-			//if (!found)
-			//{
-			//	if (x == y && x < Constants.gridSize)
-			//	{
-			//		x++;
-			//		simulatie.addConsoleItem(String.format("Moving to new Coordinate, (%s, %s)", x, y), "DEBUG");
-			//	}
-			//	else if (y < Constants.gridSize)
-			//	{
-			//		y++;
-			//		simulatie.addConsoleItem(String.format("Moving to new Coordinate, (%s, %s)", x, y), "DEBUG");
-			//	}
-			//	else
-			//	{
-			//		simulatie.addConsoleItem("Coordinate not found", "DEBUG");
-			//		found = true;
-			//	}
-			//}
-
-
-
-			//while (!found)
-			//{
-			//	int i = 0;
-			//	for (GridTile tile : CoordList)
-			//	{
-			//		boolean xOk = (tile.getXcoord() == x);
-			//		boolean yOk = (tile.getYcoord() == y);
-//
-//					System.out.printf("%s - %s \n", tile.getXcoord(), tile.getYcoord());
-//
-//					if(xOk && yOk){
-//						found = true;
-//						simulatie.addConsoleItem(String.format("Coordinate %s is correct!, moving to the next step",i), "DEBUG");
-//						//index = i;
-//						break;
-//					}else{
-//						simulatie.addConsoleItem(String.format("Coordinate %s is incorrect!, moving on",i), "DEBUG");
-//					}
-//					i++;
-//				}*/
-//				//if(!found){
-//
-//					/*
-//					if(x == y && x < Constants.gridSize){
-//						x++;
-//						simulatie.addConsoleItem(String.format("Moving to new Coordinate, (%s, %s)", x, y), "DEBUG");
-//					}else if(y < Constants.gridSize){
-//						y++;
-//						simulatie.addConsoleItem(String.format("Moving to new Coordinate, (%s, %s)", x, y), "DEBUG");
-//					}else{
-//						simulatie.addConsoleItem("Coordinate not found", "DEBUG");
-//						found = true;
-//					}
-//					*/
-//				//}
-//			}
-
-
-		//}
+            /* ===== LOOP 1 (old one) ===== */
+			if (!found) {
+				simulatie.addConsoleItem(String.format("Current location: (%s, %s)", x, y), "DEBUG");
+				if (step < (Constants.gridSize * 2)) {
+					if (y > 0 && x < (Constants.gridSize - 1)) {
+						y--;
+						x++;
+					} else {
+						if (step < (Constants.gridSize - 1)) {  // 1e 5 stappen
+							step++;
+							y = step;//Constants.gridSize - 1;
+							x = 0;//step - (Constants.gridSize - 1);
+						} else {  // 2e 5 stappen
+							step++;
+							y = (Constants.gridSize - 1);
+							x = step - (Constants.gridSize - 1);
+						}
+					}
+				} else {
+					found = true;
+				}
+			}
+		}
 		return index;
 	}
 }

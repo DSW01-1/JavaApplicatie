@@ -7,56 +7,38 @@ import java.util.Collections;
 
 public class BruteForce
 {
+	//returnBoxes is de arrayList die boxen returned met de producten.
+	//latestBoxes is de laatste gesorteerde arraylist
 	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	private ArrayList<Box> latestBoxes = new ArrayList<Box>();
-	private int leastBoxAmount = 1000;
 	private boolean fitted;
-
-	public ArrayList<Box> executeBruteForce(ArrayList<Product> products)
-	{
-		ArrayList<Product> productList = products;
-		for (int i = 0; i <= products.size(); i++)
-		{
-			for (Product product : productList)
-			{
-				for (Box currentBox : latestBoxes)
-				{
-					if (currentBox.checkFit(product.GetSize()) && fitted == false)
-					{
+	private int x;
+	public ArrayList<Box> executeBruteForce(ArrayList<Product> products) {
+		while(x<products.size()-1) {
+			for (Product product : products) {
+				for (Box currentBox : latestBoxes) {
+					if (currentBox.checkFit(product.GetSize()) && fitted == false) {
 						currentBox.addProduct(product);
 						fitted = true;
 					}
 				}
-				if (!fitted)
-				{
-					Box newBox = new Box(10);
-					latestBoxes.add(newBox);
-					newBox.addProduct(product);
+				if (!fitted) {
+					Box currentBox = new Box(10);
+					currentBox.addProduct(product);
+					latestBoxes.add(currentBox);
 				}
 				fitted = false;
 			}
-			if (leastBoxAmount == 0)
-			{
-				leastBoxAmount = latestBoxes.size();
-				System.out.println(leastBoxAmount + "hier washet 0");
-				returnBoxes = latestBoxes;
-			}
-			else if (latestBoxes.size() < leastBoxAmount)
-			{
+			Collections.rotate(products, 1);
+			x++;
+			if (latestBoxes.size() < returnBoxes.size()||returnBoxes.size()==0) {
 				System.out.println(latestBoxes.size());
-				leastBoxAmount = latestBoxes.size();
 				returnBoxes = latestBoxes;
+				System.out.println(returnBoxes.size());
 			}
-			Collections.rotate(productList, 1);
 		}
+		System.out.println(returnBoxes);
 		System.out.println(returnBoxes.size() + " box(es) needed");
 		return returnBoxes;
-	}
-
-	public void clearAlgorithmCache()
-	{
-		returnBoxes.clear();
-		leastBoxAmount = 0;
-		latestBoxes.clear();
 	}
 }
