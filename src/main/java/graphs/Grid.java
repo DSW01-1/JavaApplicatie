@@ -82,6 +82,7 @@ public class Grid extends Canvas
 	public void Redraw()
 	{
 		gc.setLineWidth(1);
+		gc.setStroke(Color.BLACK);
 		gc.clearRect(0, 0, getWidth(), getHeight());
 		for (int y = 0; y <= tileAmount; y++)
 		{
@@ -91,14 +92,19 @@ public class Grid extends Canvas
 				gc.strokeLine(x * tileSize, 0, x * tileSize, gridSize);
 			}
 		}
+		
+		ArrayList<Vector2> points = new ArrayList<Vector2>();
 
 		for (GridTile tile : gridTileArray)
 		{
 			if (tile.IsSelected())
 			{
 				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
+				points.add(tile.GetPos());
 			}
 		}
+		
+		DrawPathLines(points);
 	}
 
 	public void DrawTileIfSelected(Vector2 tilePos)
@@ -116,11 +122,11 @@ public class Grid extends Canvas
 		
 		for (int i = 0; i < points.size() - 1; i++)
 		{
-			double x1 = points.get(i).getX() * tileSize - tileSize + (tileSize / 3);
-			double x2 = points.get(i + 1).getX() * tileSize - tileSize + (tileSize / 3);
+			double x1 = points.get(i).getX() * tileSize - tileSize + (tileSize / 2);
+			double x2 = points.get(i + 1).getX() * tileSize - tileSize + (tileSize / 2);
 			
-			double y1 = points.get(i).getY() * tileSize - tileSize + (tileSize / 3);
-			double y2 = points.get(i + 1).getY() * tileSize - tileSize + (tileSize / 3);
+			double y1 = points.get(i).getY() * tileSize - tileSize + (tileSize / 2);
+			double y2 = points.get(i + 1).getY() * tileSize - tileSize + (tileSize / 2);
 			
 			gc.strokeLine(x1, y1, x2, y2);
 		}

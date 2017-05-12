@@ -1,7 +1,10 @@
 package main.java.pane;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import main.java.main.Language;
 import main.java.main.Main;
@@ -81,5 +84,20 @@ public class MainMenu extends StyledPane
 			}
 		});
 		getChildren().add(exitButton);
+
+		ChoiceBox<String> choiceBox = new ChoiceBox<String>();
+		choiceBox.setLayoutX(ScreenProperties.getScreenWidth() - 200);
+		choiceBox.setLayoutY(0);
+		choiceBox.getItems().addAll("English", "Nederlands", "Deutsch");
+		choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2)
+			{
+				Language.ChangeLanguage(choiceBox.getItems().get((Integer) number2));
+				Main.SwitchPane(new MainMenu());
+			}
+		});
+		getChildren().add(choiceBox);
 	}
 }

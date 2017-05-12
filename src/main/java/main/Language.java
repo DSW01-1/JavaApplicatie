@@ -8,11 +8,33 @@ import main.java.constant.Constants;
 public class Language
 {
 
+	public static String currentLanguage = "nl";
+	public static String currentCountry = "NL";
+
 	public static String getTranslation(String word)
 	{
-		Locale currentLocale = new Locale(Config.currentLanguage, Config.currentCountry);
-		ResourceBundle translations = ResourceBundle.getBundle(Constants.localizationLocation + "LanguagesBundle", currentLocale);
+		Locale currentLocale = new Locale(currentLanguage, currentCountry);
+		ResourceBundle translations = ResourceBundle.getBundle(Constants.localizationLocation + "LanguagesBundle",
+				currentLocale);
 		return translations.getString(word);
 	}
 
+	public static void ChangeLanguage(String languageName)
+	{
+		switch (languageName)
+		{
+		case "Nederlands":
+			currentCountry = "NL";
+			currentLanguage = "nl";
+			break;
+		case "English":
+			currentCountry = "GB";
+			currentLanguage = "en";
+			break;
+		case "Deutsch":
+			currentCountry = "DE";
+			currentLanguage = "de";
+			break;
+		}
+	}
 }
