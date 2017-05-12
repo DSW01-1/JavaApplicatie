@@ -43,7 +43,7 @@ public class TspSimulation extends StyledPane
 
 		getChildren().add(goBackToMenu);
 
-		Grid newGrid = new Grid(true);
+		Grid newGrid = new Grid(5, true);
 		getChildren().add(newGrid);
 		newGrid.setLayoutX(300);
 		newGrid.setLayoutY(15);

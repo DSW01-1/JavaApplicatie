@@ -13,7 +13,7 @@ public class RobotTab extends StyledPane
 
 	public RobotTab()
 	{
-		grid = new Grid(true);
+		grid = new Grid(5, true);
 		getChildren().add(grid);
 
 		CreateControlButtons();

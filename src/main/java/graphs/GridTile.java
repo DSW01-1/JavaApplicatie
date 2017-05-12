@@ -1,42 +1,35 @@
 package main.java.graphs;
 
-import javafx.scene.canvas.Canvas;
 import main.java.main.Vector2;
 
-public class GridTile extends Canvas
+public class GridTile
 {
-	private Vector2 coords;
+	private Vector2 pos;
 	private boolean isSelected;
 
-	public GridTile(Vector2 coords)
+	public GridTile(Vector2 pos)
 	{
-		this.coords = coords;
-		SetSelected(false);
+		this.pos = pos;
+		isSelected = false;
 	}
-
-	public Vector2 GetCoords()
+	
+	public int getXcoord()
 	{
-		return coords;
+		return (int) pos.getX();
 	}
-
-	public double getXcoord() {
-		double xCoord = coords.getX();
-
-		return xCoord;
-	}
-	public double getYcoord() {
-		double yCoord = coords.getY();
-
-		return yCoord;
+	
+	public int getYcoord()
+	{
+		return (int) pos.getY();
 	}
 
 	public boolean IsSelected()
 	{
 		return isSelected;
 	}
-
-	public void SetSelected(boolean select)
+	
+	public void SetSelected(boolean selected)
 	{
-		isSelected = select;
+		isSelected = selected;
 	}
 }

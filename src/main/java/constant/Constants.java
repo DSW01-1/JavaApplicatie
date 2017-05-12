@@ -16,6 +16,6 @@ public class Constants
 	public static String xImage = iconLocation + "x.png";
 	
 	//Size of the grid
-	public static int gridSize = 5;
+	public static int gridSize = 500;
 		
 }
