@@ -17,8 +17,8 @@ public class ArduinoController
 		
 	}
 	
-	public void HandleOutput()
+	public void HandleOutput(String command)
 	{
-		comHandler.WriteToArduino("");
+		comHandler.WriteToArduino(command);
 	}
 }
