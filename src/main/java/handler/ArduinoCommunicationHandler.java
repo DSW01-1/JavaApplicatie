@@ -108,7 +108,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 			}
 			catch (Exception e)
 			{
-				System.err.println(e.toString());
+				//System.err.println(e.toString());
 			}
 		}
 	}

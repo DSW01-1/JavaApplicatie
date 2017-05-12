@@ -10,6 +10,7 @@ import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.simulation.BppSimulation;
+import main.java.pane.simulation.RobotSimulation;
 import main.java.pane.simulation.TspSimulation;
 
 public class MainMenu extends StyledPane
@@ -57,10 +58,10 @@ public class MainMenu extends StyledPane
 		simulationsButton.setOnAction(event ->
 		{
 			StyledPane[] tabArray =
-			{ new TspSimulation(), new BppSimulation() };
+			{ new TspSimulation(), new BppSimulation(), new RobotSimulation() };
 
 			String[] nameArray =
-			{ "TSP", "BPP" };
+			{ "TSP", "BPP", "Robot" };
 
 			Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 		});
