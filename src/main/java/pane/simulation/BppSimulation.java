@@ -1,25 +1,18 @@
 package main.java.pane.simulation;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.*;
+import java.util.ArrayList;
+
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import main.java.algorithms.bpp.FirstFit;
 import main.java.algorithms.bpp.NextFit;
 import main.java.graphs.Product;
-import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.Vector2;
 import main.java.pane.MainMenu;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
-import main.java.pane.simulation.TspSimulation;
-
-import java.awt.*;
-import java.awt.Label;
-import java.util.ArrayList;
-
-import static java.lang.Integer.parseInt;
 
 public class BppSimulation extends StyledPane
 {
@@ -29,7 +22,8 @@ public class BppSimulation extends StyledPane
 	public ListView<String> consoleList = new ListView<String>();
 	private ArrayList<Product> products = new ArrayList<Product>();
 
-	public BppSimulation() {
+	public BppSimulation()
+	{
 		consoleList.setLayoutX(15);
 		consoleList.setLayoutY(570);
 		consoleList.setPrefWidth(825);
@@ -37,60 +31,75 @@ public class BppSimulation extends StyledPane
 		getChildren().add(consoleList);
 		simulation = this;
 		// back to main menu
-		StyledButton orderHistoryButton = new StyledButton(Language.getTranslation("btn.backToMainMenu"),
-				new Vector2(15, 15), new Vector2(200, 50));
+		StyledButton orderHistoryButton = new StyledButton("btn.backToMainMenu", new Vector2(15, 15),
+				new Vector2(200, 50));
 		orderHistoryButton.setOnAction(event ->
 		{
 			Main.SwitchPane(new MainMenu());
 		});
 		getChildren().add(orderHistoryButton);
-		//text field for product sizes
+		// text field for product sizes
 		TextField productSizes = new TextField("");
 		productSizes.setLayoutX(1025);
 		productSizes.setLayoutY(750);
 		productSizes.setPrefHeight(30);
 		productSizes.setPrefWidth(150);
 		getChildren().add(productSizes);
-		//textfield for box size
+		// textfield for box size
 		TextField boxSize = new TextField("");
 		boxSize.setLayoutX(1025);
 		boxSize.setLayoutY(650);
 		boxSize.setPrefHeight(30);
 		boxSize.setPrefWidth(150);
 		getChildren().add(boxSize);
-		//labels for both text fields
-		StyledLabel productSizesLabel = new StyledLabel("Product size:",new Vector2(880,750),20);
+		// labels for both text fields
+		StyledLabel productSizesLabel = new StyledLabel("lbl.productSize", new Vector2(880, 750), 20);
 		getChildren().add(productSizesLabel);
-		StyledLabel boxSizeLabel = new StyledLabel("Box size:",new Vector2(923,650),20);
+		StyledLabel boxSizeLabel = new StyledLabel("lbl.boxSize", new Vector2(923, 650), 20);
 		getChildren().add(boxSizeLabel);
-		//button for confirming box size
+		// button for confirming box size
 		NextFit nextFit = new NextFit(this);
-		StyledButton confirmBoxSize = new StyledButton("Confirm",new Vector2(1185,650));
-		confirmBoxSize.setOnAction(event ->{
+		FirstFit firstFit = new FirstFit(this);
+		StyledButton confirmBoxSize = new StyledButton("btn.confirm", new Vector2(1185, 650));
+		confirmBoxSize.setOnAction(event ->
+		{
+			firstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
 			nextFit.boxVolume = (Integer.parseInt(boxSize.getText()));
 			boxSize.setText("");
 		});
+
 		getChildren().add(confirmBoxSize);
-		//button for confirming product size
-		StyledButton confirmProductSize = new StyledButton("Confirm",new Vector2(1185,750));
-		confirmProductSize.setOnAction(event -> {
+		// button for confirming product size
+		StyledButton confirmProductSize = new StyledButton("btn.confirm", new Vector2(1185, 750));
+		confirmProductSize.setOnAction(event ->
+		{
 			products.add(new Product(Integer.parseInt(productSizes.getText())));
 			productSizes.setText("");
 		});
 		getChildren().add(confirmProductSize);
 
-		//start algorithm
-		StyledButton startNextFit = new StyledButton("Start Next Fit",new Vector2(15,200));
-		startNextFit.setOnAction(event -> {
-			nextFit.executeNextFit(products,this);
+		// start algorithm
+		StyledButton startNextFit = new StyledButton("btn.startNextFit", new Vector2(15, 200));
+		startNextFit.setOnAction(event ->
+		{
+			nextFit.executeNextFit(products, this);
 			products.clear();
 			nextFit.returnBoxes.clear();
 		});
+		StyledButton startFirstFit = new StyledButton("btn.startFirstFit", new Vector2(15, 300));
+		startFirstFit.setOnAction(event ->
+		{
+			firstFit.executeFirstFit(products, this);
+			products.clear();
+			firstFit.returnBoxes.clear();
+		});
 		getChildren().add(startNextFit);
+		getChildren().add(startFirstFit);
 	}
+
 	public void addConsoleItem(String Message, String msgType)
 	{
 		consoleList.getItems().add(consoleList.getItems().size(), String.format("[%s] %s", msgType, Message));
 	}
-	//getters for textfields
+	// getters for textfields
 }

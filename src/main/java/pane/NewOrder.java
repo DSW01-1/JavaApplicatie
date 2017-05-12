@@ -2,7 +2,6 @@ package main.java.pane;
 
 import java.util.ArrayList;
 
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -15,6 +14,7 @@ import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
+import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
 import main.java.pane.tab.BPPTab;
@@ -30,7 +30,7 @@ public class NewOrder extends StyledPane
 	public void InitPane()
 	{
 		// Back to menu button
-		StyledButton btnBackToMainMenu = new StyledButton(Language.getTranslation("btn.backToMainMenu"),
+		StyledButton btnBackToMainMenu = new StyledButton("btn.backToMainMenu",
 				new Vector2(10, 10));
 		btnBackToMainMenu.setOnAction(event -> Main.SwitchPane(new MainMenu()));
 		getChildren().add(btnBackToMainMenu);
@@ -58,7 +58,7 @@ public class NewOrder extends StyledPane
 
 		for (int i = 0; i < labelArray.length; i++)
 		{
-			form.add(new Label(Language.getTranslation(labelArray[i])), 0, i);
+			form.add(new StyledLabel(labelArray[i]), 0, i);
 			TextField textField = new TextField();
 
 			form.add(textField, 1, i);
@@ -67,7 +67,7 @@ public class NewOrder extends StyledPane
 
 		// The order button, can't be pressed if no items are in the right
 		// column
-		StyledButton orderButton = new StyledButton(Language.getTranslation("btn.order"));
+		StyledButton orderButton = new StyledButton("btn.order");
 		orderButton.setOnAction(event ->
 		{
 			String[] userData = new String[formItems.length];

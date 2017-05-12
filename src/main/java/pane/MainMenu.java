@@ -10,6 +10,7 @@ import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.simulation.BppSimulation;
+import main.java.pane.simulation.RobotSimulation;
 import main.java.pane.simulation.TspSimulation;
 
 public class MainMenu extends StyledPane
@@ -27,7 +28,7 @@ public class MainMenu extends StyledPane
 		setId("background");
 
 		// New Order Button
-		StyledButton newOrderButton = new StyledButton(Language.getTranslation("btn.newOrder"),
+		StyledButton newOrderButton = new StyledButton("btn.newOrder",
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4), new Vector2(200, 50));
 		newOrderButton.setOnAction(new EventHandler<ActionEvent>()
 		{
@@ -40,7 +41,7 @@ public class MainMenu extends StyledPane
 		getChildren().add(newOrderButton);
 
 		// Order History Button
-		StyledButton orderHistoryButton = new StyledButton(Language.getTranslation("btn.orderHistory"),
+		StyledButton orderHistoryButton = new StyledButton("btn.orderHistory",
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 100), new Vector2(200, 50));
 		orderHistoryButton.setOnAction(new EventHandler<ActionEvent>()
 		{
@@ -52,15 +53,15 @@ public class MainMenu extends StyledPane
 		getChildren().add(orderHistoryButton);
 
 		// Simulations Button
-		StyledButton simulationsButton = new StyledButton(Language.getTranslation("btn.simulations"),
+		StyledButton simulationsButton = new StyledButton("btn.simulations",
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 200), new Vector2(200, 50));
 		simulationsButton.setOnAction(event ->
 		{
 			StyledPane[] tabArray =
-			{ new TspSimulation(), new BppSimulation() };
+			{ new TspSimulation(), new BppSimulation(), new RobotSimulation() };
 
 			String[] nameArray =
-			{ "TSP", "BPP" };
+			{ "TSP", "BPP", "Robot" };
 
 			Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 		});
@@ -68,7 +69,7 @@ public class MainMenu extends StyledPane
 		getChildren().add(simulationsButton);
 
 		// Exit Button
-		final StyledButton exitButton = new StyledButton(Language.getTranslation("btn.exit"),
+		final StyledButton exitButton = new StyledButton("btn.exit",
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
 		exitButton.setOnAction(new EventHandler<ActionEvent>()
 		{

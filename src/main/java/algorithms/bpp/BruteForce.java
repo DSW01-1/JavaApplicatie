@@ -9,9 +9,10 @@ public class BruteForce
 {
 	//returnBoxes is de arrayList die boxen returned met de producten.
 	//latestBoxes is de laatste gesorteerde arraylist
+	public int boxVolume;
 	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	private ArrayList<Box> latestBoxes = new ArrayList<Box>();
-	private Box currentBox = new Box(10);
+	private Box currentBox = new Box(boxVolume);
 	private boolean fitted;
 	private int x=1;
 	public ArrayList<Box> executeBruteForce(ArrayList<Product> products) {
@@ -27,7 +28,7 @@ public class BruteForce
 					}
 				}
 				if (fitted == false) {
-					Box newBox = new Box(10);
+					Box newBox = new Box(boxVolume);
 					latestBoxes.add(newBox);
 					newBox.addProduct(product);
 					System.out.println("New box named: "+newBox+" Product fitted");
