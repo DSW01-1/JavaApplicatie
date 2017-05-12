@@ -30,7 +30,6 @@ public class BppSimulation extends StyledPane
 	private ArrayList<Product> products = new ArrayList<Product>();
 
 	public BppSimulation() {
-		NextFit nextFit = new NextFit(this);
 		consoleList.setLayoutX(15);
 		consoleList.setLayoutY(570);
 		consoleList.setPrefWidth(825);
@@ -65,6 +64,7 @@ public class BppSimulation extends StyledPane
 		StyledLabel boxSizeLabel = new StyledLabel("Box size:",new Vector2(923,650),20);
 		getChildren().add(boxSizeLabel);
 		//button for confirming box size
+		NextFit nextFit = new NextFit(this);
 		StyledButton confirmBoxSize = new StyledButton("Confirm",new Vector2(1185,650));
 		confirmBoxSize.setOnAction(event ->{
 			nextFit.boxVolume = (Integer.parseInt(boxSize.getText()));
@@ -84,6 +84,7 @@ public class BppSimulation extends StyledPane
 		startNextFit.setOnAction(event -> {
 			nextFit.executeNextFit(products,this);
 			products.clear();
+			nextFit.returnBoxes.clear();
 		});
 		getChildren().add(startNextFit);
 	}
