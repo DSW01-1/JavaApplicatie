@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
+import main.java.main.Language;
 import main.java.main.Vector2;
 
 public class StyledButton extends Button
@@ -11,7 +12,7 @@ public class StyledButton extends Button
 
 	public StyledButton(String name)
 	{
-		super(name);
+		super(Language.getTranslation(name));
 		setId("button");
 		setCursor(Cursor.HAND);
 	}

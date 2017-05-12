@@ -6,15 +6,14 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import main.java.constant.Constants;
-import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 
 public class Grid extends Canvas
 {
 	private ArrayList<GridTile> gridTileArray;
 	private GraphicsContext gc;
-	private int tileSize;
 	private int tileAmount;
+	private int tileSize;
 	private int gridSize = Constants.gridSize;
 
 	public Grid(int tileAmount, boolean isInteractive)
@@ -26,11 +25,9 @@ public class Grid extends Canvas
 		setScaleY(-1);
 
 		this.tileAmount = tileAmount;
-		Redraw();
 
 		gridTileArray = new ArrayList<GridTile>();
-
-		tileSize = (ScreenProperties.getScreenHeight() / 2) / gridSize;
+		tileSize = gridSize / tileAmount;
 
 		for (int y = 0; y < gridSize; y++)
 		{
@@ -41,14 +38,22 @@ public class Grid extends Canvas
 			}
 		}
 
+		Redraw();
+
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
 		{
 			int x = (int) Math.ceil(event.getX() / (gridSize / tileAmount));
 			int y = (int) Math.ceil(event.getY() / (gridSize / tileAmount));
 
-			Vector2 mouseCoord = new Vector2(x, y);
+			for (GridTile tile : gridTileArray)
+			{
+				if (tile.getXcoord() == x && tile.getYcoord() == y)
+				{
+					tile.SetSelected(!tile.IsSelected());
+				}
+			}
 
-			System.out.println(x + ";" + y);
+			Redraw();
 		});
 	}
 
@@ -80,24 +85,25 @@ public class Grid extends Canvas
 		{
 			for (int x = 0; x <= tileAmount; x++)
 			{
-				gc.strokeLine(0, y * gridSize / tileAmount, gridSize, y * gridSize / tileAmount);
-				gc.strokeLine(x * gridSize / tileAmount, 0, x * gridSize / tileAmount, gridSize);
+				gc.strokeLine(0, y * tileSize, gridSize, y * tileSize);
+				gc.strokeLine(x * tileSize, 0, x * tileSize, gridSize);
+			}
+		}
+
+		for (GridTile tile : gridTileArray)
+		{
+			if (tile.IsSelected())
+			{
+				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
 			}
 		}
 	}
 
-	public void SetTile(Vector2 tilePos, boolean selected)
+	public void DrawTileIfSelected(Vector2 tilePos)
 	{
-		for (GridTile tile : gridTileArray)
-		{
-			if (tile.getXcoord() == tilePos.getX() && tile.getYcoord() == tilePos.getY())
-			{
-				tile.SetSelected(selected);
-				if (selected)
-				{
-					gc.fillOval(tilePos.getX() * tileSize, tilePos.getY() * tileSize, tileSize / 2, tileSize / 2);
-				}
-			}
-		}
+
+		gc.fillOval(tilePos.getX() * tileSize - tileSize + (tileSize / 3),
+				tilePos.getY() * tileSize - tileSize + (tileSize / 3), tileSize / 3, tileSize / 3);
+
 	}
 }

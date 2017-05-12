@@ -40,7 +40,7 @@ public class RobotTab extends StyledPane
 
 		for (int i = 0; i < 5; i++)
 		{
-			StyledButton styledButton = new StyledButton(Language.getTranslation(buttonNameArray[i]), codeArray[i]);
+			StyledButton styledButton = new StyledButton(buttonNameArray[i], codeArray[i]);
 			gridPane.add(styledButton, 0, i);
 		}
 	}

@@ -32,4 +32,9 @@ public class GridTile
 	{
 		isSelected = selected;
 	}
+	
+	public Vector2 GetPos()
+	{
+		return pos;
+	}
 }

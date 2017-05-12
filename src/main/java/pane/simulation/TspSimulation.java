@@ -2,6 +2,7 @@ package main.java.pane.simulation;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
@@ -11,7 +12,6 @@ import javafx.scene.shape.Rectangle;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
-import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.Vector2;
 import main.java.pane.MainMenu;
@@ -28,14 +28,14 @@ public class TspSimulation extends StyledPane
 
 	public TspSimulation()
 	{
-		//TODO
+		// TODO
 		int xPoint = 15;
 		int yPoint = 15;
 
 		tspSimulation = this;
 
 		// back to menu button
-		StyledButton goBackToMenu = new StyledButton(Language.getTranslation("btn.backToMainMenu"), new Vector2(15, 15), new Vector2(250, 50));
+		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", new Vector2(15, 15), new Vector2(250, 50));
 		goBackToMenu.setOnAction(event ->
 		{
 			Main.SwitchPane(new MainMenu());
@@ -55,24 +55,20 @@ public class TspSimulation extends StyledPane
 		getChildren().add(consoleList);
 
 		// RADIO BUTTONS
-		StyledLabel lblChooseAlgorithm = new StyledLabel("Algoritmes", new Vector2(15, 105), 20);
+		StyledLabel lblChooseAlgorithm = new StyledLabel("lbl.algorithms", new Vector2(15, 105), 20);
 		getChildren().add(lblChooseAlgorithm);
 
 		// RADIOBUTTONS
-		RadioButton chkAlgorithm1 = new StyledRadioButton(Language.getTranslation("btn.nearestNeighbour"),
-				new Vector2(15, 140));
+		RadioButton chkAlgorithm1 = new StyledRadioButton("btn.nearestNeighbour", new Vector2(15, 140));
 		getChildren().add(chkAlgorithm1);
 
-		RadioButton chkAlgorithm2 = new StyledRadioButton(Language.getTranslation("btn.multipleFragment"),
-				new Vector2(15, 165));
+		RadioButton chkAlgorithm2 = new StyledRadioButton("btn.multipleFragment", new Vector2(15, 165));
 		getChildren().add(chkAlgorithm2);
 
-		RadioButton chkAlgorithm3 = new StyledRadioButton(Language.getTranslation("btn.totalEnumeration"),
-				new Vector2(15, 190));
+		RadioButton chkAlgorithm3 = new StyledRadioButton("btn.totalEnumeration", new Vector2(15, 190));
 		getChildren().add(chkAlgorithm3);
 
-		RadioButton chkAlgorithm4 = new StyledRadioButton(Language.getTranslation("btn.ownAlgorithm"),
-				new Vector2(15, 215));
+		RadioButton chkAlgorithm4 = new StyledRadioButton("btn.ownAlgorithm", new Vector2(15, 215));
 		getChildren().add(chkAlgorithm4);
 
 		ToggleGroup radioGroup = new ToggleGroup();
@@ -82,7 +78,7 @@ public class TspSimulation extends StyledPane
 		chkAlgorithm4.setToggleGroup(radioGroup);
 
 		// START + STOP BUTTON
-		StyledButton startButton = new StyledButton("Play", new Vector2(15, 245), new Vector2(115, 30));
+		StyledButton startButton = new StyledButton("btn.play", new Vector2(15, 245), new Vector2(115, 30));
 		startButton.setOnAction(event ->
 		{
 			consoleList.getItems().clear();
@@ -104,8 +100,7 @@ public class TspSimulation extends StyledPane
 		});
 		getChildren().add(startButton);
 
-		StyledButton stopButton = new StyledButton(Language.getTranslation("btn.stop"), new Vector2(150, 245),
-				new Vector2(115, 30));
+		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(150, 245), new Vector2(115, 30));
 		stopButton.setOnAction(event ->
 		{
 
@@ -120,7 +115,7 @@ public class TspSimulation extends StyledPane
 		getChildren().add(progression);
 
 		// RESULTS
-		StyledLabel lblResults = new StyledLabel(Language.getTranslation("btn.results"), new Vector2(15, 340), 20);
+		StyledLabel lblResults = new StyledLabel("btn.results", new Vector2(15, 340), 20);
 		getChildren().add(lblResults);
 
 		Rectangle rectResults = new Rectangle(15, 370, 250, 130);
@@ -134,8 +129,7 @@ public class TspSimulation extends StyledPane
 		int[] resultY = new int[]
 		{ 380, 410, 440, 470 };
 		String[] resultNames = new String[]
-		{ Language.getTranslation("btn.nearestNeighbour"), Language.getTranslation("btn.multipleFragment"),
-				Language.getTranslation("btn.totalEnumeration"), Language.getTranslation("btn.ownAlgorithm") };
+		{ "btn.nearestNeighbour", "btn.multipleFragment", "btn.totalEnumeration", "btn.ownAlgorithm" };
 
 		for (int cnt = 0; cnt < 4; cnt++)
 		{
@@ -144,11 +138,13 @@ public class TspSimulation extends StyledPane
 		}
 
 		// RESULTS IN MS
-		getChildren().add(new StyledLabel("1 ms ", new Vector2(210, 380)));
-		getChildren().add(new StyledLabel("3 ms ", new Vector2(210, 410)));
-		getChildren().add(new StyledLabel("2.5 ms ", new Vector2(210, 440)));
-		getChildren().add(new StyledLabel("10 ms", new Vector2(210, 470)));
-
+		for (int i = 0; i < 4; i++)
+		{
+			Label label = new Label("1 ms");
+			label.setLayoutX(210);
+			label.setLayoutY(380 + (i * 30));
+			getChildren().add(label);
+		}
 	}
 
 	public void addConsoleItem(String Message, String msgType)
