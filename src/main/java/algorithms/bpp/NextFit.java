@@ -9,43 +9,49 @@ import java.util.ArrayList;
 
 public class NextFit
 {
+	//boxVolume gets set from bppSimulation
 	public int boxVolume;
+	//simulation added for messages to console
 	private BppSimulation simulation;
+	//actual messages returned to console
 	public ListView<String> consoleList = new ListView<String>();
+	//list of boxes returned
 	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
-	private boolean fitted = false;
-	private Box currentBox = new Box(boxVolume);
+	//initialize currentbox as box with volume 0 so a new box gets created.
+	private Box currentBox=new Box(0);
 	public NextFit(BppSimulation simulation){
 		this.simulation = simulation;
 	}
-
+	//method to print all products in list
 	public void printAllProducts(ArrayList<Product> products, BppSimulation simulation){
 		for(Product product : products){
 			simulation.addConsoleItem("products: "+ product,"DEBUG");
 		}
 	}
+	//method to execute algorithm
 	public ArrayList<Box> executeNextFit(ArrayList<Product> products, BppSimulation simulation) {
+		//clear returnBoxes arraylist so no leftovers of previous calculations remain.
 		returnBoxes.clear();
-		returnBoxes.add(currentBox);
+		simulation.addConsoleItem("Cleared returnboxes","DEBUG");
 		simulation.addConsoleItem("Box size used: "+ boxVolume +".","INFO");
+		//loop through all products asked for
 		for (Product product : products)
 		{
-			if (currentBox.checkFit(product.GetSize()) && !fitted)
+			//check if product fits in current box
+			if (currentBox.checkFit(product.GetSize()))
 			{
 				currentBox.addProduct(product);
-				fitted = true;
 				simulation.addConsoleItem("Added product (size: "+product.GetSize()+")to current box.","DEBUG");
 			}
-			if (!fitted)
+			else
 			{
 				currentBox = new Box(boxVolume);
 				currentBox.addProduct(product);
 				returnBoxes.add(currentBox);
-				simulation.addConsoleItem("Could not add product(size: "+product.GetSize()+") to current box. Created new box. Total amount of boxes: "+returnBoxes.size() + ".","DEBUG");
+				simulation.addConsoleItem("Could not add product(size: "+product.GetSize()+") to current box. Created new box. Total amount of boxes: "+returnBoxes.size() + " , Added product to new box.","DEBUG");
 			}
-			fitted = false;
 		}
-		currentBox= new Box(boxVolume);
+		currentBox= new Box(0);
 		simulation.addConsoleItem("Total amount of boxes needed:"+returnBoxes.size()+", filled with "+ products.size()+" products.","DEBUG");
 		simulation.addConsoleItem("FINISHED.","INFO");
 
