@@ -12,6 +12,7 @@ public class NearestNeighbour
 	ArrayList<GridTile> tileOrder;
 	ArrayList<GridTile> CoordList;
 	TspSimulation simulatie;
+	private List<Integer> usedIndex = new ArrayList<>();
 
 	public NearestNeighbour(ArrayList<GridTile> selectedTiles, TspSimulation simulatie)
 	{
@@ -19,16 +20,19 @@ public class NearestNeighbour
 		tileOrder = new ArrayList<GridTile>();
 		CoordList = selectedTiles;
 		this.simulatie = simulatie;
-		List<Integer> usedIndex = new ArrayList<>();
 
 
 		// SEARCH FOR FIRST TILE
-		int indexFirstTile = findFirstTile();
-		usedIndex.add(indexFirstTile);
+		simulatie.addConsoleItem("(Step 1/3) =====| LOCATING FIRST |=====", "INFO");
+		int currentIndex = findFirstTile();
+		usedIndex.add(currentIndex);
 
-		
-
-
+		// LOOP THROUGH ITEMS
+		simulatie.addConsoleItem("(Step 2/3) =====| DEFINING PATH |=====", "INFO");
+		for(int cnt = 0; cnt < (CoordList.size() - 1); cnt++) {
+			simulatie.addConsoleItem(String.format("Working on tile %s/%s",cnt+1,CoordList.size()), "DEBUG");
+			currentIndex = findNext(currentIndex);
+		}
 	}
 
 
@@ -40,15 +44,10 @@ public class NearestNeighbour
         boolean found = false;
         int step = 0;
 
-		simulatie.addConsoleItem("Searching for first coordinate", "DEBUG");
-		simulatie.addConsoleItem("Moving to first coordinate (0, 0)", "DEBUG");
-
-
         while (!found) {
-			//String cnt = (i < 9) ? String.format("0%d",i+1) : String.format("%d",i+1) ;
-			//    simulatie.addConsoleItem(String.format("=====| NEXT COORDINATE (x: %s ,y: %s)",x,y), "DEBUG");
 
-
+        	// show location
+			simulatie.addConsoleItem(String.format("Current location: (%s, %s)", x, y), "DEBUG");
 
             /* ===== COORDLIST LOOP 1 ===== */
 			int i = 0;
@@ -60,18 +59,15 @@ public class NearestNeighbour
 
 				if (xOk && yOk) {
 					found = true;
-					simulatie.addConsoleItem(String.format("Tile %s is correct!, moving to the next step", i), "DEBUG");
+					simulatie.addConsoleItem(String.format("Tile %s is correct!, moving to the next step", i), "INFO");
 					index = i;
 					break;
-				} else {
-					simulatie.addConsoleItem(String.format("Tile %s is incorrect!,", i), "DEBUG");
 				}
 				i++;
 			}
 
             /* ===== LOOP 1 (old one) ===== */
 			if (!found) {
-				simulatie.addConsoleItem(String.format("Current location: (%s, %s)", x, y), "DEBUG");
 				if (step < (Constants.gridSize * 2)) {
 					if (y > 0 && x < (Constants.gridSize - 1)) {
 						y--;
@@ -93,5 +89,27 @@ public class NearestNeighbour
 			}
 		}
 		return index;
+	}
+
+	private int findNext(int index){
+		List<Double[]> pathLength = new ArrayList<Double[]>();
+		int cnt = 0;
+		for(GridTile tile : CoordList){
+			if(!usedIndex.contains(cnt) && cnt != index){
+				double xDiff = tile.getXcoord() - CoordList.get(index).getXcoord();
+				double yDiff = tile.getYcoord() - CoordList.get(index).getYcoord();
+				double xyDiff = Math.hypot(xDiff, yDiff);
+				//pathLength.add(new Double[] {Double.parseDouble(cnt), xyDiff});
+
+				simulatie.addConsoleItem(String.format("  Tile %s X = %s, Y = %s", index+1, CoordList.get(index).getXcoord(), CoordList.get(index).getYcoord()), "DEBUG");
+				simulatie.addConsoleItem(String.format("  Tile %s X = %s, Y = %s", cnt+1, tile.getXcoord(), tile.getYcoord()), "DEBUG");
+				simulatie.addConsoleItem(String.format("  Difference between Tile %s and Tile %s: X = %s, Y = %s, Combined = %s", index+1, cnt+1, xDiff, yDiff, xyDiff), "DEBUG");
+
+
+			}
+
+			cnt++;
+		}
+		return 0;
 	}
 }
