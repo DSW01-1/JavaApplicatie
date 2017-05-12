@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import main.java.constant.Constants;
 import main.java.main.Vector2;
 
@@ -101,9 +103,26 @@ public class Grid extends Canvas
 
 	public void DrawTileIfSelected(Vector2 tilePos)
 	{
+		double x = tilePos.getX() * tileSize - tileSize + (tileSize / 3);
+		double y = tilePos.getY() * tileSize - tileSize + (tileSize / 3);
 
-		gc.fillOval(tilePos.getX() * tileSize - tileSize + (tileSize / 3),
-				tilePos.getY() * tileSize - tileSize + (tileSize / 3), tileSize / 3, tileSize / 3);
+		gc.fillOval(x, y, tileSize / 3, tileSize / 3);
+	}
 
+	public void DrawPathLines(ArrayList<Vector2> points)
+	{
+		gc.setLineWidth(5);
+		gc.setStroke(Color.INDIANRED);
+		
+		for (int i = 0; i < points.size() - 1; i++)
+		{
+			double x1 = points.get(i).getX() * tileSize - tileSize + (tileSize / 3);
+			double x2 = points.get(i + 1).getX() * tileSize - tileSize + (tileSize / 3);
+			
+			double y1 = points.get(i).getY() * tileSize - tileSize + (tileSize / 3);
+			double y2 = points.get(i + 1).getY() * tileSize - tileSize + (tileSize / 3);
+			
+			gc.strokeLine(x1, y1, x2, y2);
+		}
 	}
 }
