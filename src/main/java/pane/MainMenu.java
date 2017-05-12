@@ -54,19 +54,17 @@ public class MainMenu extends StyledPane
 		// Simulations Button
 		StyledButton simulationsButton = new StyledButton(Language.getTranslation("btn.simulations"),
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 200), new Vector2(200, 50));
-		simulationsButton.setOnAction(new EventHandler<ActionEvent>()
+		simulationsButton.setOnAction(event ->
 		{
-			public void handle(ActionEvent arg0)
-			{
-				StyledPane[] tabArray =
-				{ new TspSimulation(), new BppSimulation() };
+			StyledPane[] tabArray =
+			{ new TspSimulation(), new BppSimulation() };
 
-				String[] nameArray =
-				{ "TSP", "BPP" };
+			String[] nameArray =
+			{ "TSP", "BPP" };
 
-				Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
-			}
+			Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 		});
+
 		getChildren().add(simulationsButton);
 
 		// Exit Button

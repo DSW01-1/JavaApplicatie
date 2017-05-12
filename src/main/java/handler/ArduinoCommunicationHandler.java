@@ -9,31 +9,41 @@ import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+import main.java.constant.ArduinoConstants;
+import main.java.controller.ArduinoController;
 
 public class ArduinoCommunicationHandler implements SerialPortEventListener
 {
 	SerialPort serialPort;
-	/**
-	 * A BufferedReader which will be fed by a InputStreamReader converting the
-	 * bytes into characters making the displayed results codepage independent
-	 */
 	private BufferedReader input;
 	private OutputStream output;
+	private ArduinoController controller;
+
+	public ArduinoCommunicationHandler(ArduinoController controller)
+	{
+		this.controller = controller;
+	}
+
 	/** Milliseconds to block while waiting for port open */
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
 
-	public CommPortIdentifier GetArduinoPort(String portName)
+	/**
+	 * Connect to the port the arduino is connected to
+	 * @param portName the portname the arduino is connected to
+	 * @return the port the arduino is connected to
+	 */
+	public CommPortIdentifier GetArduinoPort()
 	{
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
-		// First, Find an instance of serial port as set in PORT_NAMES.
+		//Loop through every port
 		while (portEnum.hasMoreElements())
 		{
 			CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
 
-			if (currPortId.getName().equals(portName))
+			if (currPortId.getName().equals(ArduinoConstants.comPort))
 			{
 				portId = currPortId;
 				break;
@@ -43,10 +53,13 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 		return portId;
 	}
 
-	public void initialize()
+	/**
+	 * Setup a connection with the arduino, set the input and output
+	 */
+	public void EstablishConnection()
 	{
 
-		CommPortIdentifier portId = GetArduinoPort("COM3");
+		CommPortIdentifier portId = GetArduinoPort();
 
 		try
 		{
@@ -70,6 +83,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 			System.err.println(e.toString());
 		}
 	}
+
 	/**
 	 * This should be called when you stop using the port. This will prevent
 	 * port locking on platforms like Linux.
@@ -83,9 +97,6 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 		}
 	}
 
-	/**
-	 * Handle an event on the serial port. Read the data and print it.
-	 */
 	public synchronized void serialEvent(SerialPortEvent oEvent)
 	{
 		if (oEvent.getEventType() == SerialPortEvent.DATA_AVAILABLE)
@@ -93,14 +104,24 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 			try
 			{
 				String inputLine = input.readLine();
-				System.out.println(inputLine);
+				controller.HandleInput(inputLine);
 			}
 			catch (Exception e)
 			{
 				System.err.println(e.toString());
 			}
 		}
-		// Ignore all the other eventTypes, but you should consider the other
-		// ones.
+	}
+
+	public synchronized void WriteToArduino(String data)
+	{
+		try
+		{
+			output.write(data.getBytes());
+		}
+		catch (Exception e)
+		{
+			LogHandler.WriteErrorToLogFile(e, "Could not write to Arduino");
+		}
 	}
 }
