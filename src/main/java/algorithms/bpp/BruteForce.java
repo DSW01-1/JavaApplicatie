@@ -2,6 +2,8 @@ package main.java.algorithms.bpp;
 
 import main.java.graphs.Box;
 import main.java.graphs.Product;
+import main.java.pane.simulation.BppSimulation;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -10,43 +12,48 @@ public class BruteForce
 	//returnBoxes is de arrayList die boxen returned met de producten.
 	//latestBoxes is de laatste gesorteerde arraylist
 	public int boxVolume;
+	private BppSimulation simulation;
 	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
-	private ArrayList<Box> latestBoxes = new ArrayList<Box>();
-	private Box currentBox = new Box(boxVolume);
-	private boolean fitted;
-	private int x=1;
+	public BruteForce(BppSimulation simulation){
+		this.simulation=simulation;
+	}
 	public ArrayList<Box> executeBruteForce(ArrayList<Product> products) {
-		while(x<=products.size()) {
-			latestBoxes.clear();
-			System.out.println("Loop nr: "+x);
-			for (Product product : products) {
-				for (Box currentBox : latestBoxes) {
-					if (currentBox.checkFit(product.GetSize())&&fitted==false) {
-						System.out.println("Product fitted");
-						currentBox.addProduct(product);
-						fitted = true;
-					}
-				}
-				if (fitted == false) {
-					Box newBox = new Box(boxVolume);
-					latestBoxes.add(newBox);
-					newBox.addProduct(product);
-					System.out.println("New box named: "+newBox+" Product fitted");
-				}
-				fitted = false;
+		int currentBoxAmount;
+		int bestBoxAmount=products.size()+1;
+		for(int i =0;i<products.size();i++){
+			currentBoxAmount=sortProducts(products).size();
+			if(currentBoxAmount<bestBoxAmount)){
+				bestBoxAmount=currentBoxAmount;
+				simulation.addConsoleItem("New best amount","DEBUG");
 			}
-			if (latestBoxes.size() < returnBoxes.size()||returnBoxes.size()==0) {
-				System.out.println("New least box size which is: "+latestBoxes.size());
-				returnBoxes = latestBoxes;
+			else{
+				bestBoxAmount=currentBoxAmount;
 			}
-			Collections.rotate(products, 1);
-			System.out.println("Collections rotated");
-			System.out.println("Product order: "+products);
-			x++;
-			System.out.println();
+			Collections.rotate(products,1);
 		}
-		System.out.println("Boxes"+returnBoxes);
-		System.out.println(returnBoxes.size() + " box(es) needed");
+		simulation.addConsoleItem("Best Box amount = "+bestBoxAmount,"DEBUG");
+		simulation.addConsoleItem("FINISHED","INFO");
 		return returnBoxes;
+	}
+	private ArrayList<Box> sortProducts(ArrayList<Product> products) {
+		ArrayList<Box> sortedBoxes = new ArrayList<>();
+		boolean fitted=false;
+		for (Product product : products) {
+			for (Box currentBox : sortedBoxes) {
+				if (currentBox.checkFit(product.GetSize()) && fitted == false) {
+					simulation.addConsoleItem("Product fitted", "DEBUG");
+					currentBox.addProduct(product);
+					fitted = true;
+				}
+			}
+			if (fitted == false) {
+				Box newBox = new Box(boxVolume);
+				sortedBoxes.add(newBox);
+				newBox.addProduct(product);
+				simulation.addConsoleItem("Product did not fit, new box created. Amount of boxes is: " + sortedBoxes.size(), "DEBUG");
+			}
+			fitted = false;
+		}
+		return sortedBoxes;
 	}
 }

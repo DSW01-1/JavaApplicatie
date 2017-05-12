@@ -26,15 +26,14 @@ public class FirstFit {
                 if (currentBox.checkFit(product.GetSize())&&fitted==false) {
                     currentBox.addProduct(product);
                     fitted = true;
-                    this.simulation.addConsoleItem("Added product (size: "+product.GetSize()+")to current box.","DEBUG");
-
+                    this.simulation.addConsoleItem("Added product (size: "+product.GetSize()+")to a box.","DEBUG");
                 }
             }
             if (fitted == false) {
                 Box newBox = new Box(boxVolume);
                 returnBoxes.add(newBox);
                 newBox.addProduct(product);
-                this.simulation.addConsoleItem("Could not add product(size: "+product.GetSize()+") to current box. Created new box. Total amount of boxes: "+returnBoxes.size() + ". Added product to new box.","DEBUG");
+                this.simulation.addConsoleItem("Could not add product(size: "+product.GetSize()+") to a box. Created new box. Total amount of boxes: "+returnBoxes.size() + ". Added product to new box.","DEBUG");
 
             }
             fitted = false;
