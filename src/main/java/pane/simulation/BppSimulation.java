@@ -4,6 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
+import main.java.algorithms.bpp.FirstFit;
 import main.java.algorithms.bpp.NextFit;
 import main.java.graphs.Product;
 import main.java.main.Language;
@@ -65,11 +66,14 @@ public class BppSimulation extends StyledPane
 		getChildren().add(boxSizeLabel);
 		//button for confirming box size
 		NextFit nextFit = new NextFit(this);
+		FirstFit firstFit = new FirstFit(this);
 		StyledButton confirmBoxSize = new StyledButton("Confirm",new Vector2(1185,650));
 		confirmBoxSize.setOnAction(event ->{
+			firstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
 			nextFit.boxVolume = (Integer.parseInt(boxSize.getText()));
 			boxSize.setText("");
 		});
+
 		getChildren().add(confirmBoxSize);
 		//button for confirming product size
 		StyledButton confirmProductSize = new StyledButton("Confirm",new Vector2(1185,750));
@@ -86,7 +90,14 @@ public class BppSimulation extends StyledPane
 			products.clear();
 			nextFit.returnBoxes.clear();
 		});
+		StyledButton startFirstFit = new StyledButton("Start First Fit",new Vector2(15,300));
+		startFirstFit.setOnAction(event -> {
+			firstFit.executeFirstFit(products,this);
+			products.clear();
+			firstFit.returnBoxes.clear();
+		});
 		getChildren().add(startNextFit);
+		getChildren().add(startFirstFit);
 	}
 	public void addConsoleItem(String Message, String msgType)
 	{
