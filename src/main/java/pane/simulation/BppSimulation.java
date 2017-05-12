@@ -6,6 +6,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import main.java.algorithms.bpp.FirstFit;
 import main.java.algorithms.bpp.NextFit;
+import main.java.constant.Constants;
 import main.java.graphs.Product;
 import main.java.main.Main;
 import main.java.main.Vector2;
@@ -30,14 +31,15 @@ public class BppSimulation extends StyledPane
 		consoleList.setPrefHeight(250);
 		getChildren().add(consoleList);
 		simulation = this;
-		// back to main menu
-		StyledButton orderHistoryButton = new StyledButton("btn.backToMainMenu", new Vector2(15, 15),
-				new Vector2(200, 50));
-		orderHistoryButton.setOnAction(event ->
+
+		// back to menu button
+		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
+		goBackToMenu.setOnAction(event ->
 		{
 			Main.SwitchPane(new MainMenu());
 		});
-		getChildren().add(orderHistoryButton);
+		getChildren().add(goBackToMenu);
+
 		// text field for product sizes
 		TextField productSizes = new TextField("");
 		productSizes.setLayoutX(1025);

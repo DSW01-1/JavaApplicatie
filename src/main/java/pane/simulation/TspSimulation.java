@@ -10,6 +10,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.java.algorithms.tsp.NearestNeighbour;
+import main.java.constant.Constants;
 import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
 import main.java.main.Main;
@@ -35,7 +36,7 @@ public class TspSimulation extends StyledPane
 		tspSimulation = this;
 
 		// back to menu button
-		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", new Vector2(15, 15), new Vector2(250, 50));
+		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
 		goBackToMenu.setOnAction(event ->
 		{
 			Main.SwitchPane(new MainMenu());
