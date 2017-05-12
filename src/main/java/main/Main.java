@@ -23,7 +23,7 @@ public class Main extends Application
 
 			primaryStage.setMaximized(true);
 			primaryStage.show();
-			
+
 			Class.forName("com.mysql.jdbc.Driver");
 		}
 		catch (ClassNotFoundException e)

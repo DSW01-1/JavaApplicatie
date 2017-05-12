@@ -1,40 +1,21 @@
 package main.java.pane.simulation;
 
 import main.java.controller.ArduinoController;
-import main.java.main.Vector2;
-import main.java.pane.base.StyledButton;
+import main.java.graphs.Grid;
 import main.java.pane.base.StyledPane;
 
 public class RobotSimulation extends StyledPane
 {
 
 	ArduinoController controller;
-	private boolean isLightOn;
 
 	public RobotSimulation()
 	{
-		CreateControlButtons();
+		Grid grid = new Grid(5, false);
+		grid.setLayoutX(100);
+		grid.setLayoutY(100);
+		getChildren().add(grid);
 
-		controller = new ArduinoController();
-	}
-
-	private void CreateControlButtons()
-	{
-		
-		// StyledButton lightsOnButton = new StyledButton("Toggle Lights", new
-		// Vector2(100, 100));
-		// lightsOnButton.setOnAction(event ->
-		// {
-		// if(isLightOn)
-		// {
-		// controller.HandleOutput("<cmd.lightsOn>");
-		// }
-		// else
-		// {
-		// controller.HandleOutput("<cmd.lightsOff>");
-		// }
-		// isLightOn = !isLightOn;
-		// });
-		// getChildren().add(lightsOnButton);
+		controller = new ArduinoController(grid);
 	}
 }

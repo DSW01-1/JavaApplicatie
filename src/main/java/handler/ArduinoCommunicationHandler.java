@@ -22,6 +22,14 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 	public ArduinoCommunicationHandler(ArduinoController controller)
 	{
 		this.controller = controller;
+		
+		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
+		{
+			public void run()
+			{
+				close();
+			}
+		}, "Shutdown-thread"));
 	}
 
 	/** Milliseconds to block while waiting for port open */

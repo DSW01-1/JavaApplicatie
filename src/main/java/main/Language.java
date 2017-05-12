@@ -37,4 +37,18 @@ public class Language
 			break;
 		}
 	}
+
+	public static String GetCurrentLanguage()
+	{
+		switch (currentLanguage)
+		{
+		case "nl":
+			return "Nederlands";
+		case "en":
+			return "English";
+		case "de":
+			return "Deutsch";
+		}
+		return "";
+	}
 }
