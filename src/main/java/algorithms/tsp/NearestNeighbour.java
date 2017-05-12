@@ -7,19 +7,17 @@ import java.util.List;
 import main.java.constant.Constants;
 import main.java.graphs.GridTile;
 import main.java.main.Vector2;
-import main.java.pane.simulation.TspSimulation;
 
 public class NearestNeighbour
 {
-	ArrayList<GridTile> tileOrder;
-	ArrayList<GridTile> CoordList;
+	private ArrayList<GridTile> CoordList;
 	private List<Integer> usedIndex = new ArrayList<>();
 	private ArrayList<Vector2> shortestPath = new ArrayList<>();
 
 	public NearestNeighbour(
 			ArrayList<GridTile> selectedTiles /* TspSimulation simulatie */ )
 	{
-		tileOrder = new ArrayList<GridTile>();
+		ArrayList<GridTile> tileOrder = new ArrayList<GridTile>();
 		CoordList = selectedTiles;
 
 		// SEARCH FOR FIRST TILE

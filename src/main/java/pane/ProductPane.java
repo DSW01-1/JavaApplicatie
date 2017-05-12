@@ -28,7 +28,7 @@ public class ProductPane extends Pane
 
 		AddText(product.GetName());
 
-		if (columnSide.equals("left"))
+		if ("left".equals(columnSide))
 		{
 			AddShoppingCart();
 		}

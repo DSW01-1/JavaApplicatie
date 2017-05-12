@@ -60,7 +60,7 @@ public class BppSimulation extends StyledPane
 		StyledLabel boxSizeLabel = new StyledLabel("lbl.boxSize", new Vector2(923, 650), 20);
 		getChildren().add(boxSizeLabel);
 		// button for confirming box size
-		NextFit nextFit = new NextFit(this);
+		NextFit nextFit = new NextFit();
 		FirstFit firstFit = new FirstFit(this);
 		StyledButton confirmBoxSize = new StyledButton("btn.confirm", new Vector2(1185, 650));
 		confirmBoxSize.setOnAction(event ->

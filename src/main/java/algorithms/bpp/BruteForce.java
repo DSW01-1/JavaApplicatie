@@ -46,19 +46,19 @@ public class BruteForce
 	private ArrayList<Box> sortProducts(ArrayList<Product> products)
 	{
 		ArrayList<Box> sortedBoxes = new ArrayList<>();
-		boolean fitted = false;
+		boolean doesFit = false;
 		for (Product product : products)
 		{
 			for (Box currentBox : sortedBoxes)
 			{
-				if (currentBox.checkFit(product.GetSize()) && fitted == false)
+				if (currentBox.checkFit(product.GetSize()) && !doesFit)
 				{
 					simulation.addConsoleItem("Product fitted", "DEBUG");
 					currentBox.addProduct(product);
-					fitted = true;
+					doesFit = true;
 				}
 			}
-			if (fitted == false)
+			if (!doesFit)
 			{
 				Box newBox = new Box(boxVolume);
 				sortedBoxes.add(newBox);
@@ -66,7 +66,7 @@ public class BruteForce
 				simulation.addConsoleItem(
 						"Product did not fit, new box created. Amount of boxes is: " + sortedBoxes.size(), "DEBUG");
 			}
-			fitted = false;
+			doesFit = false;
 		}
 		return sortedBoxes;
 	}

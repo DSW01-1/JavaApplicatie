@@ -175,7 +175,7 @@ public class NewOrder extends StyledPane
 	 */
 	public void MoveProduct(String fromSide, ProductPane productPane)
 	{
-		if (fromSide.equals("right"))
+		if ("right".equals(fromSide))
 		{
 			rightColumnVBox.getChildren().remove(productPane);
 			leftColumnVBox.getChildren().add(new ProductPane(productPane.GetProduct(), "left", this));

@@ -10,9 +10,6 @@ import main.java.pane.base.StyledPane;
 
 public class RobotSimulation extends StyledPane
 {
-
-	ArduinoController controller;
-
 	public RobotSimulation()
 	{
 		Grid grid = new Grid(5, false);
@@ -28,6 +25,6 @@ public class RobotSimulation extends StyledPane
 		});
 		getChildren().add(goBackToMenu);
 
-		controller = new ArduinoController(grid);
+		new ArduinoController(grid);
 	}
 }

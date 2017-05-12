@@ -18,6 +18,10 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 	private BufferedReader input;
 	private OutputStream output;
 	private ArduinoController controller;
+	
+	/** Milliseconds to block while waiting for port open */
+	private static final int TIME_OUT = 2000;
+	private static final int DATA_RATE = 9600;
 
 	public ArduinoCommunicationHandler(ArduinoController controller)
 	{
@@ -32,9 +36,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 		}, "Shutdown-thread"));
 	}
 
-	/** Milliseconds to block while waiting for port open */
-	private static final int TIME_OUT = 2000;
-	private static final int DATA_RATE = 9600;
+	
 
 	/**
 	 * Connect to the port the arduino is connected to

@@ -35,6 +35,8 @@ public class Language
 			currentCountry = "DE";
 			currentLanguage = "de";
 			break;
+		default:
+			break;
 		}
 	}
 
@@ -48,7 +50,8 @@ public class Language
 			return "English";
 		case "de":
 			return "Deutsch";
+		default:
+			return "Nederlands";
 		}
-		return "";
 	}
 }

@@ -17,7 +17,7 @@ public class ArduinoController
 	}
 
 	public void HandleInput(String input)
-	{		
+	{
 		switch (input)
 		{
 		case "goLeft":
