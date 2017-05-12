@@ -45,12 +45,14 @@ public class NextFit
 			}
 			else
 			{
+				//else create new box for currentBox and add product then
 				currentBox = new Box(boxVolume);
 				currentBox.addProduct(product);
 				returnBoxes.add(currentBox);
 				simulation.addConsoleItem("Could not add product(size: "+product.GetSize()+") to current box. Created new box. Total amount of boxes: "+returnBoxes.size() + " , Added product to new box.","DEBUG");
 			}
 		}
+		//set currentBox size 0 again so a new one immediately gets initialized and added next time at execution
 		currentBox= new Box(0);
 		simulation.addConsoleItem("Total amount of boxes needed:"+returnBoxes.size()+", filled with "+ products.size()+" products.","DEBUG");
 		simulation.addConsoleItem("FINISHED.","INFO");
