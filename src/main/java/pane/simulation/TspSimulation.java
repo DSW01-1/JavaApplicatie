@@ -1,131 +1,155 @@
-package main.java.algorithms.tsp;
+package main.java.pane.simulation;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import main.java.constant.Constants;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import main.java.algorithms.tsp.NearestNeighbour;
+import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
+import main.java.main.Main;
 import main.java.main.Vector2;
-import main.java.pane.simulation.TspSimulation;
+import main.java.pane.MainMenu;
+import main.java.pane.base.StyledButton;
+import main.java.pane.base.StyledLabel;
+import main.java.pane.base.StyledPane;
+import main.java.pane.base.StyledRadioButton;
 
-public class NearestNeighbour
+public class TspSimulation extends StyledPane
 {
-	ArrayList<GridTile> tileOrder;
-	ArrayList<GridTile> CoordList;
-	TspSimulation simulatie;
-	private List<Integer> usedIndex = new ArrayList<>();
-	private ArrayList<Vector2> shortestPath = new ArrayList<>();
 
-	public NearestNeighbour(ArrayList<GridTile> selectedTiles /*TspSimulation simulatie */ )
+	public ListView<String> consoleList = new ListView<String>();
+	public static TspSimulation tspSimulation;
+
+	public TspSimulation()
 	{
-		// DEFINING ARRAYLISTS
-		tileOrder = new ArrayList<GridTile>();
-		CoordList = selectedTiles;
-		this.simulatie = simulatie;
+		// TODO
+		int xPoint = 15;
+		int yPoint = 15;
 
+		tspSimulation = this;
 
-		// SEARCH FOR FIRST TILE
-		//simulatie.addConsoleItem("(Step 1/3) =====| LOCATING FIRST |=====", "INFO");
-		int currentIndex = findFirstTile();
-		usedIndex.add(currentIndex);
-		shortestPath.add(new Vector2(CoordList.get(currentIndex).getXcoord(), CoordList.get(currentIndex).getYcoord()));
+		// back to menu button
+		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", new Vector2(15, 15), new Vector2(250, 50));
+		goBackToMenu.setOnAction(event ->
+		{
+			Main.SwitchPane(new MainMenu());
+		});
+		getChildren().add(goBackToMenu);
 
+		Grid newGrid = new Grid(5, true);
+		getChildren().add(newGrid);
+		newGrid.setLayoutX(300);
+		newGrid.setLayoutY(15);
 
-		// LOOP THROUGH ITEMS
-		//simulatie.addConsoleItem("(Step 2/3) =====| DEFINING PATH |=====", "INFO");
-		for(int cnt = 0; cnt < (CoordList.size() - 1); cnt++) {
-			simulatie.addConsoleItem(String.format("Working on tile %s/%s",cnt+1,CoordList.size()), "DEBUG");
-			currentIndex = findNext(currentIndex);
-		}
-	}
+		consoleList.setLayoutX(15);
+		consoleList.setLayoutY(570);
+		consoleList.setPrefWidth(825);
+		consoleList.setPrefHeight(250);
+		getChildren().add(consoleList);
 
+		// RADIO BUTTONS
+		StyledLabel lblChooseAlgorithm = new StyledLabel("lbl.algorithms", new Vector2(15, 105), 20);
+		getChildren().add(lblChooseAlgorithm);
 
+		// RADIOBUTTONS
+		RadioButton chkAlgorithm1 = new StyledRadioButton("btn.nearestNeighbour", new Vector2(15, 140));
+		getChildren().add(chkAlgorithm1);
 
-	private int findFirstTile(){
-		int index = 0;
-		int x = 0;
-		int y = 0;
-		boolean found = false;
-		int step = 0;
+		RadioButton chkAlgorithm2 = new StyledRadioButton("btn.multipleFragment", new Vector2(15, 165));
+		getChildren().add(chkAlgorithm2);
 
-		while (!found) {
+		RadioButton chkAlgorithm3 = new StyledRadioButton("btn.totalEnumeration", new Vector2(15, 190));
+		getChildren().add(chkAlgorithm3);
 
-			// show location
-			//simulatie.addConsoleItem(String.format("Current location: (%s, %s)", x, y), "DEBUG");
+		RadioButton chkAlgorithm4 = new StyledRadioButton("btn.ownAlgorithm", new Vector2(15, 215));
+		getChildren().add(chkAlgorithm4);
 
-			int i = 0;
-			for (GridTile tile : CoordList) {
-				boolean xOk = (tile.getXcoord() == x);
-				boolean yOk = (tile.getYcoord() == y);
+		ToggleGroup radioGroup = new ToggleGroup();
+		chkAlgorithm1.setToggleGroup(radioGroup);
+		chkAlgorithm2.setToggleGroup(radioGroup);
+		chkAlgorithm3.setToggleGroup(radioGroup);
+		chkAlgorithm4.setToggleGroup(radioGroup);
 
-				if (xOk && yOk) {
-					found = true;
-					//simulatie.addConsoleItem(String.format("Tile %s is correct!, moving to the next step", i), "INFO");
-					index = i;
-					break;
-				}
-				i++;
+		// START + STOP BUTTON
+		StyledButton startButton = new StyledButton("btn.play", new Vector2(15, 245), new Vector2(115, 30));
+		startButton.setOnAction(event ->
+		{
+			consoleList.getItems().clear();
+			addConsoleItem("Starting Algorithm 'nearest neighbour'", "DEBUG");
+			addConsoleItem("Searching for Coordinates", "DEBUG");
+
+			ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
+			if (activeTiles.size() > 0)
+			{
+				addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
+				NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
+			}
+			else
+			{
+				addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
+						"DEBUG");
 			}
 
-            /* ===== LOOP 1 (old one) ===== */
-			if (!found) {
-				if (step < (Constants.gridSize * 2)) {
-					if (y > 0 && x < (Constants.gridSize - 1)) {
-						y--;
-						x++;
-					} else {
-						if (step < (Constants.gridSize - 1)) {  // 1e 5 stappen
-							step++;
-							y = step;//Constants.gridSize - 1;
-							x = 0;//step - (Constants.gridSize - 1);
-						} else {  // 2e 5 stappen
-							step++;
-							y = (Constants.gridSize - 1);
-							x = step - (Constants.gridSize - 1);
-						}
-					}
-				} else {
-					found = true;
-				}
-			}
+		});
+		getChildren().add(startButton);
+
+		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(150, 245), new Vector2(115, 30));
+		stopButton.setOnAction(event ->
+		{
+
+		});
+		getChildren().add(stopButton);
+
+		// PROGRESS BAR
+		ProgressBar progression = new ProgressBar(0.6);
+		progression.setLayoutX(15);
+		progression.setLayoutY(295);
+		progression.setPrefWidth(250);
+		getChildren().add(progression);
+
+		// RESULTS
+		StyledLabel lblResults = new StyledLabel("btn.results", new Vector2(15, 340), 20);
+		getChildren().add(lblResults);
+
+		Rectangle rectResults = new Rectangle(15, 370, 250, 130);
+		rectResults.setFill(Color.TRANSPARENT);
+		rectResults.setStroke(Color.BLACK);
+		rectResults.setArcHeight(6);
+		rectResults.setArcWidth(6);
+		getChildren().add(rectResults);
+
+		// RESULT LABELS
+		int[] resultY = new int[]
+		{ 380, 410, 440, 470 };
+		String[] resultNames = new String[]
+		{ "btn.nearestNeighbour", "btn.multipleFragment", "btn.totalEnumeration", "btn.ownAlgorithm" };
+
+		for (int cnt = 0; cnt < 4; cnt++)
+		{
+			StyledLabel lblResAlg = new StyledLabel(resultNames[cnt], new Vector2(23, resultY[cnt]));
+			getChildren().add(lblResAlg);
 		}
 
-		return index;
-	}
-
-	private int findNext(int index){
-		//List<Double[]> pathLength = new ArrayList<Double[]>();
-		int cnt = 0;
-		Double[] shortestRoute = {(double)0,(double)0};
-		//simulatie.addConsoleItem("    ==========| Starting Loop |==========","DEBUG");
-
-		for(GridTile tile : CoordList){
-			if(!usedIndex.contains(cnt) && cnt != index){
-				double xDiff = tile.getXcoord() - CoordList.get(index).getXcoord();
-				double yDiff = tile.getYcoord() - CoordList.get(index).getYcoord();
-				double xyDiff = Math.hypot(xDiff, yDiff);
-				//simulatie.addConsoleItem("    ==========| Moving to the next Tile |==========","DEBUG");
-				//simulatie.addConsoleItem(String.format("  Tile %s X = %s, Y = %s", index+1, CoordList.get(index).getXcoord(), CoordList.get(index).getYcoord()), "DEBUG");
-				//simulatie.addConsoleItem(String.format("  Tile %s X = %s, Y = %s", cnt+1, tile.getXcoord(), tile.getYcoord()), "DEBUG");
-				//simulatie.addConsoleItem(String.format("  Difference between Tile %s and Tile %s: X = %s, Y = %s, Combined = %s", index+1, cnt+1, xDiff, yDiff, xyDiff), "DEBUG");
-
-				if(shortestRoute[1] == 0 || shortestRoute[1] > xyDiff){
-					shortestRoute[0] = (double)cnt;
-					shortestRoute[1] = xyDiff;
-					//simulatie.addConsoleItem("  This tile has been determined as the new shortest route", "DEBUG");
-				}
-			}
-
-			cnt++;
+		// RESULTS IN MS
+		for (int i = 0; i < 4; i++)
+		{
+			Label label = new Label("1 ms");
+			label.setLayoutX(210);
+			label.setLayoutY(380 + (i * 30));
+			getChildren().add(label);
 		}
 
-		int FinalInt = (int) Math.round(shortestRoute[0]); // Line replaced
-		usedIndex.add( FinalInt);
-		shortestPath.add(new Vector2(CoordList.get(FinalInt).getXcoord(), CoordList.get(FinalInt).getYcoord()));
-		return FinalInt;
 	}
 
-	public ArrayList<Vector2> getShortestPath(){
-		return shortestPath;
+	public void addConsoleItem(String Message, String msgType)
+	{
+		consoleList.getItems().add(consoleList.getItems().size(), String.format("[%s] %s", msgType, Message));
 	}
+
 }
