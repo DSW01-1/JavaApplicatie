@@ -18,7 +18,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 	private BufferedReader input;
 	private OutputStream output;
 	private ArduinoController controller;
-	
+
 	/** Milliseconds to block while waiting for port open */
 	private static final int TIME_OUT = 2000;
 	private static final int DATA_RATE = 9600;
@@ -26,7 +26,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 	public ArduinoCommunicationHandler(ArduinoController controller)
 	{
 		this.controller = controller;
-		
+
 		Runtime.getRuntime().addShutdownHook(new Thread(new Runnable()
 		{
 			public void run()
@@ -36,11 +36,11 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 		}, "Shutdown-thread"));
 	}
 
-	
-
 	/**
 	 * Connect to the port the arduino is connected to
-	 * @param portName the portname the arduino is connected to
+	 * 
+	 * @param portName
+	 *            the portname the arduino is connected to
 	 * @return the port the arduino is connected to
 	 */
 	public CommPortIdentifier GetArduinoPort()
@@ -48,7 +48,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 		CommPortIdentifier portId = null;
 		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
 
-		//Loop through every port
+		// Loop through every port
 		while (portEnum.hasMoreElements())
 		{
 			CommPortIdentifier currPortId = (CommPortIdentifier) portEnum.nextElement();
@@ -90,7 +90,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 		}
 		catch (Exception e)
 		{
-			System.err.println(e.toString());
+			LogHandler.WriteErrorToLogFile(e, "Could not establish Connection");
 		}
 	}
 
@@ -118,7 +118,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 			}
 			catch (Exception e)
 			{
-				//System.err.println(e.toString());
+				// System.err.println(e.toString());
 			}
 		}
 	}
