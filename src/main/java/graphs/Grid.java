@@ -16,7 +16,7 @@ public class Grid extends Canvas
 	private int tileAmount;
 	private int tileSize;
 	private int gridSize = Constants.gridSize;
-	private Vector2 robotPos = new Vector2(0, 0);
+	private Vector2 robotPos;
 
 	public Grid(int tileAmount, boolean isInteractive)
 	{
@@ -87,11 +87,13 @@ public class Grid extends Canvas
 		{
 			for (int x = 0; x <= tileAmount; x++)
 			{
-				if (robotPos.getX() == x && robotPos.getY() == robotPos.getY())
+				if (robotPos != null)
 				{
-					System.out.println(robotPos.getX() + ":" + robotPos.getY());
-					gc.setFill(Color.ANTIQUEWHITE);
-					gc.fillRect(robotPos.getX() * tileSize, robotPos.getY() * tileSize, tileSize, tileSize);
+					if (robotPos.getX() == x && robotPos.getY() == robotPos.getY())
+					{
+						gc.setFill(Color.ANTIQUEWHITE);
+						gc.fillRect(robotPos.getX() * tileSize, robotPos.getY() * tileSize, tileSize, tileSize);
+					}
 				}
 
 				gc.setStroke(Color.BLACK);
@@ -159,7 +161,6 @@ public class Grid extends Canvas
 	{
 		if (robotPos.getX() + transPos.getX() >= 0 && robotPos.getX() + transPos.getX() < tileAmount)
 		{
-			System.out.println(robotPos.getX() + transPos.getX());
 			robotPos.setX((int) (robotPos.getX() + transPos.getX()));
 		}
 
