@@ -32,10 +32,6 @@ public class BruteForce
 				bestBoxAmount = currentBoxAmount;
 				simulation.addConsoleItem("New best amount", "DEBUG");
 			}
-			else
-			{
-				bestBoxAmount = currentBoxAmount;
-			}
 			Collections.rotate(products, 1);
 		}
 		simulation.addConsoleItem("Best Box amount = " + bestBoxAmount, "DEBUG");
