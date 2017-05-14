@@ -63,8 +63,7 @@ public class BruteForce
 				Box newBox = new Box(boxVolume);
 				sortedBoxes.add(newBox);
 				newBox.addProduct(product);
-				simulation.addConsoleItem(
-						"Product did not fit, new box created. Amount of boxes is: " + sortedBoxes.size(), "DEBUG");
+				simulation.addConsoleItem("Product did not fit, new box created. Amount of boxes is: " + sortedBoxes.size(), "DEBUG");
 			}
 			doesFit = false;
 		}
