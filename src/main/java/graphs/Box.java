@@ -24,8 +24,15 @@ public class Box
 		this.volume = this.volume - product.GetSize();
 	}
 
-	public void clearBox()
-	{
-		this.products.clear();
+	public String printNameAtLocation(int i){
+		return products.get(i).GetName();
+	}
+
+	public String printSizeAtLocation(int i){
+		return String.valueOf(products.get(i).GetSize());
+	}
+
+	public int getSize(){
+		return products.size();
 	}
 }

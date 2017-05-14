@@ -56,9 +56,9 @@ public class BppSimulation extends StyledPane
 		boxSize.setPrefWidth(150);
 		getChildren().add(boxSize);
 		// labels for both text fields
-		StyledLabel productSizesLabel = new StyledLabel("lbl.productSize", new Vector2(880, 750), 20);
+		StyledLabel productSizesLabel = new StyledLabel("lbl.productSize", new Vector2(850, 750), 20);
 		getChildren().add(productSizesLabel);
-		StyledLabel boxSizeLabel = new StyledLabel("lbl.boxSize", new Vector2(923, 650), 20);
+		StyledLabel boxSizeLabel = new StyledLabel("lbl.boxSize", new Vector2(870, 650), 20);
 		getChildren().add(boxSizeLabel);
 		// button for confirming box size
 		NextFit nextFit = new NextFit();
