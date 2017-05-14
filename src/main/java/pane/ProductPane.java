@@ -9,6 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import main.java.constant.Constants;
 import main.java.graphs.Product;
+import main.java.handler.LogHandler;
 
 public class ProductPane extends Pane
 {
@@ -50,7 +51,7 @@ public class ProductPane extends Pane
 		}
 		catch (IllegalArgumentException e)
 		{
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "Image string not correct");
 		}
 
 		imageView.setFitWidth(30);

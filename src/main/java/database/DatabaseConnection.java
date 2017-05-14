@@ -154,7 +154,7 @@ public class DatabaseConnection
 			}
 			catch (SQLException e)
 			{
-				e.printStackTrace();
+				LogHandler.WriteErrorToLogFile(e, "Could not retrieve data from database");
 			}
 		}
 		return rs;
