@@ -29,6 +29,7 @@ public class RobotSimulation extends StyledPane
 
 		StyledButton connectArduino = new StyledButton("btn.connectArduino",
 				new Vector2(Constants.backTMMBP.getX(), 90));
+		
 		connectArduino.setOnAction(event ->
 		{
 			new ArduinoController(grid);
