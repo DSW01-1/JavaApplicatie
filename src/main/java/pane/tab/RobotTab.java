@@ -10,7 +10,7 @@ public class RobotTab extends StyledPane
 {
 	public RobotTab()
 	{
-		getChildren().add(new Grid(5, true));
+		getChildren().add(new Grid(5, false));
 
 		CreateControlButtons();
 	}

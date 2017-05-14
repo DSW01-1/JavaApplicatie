@@ -2,6 +2,9 @@ package main.java.pane.simulation;
 
 import java.util.ArrayList;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
@@ -14,6 +17,7 @@ import main.java.constant.Constants;
 import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
 import main.java.main.Main;
+import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.MainMenu;
 import main.java.pane.base.StyledButton;
@@ -146,6 +150,20 @@ public class TspSimulation extends StyledPane
 			getChildren().add(label);
 		}
 
+		getChildren().add(new StyledLabel("lbl.lineColor", new Vector2(ScreenProperties.getScreenWidth() / 2, 20)));
+
+		ColorPicker colorPicker = new ColorPicker();
+		colorPicker.setLayoutX(ScreenProperties.getScreenWidth() / 2 + 65);
+		colorPicker.setLayoutY(17);
+		colorPicker.setOnAction(new EventHandler<ActionEvent>()
+		{
+			public void handle(ActionEvent event)
+			{
+				newGrid.SetLineColor(colorPicker.getValue());
+			}
+		});
+
+		getChildren().add(colorPicker);
 	}
 
 	public void addConsoleItem(String Message, String msgType)

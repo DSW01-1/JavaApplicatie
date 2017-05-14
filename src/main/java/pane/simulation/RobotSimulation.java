@@ -1,5 +1,6 @@
 package main.java.pane.simulation;
 
+import javafx.scene.control.ColorPicker;
 import main.java.constant.Constants;
 import main.java.controller.ArduinoController;
 import main.java.graphs.Grid;
@@ -35,5 +36,9 @@ public class RobotSimulation extends StyledPane
 			new ArduinoController(grid);
 		});
 		getChildren().add(connectArduino);
+		
+		ColorPicker colorPicker = new ColorPicker();
+		grid.SetLineColor(colorPicker.getValue());
+		getChildren().add(colorPicker);
 	}
 }

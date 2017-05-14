@@ -94,7 +94,7 @@ public class ProductPane extends Pane
 		}
 		catch (IllegalArgumentException e)
 		{
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "Image string not correct");
 		}
 		
 		imageView.setFitWidth(30);

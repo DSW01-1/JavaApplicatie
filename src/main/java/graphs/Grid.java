@@ -17,6 +17,7 @@ public class Grid extends Canvas
 	private int tileSize;
 	private int gridSize = Constants.gridSize;
 	private Vector2 robotPos;
+	private Color lineColor = Color.INDIANRED;
 
 	public Grid(int tileAmount, boolean isInteractive)
 	{
@@ -29,8 +30,18 @@ public class Grid extends Canvas
 
 		CreateTiles();
 
+		if (isInteractive)
+		{
+			AddMouseEventHandler();
+		}
 		Redraw();
+	}
 
+	/**
+	 * Add a mouse handler to add points on the grid
+	 */
+	private void AddMouseEventHandler()
+	{
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
 		{
 			int x = (int) Math.ceil(event.getX() / (gridSize / tileAmount));
@@ -43,7 +54,6 @@ public class Grid extends Canvas
 					tile.SetSelected(!tile.IsSelected());
 				}
 			}
-
 			Redraw();
 		});
 	}
@@ -92,7 +102,6 @@ public class Grid extends Canvas
 				selectedTiles.add(currentTile);
 			}
 		}
-
 		return selectedTiles;
 	}
 
@@ -101,8 +110,9 @@ public class Grid extends Canvas
 	 */
 	public void Redraw()
 	{
-		gc.setLineWidth(1);
+		ArrayList<Vector2> points = new ArrayList<Vector2>();
 		gc.clearRect(0, 0, getWidth(), getHeight());
+		gc.setLineWidth(1);
 
 		for (int y = tileAmount; y >= 0; y--)
 		{
@@ -118,11 +128,8 @@ public class Grid extends Canvas
 				gc.setStroke(Color.BLACK);
 				gc.strokeLine(0, y * tileSize, gridSize, y * tileSize);
 				gc.strokeLine(x * tileSize, 0, x * tileSize, gridSize);
-
 			}
 		}
-
-		ArrayList<Vector2> points = new ArrayList<Vector2>();
 
 		// Draw the points
 		for (GridTile tile : gridTileArray)
@@ -133,7 +140,7 @@ public class Grid extends Canvas
 				points.add(tile.GetPos());
 			}
 		}
-		
+
 		points.add(new Vector2(1, 1));
 
 		// TODO change points to the algorithm used
@@ -175,7 +182,7 @@ public class Grid extends Canvas
 	public void DrawPathLines(ArrayList<Vector2> points)
 	{
 		gc.setLineWidth(5);
-		gc.setStroke(Color.INDIANRED);
+		gc.setStroke(lineColor);
 
 		for (int i = 0; i < points.size() - 1; i++)
 		{
@@ -196,15 +203,20 @@ public class Grid extends Canvas
 	 */
 	public void SetRobotPos(Vector2 transPos)
 	{
+		if (robotPos == null)
+		{
+			robotPos = new Vector2(0, 0);
+		}
+
 		if (robotPos.getX() + transPos.getX() >= 0 && robotPos.getX() + transPos.getX() < tileAmount)
 		{
 			robotPos.setX((int) (robotPos.getX() + transPos.getX()));
 		}
 
-		/*
-		 * if (robotPos.getY() > transPos.getY()) { robotPos.setY((int)
-		 * (robotPos.getY() + transPos.getY())); }
-		 */
+		if (robotPos.getY() > transPos.getY())
+		{
+			robotPos.setY((int) (robotPos.getY() + transPos.getY()));
+		}
 
 		Redraw();
 	}
@@ -217,5 +229,11 @@ public class Grid extends Canvas
 	public Vector2 GetRobotPos()
 	{
 		return robotPos;
+	}
+
+	public void SetLineColor(Color color)
+	{
+		lineColor = color;
+		Redraw();
 	}
 }
