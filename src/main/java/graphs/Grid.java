@@ -18,6 +18,7 @@ public class Grid extends Canvas
 	private int gridSize = Constants.gridSize;
 	private Vector2 robotPos;
 	private Color lineColor = Color.INDIANRED;
+	private boolean isInteractive;
 
 	public Grid(int tileAmount, boolean isInteractive)
 	{
@@ -27,6 +28,7 @@ public class Grid extends Canvas
 		setHeight(gridSize);
 		setScaleY(-1);
 		this.tileAmount = tileAmount;
+		this.isInteractive = isInteractive;
 
 		CreateTiles();
 
@@ -235,5 +237,16 @@ public class Grid extends Canvas
 	{
 		lineColor = color;
 		Redraw();
+	}
+
+	/**
+	 * Set the interacitvity of the grid, used by the robot simulation after
+	 * setting a path
+	 * 
+	 * @param isInteractive
+	 */
+	public void SetInteractivity(boolean isInteractive)
+	{
+		this.isInteractive = isInteractive;
 	}
 }

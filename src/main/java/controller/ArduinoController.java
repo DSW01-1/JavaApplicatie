@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import main.java.constant.ArduinoConstants;
 import main.java.graphs.Grid;
 import main.java.handler.ArduinoCommunicationHandler;
 import main.java.main.Vector2;
@@ -20,17 +21,19 @@ public class ArduinoController
 	{
 		switch (input)
 		{
-		case "goLeft":
+		case ArduinoConstants.cmdMoveLeft:
 			grid.SetRobotPos(new Vector2(-1, 0));
 			break;
-		case "goRight":
+		case ArduinoConstants.cmdMoveRight:
 			grid.SetRobotPos(new Vector2(1, 0));
 			break;
-		case "goUp":
+		case ArduinoConstants.cmdMoveUp:
 			grid.SetRobotPos(new Vector2(0, 1));
 			break;
-		case "goDown":
+		case ArduinoConstants.cmdMoveDown:
 			grid.SetRobotPos(new Vector2(0, -1));
+			break;
+		default:
 			break;
 		}
 	}
