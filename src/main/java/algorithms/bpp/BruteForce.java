@@ -25,6 +25,7 @@ public class BruteForce
 		simulation.addConsoleItem("Cleared cache.", "DEBUG");
 		simulation.addConsoleItem("Starting Brute Force Algorithm.", "INFO");
 		simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
+		returnBoxes.clear();
 		int currentBoxAmount;
 		int bestBoxAmount = products.size() + 1;
 		//loop through all products
@@ -53,9 +54,12 @@ public class BruteForce
 		}
 		simulation.addConsoleItem("Best Box amount = " + bestBoxAmount, "DEBUG");
 		simulation.addConsoleItem("FINISHED", "INFO");
+		simulation.addConsoleItem("Boxes ordered: "+returnBoxes,"DEBUG");
 		for(int k=0;k<returnBoxes.get(0).getSize();k++){
 			simulation.addConsoleItem(returnBoxes.get(0).printSizeAtLocation(k),"DEBUG");
 		}
+		simulation.addConsoleItem("FINISHED", "INFO");
+		simulation.addConsoleItem("---------------------------------------------------------------------","INFO");
 		return returnBoxes;
 	}
 
