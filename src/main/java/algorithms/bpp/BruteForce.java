@@ -26,6 +26,7 @@ public class BruteForce
 		simulation.addConsoleItem("Starting Brute Force Algorithm.", "INFO");
 		simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
 		returnBoxes.clear();
+		Long startTime =System.nanoTime();
 		int currentBoxAmount;
 		int bestBoxAmount = products.size() + 1;
 		//loop through all products
@@ -52,6 +53,7 @@ public class BruteForce
 			Collections.rotate(products, 1);
 
 		}
+		long endTime = System.nanoTime();
 		simulation.addConsoleItem("Best Box amount = " + bestBoxAmount, "DEBUG");
 		simulation.addConsoleItem("FINISHED", "INFO");
 		simulation.addConsoleItem("Boxes ordered: "+returnBoxes,"DEBUG");
@@ -59,6 +61,8 @@ public class BruteForce
 			simulation.addConsoleItem(returnBoxes.get(0).printSizeAtLocation(k),"DEBUG");
 		}
 		simulation.addConsoleItem("FINISHED", "INFO");
+		Long duration = (endTime - startTime) / 100000;
+		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		simulation.addConsoleItem("---------------------------------------------------------------------","INFO");
 		return returnBoxes;
 	}

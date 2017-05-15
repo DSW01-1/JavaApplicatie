@@ -64,10 +64,10 @@ public class NextFit
 		// set currentBox size 0 again so a new one immediately gets initialized
 		// and added next time at execution
 		currentBox = new Box(0);
+		Long endTime = System.nanoTime();
 		simulation.addConsoleItem("Total amount of boxes needed:" + returnBoxes.size() + ", filled with "
 				+ products.size() + " products.", "INFO");
 		simulation.addConsoleItem("FINISHED.", "INFO");
-		Long endTime = System.nanoTime();
 		Long duration = (endTime - startTime) / 100000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		endTime = null;
