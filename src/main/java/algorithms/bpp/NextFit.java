@@ -34,9 +34,9 @@ public class NextFit
 		// remain.
 		returnBoxes.clear();
 		Long startTime = System.nanoTime();
-		simulation.addConsoleItem("Cleared returnboxes", "DEBUG");
+		simulation.addConsoleItem("Cleared cache.", "DEBUG");
 		simulation.addConsoleItem("Starting Next Fit Algorithm.", "INFO");
-		simulation.addConsoleItem("Box size used: " + boxVolume + ". Started with 0 boxes.", "INFO");
+		simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
 		// loop through all products asked for
 		for (Product product : products)
 		{
@@ -44,7 +44,7 @@ public class NextFit
 			if (currentBox.checkFit(product.GetSize()))
 			{
 				currentBox.addProduct(product);
-				simulation.addConsoleItem("Added product (size: " + product.GetSize() + ")to current box.", "DEBUG");
+				simulation.addConsoleItem("Added product (size: " + product.GetSize() + ") to current box.", "DEBUG");
 			}
 			else
 			{

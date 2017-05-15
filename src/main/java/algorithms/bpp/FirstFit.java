@@ -21,8 +21,9 @@ public class FirstFit
 
 	public ArrayList<Box> executeFirstFit(ArrayList<Product> products, BppSimulation simulation)
 	{
+		Long startTime = System.nanoTime();
 		returnBoxes.clear();
-		this.simulation.addConsoleItem("Cleared returnboxes", "DEBUG");
+		this.simulation.addConsoleItem("Cleared cache.", "DEBUG");
 		this.simulation.addConsoleItem("Starting First Fit Algorithm.", "INFO");
 		this.simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
 		for (Product product : products)
@@ -51,6 +52,14 @@ public class FirstFit
 		this.simulation.addConsoleItem("Total amount of boxes needed:" + returnBoxes.size() + ", filled with "
 				+ products.size() + " products.", "INFO");
 		this.simulation.addConsoleItem("FINISHED.", "INFO");
+		Long endtime = System.nanoTime();
+		Long duration = (endtime - startTime)/100000;
+		simulation.addConsoleItem("Took " + duration + " milliseconds","INFO");
+		endtime = null;
+		startTime = null;
+		duration = null;
+		System.gc();
 		return returnBoxes;
+
 	}
 }
