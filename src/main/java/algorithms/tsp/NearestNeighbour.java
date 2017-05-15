@@ -14,8 +14,7 @@ public class NearestNeighbour
 	private List<Integer> usedIndex = new ArrayList<>();
 	private ArrayList<Vector2> shortestPath = new ArrayList<>();
 
-	public NearestNeighbour(
-			ArrayList<GridTile> selectedTiles /* TspSimulation simulatie */ )
+	public NearestNeighbour(ArrayList<GridTile> selectedTiles /* TspSimulation simulatie */ )
 	{
 		ArrayList<GridTile> tileOrder = new ArrayList<GridTile>();
 		CoordList = selectedTiles;
@@ -54,74 +53,7 @@ public class NearestNeighbour
 
 		return index;
 	}
-/*
-	private int findFirstTile()
-	{
-		int index = 0;
-		int x = 0;
-		int y = 0;
-		boolean found = false;
-		int step = 0;
 
-		while (!found)
-		{
-
-			// show location
-			// simulatie.addConsoleItem(String.format("Current location: (%s,
-			// %s)", x, y), "DEBUG");
-
-			int i = 0;
-			for (GridTile tile : CoordList)
-			{
-				boolean xOk = (tile.getXcoord() == x);
-				boolean yOk = (tile.getYcoord() == y);
-
-				if (xOk && yOk)
-				{
-					found = true;
-					// simulatie.addConsoleItem(String.format("Tile %s is
-					// correct!, moving to the next step", i), "INFO");
-					index = i;
-					break;
-				}
-				i++;
-			}
-
-			if (!found)
-			{
-				if (step < (Constants.gridSize * 2))
-				{
-					if (y > 0 && x < (Constants.gridSize - 1))
-					{
-						y--;
-						x++;
-					}
-					else
-					{
-						if (step < (Constants.gridSize - 1))
-						{ // 1e 5 stappen
-							step++;
-							y = step;// Constants.gridSize - 1;
-							x = 0;// step - (Constants.gridSize - 1);
-						}
-						else
-						{ // 2e 5 stappen
-							step++;
-							y = (Constants.gridSize - 1);
-							x = step - (Constants.gridSize - 1);
-						}
-					}
-				}
-				else
-				{
-					found = true;
-				}
-			}
-		}
-
-		return index;
-	}
-*/
 	private int findNext(int index)
 	{
 		int cnt = 0;

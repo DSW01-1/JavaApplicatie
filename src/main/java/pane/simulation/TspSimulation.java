@@ -1,18 +1,17 @@
 package main.java.pane.simulation;
 
 import java.util.ArrayList;
+import java.util.Enumeration;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.java.algorithms.tsp.NearestNeighbour;
+import main.java.algorithms.tsp.TotalEnumeration;
 import main.java.constant.Constants;
 import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
@@ -30,6 +29,7 @@ public class TspSimulation extends StyledPane
 
 	public ListView<String> consoleList = new ListView<String>();
 	private Grid newGrid;
+	private String chkState;
 
 	public TspSimulation()
 	{
@@ -78,15 +78,20 @@ public class TspSimulation extends StyledPane
 
 		// RADIOBUTTONS
 		RadioButton chkAlgorithm1 = new StyledRadioButton("btn.nearestNeighbour", new Vector2(15, 140));
+		chkAlgorithm1.setUserData("Algorithm1");
 		pane.getChildren().add(chkAlgorithm1);
 
+
 		RadioButton chkAlgorithm2 = new StyledRadioButton("btn.multipleFragment", new Vector2(15, 165));
+		chkAlgorithm2.setUserData("Algorithm2");
 		pane.getChildren().add(chkAlgorithm2);
 
 		RadioButton chkAlgorithm3 = new StyledRadioButton("btn.totalEnumeration", new Vector2(15, 190));
+		chkAlgorithm3.setUserData("Algorithm3");
 		pane.getChildren().add(chkAlgorithm3);
 
 		RadioButton chkAlgorithm4 = new StyledRadioButton("btn.ownAlgorithm", new Vector2(15, 215));
+		chkAlgorithm4.setUserData("Algorithm4");
 		pane.getChildren().add(chkAlgorithm4);
 
 		ToggleGroup radioGroup = new ToggleGroup();
@@ -95,41 +100,58 @@ public class TspSimulation extends StyledPane
 		chkAlgorithm3.setToggleGroup(radioGroup);
 		chkAlgorithm4.setToggleGroup(radioGroup);
 
+		radioGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
+			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle) {
+				if (radioGroup.getSelectedToggle() != null) {
+					chkState = radioGroup.getSelectedToggle().getUserData().toString();
+				}
+			}
+		});
+
 		// START + STOP BUTTON
 		StyledButton startButton = new StyledButton("btn.play", new Vector2(15, 245), new Vector2(115, 30));
 		startButton.setOnAction(event ->
 		{
-			consoleList.getItems().clear();
-			addConsoleItem("Starting Algorithm 'nearest neighbour'", "DEBUG");
-			addConsoleItem("Searching for Coordinates", "DEBUG");
-
 			ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
-			if (activeTiles.size() > 0)
-			{
-				addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
-				long startTime = System.nanoTime();
-				NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
-				ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
-				long stopTime = System.nanoTime();
-				addConsoleItem("==========| Kortste pad gevonden |==========", "INFO");
-				String coordinates = "Coordinates: ";
-				for (Vector2 coordinate : shortestPath)
+			if(chkState == "Algorithm1"){
+				addConsoleItem("Starting Algorithm 'nearest neighbour'", "DEBUG");
+				addConsoleItem("Searching for Coordinates", "DEBUG");
+
+				//ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
+				if (activeTiles.size() > 0)
 				{
-					coordinates += String.format("(%s, %s) ", coordinate.getX(), coordinate.getY());
-					// addConsoleItem(String.format("Tile: x=%s,
-					// y=%s",coordinate.getX(), coordinate.getY()),"INFO");
+					addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
+					long startTime = System.nanoTime();
+					NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
+					ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
+					long stopTime = System.nanoTime();
+					addConsoleItem("==========| Kortste pad gevonden |==========", "INFO");
+					String coordinates = "Coordinates: ";
+					for (Vector2 coordinate : shortestPath)
+					{
+						coordinates += String.format("(%s, %s) ", coordinate.getX(), coordinate.getY());
+						// addConsoleItem(String.format("Tile: x=%s,
+						// y=%s",coordinate.getX(), coordinate.getY()),"INFO");
+					}
+					addConsoleItem(coordinates, "INFO");
+					long duration = (stopTime - startTime) / 100000;
+					String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
+					addConsoleItem(showDuration, "INFO");
+					newGrid.Redraw(shortestPath);
 				}
-				addConsoleItem(coordinates, "INFO");
-				long duration = (stopTime - startTime) / 100000;
-				String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
-				addConsoleItem(showDuration, "INFO");
-				newGrid.Redraw(shortestPath);
+				else
+				{
+					addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()), "DEBUG");
+				}
 			}
-			else
-			{
-				addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
-						"DEBUG");
+			else if(chkState == "Algorithm3"){
+				addConsoleItem("Starting Algorithm 'Total Enumeration'", "DEBUG");
+				TotalEnumeration algoritme = new TotalEnumeration(activeTiles);
+
+			}else{
+				addConsoleItem("System does not recognize this algorithm, please update your checkbox and try again", "ERROR");
 			}
+
 
 		});
 		getChildren().add(startButton);
@@ -197,5 +219,7 @@ public class TspSimulation extends StyledPane
 	{
 		consoleList.getItems().add(consoleList.getItems().size(), String.format("[%s] %s", msgType, Message));
 	}
+
+
 
 }
