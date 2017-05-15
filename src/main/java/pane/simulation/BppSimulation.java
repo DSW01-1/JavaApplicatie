@@ -2,8 +2,12 @@ package main.java.pane.simulation;
 
 import java.util.ArrayList;
 
+import javafx.event.EventHandler;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyEvent;
 import main.java.algorithms.bpp.BruteForce;
 import main.java.algorithms.bpp.DecreasingFirstFit;
 import main.java.algorithms.bpp.FirstFit;
@@ -78,14 +82,35 @@ public class BppSimulation extends StyledPane
 
 		getChildren().add(confirmBoxSize);
 		// button for confirming product size
+		boxSize.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode()== KeyCode.ENTER){
+					firstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
+					nextFit.boxVolume = (Integer.parseInt(boxSize.getText()));
+					bruteForce.boxVolume = (Integer.parseInt(boxSize.getText()));
+					decFirstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
+					boxSize.setText("");
+				}
+			}
+		});
 		StyledButton confirmProductSize = new StyledButton("btn.confirm", new Vector2(1200, 750));
 		confirmProductSize.setOnAction(event ->
 		{
 			products.add(new Product(Integer.parseInt(productSizes.getText())));
 			productSizes.setText("");
 		});
-		getChildren().add(confirmProductSize);
 
+		getChildren().add(confirmProductSize);
+		productSizes.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if(event.getCode()== KeyCode.ENTER){
+					products.add(new Product(Integer.parseInt(productSizes.getText())));
+					productSizes.setText("");
+				}
+			}
+		});
 		// start algorithm
 		StyledButton startNextFit = new StyledButton("btn.startNextFit", new Vector2(15, 200));
 		startNextFit.setOnAction(event ->
@@ -118,7 +143,6 @@ public class BppSimulation extends StyledPane
 		getChildren().add(startBruteForce);
 		getChildren().add(startDecFirstFit);
 	}
-
 	public void addConsoleItem(String Message, String msgType)
 	{
 		consoleList.getItems().add(consoleList.getItems().size(), String.format("[%s] %s", msgType, Message));
