@@ -2,14 +2,9 @@ package main.java.pane.simulation;
 
 import java.util.ArrayList;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.ToggleGroup;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import main.java.algorithms.tsp.NearestNeighbour;
@@ -19,20 +14,23 @@ import main.java.graphs.GridTile;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.pane.ConsolePane;
 import main.java.pane.MainMenu;
+import main.java.pane.SimulationControls;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
-import main.java.pane.base.StyledRadioButton;
 
 public class TspSimulation extends StyledPane
 {
-
-	public ListView<String> consoleList = new ListView<String>();
 	private Grid newGrid;
+
+	ConsolePane consolePane;
 
 	public TspSimulation()
 	{
+		consolePane = new ConsolePane();
+		getChildren().add(consolePane);
 		// back to menu button
 		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
 		goBackToMenu.setOnAction(event ->
@@ -43,7 +41,6 @@ public class TspSimulation extends StyledPane
 
 		CreateGridPane();
 		CreateAlgorithmControls();
-		CreateConsole();
 	}
 
 	public void CreateGridPane()
@@ -52,16 +49,13 @@ public class TspSimulation extends StyledPane
 		newGrid.setLayoutX(ScreenProperties.getScreenWidth() - Constants.gridSize - 15);
 		newGrid.setLayoutY(ScreenProperties.getScreenHeight() - Constants.gridSize - 150);
 		getChildren().add(newGrid);
-		
+
 		ColorPicker colorPicker = new ColorPicker();
 		colorPicker.setLayoutX(ScreenProperties.getScreenWidth() / 2 + 65);
 		colorPicker.setLayoutY(17);
-		colorPicker.setOnAction(new EventHandler<ActionEvent>()
+		colorPicker.setOnAction(event ->
 		{
-			public void handle(ActionEvent event)
-			{
-				newGrid.SetLineColor(colorPicker.getValue());
-			}
+			newGrid.SetLineColor(colorPicker.getValue());
 		});
 
 		getChildren().add(colorPicker);
@@ -72,46 +66,27 @@ public class TspSimulation extends StyledPane
 	{
 		StyledPane pane = new StyledPane();
 
-		// RADIO BUTTONS
-		StyledLabel lblChooseAlgorithm = new StyledLabel("lbl.algorithms", new Vector2(15, 105), 20);
-		pane.getChildren().add(lblChooseAlgorithm);
+		String[] algorithmNames =
+		{ "btn.nearestNeighbour", "btn.multipleFragment", "btn.totalEnumeration", "btn.ownAlgorithm" };
 
-		// RADIOBUTTONS
-		RadioButton chkAlgorithm1 = new StyledRadioButton("btn.nearestNeighbour", new Vector2(15, 140));
-		pane.getChildren().add(chkAlgorithm1);
+		Runnable[] controlButtonCode = new Runnable[3];
 
-		RadioButton chkAlgorithm2 = new StyledRadioButton("btn.multipleFragment", new Vector2(15, 165));
-		pane.getChildren().add(chkAlgorithm2);
-
-		RadioButton chkAlgorithm3 = new StyledRadioButton("btn.totalEnumeration", new Vector2(15, 190));
-		pane.getChildren().add(chkAlgorithm3);
-
-		RadioButton chkAlgorithm4 = new StyledRadioButton("btn.ownAlgorithm", new Vector2(15, 215));
-		pane.getChildren().add(chkAlgorithm4);
-
-		ToggleGroup radioGroup = new ToggleGroup();
-		chkAlgorithm1.setToggleGroup(radioGroup);
-		chkAlgorithm2.setToggleGroup(radioGroup);
-		chkAlgorithm3.setToggleGroup(radioGroup);
-		chkAlgorithm4.setToggleGroup(radioGroup);
-
-		// START + STOP BUTTON
-		StyledButton startButton = new StyledButton("btn.play", new Vector2(15, 245), new Vector2(115, 30));
-		startButton.setOnAction(event ->
+		controlButtonCode[0] = () ->
 		{
-			consoleList.getItems().clear();
-			addConsoleItem("Starting Algorithm 'nearest neighbour'", "DEBUG");
-			addConsoleItem("Searching for Coordinates", "DEBUG");
+			consolePane.getItems().clear();
+			consolePane.addConsoleItem("Starting Algorithm 'nearest neighbour'", "DEBUG");
+			consolePane.addConsoleItem("Searching for Coordinates", "DEBUG");
 
 			ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
 			if (activeTiles.size() > 0)
 			{
-				addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
+				consolePane.addConsoleItem(
+						String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
 				long startTime = System.nanoTime();
 				NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
 				ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
 				long stopTime = System.nanoTime();
-				addConsoleItem("==========| Kortste pad gevonden |==========", "INFO");
+				consolePane.addConsoleItem("==========| Kortste pad gevonden |==========", "INFO");
 				String coordinates = "Coordinates: ";
 				for (Vector2 coordinate : shortestPath)
 				{
@@ -119,34 +94,21 @@ public class TspSimulation extends StyledPane
 					// addConsoleItem(String.format("Tile: x=%s,
 					// y=%s",coordinate.getX(), coordinate.getY()),"INFO");
 				}
-				addConsoleItem(coordinates, "INFO");
+				consolePane.addConsoleItem(coordinates, "INFO");
 				long duration = (stopTime - startTime) / 100000;
 				String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
-				addConsoleItem(showDuration, "INFO");
+				consolePane.addConsoleItem(showDuration, "INFO");
 				newGrid.Redraw(shortestPath);
 			}
 			else
 			{
-				addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
+				consolePane.addConsoleItem(
+						String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
 						"DEBUG");
 			}
+		};
 
-		});
-		getChildren().add(startButton);
-
-		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(150, 245), new Vector2(115, 30));
-		stopButton.setOnAction(event ->
-		{
-			// TODO
-		});
-		getChildren().add(stopButton);
-
-		// PROGRESS BAR
-		ProgressBar progression = new ProgressBar(0.6);
-		progression.setLayoutX(15);
-		progression.setLayoutY(295);
-		progression.setPrefWidth(250);
-		getChildren().add(progression);
+		getChildren().add(new SimulationControls(algorithmNames, controlButtonCode));
 
 		// RESULTS
 		StyledLabel lblResults = new StyledLabel("btn.results", new Vector2(15, 340), 20);
@@ -178,24 +140,9 @@ public class TspSimulation extends StyledPane
 			label.setLayoutX(210);
 			label.setLayoutY(380 + (i * 30));
 			getChildren().add(label);
-		}		
-		
+		}
+
 		getChildren().add(pane);
-	}
-
-	public void CreateConsole()
-	{
-		// Console list
-		consoleList.setLayoutX(15);
-		consoleList.setLayoutY(570);
-		consoleList.setPrefWidth(825);
-		consoleList.setPrefHeight(250);
-		getChildren().add(consoleList);
-	}
-
-	public void addConsoleItem(String Message, String msgType)
-	{
-		consoleList.getItems().add(consoleList.getItems().size(), String.format("[%s] %s", msgType, Message));
 	}
 
 }
