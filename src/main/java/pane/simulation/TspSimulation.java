@@ -1,7 +1,6 @@
 package main.java.pane.simulation;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -98,18 +97,19 @@ public class TspSimulation extends StyledPane
 				NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
 				ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
 				long stopTime = System.nanoTime();
-				addConsoleItem("==========| Kortste pad gevonden |==========","INFO");
+				addConsoleItem("==========| Kortste pad gevonden |==========", "INFO");
 				String coordinates = "Coordinates: ";
-				for(Vector2 coordinate : shortestPath){
-					coordinates += String.format("(%s, %s) ",coordinate.getX(), coordinate.getY());
-					//addConsoleItem(String.format("Tile: x=%s, y=%s",coordinate.getX(), coordinate.getY()),"INFO");
+				for (Vector2 coordinate : shortestPath)
+				{
+					coordinates += String.format("(%s, %s) ", coordinate.getX(), coordinate.getY());
+					// addConsoleItem(String.format("Tile: x=%s,
+					// y=%s",coordinate.getX(), coordinate.getY()),"INFO");
 				}
-				addConsoleItem(coordinates,"INFO");
+				addConsoleItem(coordinates, "INFO");
 				long duration = (stopTime - startTime) / 100000;
 				String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
-				addConsoleItem(showDuration,"INFO");
+				addConsoleItem(showDuration, "INFO");
 				newGrid.Redraw(shortestPath);
-
 			}
 			else
 			{
@@ -123,7 +123,7 @@ public class TspSimulation extends StyledPane
 		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(150, 245), new Vector2(115, 30));
 		stopButton.setOnAction(event ->
 		{
-
+			// TODO
 		});
 		getChildren().add(stopButton);
 

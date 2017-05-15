@@ -19,6 +19,7 @@ public class Grid extends Canvas
 	private Vector2 robotPos;
 	private Color lineColor = Color.INDIANRED;
 	private boolean isInteractive;
+	private ArrayList<Vector2> pathList;
 
 	public Grid(int tileAmount, boolean isInteractive)
 	{
@@ -54,6 +55,7 @@ public class Grid extends Canvas
 				if (tile.getXcoord() == x && tile.getYcoord() == y)
 				{
 					tile.SetSelected(!tile.IsSelected());
+					pathList = null;
 				}
 			}
 			Redraw();
@@ -112,7 +114,6 @@ public class Grid extends Canvas
 	 */
 	public void Redraw()
 	{
-		ArrayList<Vector2> points = new ArrayList<Vector2>();
 		gc.clearRect(0, 0, getWidth(), getHeight());
 		gc.setLineWidth(1);
 
@@ -139,53 +140,20 @@ public class Grid extends Canvas
 			if (tile.IsSelected())
 			{
 				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
-				points.add(tile.GetPos());
 			}
 		}
-
-		points.add(new Vector2(1, 1));
-
-		// TODO change points to the algorithm used
-		DrawPathLines(points);
+		if (pathList != null)
+		{
+			DrawPathLines(pathList);
+		}
 	}
 
 	public void Redraw(ArrayList<Vector2> customArray)
 	{
-		ArrayList<Vector2> points = new ArrayList<Vector2>();
-		gc.clearRect(0, 0, getWidth(), getHeight());
-		gc.setLineWidth(1);
-
-		for (int y = tileAmount; y >= 0; y--)
-		{
-			for (int x = 0; x <= tileAmount; x++)
-			{
-				// Draw the Robot position if possible
-				if (robotPos != null)
-				{
-					DrawRobotPos(new Vector2(x, y));
-				}
-
-				// Draw the lines
-				gc.setStroke(Color.BLACK);
-				gc.strokeLine(0, y * tileSize, gridSize, y * tileSize);
-				gc.strokeLine(x * tileSize, 0, x * tileSize, gridSize);
-			}
-		}
-
-		points.add(new Vector2(1, 1));
-
-		// Draw the points
-		for (Vector2 Coordinate : customArray)
-		{
-			DrawTileIfSelected(Coordinate);
-			points.add(Coordinate);
-
-		}
-
-		points.add(new Vector2(1, 1));
-
-		// TODO change points to the algorithm used
-		DrawPathLines(points);
+		customArray.add(0, new Vector2(1, 1));
+		customArray.add(customArray.size(), new Vector2(1, 1));
+		pathList = customArray;
+		Redraw();
 	}
 
 	/**
