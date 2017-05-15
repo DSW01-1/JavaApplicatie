@@ -21,21 +21,40 @@ public class NearestNeighbour
 		CoordList = selectedTiles;
 
 		// SEARCH FOR FIRST TILE
-		// simulatie.addConsoleItem("(Step 1/3) =====| LOCATING FIRST |=====",
-		// "INFO");
-		int currentIndex = findFirstTile();
+		int currentIndex = findFirstTileOptimized();
 		usedIndex.add(currentIndex);
 		shortestPath.add(new Vector2(CoordList.get(currentIndex).getXcoord(), CoordList.get(currentIndex).getYcoord()));
 
 		// LOOP THROUGH ITEMS
-		// simulatie.addConsoleItem("(Step 2/3) =====| DEFINING PATH |=====",
-		// "INFO");
 		for (int cnt = 0; cnt < (CoordList.size() - 1); cnt++)
 		{
 			currentIndex = findNext(currentIndex);
 		}
 	}
 
+	private int findFirstTileOptimized(){
+		double closestDot = 0;
+		int index = 0;
+
+		int cnt = 0;
+		for (GridTile tile : CoordList)
+		{
+			if(closestDot == 0){
+				closestDot = Math.hypot(tile.getXcoord(), tile.getYcoord());
+				index = cnt;
+			}else{
+				double xyLength = Math.hypot(tile.getXcoord(), tile.getYcoord());
+				if(xyLength < closestDot){
+					closestDot = xyLength;
+					index = cnt;
+				}
+			}
+			cnt++;
+		}
+
+		return index;
+	}
+/*
 	private int findFirstTile()
 	{
 		int index = 0;
@@ -68,7 +87,6 @@ public class NearestNeighbour
 				i++;
 			}
 
-			/* ===== LOOP 1 (old one) ===== */
 			if (!found)
 			{
 				if (step < (Constants.gridSize * 2))
@@ -103,7 +121,7 @@ public class NearestNeighbour
 
 		return index;
 	}
-
+*/
 	private int findNext(int index)
 	{
 		int cnt = 0;

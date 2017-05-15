@@ -37,10 +37,10 @@ public class NextFit
 		// clear returnBoxes arraylist so no leftovers of previous calculations
 		// remain.
 		returnBoxes.clear();
-		Long startTime = System.nanoTime();
 		simulation.addConsoleItem("Cleared cache.", "DEBUG");
 		simulation.addConsoleItem("Starting Next Fit Algorithm.", "INFO");
 		simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
+		Long startTime = System.nanoTime();
 		// loop through all products asked for
 		for (Product product : products)
 		{
@@ -64,10 +64,10 @@ public class NextFit
 		// set currentBox size 0 again so a new one immediately gets initialized
 		// and added next time at execution
 		currentBox = new Box(0);
+		Long endTime = System.nanoTime();
 		simulation.addConsoleItem("Total amount of boxes needed:" + returnBoxes.size() + ", filled with "
 				+ products.size() + " products.", "INFO");
 		simulation.addConsoleItem("FINISHED.", "INFO");
-		Long endTime = System.nanoTime();
 		Long duration = (endTime - startTime) / 100000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		endTime = null;
