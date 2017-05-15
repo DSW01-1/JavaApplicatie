@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import main.java.algorithms.bpp.BruteForce;
+import main.java.algorithms.bpp.DecreasingFirstFit;
 import main.java.algorithms.bpp.FirstFit;
 import main.java.algorithms.bpp.NextFit;
 import main.java.constant.Constants;
@@ -64,12 +65,14 @@ public class BppSimulation extends StyledPane
 		NextFit nextFit = new NextFit();
 		FirstFit firstFit = new FirstFit(this);
 		BruteForce bruteForce = new BruteForce(this);
+		DecreasingFirstFit decFirstFit = new DecreasingFirstFit(this);
 		StyledButton confirmBoxSize = new StyledButton("btn.confirm", new Vector2(1200, 650));
 		confirmBoxSize.setOnAction(event ->
 		{
 			firstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
 			nextFit.boxVolume = (Integer.parseInt(boxSize.getText()));
 			bruteForce.boxVolume = (Integer.parseInt(boxSize.getText()));
+			decFirstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
 			boxSize.setText("");
 		});
 
@@ -104,9 +107,16 @@ public class BppSimulation extends StyledPane
 			bruteForce.executeBruteForce(products);
 			products.clear();
 		});
+		StyledButton startDecFirstFit = new StyledButton("btn.startDecFirstFit", new Vector2(100, 200));
+		startDecFirstFit.setOnAction(event ->
+		{
+			decFirstFit.executeDecreasingFirstFit(products);
+			products.clear();
+		});
 		getChildren().add(startNextFit);
 		getChildren().add(startFirstFit);
 		getChildren().add(startBruteForce);
+		getChildren().add(startDecFirstFit);
 	}
 
 	public void addConsoleItem(String Message, String msgType)
