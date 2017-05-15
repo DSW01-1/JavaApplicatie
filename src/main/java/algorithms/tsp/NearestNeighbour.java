@@ -106,7 +106,6 @@ public class NearestNeighbour
 
 	private int findNext(int index)
 	{
-		// List<Double[]> pathLength = new ArrayList<Double[]>();
 		int cnt = 0;
 		Double[] shortestRoute =
 		{ (double) 0, (double) 0 };
@@ -120,23 +119,11 @@ public class NearestNeighbour
 				double xDiff = tile.getXcoord() - CoordList.get(index).getXcoord();
 				double yDiff = tile.getYcoord() - CoordList.get(index).getYcoord();
 				double xyDiff = Math.hypot(xDiff, yDiff);
-				// simulatie.addConsoleItem(" ==========| Moving to the next
-				// Tile |==========","DEBUG");
-				// simulatie.addConsoleItem(String.format(" Tile %s X = %s, Y =
-				// %s", index+1, CoordList.get(index).getXcoord(),
-				// CoordList.get(index).getYcoord()), "DEBUG");
-				// simulatie.addConsoleItem(String.format(" Tile %s X = %s, Y =
-				// %s", cnt+1, tile.getXcoord(), tile.getYcoord()), "DEBUG");
-				// simulatie.addConsoleItem(String.format(" Difference between
-				// Tile %s and Tile %s: X = %s, Y = %s, Combined = %s", index+1,
-				// cnt+1, xDiff, yDiff, xyDiff), "DEBUG");
 
 				if (shortestRoute[1] == 0 || shortestRoute[1] > xyDiff)
 				{
 					shortestRoute[0] = (double) cnt;
 					shortestRoute[1] = xyDiff;
-					// simulatie.addConsoleItem(" This tile has been determined
-					// as the new shortest route", "DEBUG");
 				}
 			}
 
