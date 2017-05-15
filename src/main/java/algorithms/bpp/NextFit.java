@@ -11,15 +11,19 @@ public class NextFit
 {
 	// boxVolume gets set from bppSimulation
 	public int boxVolume;
-	// actual messages returned to console
-	public ListView<String> consoleList = new ListView<String>();
 	// list of boxes returned
 	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	// initialize currentbox as box with volume 0 so a new box gets created.
 	private Box currentBox = new Box(0);
+	private BppSimulation simulation;
+
+	public NextFit(BppSimulation simulation){
+		this.simulation=simulation;
+	}
+
 
 	// method to print all products in list
-	public void printAllProducts(ArrayList<Product> products, BppSimulation simulation)
+	public void printAllProducts(ArrayList<Product> products)
 	{
 		for (Product product : products)
 		{
@@ -28,15 +32,15 @@ public class NextFit
 	}
 
 	// method to execute algorithm
-	public ArrayList<Box> executeNextFit(ArrayList<Product> products, BppSimulation simulation)
+	public ArrayList<Box> executeNextFit(ArrayList<Product> products)
 	{
 		// clear returnBoxes arraylist so no leftovers of previous calculations
 		// remain.
 		returnBoxes.clear();
-		Long startTime = System.nanoTime();
-		simulation.addConsoleItem("Cleared returnboxes", "DEBUG");
+		simulation.addConsoleItem("Cleared cache.", "DEBUG");
 		simulation.addConsoleItem("Starting Next Fit Algorithm.", "INFO");
-		simulation.addConsoleItem("Box size used: " + boxVolume + ". Started with 0 boxes.", "INFO");
+		simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
+		Long startTime = System.nanoTime();
 		// loop through all products asked for
 		for (Product product : products)
 		{
@@ -44,7 +48,7 @@ public class NextFit
 			if (currentBox.checkFit(product.GetSize()))
 			{
 				currentBox.addProduct(product);
-				simulation.addConsoleItem("Added product (size: " + product.GetSize() + ")to current box.", "DEBUG");
+				simulation.addConsoleItem("Added product (size: " + product.GetSize() + ") to current box.", "DEBUG");
 			}
 			else
 			{
@@ -60,10 +64,10 @@ public class NextFit
 		// set currentBox size 0 again so a new one immediately gets initialized
 		// and added next time at execution
 		currentBox = new Box(0);
+		Long endTime = System.nanoTime();
 		simulation.addConsoleItem("Total amount of boxes needed:" + returnBoxes.size() + ", filled with "
 				+ products.size() + " products.", "INFO");
 		simulation.addConsoleItem("FINISHED.", "INFO");
-		Long endTime = System.nanoTime();
 		Long duration = (endTime - startTime) / 100000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		endTime = null;

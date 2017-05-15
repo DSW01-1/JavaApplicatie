@@ -23,5 +23,5 @@ public class Constants
 	//Back to main menu position and size
 	public static Vector2 backTMMBP = new Vector2(15, 15);
 	public static Vector2 backTMMBS = new Vector2(250, 50);
-		
+
 }

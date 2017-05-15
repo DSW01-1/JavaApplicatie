@@ -22,7 +22,11 @@ public class BruteForce
 
 	public ArrayList<Box> executeBruteForce(ArrayList<Product> products)
 	{
+		simulation.addConsoleItem("Cleared cache.", "DEBUG");
+		simulation.addConsoleItem("Starting Brute Force Algorithm.", "INFO");
+		simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
 		returnBoxes.clear();
+		Long startTime =System.nanoTime();
 		int currentBoxAmount;
 		int bestBoxAmount = products.size() + 1;
 		//loop through all products
@@ -49,12 +53,16 @@ public class BruteForce
 			Collections.rotate(products, 1);
 
 		}
+		long endTime = System.nanoTime();
 		simulation.addConsoleItem("Best Box amount = " + bestBoxAmount, "DEBUG");
+		simulation.addConsoleItem("FINISHED", "INFO");
 		simulation.addConsoleItem("Boxes ordered: "+returnBoxes,"DEBUG");
 		for(int k=0;k<returnBoxes.get(0).getSize();k++){
 			simulation.addConsoleItem(returnBoxes.get(0).printSizeAtLocation(k),"DEBUG");
 		}
 		simulation.addConsoleItem("FINISHED", "INFO");
+		Long duration = (endTime - startTime) / 100000;
+		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		simulation.addConsoleItem("---------------------------------------------------------------------","INFO");
 		return returnBoxes;
 	}
@@ -75,7 +83,7 @@ public class BruteForce
 				//does it fit in box? yes: add product
 				if (currentBox.checkFit(product.GetSize()) && !doesFit)
 				{
-					simulation.addConsoleItem("Product fitted", "DEBUG");
+					simulation.addConsoleItem("Added product (size: " + product.GetSize() + ") to current box.","DEBUG");
 					currentBox.addProduct(product);
 					doesFit = true;
 				}
@@ -86,7 +94,9 @@ public class BruteForce
 				Box newBox = new Box(boxVolume);
 				sortedBoxes.add(newBox);
 				newBox.addProduct(product);
-				simulation.addConsoleItem("Product did not fit, new box created. Amount of boxes is: " + sortedBoxes.size(), "DEBUG");
+				simulation.addConsoleItem("Could not add product(size: " + product.GetSize()
+						+ ") to current box. Created new box. Total amount of boxes: " + sortedBoxes.size()
+						+ ". Added product to new box.", "DEBUG");
 			}
 			doesFit = false;
 		}
