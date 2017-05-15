@@ -70,9 +70,6 @@ public class NextFit
 		simulation.addConsoleItem("FINISHED.", "INFO");
 		Long duration = (endTime - startTime) / 100000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
-		endTime = null;
-		startTime = null;
-		duration = null;
 		System.gc();
 		return returnBoxes;
 

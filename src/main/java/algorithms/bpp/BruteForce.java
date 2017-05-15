@@ -29,12 +29,11 @@ public class BruteForce
 		Long startTime =System.nanoTime();
 		int currentBoxAmount;
 		int bestBoxAmount = products.size() + 1;
-		//loop through all products
-		for (int i = 0; i < products.size(); i++)
+		int amountOfCalculations=0;
+		//loop through all possibilities
+		for (int i = 0; i < factorial(products.size()); i++)
 		{
-			//loop through all products again but with one product at each location this time, see line 40
-			for(int j=0;j<products.size();j++)
-			{
+				amountOfCalculations++;
 				//currentBoxAmount contains the amount products sorted in their current order.
 				currentBoxAmount = sortProducts(products).size();
 				//check if the amount is less than the current optimal amount
@@ -46,24 +45,24 @@ public class BruteForce
 					bestBoxAmount = currentBoxAmount;
 					simulation.addConsoleItem("New best amount", "DEBUG");
 				}
-				//rotate one product one place ahead, so we test all possible locations.
-				Collections.rotate(products.subList(j, j+1), -1);
-			}
+			//rotate one product one place ahead, so we test all possible locations.
+			Collections.rotate(products.subList(1,products.size()),1);
 			//rotate all products one place ahead so all possible combinations get tested.
 			Collections.rotate(products, 1);
 
 		}
 		long endTime = System.nanoTime();
 		simulation.addConsoleItem("Best Box amount = " + bestBoxAmount, "DEBUG");
-		simulation.addConsoleItem("FINISHED", "INFO");
 		simulation.addConsoleItem("Boxes ordered: "+returnBoxes,"DEBUG");
 		for(int k=0;k<returnBoxes.get(0).getSize();k++){
 			simulation.addConsoleItem(returnBoxes.get(0).printSizeAtLocation(k),"DEBUG");
 		}
 		simulation.addConsoleItem("FINISHED", "INFO");
+		simulation.addConsoleItem("Calculated "+amountOfCalculations+ " calculations", "INFO");
 		Long duration = (endTime - startTime) / 100000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		simulation.addConsoleItem("---------------------------------------------------------------------","INFO");
+		System.gc();
 		return returnBoxes;
 	}
 
@@ -101,5 +100,13 @@ public class BruteForce
 			doesFit = false;
 		}
 		return sortedBoxes;
+	}
+
+	private int factorial(int n){
+		int factorial=1;
+		for(int i =1;i<=n;i++){
+			factorial = factorial*i;
+		}
+		return factorial;
 	}
 }
