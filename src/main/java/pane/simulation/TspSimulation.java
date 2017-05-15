@@ -29,16 +29,10 @@ public class TspSimulation extends StyledPane
 {
 
 	public ListView<String> consoleList = new ListView<String>();
-	public static TspSimulation tspSimulation;
+	private Grid newGrid;
 
 	public TspSimulation()
 	{
-		// TODO
-		int xPoint = 15;
-		int yPoint = 15;
-
-		tspSimulation = this;
-
 		// back to menu button
 		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
 		goBackToMenu.setOnAction(event ->
@@ -47,33 +41,53 @@ public class TspSimulation extends StyledPane
 		});
 		getChildren().add(goBackToMenu);
 
-		Grid newGrid = new Grid(5, true);
-		getChildren().add(newGrid);
-		newGrid.setLayoutX(300);
-		newGrid.setLayoutY(15);
+		CreateGridPane();
+		CreateAlgorithmControls();
+		CreateConsole();
+	}
 
-		consoleList.setLayoutX(15);
-		consoleList.setLayoutY(570);
-		consoleList.setPrefWidth(825);
-		consoleList.setPrefHeight(250);
-		getChildren().add(consoleList);
+	public void CreateGridPane()
+	{
+		newGrid = new Grid(5, true);
+		newGrid.setLayoutX(ScreenProperties.getScreenWidth() - Constants.gridSize - 15);
+		newGrid.setLayoutY(ScreenProperties.getScreenHeight() - Constants.gridSize - 150);
+		getChildren().add(newGrid);
+		
+		ColorPicker colorPicker = new ColorPicker();
+		colorPicker.setLayoutX(ScreenProperties.getScreenWidth() / 2 + 65);
+		colorPicker.setLayoutY(17);
+		colorPicker.setOnAction(new EventHandler<ActionEvent>()
+		{
+			public void handle(ActionEvent event)
+			{
+				newGrid.SetLineColor(colorPicker.getValue());
+			}
+		});
+
+		getChildren().add(colorPicker);
+		getChildren().add(new StyledLabel("lbl.lineColor", new Vector2(ScreenProperties.getScreenWidth() / 2, 20)));
+	}
+
+	public void CreateAlgorithmControls()
+	{
+		StyledPane pane = new StyledPane();
 
 		// RADIO BUTTONS
 		StyledLabel lblChooseAlgorithm = new StyledLabel("lbl.algorithms", new Vector2(15, 105), 20);
-		getChildren().add(lblChooseAlgorithm);
+		pane.getChildren().add(lblChooseAlgorithm);
 
 		// RADIOBUTTONS
 		RadioButton chkAlgorithm1 = new StyledRadioButton("btn.nearestNeighbour", new Vector2(15, 140));
-		getChildren().add(chkAlgorithm1);
+		pane.getChildren().add(chkAlgorithm1);
 
 		RadioButton chkAlgorithm2 = new StyledRadioButton("btn.multipleFragment", new Vector2(15, 165));
-		getChildren().add(chkAlgorithm2);
+		pane.getChildren().add(chkAlgorithm2);
 
 		RadioButton chkAlgorithm3 = new StyledRadioButton("btn.totalEnumeration", new Vector2(15, 190));
-		getChildren().add(chkAlgorithm3);
+		pane.getChildren().add(chkAlgorithm3);
 
 		RadioButton chkAlgorithm4 = new StyledRadioButton("btn.ownAlgorithm", new Vector2(15, 215));
-		getChildren().add(chkAlgorithm4);
+		pane.getChildren().add(chkAlgorithm4);
 
 		ToggleGroup radioGroup = new ToggleGroup();
 		chkAlgorithm1.setToggleGroup(radioGroup);
@@ -164,22 +178,19 @@ public class TspSimulation extends StyledPane
 			label.setLayoutX(210);
 			label.setLayoutY(380 + (i * 30));
 			getChildren().add(label);
-		}
+		}		
+		
+		getChildren().add(pane);
+	}
 
-		getChildren().add(new StyledLabel("lbl.lineColor", new Vector2(ScreenProperties.getScreenWidth() / 2, 20)));
-
-		ColorPicker colorPicker = new ColorPicker();
-		colorPicker.setLayoutX(ScreenProperties.getScreenWidth() / 2 + 65);
-		colorPicker.setLayoutY(17);
-		colorPicker.setOnAction(new EventHandler<ActionEvent>()
-		{
-			public void handle(ActionEvent event)
-			{
-				newGrid.SetLineColor(colorPicker.getValue());
-			}
-		});
-
-		getChildren().add(colorPicker);
+	public void CreateConsole()
+	{
+		// Console list
+		consoleList.setLayoutX(15);
+		consoleList.setLayoutY(570);
+		consoleList.setPrefWidth(825);
+		consoleList.setPrefHeight(250);
+		getChildren().add(consoleList);
 	}
 
 	public void addConsoleItem(String Message, String msgType)

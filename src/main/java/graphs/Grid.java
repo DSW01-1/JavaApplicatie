@@ -17,7 +17,7 @@ public class Grid extends Canvas
 	private int tileSize;
 	private int gridSize = Constants.gridSize;
 	private Vector2 robotPos;
-	private Color lineColor = Color.INDIANRED;
+	private Color lineColor = Constants.standardLineColor;
 	private boolean isInteractive;
 	private ArrayList<Vector2> pathList;
 
