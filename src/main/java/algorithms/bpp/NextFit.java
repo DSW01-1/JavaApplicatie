@@ -11,15 +11,19 @@ public class NextFit
 {
 	// boxVolume gets set from bppSimulation
 	public int boxVolume;
-	// actual messages returned to console
-	public ListView<String> consoleList = new ListView<String>();
 	// list of boxes returned
 	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	// initialize currentbox as box with volume 0 so a new box gets created.
 	private Box currentBox = new Box(0);
+	private BppSimulation simulation;
+
+	public NextFit(BppSimulation simulation){
+		this.simulation=simulation;
+	}
+
 
 	// method to print all products in list
-	public void printAllProducts(ArrayList<Product> products, BppSimulation simulation)
+	public void printAllProducts(ArrayList<Product> products)
 	{
 		for (Product product : products)
 		{
@@ -28,7 +32,7 @@ public class NextFit
 	}
 
 	// method to execute algorithm
-	public ArrayList<Box> executeNextFit(ArrayList<Product> products, BppSimulation simulation)
+	public ArrayList<Box> executeNextFit(ArrayList<Product> products)
 	{
 		// clear returnBoxes arraylist so no leftovers of previous calculations
 		// remain.

@@ -19,7 +19,7 @@ public class FirstFit
 		this.simulation = simulation;
 	}
 
-	public ArrayList<Box> executeFirstFit(ArrayList<Product> products, BppSimulation simulation)
+	public ArrayList<Box> executeFirstFit(ArrayList<Product> products)
 	{
 		Long startTime = System.nanoTime();
 		returnBoxes.clear();
