@@ -58,7 +58,7 @@ public class BruteForce
 			simulation.addConsoleItem(returnBoxes.get(0).printSizeAtLocation(k),"DEBUG");
 		}
 		simulation.addConsoleItem("FINISHED", "INFO");
-		simulation.addConsoleItem("Calculated "+amountOfCalculations+ "calculations", "INFO");
+		simulation.addConsoleItem("Calculated "+amountOfCalculations+ " calculations", "INFO");
 		Long duration = (endTime - startTime) / 100000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		simulation.addConsoleItem("---------------------------------------------------------------------","INFO");
