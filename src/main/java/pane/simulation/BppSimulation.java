@@ -4,8 +4,10 @@ import java.util.ArrayList;
 
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import main.java.algorithms.bpp.BruteForce;
 import main.java.algorithms.bpp.FirstFit;
 import main.java.algorithms.bpp.NextFit;
+import main.java.constant.Constants;
 import main.java.graphs.Product;
 import main.java.main.Main;
 import main.java.main.Vector2;
@@ -30,14 +32,15 @@ public class BppSimulation extends StyledPane
 		consoleList.setPrefHeight(250);
 		getChildren().add(consoleList);
 		simulation = this;
-		// back to main menu
-		StyledButton orderHistoryButton = new StyledButton("btn.backToMainMenu", new Vector2(15, 15),
-				new Vector2(200, 50));
-		orderHistoryButton.setOnAction(event ->
+
+		// back to menu button
+		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
+		goBackToMenu.setOnAction(event ->
 		{
 			Main.SwitchPane(new MainMenu());
 		});
-		getChildren().add(orderHistoryButton);
+		getChildren().add(goBackToMenu);
+
 		// text field for product sizes
 		TextField productSizes = new TextField("");
 		productSizes.setLayoutX(1025);
@@ -53,24 +56,26 @@ public class BppSimulation extends StyledPane
 		boxSize.setPrefWidth(150);
 		getChildren().add(boxSize);
 		// labels for both text fields
-		StyledLabel productSizesLabel = new StyledLabel("lbl.productSize", new Vector2(880, 750), 20);
+		StyledLabel productSizesLabel = new StyledLabel("lbl.productSize", new Vector2(850, 750), 20);
 		getChildren().add(productSizesLabel);
-		StyledLabel boxSizeLabel = new StyledLabel("lbl.boxSize", new Vector2(923, 650), 20);
+		StyledLabel boxSizeLabel = new StyledLabel("lbl.boxSize", new Vector2(870, 650), 20);
 		getChildren().add(boxSizeLabel);
 		// button for confirming box size
-		NextFit nextFit = new NextFit(this);
+		NextFit nextFit = new NextFit();
 		FirstFit firstFit = new FirstFit(this);
-		StyledButton confirmBoxSize = new StyledButton("btn.confirm", new Vector2(1185, 650));
+		BruteForce bruteForce = new BruteForce(this);
+		StyledButton confirmBoxSize = new StyledButton("btn.confirm", new Vector2(1200, 650));
 		confirmBoxSize.setOnAction(event ->
 		{
 			firstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
 			nextFit.boxVolume = (Integer.parseInt(boxSize.getText()));
+			bruteForce.boxVolume = (Integer.parseInt(boxSize.getText()));
 			boxSize.setText("");
 		});
 
 		getChildren().add(confirmBoxSize);
 		// button for confirming product size
-		StyledButton confirmProductSize = new StyledButton("btn.confirm", new Vector2(1185, 750));
+		StyledButton confirmProductSize = new StyledButton("btn.confirm", new Vector2(1200, 750));
 		confirmProductSize.setOnAction(event ->
 		{
 			products.add(new Product(Integer.parseInt(productSizes.getText())));
@@ -93,8 +98,15 @@ public class BppSimulation extends StyledPane
 			products.clear();
 			firstFit.returnBoxes.clear();
 		});
+		StyledButton startBruteForce = new StyledButton("btn.startBruteForce", new Vector2(100, 300));
+		startBruteForce.setOnAction(event ->
+		{
+			bruteForce.executeBruteForce(products);
+			products.clear();
+		});
 		getChildren().add(startNextFit);
 		getChildren().add(startFirstFit);
+		getChildren().add(startBruteForce);
 	}
 
 	public void addConsoleItem(String Message, String msgType)

@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import main.java.handler.LogHandler;
 import main.java.main.product.CustomerInfo;
 import main.java.main.product.Order;
 
@@ -46,8 +47,7 @@ public class DatabaseOrder
 		}
 		catch (SQLException e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "Could not retrieve order info from datebase");
 		}
 
 		return orderList;

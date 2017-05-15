@@ -111,10 +111,13 @@ public class DatabaseConnection
 			String table = Constants.databaseName + "." + Constants.productTableName;
 			ResultSet rs = GetDataFromDatabase("select * from " + table);
 
-			while (rs.next())
+			if (rs != null)
 			{
-				products.add(new Product(rs.getInt("id"), rs.getString("name"),
-						new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("size")));
+				while (rs.next())
+				{
+					products.add(new Product(rs.getInt("id"), rs.getString("name"),
+							new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("size")));
+				}
 			}
 		}
 		catch (SQLException e)
@@ -133,6 +136,7 @@ public class DatabaseConnection
 
 	/**
 	 * Get all data from the given statement
+	 * 
 	 * @param statement
 	 * @return
 	 */
@@ -150,7 +154,7 @@ public class DatabaseConnection
 			}
 			catch (SQLException e)
 			{
-				e.printStackTrace();
+				LogHandler.WriteErrorToLogFile(e, "Could not retrieve data from database");
 			}
 		}
 		return rs;

@@ -7,7 +7,7 @@ public class StyledPane extends Pane
 
 	public StyledPane()
 	{
-
+		super();
 	}
 
 	public void InitPane()

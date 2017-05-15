@@ -1,13 +1,16 @@
 package main.java.pane;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import main.java.main.Language;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
+import main.java.pane.base.StyledChoiceBox;
 import main.java.pane.base.StyledPane;
 import main.java.pane.simulation.BppSimulation;
 import main.java.pane.simulation.RobotSimulation;
@@ -30,12 +33,9 @@ public class MainMenu extends StyledPane
 		// New Order Button
 		StyledButton newOrderButton = new StyledButton("btn.newOrder",
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4), new Vector2(200, 50));
-		newOrderButton.setOnAction(new EventHandler<ActionEvent>()
+		newOrderButton.setOnAction(event ->
 		{
-			public void handle(ActionEvent aEvent)
-			{
-				Main.SwitchPane(new NewOrder());
-			}
+			Main.SwitchPane(new NewOrder());
 		});
 
 		getChildren().add(newOrderButton);
@@ -43,12 +43,9 @@ public class MainMenu extends StyledPane
 		// Order History Button
 		StyledButton orderHistoryButton = new StyledButton("btn.orderHistory",
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 100), new Vector2(200, 50));
-		orderHistoryButton.setOnAction(new EventHandler<ActionEvent>()
+		orderHistoryButton.setOnAction(event ->
 		{
-			public void handle(ActionEvent arg0)
-			{
-				// TODO
-			}
+			// TODO
 		});
 		getChildren().add(orderHistoryButton);
 
@@ -71,15 +68,38 @@ public class MainMenu extends StyledPane
 		// Exit Button
 		final StyledButton exitButton = new StyledButton("btn.exit",
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
-		exitButton.setOnAction(new EventHandler<ActionEvent>()
+		exitButton.setOnAction(event ->
 		{
-			public void handle(ActionEvent arg0)
-			{
-				// Exits the application
-				Stage stage = (Stage) exitButton.getScene().getWindow();
-				stage.close();
-			}
+			// Exits the application
+			Stage stage = (Stage) exitButton.getScene().getWindow();
+			stage.close();
 		});
 		getChildren().add(exitButton);
+
+		// Language Choice Box
+		String[] languages =
+		{ "Nederlands", "English", "Deutsch" };
+
+		StyledChoiceBox choiceBox = new StyledChoiceBox(languages,
+				new Vector2(ScreenProperties.getScreenWidth() - 100, 0));
+
+		for (int i = 0; i < languages.length; i++)
+		{
+			if (languages[i].equals(Language.GetCurrentLanguage()))
+			{
+				choiceBox.getSelectionModel().select(languages[i]);
+			}
+		}
+		choiceBox.setPrefWidth(100);
+		choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+		{
+			@Override
+			public void changed(ObservableValue<? extends Number> observableValue, Number number, Number number2)
+			{
+				Language.ChangeLanguage(choiceBox.getItems().get((Integer) number2));
+				Main.SwitchPane(new MainMenu());
+			}
+		});
+		getChildren().add(choiceBox);
 	}
 }

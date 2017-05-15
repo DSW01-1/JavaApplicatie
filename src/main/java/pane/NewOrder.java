@@ -6,6 +6,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import main.java.constant.Constants;
 import main.java.database.DatabaseConnection;
 import main.java.graphs.Product;
 import main.java.handler.JsonHandler;
@@ -30,10 +31,12 @@ public class NewOrder extends StyledPane
 	public void InitPane()
 	{
 		// Back to menu button
-		StyledButton btnBackToMainMenu = new StyledButton("btn.backToMainMenu",
-				new Vector2(10, 10));
-		btnBackToMainMenu.setOnAction(event -> Main.SwitchPane(new MainMenu()));
-		getChildren().add(btnBackToMainMenu);
+		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
+		goBackToMenu.setOnAction(event ->
+		{
+			Main.SwitchPane(new MainMenu());
+		});
+		getChildren().add(goBackToMenu);
 
 		// Create the columns
 		CreateLeftColumn();
@@ -172,7 +175,7 @@ public class NewOrder extends StyledPane
 	 */
 	public void MoveProduct(String fromSide, ProductPane productPane)
 	{
-		if (fromSide.equals("right"))
+		if ("right".equals(fromSide))
 		{
 			rightColumnVBox.getChildren().remove(productPane);
 			leftColumnVBox.getChildren().add(new ProductPane(productPane.GetProduct(), "left", this));

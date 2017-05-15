@@ -1,5 +1,7 @@
 package main.java.constant;
 
+import main.java.main.Vector2;
+
 public class Constants
 {
 	//Resources
@@ -17,5 +19,9 @@ public class Constants
 	
 	//Size of the grid
 	public static int gridSize = 500;
+	
+	//Back to main menu position and size
+	public static Vector2 backTMMBP = new Vector2(15, 15);
+	public static Vector2 backTMMBS = new Vector2(250, 50);
 		
 }

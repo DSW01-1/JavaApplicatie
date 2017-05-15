@@ -32,7 +32,7 @@ public class StyledButton extends Button
 
 	public StyledButton(String name, final Runnable runnable)
 	{
-		super(name);
+		super(Language.getTranslation(name));
 		setOnAction(new EventHandler<ActionEvent>()
 		{
 			public void handle(ActionEvent event)
