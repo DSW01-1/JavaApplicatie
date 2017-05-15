@@ -62,7 +62,7 @@ public class BppSimulation extends StyledPane
 		StyledLabel boxSizeLabel = new StyledLabel("lbl.boxSize", new Vector2(870, 650), 20);
 		getChildren().add(boxSizeLabel);
 		// button for confirming box size
-		NextFit nextFit = new NextFit();
+		NextFit nextFit = new NextFit(this);
 		FirstFit firstFit = new FirstFit(this);
 		BruteForce bruteForce = new BruteForce(this);
 		DecreasingFirstFit decFirstFit = new DecreasingFirstFit(this);
@@ -90,14 +90,14 @@ public class BppSimulation extends StyledPane
 		StyledButton startNextFit = new StyledButton("btn.startNextFit", new Vector2(15, 200));
 		startNextFit.setOnAction(event ->
 		{
-			nextFit.executeNextFit(products, this);
+			nextFit.executeNextFit(products);
 			products.clear();
 			nextFit.returnBoxes.clear();
 		});
 		StyledButton startFirstFit = new StyledButton("btn.startFirstFit", new Vector2(15, 300));
 		startFirstFit.setOnAction(event ->
 		{
-			firstFit.executeFirstFit(products, this);
+			firstFit.executeFirstFit(products);
 			products.clear();
 			firstFit.returnBoxes.clear();
 		});
