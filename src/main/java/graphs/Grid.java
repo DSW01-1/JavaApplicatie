@@ -114,6 +114,7 @@ public class Grid extends Canvas
 	public void Redraw()
 	{
 		gc.clearRect(0, 0, getWidth(), getHeight());
+
 		gc.setLineWidth(1);
 
 		for (int y = tileAmount; y >= 0; y--)

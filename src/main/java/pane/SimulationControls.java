@@ -1,56 +1,93 @@
 package main.java.pane;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import main.java.main.Vector2;
-import main.java.pane.base.StyledLabel;
+import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledRadioButton;
 import main.java.pane.simulation.BaseSimulation;
 
-public class SimulationControls extends BaseSimulation
+public class SimulationControls extends StyledPane
 {
 	String[] algorithmNames;
-	private String chkState;
+	String chkState;
+	BaseSimulation simulation;
 
-	public SimulationControls(String[] algorithmNames)
+	public SimulationControls(String[] algorithmNames, BaseSimulation simulation)
 	{
 		this.algorithmNames = algorithmNames;
+		this.simulation = simulation;
 
 		CreateRadioButtons();
+		CreateControlButtons();
 	}
 
 	private void CreateRadioButtons()
 	{
-		StyledPane pane = new StyledPane();
 		ToggleGroup radioGroup = new ToggleGroup();
-		
-		// Label algorithm
-		StyledLabel lblChooseAlgorithm = new StyledLabel("lbl.algorithms", new Vector2(15, 105), 20);
-		pane.getChildren().add(lblChooseAlgorithm);
 
-		//Create all the algorithm checkboxes
-		for (int i = 0; i < algorithmNames.length; i++)
+		for (int i = 1; i <= algorithmNames.length; i++)
 		{
-			RadioButton chkAlgorithm = new StyledRadioButton(algorithmNames[i], new Vector2(15, 140));
+			StyledRadioButton chkAlgorithm = new StyledRadioButton(algorithmNames[i - 1],
+					new Vector2(15, 100 + (i * 25)));
 			chkAlgorithm.setUserData("Algorithm" + i);
-			pane.getChildren().add(chkAlgorithm);
 			chkAlgorithm.setToggleGroup(radioGroup);
+
+			getChildren().add(chkAlgorithm);
 		}
 
-		
-		radioGroup.selectedToggleProperty().addListener(new ChangeListener<Toggle>()
+		radioGroup.selectedToggleProperty().addListener(listener ->
 		{
-			public void changed(ObservableValue<? extends Toggle> ov, Toggle old_toggle, Toggle new_toggle)
+			if (radioGroup.getSelectedToggle() != null)
 			{
-				if (radioGroup.getSelectedToggle() != null)
-				{
-					chkState = radioGroup.getSelectedToggle().getUserData().toString();
-				}
+				chkState = radioGroup.getSelectedToggle().getUserData().toString();
 			}
 		});
+	}
+
+	private void CreateControlButtons()
+	{
+		StyledButton startButton = new StyledButton("btn.start", new Vector2(15, 230), new Vector2(60, 20));
+		startButton.setOnAction(event ->
+		{
+			CheckAndDoALgorithm();
+		});
+		getChildren().add(startButton);
+
+		StyledButton pauseButton = new StyledButton("btn.pause", new Vector2(80, 230), new Vector2(60, 20));
+		pauseButton.setOnAction(event ->
+		{
+			// TODO
+		});
+		getChildren().add(pauseButton);
+
+		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(145, 230), new Vector2(60, 20));
+		stopButton.setOnAction(event ->
+		{
+			// TODO
+		});
+		getChildren().add(stopButton);
+
+	}
+
+	private void CheckAndDoALgorithm()
+	{
+		switch (chkState)
+		{
+		case "Algorithm1":
+			simulation.ExecuteAlgorithmOne();
+			break;
+		case "Algorithm2":
+			simulation.ExecuteAlgorithmTwo();
+			break;
+		case "Algorithm3":
+			simulation.ExecuteAlgorithmThree();
+			break;
+		case "Algorithm4":
+			simulation.ExecuteAlgorithmFour();
+			break;
+		default:
+			break;
+		}
 	}
 }

@@ -1,151 +1,49 @@
 package main.java.pane.simulation;
 
-import java.util.ArrayList;
+import main.java.pane.SimulationControls;
 
-import javafx.event.EventHandler;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyEvent;
-import main.java.algorithms.bpp.BruteForce;
-import main.java.algorithms.bpp.DecreasingFirstFit;
-import main.java.algorithms.bpp.FirstFit;
-import main.java.algorithms.bpp.NextFit;
-import main.java.constant.Constants;
-import main.java.graphs.Product;
-import main.java.main.Main;
-import main.java.main.Vector2;
-import main.java.pane.MainMenu;
-import main.java.pane.base.StyledButton;
-import main.java.pane.base.StyledLabel;
-import main.java.pane.base.StyledPane;
-
-public class BppSimulation extends StyledPane
+public class BppSimulation extends BaseSimulation
 {
-	private TextField productSizes;
-	public static BppSimulation simulation;
-
-	public ListView<String> consoleList = new ListView<String>();
-	private ArrayList<Product> products = new ArrayList<Product>();
-
 	public BppSimulation()
 	{
-		consoleList.setLayoutX(15);
-		consoleList.setLayoutY(570);
-		consoleList.setPrefWidth(825);
-		consoleList.setPrefHeight(250);
-		getChildren().add(consoleList);
-		simulation = this;
-
-		// back to menu button
-		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
-		goBackToMenu.setOnAction(event ->
-		{
-			Main.SwitchPane(new MainMenu());
-		});
-		getChildren().add(goBackToMenu);
-
-		// text field for product sizes
-		TextField productSizes = new TextField("");
-		productSizes.setLayoutX(1025);
-		productSizes.setLayoutY(750);
-		productSizes.setPrefHeight(30);
-		productSizes.setPrefWidth(150);
-		getChildren().add(productSizes);
-		// textfield for box size
-		TextField boxSize = new TextField("");
-		boxSize.setLayoutX(1025);
-		boxSize.setLayoutY(650);
-		boxSize.setPrefHeight(30);
-		boxSize.setPrefWidth(150);
-		getChildren().add(boxSize);
-		// labels for both text fields
-		StyledLabel productSizesLabel = new StyledLabel("lbl.productSize", new Vector2(850, 750), 20);
-		getChildren().add(productSizesLabel);
-		StyledLabel boxSizeLabel = new StyledLabel("lbl.boxSize", new Vector2(870, 650), 20);
-		getChildren().add(boxSizeLabel);
-		// button for confirming box size
-		NextFit nextFit = new NextFit(this);
-		FirstFit firstFit = new FirstFit(this);
-		BruteForce bruteForce = new BruteForce(this);
-		DecreasingFirstFit decFirstFit = new DecreasingFirstFit(this);
-		StyledButton confirmBoxSize = new StyledButton("btn.confirm", new Vector2(1200, 650));
-		confirmBoxSize.setOnAction(event ->
-		{
-			firstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
-			nextFit.boxVolume = (Integer.parseInt(boxSize.getText()));
-			bruteForce.boxVolume = (Integer.parseInt(boxSize.getText()));
-			decFirstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
-			boxSize.setText("");
-		});
-
-		getChildren().add(confirmBoxSize);
-		// button for confirming product size
-		boxSize.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if(event.getCode()== KeyCode.ENTER){
-					firstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
-					nextFit.boxVolume = (Integer.parseInt(boxSize.getText()));
-					bruteForce.boxVolume = (Integer.parseInt(boxSize.getText()));
-					decFirstFit.boxVolume = (Integer.parseInt(boxSize.getText()));
-					boxSize.setText("");
-				}
-			}
-		});
-		StyledButton confirmProductSize = new StyledButton("btn.confirm", new Vector2(1200, 750));
-		confirmProductSize.setOnAction(event ->
-		{
-			products.add(new Product(Integer.parseInt(productSizes.getText())));
-			productSizes.setText("");
-		});
-
-		getChildren().add(confirmProductSize);
-		productSizes.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				if(event.getCode()== KeyCode.ENTER){
-					products.add(new Product(Integer.parseInt(productSizes.getText())));
-					productSizes.setText("");
-				}
-			}
-		});
-		// start algorithm
-		StyledButton startNextFit = new StyledButton("btn.startNextFit", new Vector2(15, 200));
-		startNextFit.setOnAction(event ->
-		{
-			nextFit.executeNextFit(products);
-			products.clear();
-			nextFit.returnBoxes.clear();
-		});
-		StyledButton startFirstFit = new StyledButton("btn.startFirstFit", new Vector2(15, 300));
-		startFirstFit.setOnAction(event ->
-		{
-			firstFit.executeFirstFit(products);
-			products.clear();
-			firstFit.returnBoxes.clear();
-		});
-		StyledButton startBruteForce = new StyledButton("btn.startBruteForce", new Vector2(100, 300));
-		startBruteForce.setOnAction(event ->
-		{
-			bruteForce.executeBruteForce(products);
-			products.clear();
-		});
-		StyledButton startDecFirstFit = new StyledButton("btn.startDecFirstFit", new Vector2(100, 200));
-		startDecFirstFit.setOnAction(event ->
-		{
-			decFirstFit.executeDecreasingFirstFit(products);
-			products.clear();
-		});
-		getChildren().add(startNextFit);
-		getChildren().add(startFirstFit);
-		getChildren().add(startBruteForce);
-		getChildren().add(startDecFirstFit);
+		super();
+		AddControls();
 	}
-	public void addConsoleItem(String Message, String msgType)
+
+	public void AddControls()
 	{
-		consoleList.getItems().add(consoleList.getItems().size(), String.format("[%s] %s", msgType, Message));
+		String[] algorithmNames =
+		{ "btn.firstFit", "btn.nextFit", "btn.totalEnumeration", "btn.ownAlgorithm" };
+
+		getChildren().add(new SimulationControls(algorithmNames, this));
 	}
-	// getters for textfields
+
+	public void addConsoleItem(String string, String string2)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void ExecuteAlgorithmOne()
+	{
+	}
+
+	@Override
+	public void ExecuteAlgorithmTwo()
+	{
+
+	}
+
+	@Override
+	public void ExecuteAlgorithmThree()
+	{
+
+	}
+
+	@Override
+	public void ExecuteAlgorithmFour()
+	{
+
+	}
 }
