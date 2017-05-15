@@ -32,11 +32,7 @@ public class Grid extends Canvas
 		this.isInteractive = isInteractive;
 
 		CreateTiles();
-
-		if (isInteractive)
-		{
-			AddMouseEventHandler();
-		}
+		AddMouseEventHandler();
 		Redraw();
 	}
 
@@ -50,15 +46,18 @@ public class Grid extends Canvas
 			int x = (int) Math.ceil(event.getX() / (gridSize / tileAmount));
 			int y = (int) Math.ceil(event.getY() / (gridSize / tileAmount));
 
-			for (GridTile tile : gridTileArray)
+			if (isInteractive)
 			{
-				if (tile.getXcoord() == x && tile.getYcoord() == y)
+				for (GridTile tile : gridTileArray)
 				{
-					tile.SetSelected(!tile.IsSelected());
-					pathList = null;
+					if (tile.getXcoord() == x && tile.getYcoord() == y)
+					{
+						tile.SetSelected(!tile.IsSelected());
+						pathList = null;
+					}
 				}
+				Redraw();
 			}
-			Redraw();
 		});
 	}
 
