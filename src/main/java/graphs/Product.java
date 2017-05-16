@@ -9,7 +9,8 @@ public class Product implements Comparable
 	private Vector2 coords;
 	private int size;
 
-	public Product(int size){
+	public Product(int size)
+	{
 		this.size = size;
 	}
 
@@ -20,7 +21,7 @@ public class Product implements Comparable
 		this.coords = coords;
 		this.size = size;
 	}
-	
+
 	public String GetName()
 	{
 		return name;
@@ -35,24 +36,28 @@ public class Product implements Comparable
 	{
 		return coords;
 	}
-	
-	public int GetSize()
+
+	public float GetSize()
 	{
 		return size;
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		int returnedInt=0;
+	public int compareTo(Object o)
+	{
+		int returnedInt = 0;
 		Product compared = (Product) o;
-		if(this.size<compared.size){
-			returnedInt=-1;
+		if (this.size < compared.size)
+		{
+			returnedInt = -1;
 		}
-		if(this.size==compared.size){
-			returnedInt=0;
+		if (this.size == compared.size)
+		{
+			returnedInt = 0;
 		}
-		if(this.size>compared.size){
-			returnedInt=1;
+		if (this.size > compared.size)
+		{
+			returnedInt = 1;
 		}
 		return returnedInt;
 	}

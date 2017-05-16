@@ -30,7 +30,7 @@ public class FirstFit
 		{
 			for (Box currentBox : returnBoxes)
 			{
-				if (currentBox.checkFit(product.GetSize()) && !doesFit)
+				if (currentBox.checkFit((int) product.GetSize()) && !doesFit)
 				{
 					currentBox.addProduct(product);
 					doesFit = true;

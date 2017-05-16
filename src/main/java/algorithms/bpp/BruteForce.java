@@ -80,7 +80,7 @@ public class BruteForce
 			for (Box currentBox : sortedBoxes)
 			{
 				//does it fit in box? yes: add product
-				if (currentBox.checkFit(product.GetSize()) && !doesFit)
+				if (currentBox.checkFit((int) product.GetSize()) && !doesFit)
 				{
 					simulation.addConsoleItem("Added product (size: " + product.GetSize() + ") to current box.","DEBUG");
 					currentBox.addProduct(product);

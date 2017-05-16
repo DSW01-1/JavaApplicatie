@@ -2,8 +2,6 @@ package main.java.pane;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.scene.control.ChoiceBox;
 import javafx.stage.Stage;
 import main.java.main.Language;
 import main.java.main.Main;
@@ -62,12 +60,14 @@ public class MainMenu extends StyledPane
 
 			Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 		});
-
 		getChildren().add(simulationsButton);
 
+		//StyledButton databaseManagement = new StyledButton("btn.dtbsMngmt",
+		//		new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
+
 		// Exit Button
-		final StyledButton exitButton = new StyledButton("btn.exit",
-				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
+		StyledButton exitButton = new StyledButton("btn.exit",
+				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 400), new Vector2(200, 50));
 		exitButton.setOnAction(event ->
 		{
 			// Exits the application

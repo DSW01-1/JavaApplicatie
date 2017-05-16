@@ -45,7 +45,7 @@ public class NextFit
 		for (Product product : products)
 		{
 			// check if product fits in current box
-			if (currentBox.checkFit(product.GetSize()))
+			if (currentBox.checkFit((int) product.GetSize()))
 			{
 				currentBox.addProduct(product);
 				simulation.addConsoleItem("Added product (size: " + product.GetSize() + ") to current box.", "DEBUG");
