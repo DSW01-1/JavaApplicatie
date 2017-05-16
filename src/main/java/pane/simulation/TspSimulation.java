@@ -123,8 +123,31 @@ public class TspSimulation extends BaseSimulation
 	public void ExecuteAlgorithmThree()
 	{
 		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
+
 		addConsoleItem("Starting Algorithm 'Total Enumeration'", "DEBUG");
-		TotalEnumeration algoritme = new TotalEnumeration(activeTiles);
+		addConsoleItem("Searching for Coordinates", "DEBUG");
+
+		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
+		if (activeTiles.size() > 0) {
+			long startTime = System.nanoTime();
+			new Thread(new Runnable() {
+				public void run() {
+					TotalEnumeration algoritme = new TotalEnumeration(activeTiles);
+					addConsoleItem("Finished processing the algorithms", "DEBUG");
+					addConsoleItem("There are " + algoritme.getPossiblePaths() + " possible paths", "DEBUG");
+					ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
+					long stopTime = System.nanoTime();
+					long duration = (stopTime - startTime) / 100000;
+					String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
+					addConsoleItem(showDuration, "INFO");
+					grid.Redraw(shortestPath);
+				}
+			}).start();
+
+
+		}else{
+			addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),"DEBUG");
+		}
 	}
 
 	@Override
