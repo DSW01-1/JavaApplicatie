@@ -62,8 +62,8 @@ public class MainMenu extends StyledPane
 		});
 		getChildren().add(simulationsButton);
 
-		StyledButton databaseManagement = new StyledButton("btn.dtbsMngmt",
-				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
+		//StyledButton databaseManagement = new StyledButton("btn.dtbsMngmt",
+		//		new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
 
 		// Exit Button
 		StyledButton exitButton = new StyledButton("btn.exit",

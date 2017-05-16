@@ -5,11 +5,21 @@ import java.util.ArrayList;
 public class Box
 {
 	private ArrayList<Product> products = new ArrayList<Product>();
-	private int volume;
+	private float volume;
 
-	public Box(int volume)
+	public Box(float volume)
 	{
 		this.volume = volume;
+	}
+
+	public Box(Product[] productArray)
+	{
+		this(10);
+
+		for (Product product : productArray)
+		{
+			products.add(product);
+		}
 	}
 
 	public boolean checkFit(int size)
@@ -24,18 +34,26 @@ public class Box
 		this.volume = this.volume - product.GetSize();
 	}
 
-	public String printNameAtLocation(int i){
+	public String printNameAtLocation(int i)
+	{
 		return products.get(i).GetName();
 	}
 
-	public String printSizeAtLocation(int i){
+	public String printSizeAtLocation(int i)
+	{
 		return String.valueOf(products.get(i).GetSize());
 	}
 
-	public int getSize(){
+	public int getSize()
+	{
 		return products.size();
 	}
 	
+	public float GetVolume()
+	{
+		return volume;
+	}
+
 	public ArrayList<Product> GetProductArray()
 	{
 		return products;

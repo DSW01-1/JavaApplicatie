@@ -35,7 +35,7 @@ public class DecreasingFirstFit
 			for (Box currentBox : returnBoxes)
 			{
 				// check if product fits in box, if not go to next box
-				if (currentBox.checkFit(product.GetSize()) && !doesFit)
+				if (currentBox.checkFit((int) product.GetSize()) && !doesFit)
 				{
 					currentBox.addProduct(product);
 					simulation.addConsoleItem("Product fitted", "DEBUG");
