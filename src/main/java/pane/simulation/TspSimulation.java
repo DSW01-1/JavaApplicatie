@@ -2,6 +2,7 @@ package main.java.pane.simulation;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.ProgressBar;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.algorithms.tsp.TotalEnumeration;
 import main.java.constant.Constants;
@@ -16,7 +17,8 @@ public class TspSimulation extends BaseSimulation
 {
 	private Grid grid;
 	private boolean isInteractive = true;
-	private ConsolePane consolePane;
+	public ConsolePane consolePane;
+	public ProgressBar progression;
 
 	public TspSimulation()
 	{
@@ -25,12 +27,23 @@ public class TspSimulation extends BaseSimulation
 		AddControls();
 		AddGrid(5);
 		AddConsolePane();
+		AddProgressBar();
 	}
 
 	private void AddConsolePane()
 	{
 		consolePane = new ConsolePane();
 		getChildren().add(consolePane);
+
+	}
+
+	private void AddProgressBar(){
+		this.progression = new ProgressBar(0);
+		progression.setLayoutX(15);
+		progression.setLayoutY(550);
+		progression.setPrefWidth(ScreenProperties.getScreenWidth() / 4);
+		progression.setProgress(0);
+		getChildren().add(progression);
 	}
 
 	/**
@@ -67,6 +80,10 @@ public class TspSimulation extends BaseSimulation
 		AddGrid(newSize);
 	}
 
+	public void updatePath(ArrayList<Vector2> shortestPath){
+		grid.Redraw(shortestPath);
+	}
+
 	/**
 	 * 
 	 * @param interactive
@@ -97,8 +114,7 @@ public class TspSimulation extends BaseSimulation
 			for (Vector2 coordinate : shortestPath)
 			{
 				coordinates += String.format("(%s, %s) ", coordinate.getX(), coordinate.getY());
-				// addConsoleItem(String.format("Tile: x=%s,
-				// y=%s",coordinate.getX(), coordinate.getY()),"INFO");
+				addConsoleItem(String.format("Tile: x=%s, y=%s",coordinate.getX(), coordinate.getY()),"INFO");
 			}
 			addConsoleItem(coordinates, "INFO");
 			long duration = (stopTime - startTime) / 100000;
@@ -129,20 +145,30 @@ public class TspSimulation extends BaseSimulation
 
 		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
 		if (activeTiles.size() > 0) {
-			long startTime = System.nanoTime();
-			new Thread(new Runnable() {
-				public void run() {
-					TotalEnumeration algoritme = new TotalEnumeration(activeTiles);
-					addConsoleItem("Finished processing the algorithms", "DEBUG");
-					addConsoleItem("There are " + algoritme.getPossiblePaths() + " possible paths", "DEBUG");
-					ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
-					long stopTime = System.nanoTime();
-					long duration = (stopTime - startTime) / 100000;
-					String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
-					addConsoleItem(showDuration, "INFO");
-					grid.Redraw(shortestPath);
-				}
-			}).start();
+
+			// STAP 1
+			//long startTime = System.nanoTime();
+			addConsoleItem("STEP 1/3 | CALCULATING ALL PATHS", "DEBUG");
+			//TotalEnumeration algoritme = new TotalEnumeration();
+
+			TotalEnumeration algoritme = new TotalEnumeration(activeTiles,this);
+			algoritme.start();
+
+			addConsoleItem("blabla", "DEBUG");
+
+			if(algoritme.getState() == Thread.State.TERMINATED){
+				addConsoleItem("There are " + algoritme.getPossiblePaths() + " possible paths", "DEBUG");
+				//long stopTime = System.nanoTime();
+				//long duration = (stopTime - startTime) / 100000;
+				//String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms, moving to the next step";
+				//addConsoleItem(showDuration, "INFO");
+			}
+
+			// stap 2
+			//ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
+
+			//grid.Redraw(shortestPath);
+
 
 
 		}else{
@@ -156,8 +182,15 @@ public class TspSimulation extends BaseSimulation
 
 	}
 
-	private void addConsoleItem(String message, String msgType)
+	public void addConsoleItem(String message, String msgType)
 	{
 		consolePane.getItems().add(consolePane.getItems().size(), String.format("[%s] %s", msgType, message));
 	}
+
+	public void changeProgression(int progress){
+		progression.setProgress(progress);
+	}
+
+
+
 }

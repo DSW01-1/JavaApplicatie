@@ -1,6 +1,7 @@
 package main.java.pane;
 
 import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
 import main.java.main.ScreenProperties;
 
 public class ConsolePane extends ListView<String>
@@ -8,6 +9,9 @@ public class ConsolePane extends ListView<String>
 	public ConsolePane()
 	{
 		super();
+
+
+
 		setLayoutX(15);
 		setLayoutY(570);
 		setPrefWidth(ScreenProperties.getScreenWidth() / 4);

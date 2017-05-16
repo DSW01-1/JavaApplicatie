@@ -1,18 +1,39 @@
 package main.java.algorithms.tsp;
 import main.java.graphs.GridTile;
 import main.java.main.Vector2;
+import main.java.pane.simulation.TspSimulation;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class TotalEnumeration
+public class TotalEnumeration extends Thread
 {
+
     private ArrayList<GridTile> tileList;
     private ArrayList<EnumPath> pathList = new ArrayList<>();
+    ArrayList<ArrayList<Integer>> possibilities;
     private int possiblePaths;
+    private TspSimulation simulation;
+    private boolean logging = false;
+
+
 
     public TotalEnumeration(ArrayList<GridTile> tileList){
         this.tileList = tileList;
+        this.simulation = new TspSimulation();
+    }
+    public TotalEnumeration(ArrayList<GridTile> tileList, TspSimulation simulation){
+        this.tileList = tileList;
+        this.simulation = simulation;
+        logging = true;
+    }
+
+    public void run(){
+        System.out.println("MyThread running");
+        long startTime = System.nanoTime();
+        if(logging){
+            simulation.addConsoleItem("Starting thread","DEBUG");
+        }
 
         // creating array of all tile indexes
         int[] tileIndexes = new int[tileList.size()];
@@ -22,15 +43,48 @@ public class TotalEnumeration
 
 
         // Fetching all possible paths
-        ArrayList<ArrayList<Integer>> test = permute(tileIndexes);
-        possiblePaths = test.size();
+        this.possibilities = permute(tileIndexes);
+        possiblePaths = possibilities.size();
 
-        // putting all paths in an arraylist
-        int cnt = 1;
-        for(ArrayList<Integer> subtest : test){
-            addPath(subtest);
+        if(logging){
+            simulation.addConsoleItem("There are " + this.getPossiblePaths() + " possible paths", "DEBUG");
         }
 
+        this.comparePaths();
+        simulation.addConsoleItem("Paths have been calculated, checking shortest path", "DEBUG");
+
+        ArrayList<Vector2> shortestPath = this.getShortestPath();
+        simulation.addConsoleItem("Applying path to the grid..", "DEBUG");
+        simulation.updatePath(shortestPath);
+
+        simulation.addConsoleItem("Finished configuring 'total enumeration' algorithm", "DEBUG");
+
+        long stopTime = System.nanoTime();
+        long duration = (stopTime - startTime) / 100000;
+        if(logging){
+            String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms, moving to the next step";
+            simulation.addConsoleItem(showDuration, "INFO");
+        }
+
+
+    }
+
+    public void comparePaths(){
+        // putting all paths in an arraylist
+        int cnt = 0;
+
+        for(ArrayList<Integer> subtest : this.possibilities){
+            addPath(subtest);
+            if(logging){
+                double calc = (double) cnt / this.possibilities.size();
+                simulation.progression.setProgress(calc);
+            }
+            cnt++;
+        }
+
+        if(logging){
+            simulation.addConsoleItem("done?","DEBUG");
+        }
     }
 
     public ArrayList<ArrayList<Integer>> permute(int[] num) {
