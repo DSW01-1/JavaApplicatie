@@ -35,4 +35,9 @@ public class Box
 	public int getSize(){
 		return products.size();
 	}
+	
+	public ArrayList<Product> GetProductArray()
+	{
+		return products;
+	}
 }
