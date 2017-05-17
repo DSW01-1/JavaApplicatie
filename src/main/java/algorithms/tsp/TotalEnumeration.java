@@ -20,6 +20,10 @@ public class TotalEnumeration extends Thread
     private int possiblePaths;
     private TspSimulation simulation;
     private boolean logging = false;
+    private double pathLength = 0;
+
+    private int factor = 0;
+    private int progress = 0;
 
 
 
@@ -37,6 +41,7 @@ public class TotalEnumeration extends Thread
 
     public void run(){
 
+
         long startTime = System.nanoTime();
         if(logging){
             Platform.runLater(new Runnable() {
@@ -52,28 +57,17 @@ public class TotalEnumeration extends Thread
             tileIndexes[i] = i;
         }
 
-
-        // Fetching all possible paths
-        this.possibilities = permute(tileIndexes);
-        possiblePaths = possibilities.size();
-
+        // calc factor
+        setFactor(tileList.size());
         if(logging){
             Platform.runLater(new Runnable() {
                 @Override public void run() {
-                    simulation.addConsoleItem("Possible paths generated", "DEBUG");
-                    simulation.addConsoleItem("There are " + possiblePaths + " paths", "DEBUG");
+                    simulation.addConsoleItem(factor + " Possible paths","DEBUG");
                 }
             });
         }
 
-        this.processShortestPath();
-        if(logging){
-            Platform.runLater(new Runnable() {
-                @Override public void run() {
-                    simulation.addConsoleItem("Shortest path has been calculated", "DEBUG");
-                }
-            });
-        }
+        showPermutations(0,tileIndexes);
 
         ArrayList<Vector2> shortestPath = this.getShortestPath();
         Platform.runLater(new Runnable() {
@@ -111,87 +105,77 @@ public class TotalEnumeration extends Thread
         return shortestPath.getTiles();
     }
 
-    public void processShortestPath(){
+    public void processShortestPath(int[] indexList){
 
-        int cnt = 0;
-        double pathLength = 0;
+        double totalLength = 0;
+        ArrayList<Vector2> tileCoordinates = new ArrayList<>();
 
-        for(ArrayList<Integer> path : this.possibilities){
-            double totalLength = 0;
-            ArrayList<Vector2> tileCoordinates = new ArrayList<>();
-
-            int lastIndex=0;
+        int lastIndex=0;
 
 
-            // loop through indexes
-            for(int index : path){
+        // loop through indexes
+        for(int index : indexList){
 
-                // get difference
-                double xyDiff = dG.distanceGrid[lastIndex][index];
+            // get difference
+            double xyDiff = dG.distanceGrid[lastIndex][index];
 
-                lastIndex = index;
-                tileCoordinates.add(new Vector2(tileList.get(index).getXcoord(), tileList.get(index).getYcoord()));
+            lastIndex = index;
+            tileCoordinates.add(new Vector2(tileList.get(index).getXcoord(), tileList.get(index).getYcoord()));
 
-                totalLength += xyDiff;
-        }
-            int lastCoorX=tileList.get(lastIndex).getXcoord();
-            int lastCoorY=tileList.get(lastIndex).getYcoord();
-            double xyDiff = Math.hypot(lastCoorX, lastCoorY);
             totalLength += xyDiff;
+        }
+        int lastCoorX=tileList.get(lastIndex).getXcoord();
+        int lastCoorY=tileList.get(lastIndex).getYcoord();
+        double xyDiff = Math.hypot(lastCoorX, lastCoorY);
+        totalLength += xyDiff;
 
-            tileCoordinates.add(new Vector2(lastCoorX, lastCoorY));
+        tileCoordinates.add(new Vector2(lastCoorX, lastCoorY));
 
-            if(totalLength < pathLength || pathLength == 0){
-                pathLength = totalLength;
-                shortestPath = new EnumPath(pathLength, tileCoordinates);
+        if(totalLength < this.pathLength || this.pathLength == 0){
+            this.pathLength = totalLength;
+            shortestPath = new EnumPath(this.pathLength, tileCoordinates);
 
 
-            }
-
-            if(logging){
-                double calc = (double) cnt / this.possibilities.size();
-                simulation.progression.setProgress(calc);
-            }
-            cnt++;
         }
 
-
-    }
-
-    public ArrayList<ArrayList<Integer>> permute(int[] num) {
-
-        ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
-
-        //start from an empty list
-        result.add(new ArrayList<Integer>());
-
-        for (int i = 0; i < num.length; i++) {
-            //list of list in current iteration of the array num
-            ArrayList<ArrayList<Integer>> current = new ArrayList<ArrayList<Integer>>();
-
-            for (ArrayList<Integer> l : result) {
-                for (int j = 0; j < l.size()+1; j++) {
-                    l.add(j, num[i]);
-
-                    ArrayList<Integer> temp = new ArrayList<Integer>(l);
-                    current.add(temp);
-
-                    l.remove(j);
-                }
-
-
-            }
-
-            result = new ArrayList<ArrayList<Integer>>(current);
-//            System.out.println(result);
+        if(logging){
+            double calc = (double) this.progress / factor;
+            simulation.progression.setProgress(calc);
         }
 
-        return result;
     }
 
     public int getPossiblePaths(){
         return possiblePaths;
     }
 
+    public void showPermutations(int startindex, int[] input) {
+        permute(input,0);
+    }
 
+    void permute(int []a,int k ) {
+        if (k == a.length) {
+            processShortestPath(a);
+
+            this.progress++;
+        } else {
+            for (int i = k; i < a.length; i++) {
+                int temp = a[k];
+                a[k] = a[i];
+                a[i] = temp;
+                permute(a, k + 1);
+                temp = a[k];
+                a[k] = a[i];
+                a[i] = temp;
+            }
+        }
+    }
+
+    public void setFactor(int m) {
+
+        for(int y=(m-1) ; y > 0 ; y--) {
+            m = m * y;
+        }
+        this.factor = m;
+    }
 }
