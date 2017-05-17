@@ -21,26 +21,24 @@ public class DatabaseManagePane extends StyledPane
 
 	public void AddScrollPane()
 	{
+		int paneWidth = ScreenProperties.getScreenWidth() / 2;
+		int paneHeight = ScreenProperties.getScreenHeight() / 2;
+
 		VBox column = new VBox();
+		column.setPrefWidth(paneWidth);
 
 		ArrayList<Product> products = DatabaseConnection.GetAvailableProducts();
 
-		int paneWidth = ScreenProperties.getScreenWidth() / 2;
-		int paneHeight = ScreenProperties.getScreenHeight() / 2;
-		
-		column.setStyle("-fx-background-color: #FF0");
-
 		for (Product product : products)
 		{
-			AdvancedProductPane productPane = new AdvancedProductPane(product, new Vector2(paneWidth, 50));
+			AdvancedProductPane productPane = new AdvancedProductPane(product, new Vector2(paneWidth, 200));
 			column.getChildren().add(productPane);
 		}
 
 		Vector2 pos = new Vector2(paneWidth - paneWidth / 2, paneHeight - (paneHeight / 3) * 2);
 		Vector2 size = new Vector2(paneWidth, paneHeight);
 
-		StyledScrollPane scrollPane = new StyledScrollPane(column, pos, size, true);
-		scrollPane.setStyle("-fx-background-color: #0F0");
+		StyledScrollPane scrollPane = new StyledScrollPane(column, pos, size);
 		getChildren().add(scrollPane);
 	}
 }
