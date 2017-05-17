@@ -125,8 +125,27 @@ public class TotalEnumeration extends Thread
 
                 // get difference
 
-                double xDiff = (tileList.get(index).getXcoord() < beginX) ? beginX - tileList.get(index).getXcoord() : tileList.get(index).getXcoord() - beginX ;
-                double yDiff = (tileList.get(index).getYcoord() < beginY) ? beginY - tileList.get(index).getYcoord() : tileList.get(index).getYcoord() - beginY ;
+                //double xDiff = (tileList.get(index).getXcoord() < beginX) ? beginX - tileList.get(index).getXcoord() : tileList.get(index).getXcoord() - beginX ;
+                //double yDiff = (tileList.get(index).getYcoord() < beginY) ? beginY - tileList.get(index).getYcoord() : tileList.get(index).getYcoord() - beginY ;
+
+                // ============================| VERVANGING 2 REGELS HIERBOVEN |=====================================
+                double xDiff;
+                double yDiff;
+
+                if(tileList.get(index).getXcoord() < beginX){
+                    xDiff = beginX - tileList.get(index).getXcoord();
+                }else{
+                    xDiff = tileList.get(index).getXcoord() - beginX;
+                }
+
+                if(tileList.get(index).getYcoord() < beginY){
+                    yDiff = beginY - tileList.get(index).getYcoord();
+                }else{
+                    yDiff = tileList.get(index).getYcoord() - beginY;
+                }
+                // ============================| VERVANGING 2 REGELS HIERBOVEN |=====================================
+
+
                 double xyDiff = Math.hypot(xDiff, yDiff);
 
                 beginX = tileList.get(index).getXcoord();
@@ -160,6 +179,7 @@ public class TotalEnumeration extends Thread
     }
 
     public ArrayList<ArrayList<Integer>> permute(int[] num) {
+
         ArrayList<ArrayList<Integer>> result = new ArrayList<ArrayList<Integer>>();
 
         //start from an empty list

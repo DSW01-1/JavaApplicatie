@@ -177,10 +177,14 @@ public class Grid extends Canvas
 	 */
 	public void DrawTileIfSelected(Vector2 tilePos)
 	{
-		double x = tilePos.getX() * tileSize - tileSize + (tileSize / 3);
-		double y = tilePos.getY() * tileSize - tileSize + (tileSize / 3);
+		double x = tilePos.getX() * tileSize - tileSize + 1;
+		double y = tilePos.getY() * tileSize - tileSize + 1;
 
-		gc.fillOval(x, y, tileSize / 3, tileSize / 3);
+		//gc.fillOval(x, y, tileSize / 3, tileSize / 3);
+		gc.setFill(Color.GRAY);
+		gc.fillRect(x,y,tileSize-2,tileSize-2);
+
+
 	}
 
 	/**
