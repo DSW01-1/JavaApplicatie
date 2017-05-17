@@ -2,7 +2,6 @@ package main.java.graphs;
 
 import java.util.ArrayList;
 
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.HBox;
 import main.java.constant.Constants;
 import main.java.main.ScreenProperties;
@@ -31,10 +30,7 @@ public class BoxPane extends StyledPane
 		Vector2 size = new Vector2(boxPaneSize, boxPaneSize);
 		Vector2 pos = new Vector2((ScreenProperties.getScreenWidth() / 2) - boxPaneSize / 2, 15);
 		
-		scrollPane = new StyledScrollPane(hBox, pos, size);
-
-		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
-		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
+		scrollPane = new StyledScrollPane(hBox, pos, size, true);
 		getChildren().add(scrollPane);
 	}
 

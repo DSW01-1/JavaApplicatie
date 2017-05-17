@@ -9,15 +9,15 @@ import java.util.ArrayList;
  */
 public class EnumPath {
 
-    private int pathLength;
+    private double pathLength;
     private ArrayList<Vector2> Coordinates;
 
-    public EnumPath(int PathLength, ArrayList<Vector2> Coordinates){
+    public EnumPath(double PathLength, ArrayList<Vector2> Coordinates){
         this.pathLength = PathLength;
         this.Coordinates = Coordinates;
     }
 
-    public int getPathLength(){
+    public double getPathLength(){
         return pathLength;
     }
     public ArrayList<Vector2> getTiles() {
