@@ -9,6 +9,7 @@ import main.java.pane.SimulationControls;
 public class BppSimulation extends BaseSimulation
 {
 	ConsolePane consolePane;
+	BoxPane boxPane;
 
 	public BppSimulation()
 	{
@@ -50,7 +51,8 @@ public class BppSimulation extends BaseSimulation
 
 	public void AddBoxPane()
 	{
-		getChildren().add(new BoxPane());
+		boxPane = new BoxPane();
+		getChildren().add(boxPane);
 	}
 
 	public void addConsoleItem(String string, String string2)

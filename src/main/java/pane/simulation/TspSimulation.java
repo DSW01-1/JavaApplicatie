@@ -34,7 +34,6 @@ public class TspSimulation extends BaseSimulation
 	{
 		consolePane = new ConsolePane();
 		getChildren().add(consolePane);
-
 	}
 
 	private void AddProgressBar()
@@ -53,7 +52,8 @@ public class TspSimulation extends BaseSimulation
 	public void AddControls()
 	{
 		String[] algorithmNames =
-		{ "btn.nearestNeighbour", "btn.heldKarp", "btn.hungarianAssignment", "btn.totalEnumeration", "btn.ownAlgorithm" };
+		{ "btn.nearestNeighbour", "btn.heldKarp", "btn.hungarianAssignment", "btn.totalEnumeration",
+				"btn.ownAlgorithm" };
 
 		getChildren().add(new SimulationControls(algorithmNames, this));
 	}
@@ -139,14 +139,14 @@ public class TspSimulation extends BaseSimulation
 
 	}
 
-	//Hungarian Assignment
+	// Hungarian Assignment
 	@Override
 	public void ExecuteAlgorithmThree()
 	{
-		
+
 	}
 
-	//Brute Force
+	// Brute Force
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
@@ -184,7 +184,6 @@ public class TspSimulation extends BaseSimulation
 			// ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
 
 			// grid.Redraw(shortestPath);
-
 		}
 		else
 		{
@@ -193,7 +192,7 @@ public class TspSimulation extends BaseSimulation
 		}
 	}
 
-	//Own Algorithm
+	// Own Algorithm
 	@Override
 	public void ExecuteAlgorithmFive()
 	{

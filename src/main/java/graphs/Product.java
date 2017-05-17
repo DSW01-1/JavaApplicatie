@@ -2,7 +2,7 @@ package main.java.graphs;
 
 import main.java.main.Vector2;
 
-public class Product implements Comparable
+public class Product implements Comparable<Object>
 {
 	private int id;
 	private String name;
