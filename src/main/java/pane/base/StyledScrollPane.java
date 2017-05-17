@@ -17,4 +17,5 @@ public class StyledScrollPane extends ScrollPane
 		setLayoutX(pos.getX());
 		setLayoutY(pos.getY());
 	}
+
 }

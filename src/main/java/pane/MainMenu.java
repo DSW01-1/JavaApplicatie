@@ -61,13 +61,19 @@ public class MainMenu extends StyledPane
 			Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 		});
 		getChildren().add(simulationsButton);
-
-		//StyledButton databaseManagement = new StyledButton("btn.dtbsMngmt",
-		//		new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
+		
+		// Database Button
+				StyledButton databaseButton = new StyledButton("btn.dtbsmgmnt",
+						new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
+				databaseButton.setOnAction(event ->
+				{
+					Main.SwitchPane(new DatabaseManagePane());
+				});
+				getChildren().add(databaseButton);
 
 		// Exit Button
 		StyledButton exitButton = new StyledButton("btn.exit",
-				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 400), new Vector2(200, 50));
+				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 450), new Vector2(200, 50));
 		exitButton.setOnAction(event ->
 		{
 			// Exits the application

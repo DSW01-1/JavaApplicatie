@@ -28,8 +28,10 @@ public class BoxPane extends StyledPane
 		hBox = new HBox();
 		hBox.setPrefHeight(boxPaneSize);
 
-		scrollPane = new StyledScrollPane(hBox, new Vector2(boxPaneSize, boxPaneSize),
-				new Vector2((ScreenProperties.getScreenWidth() / 2) - boxPaneSize / 2, 15));
+		Vector2 size = new Vector2(boxPaneSize, boxPaneSize);
+		Vector2 pos = new Vector2((ScreenProperties.getScreenWidth() / 2) - boxPaneSize / 2, 15);
+		
+		scrollPane = new StyledScrollPane(hBox, pos, size);
 
 		scrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.AS_NEEDED);
