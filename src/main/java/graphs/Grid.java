@@ -181,7 +181,7 @@ public class Grid extends Canvas
 		double y = tilePos.getY() * tileSize - tileSize + 1;
 
 		//gc.fillOval(x, y, tileSize / 3, tileSize / 3);
-		gc.setFill(Color.GRAY);
+		gc.setFill(Color.LIGHTGRAY);
 		gc.fillRect(x,y,tileSize-2,tileSize-2);
 
 
