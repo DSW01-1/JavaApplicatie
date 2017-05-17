@@ -52,8 +52,7 @@ public class TspSimulation extends BaseSimulation
 	public void AddControls()
 	{
 		String[] algorithmNames =
-		{ "btn.nearestNeighbour", "btn.heldKarp", "btn.hungarianAssignment", "btn.totalEnumeration",
-				"btn.ownAlgorithm" };
+		{ "btn.nearestNeighbour", "btn.hungarianAssignment", "btn.totalEnumeration", "btn.ownAlgorithm" };
 
 		getChildren().add(new SimulationControls(algorithmNames, this));
 	}
@@ -132,23 +131,16 @@ public class TspSimulation extends BaseSimulation
 		}
 	}
 
-	// Held-Karp
+	// Hungarian Assignment
 	@Override
 	public void ExecuteAlgorithmTwo()
 	{
 
 	}
 
-	// Hungarian Assignment
-	@Override
-	public void ExecuteAlgorithmThree()
-	{
-
-	}
-
 	// Brute Force
 	@Override
-	public void ExecuteAlgorithmFour()
+	public void ExecuteAlgorithmThree()
 	{
 		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 
@@ -194,7 +186,7 @@ public class TspSimulation extends BaseSimulation
 
 	// Own Algorithm
 	@Override
-	public void ExecuteAlgorithmFive()
+	public void ExecuteAlgorithmFour()
 	{
 
 	}

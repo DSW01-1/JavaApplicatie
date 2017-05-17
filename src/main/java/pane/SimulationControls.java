@@ -86,9 +86,6 @@ public class SimulationControls extends StyledPane
 		case "Algorithm4":
 			simulation.ExecuteAlgorithmFour();
 			break;
-		case "Algorithm5":
-			simulation.ExecuteAlgorithmFive();
-			break;
 		default:
 			break;
 		}
