@@ -110,10 +110,10 @@ public class TotalEnumeration extends Thread
     public void processShortestPath(){
 
         int cnt = 0;
-        int pathLength = 0;
+        double pathLength = 0;
 
         for(ArrayList<Integer> path : this.possibilities){
-            int totalLength = 0;
+            double totalLength = 0;
             ArrayList<Vector2> tileCoordinates = new ArrayList<>();
 
             int beginX = 0;
@@ -135,13 +135,17 @@ public class TotalEnumeration extends Thread
                 tileCoordinates.add(new Vector2(beginX, beginY));
 
                 totalLength += xyDiff;
-            }
-            //pathList.add(new EnumPath(totalLength, tileCoordinates));
+        }
 
+            double xyDiff = Math.hypot(beginX, beginY);
+            totalLength += xyDiff;
+
+            tileCoordinates.add(new Vector2(beginX, beginY));
 
             if(totalLength < pathLength || pathLength == 0){
                 pathLength = totalLength;
                 shortestPath = new EnumPath(pathLength, tileCoordinates);
+
 
             }
 
@@ -179,6 +183,7 @@ public class TotalEnumeration extends Thread
             }
 
             result = new ArrayList<ArrayList<Integer>>(current);
+            System.out.println(result);
         }
 
         return result;
