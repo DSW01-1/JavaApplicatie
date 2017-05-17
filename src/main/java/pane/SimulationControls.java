@@ -47,21 +47,21 @@ public class SimulationControls extends StyledPane
 
 	private void CreateControlButtons()
 	{
-		StyledButton startButton = new StyledButton("btn.start", new Vector2(15, 230), new Vector2(60, 20));
+		StyledButton startButton = new StyledButton("btn.start", new Vector2(15, 250), new Vector2(60, 20));
 		startButton.setOnAction(event ->
 		{
 			CheckAndDoALgorithm();
 		});
 		getChildren().add(startButton);
 
-		StyledButton pauseButton = new StyledButton("btn.pause", new Vector2(80, 230), new Vector2(60, 20));
+		StyledButton pauseButton = new StyledButton("btn.pause", new Vector2(80, 250), new Vector2(60, 20));
 		pauseButton.setOnAction(event ->
 		{
 			// TODO
 		});
 		getChildren().add(pauseButton);
 
-		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(145, 230), new Vector2(60, 20));
+		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(145, 250), new Vector2(60, 20));
 		stopButton.setOnAction(event ->
 		{
 			// TODO
@@ -85,6 +85,9 @@ public class SimulationControls extends StyledPane
 			break;
 		case "Algorithm4":
 			simulation.ExecuteAlgorithmFour();
+			break;
+		case "Algorithm5":
+			simulation.ExecuteAlgorithmFive();
 			break;
 		default:
 			break;

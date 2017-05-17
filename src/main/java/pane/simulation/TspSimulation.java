@@ -37,7 +37,8 @@ public class TspSimulation extends BaseSimulation
 
 	}
 
-	private void AddProgressBar(){
+	private void AddProgressBar()
+	{
 		this.progression = new ProgressBar(0);
 		progression.setLayoutX(15);
 		progression.setLayoutY(550);
@@ -52,7 +53,7 @@ public class TspSimulation extends BaseSimulation
 	public void AddControls()
 	{
 		String[] algorithmNames =
-		{ "btn.nearestNeighbour", "btn.multipleFragment", "btn.totalEnumeration", "btn.ownAlgorithm" };
+		{ "btn.nearestNeighbour", "btn.heldKarp", "btn.hungarianAssignment", "btn.totalEnumeration", "btn.ownAlgorithm" };
 
 		getChildren().add(new SimulationControls(algorithmNames, this));
 	}
@@ -80,7 +81,8 @@ public class TspSimulation extends BaseSimulation
 		AddGrid(newSize);
 	}
 
-	public void updatePath(ArrayList<Vector2> shortestPath){
+	public void updatePath(ArrayList<Vector2> shortestPath)
+	{
 		grid.Redraw(shortestPath);
 	}
 
@@ -93,6 +95,7 @@ public class TspSimulation extends BaseSimulation
 		isInteractive = interactive;
 	}
 
+	// Nearest Noughbour
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
@@ -114,7 +117,7 @@ public class TspSimulation extends BaseSimulation
 			for (Vector2 coordinate : shortestPath)
 			{
 				coordinates += String.format("(%s, %s) ", coordinate.getX(), coordinate.getY());
-				addConsoleItem(String.format("Tile: x=%s, y=%s",coordinate.getX(), coordinate.getY()),"INFO");
+				addConsoleItem(String.format("Tile: x=%s, y=%s", coordinate.getX(), coordinate.getY()), "INFO");
 			}
 			addConsoleItem(coordinates, "INFO");
 			long duration = (stopTime - startTime) / 100000;
@@ -129,14 +132,23 @@ public class TspSimulation extends BaseSimulation
 		}
 	}
 
+	// Held-Karp
 	@Override
 	public void ExecuteAlgorithmTwo()
 	{
 
 	}
 
+	//Hungarian Assignment
 	@Override
 	public void ExecuteAlgorithmThree()
+	{
+		
+	}
+
+	//Brute Force
+	@Override
+	public void ExecuteAlgorithmFour()
 	{
 		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 
@@ -144,40 +156,46 @@ public class TspSimulation extends BaseSimulation
 		addConsoleItem("Searching for Coordinates", "DEBUG");
 
 		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
-		if (activeTiles.size() > 0) {
+		if (activeTiles.size() > 0)
+		{
 
 			// STAP 1
-			//long startTime = System.nanoTime();
+			// long startTime = System.nanoTime();
 			addConsoleItem("STEP 1/3 | CALCULATING ALL PATHS", "DEBUG");
-			//TotalEnumeration algoritme = new TotalEnumeration();
+			// TotalEnumeration algoritme = new TotalEnumeration();
 
-			TotalEnumeration algoritme = new TotalEnumeration(activeTiles,this);
+			TotalEnumeration algoritme = new TotalEnumeration(activeTiles, this);
 			algoritme.start();
 
 			addConsoleItem("blabla", "DEBUG");
 
-			if(algoritme.getState() == Thread.State.TERMINATED){
+			if (algoritme.getState() == Thread.State.TERMINATED)
+			{
 				addConsoleItem("There are " + algoritme.getPossiblePaths() + " possible paths", "DEBUG");
-				//long stopTime = System.nanoTime();
-				//long duration = (stopTime - startTime) / 100000;
-				//String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms, moving to the next step";
-				//addConsoleItem(showDuration, "INFO");
+				// long stopTime = System.nanoTime();
+				// long duration = (stopTime - startTime) / 100000;
+				// String showDuration = (duration < 1) ? "duration: less then a
+				// ms" : "duration: " + duration + " ms, moving to the next
+				// step";
+				// addConsoleItem(showDuration, "INFO");
 			}
 
 			// stap 2
-			//ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
+			// ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
 
-			//grid.Redraw(shortestPath);
+			// grid.Redraw(shortestPath);
 
-
-
-		}else{
-			addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),"DEBUG");
+		}
+		else
+		{
+			addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
+					"DEBUG");
 		}
 	}
 
+	//Own Algorithm
 	@Override
-	public void ExecuteAlgorithmFour()
+	public void ExecuteAlgorithmFive()
 	{
 
 	}
@@ -187,10 +205,9 @@ public class TspSimulation extends BaseSimulation
 		consolePane.getItems().add(consolePane.getItems().size(), String.format("[%s] %s", msgType, message));
 	}
 
-	public void changeProgression(int progress){
+	public void changeProgression(int progress)
+	{
 		progression.setProgress(progress);
 	}
-
-
 
 }
