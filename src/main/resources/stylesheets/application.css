@@ -1,17 +1,16 @@
 #button
 {
-	-fx-background-color: rgb(128.0,152.0,166.0);
+	-fx-background-color: #0000AD;
 	-fx-text-fill: #FFF;
 }
 
 #background
 {
-	-fx-background-color: rgb(190.0,200.0,205.0);
+	-fx-background-color: rgb(255.0,255.0,255.0);
 }
 
 #product
 {
-	-fx-background-color: rgb(188.0,207.0,216.0);
 	-fx-border-width: 0.0 0.0 1.0 0.0;
 	-fx-border-color: black;
 	-fx-font: 20.0px Tahoma;

@@ -28,5 +28,8 @@ public class Constants
 	
 	//Standards Colors
 	public static Color standardLineColor = Color.INDIANRED;
+	
+	public static int baseWareHouseSize = 5;
+	public static int baseBoxSize = 10;
 
 }

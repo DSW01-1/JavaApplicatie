@@ -144,11 +144,13 @@ public class TspSimulation extends BaseSimulation
 		addConsoleItem("Searching for Coordinates", "DEBUG");
 
 		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
-		if (activeTiles.size() > 0) {
-			addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
-			long startTime = System.nanoTime();
-			HungarianAssignment algoritme = new HungarianAssignment(activeTiles);
-			algoritme.test();
+		addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
+		long startTime = System.nanoTime();
+		HungarianAssignment algoritme = new HungarianAssignment(activeTiles);
+		ArrayList<Vector2> vector = algoritme.runHungarian();
+		grid.Redraw(vector);
+		for(Vector2 vect:vector){
+			System.out.println(String.format("x: %s y: %s   ",vect.getX(),vect.getY()));
 		}
 	}
 
