@@ -120,8 +120,10 @@ public class NewOrder extends StyledPane
 		// The max width of the column
 		leftColumnVBox.setMaxWidth(200);
 
-		getChildren().add(new StyledScrollPane(leftColumnVBox, new Vector2(200, 400),
-				new Vector2(100, ScreenProperties.getScreenHeight() / 3 - 200)));
+		Vector2 pos = new Vector2(100, ScreenProperties.getScreenHeight() / 3 - 200);
+		Vector2 size =  new Vector2(200, 400);
+		
+		getChildren().add(new StyledScrollPane(leftColumnVBox, pos, size));
 	}
 
 	/**
