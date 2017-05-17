@@ -1,12 +1,12 @@
 #button
 {
-	-fx-background-color: rgb(128.0,152.0,166.0);
+	-fx-background-color: #0000AD;
 	-fx-text-fill: #FFF;
 }
 
 #background
 {
-	-fx-background-color: rgb(190.0,200.0,205.0);
+	-fx-background-color: rgb(255.0,255.0,255.0);
 }
 
 #product
