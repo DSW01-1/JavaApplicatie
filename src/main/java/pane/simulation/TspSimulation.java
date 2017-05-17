@@ -147,35 +147,16 @@ public class TspSimulation extends BaseSimulation
 		addConsoleItem("Starting Algorithm 'Total Enumeration'", "DEBUG");
 		addConsoleItem("Searching for Coordinates", "DEBUG");
 
-		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
 		if (activeTiles.size() > 0)
 		{
-
-			// STAP 1
-			// long startTime = System.nanoTime();
-			addConsoleItem("STEP 1/3 | CALCULATING ALL PATHS", "DEBUG");
-			// TotalEnumeration algoritme = new TotalEnumeration();
-
 			TotalEnumeration algoritme = new TotalEnumeration(activeTiles, this);
 			algoritme.start();
 
-			addConsoleItem("blabla", "DEBUG");
-
 			if (algoritme.getState() == Thread.State.TERMINATED)
 			{
-				addConsoleItem("There are " + algoritme.getPossiblePaths() + " possible paths", "DEBUG");
-				// long stopTime = System.nanoTime();
-				// long duration = (stopTime - startTime) / 100000;
-				// String showDuration = (duration < 1) ? "duration: less then a
-				// ms" : "duration: " + duration + " ms, moving to the next
-				// step";
-				// addConsoleItem(showDuration, "INFO");
+				addConsoleItem("Process has stopped unexpectly", "DEBUG");
+
 			}
-
-			// stap 2
-			// ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
-
-			// grid.Redraw(shortestPath);
 		}
 		else
 		{
