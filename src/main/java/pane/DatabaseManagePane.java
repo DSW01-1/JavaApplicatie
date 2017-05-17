@@ -80,10 +80,10 @@ public class DatabaseManagePane extends StyledPane
 			{
 			case 0:
 			case 1:
-				options = GetCoordOptions();
+				options = GetChoiceOptions(Constants.baseWareHouseSize);
 				break;
 			case 2:
-				options = GetSizeOptions();
+				options = GetChoiceOptions(Constants.baseBoxSize);
 				break;
 			default:
 				break;
@@ -96,23 +96,11 @@ public class DatabaseManagePane extends StyledPane
 		getChildren().add(pane);
 	}
 
-	private String[] GetSizeOptions()
+	private String[] GetChoiceOptions(int theOptions)
 	{
-		String[] options = new String[Constants.baseBoxSize];
+		String[] options = new String[theOptions];
 
-		for (int i = 1; i <= Constants.baseBoxSize; i++)
-		{
-			options[i - 1] = Integer.toString(i);
-		}
-
-		return options;
-	}
-
-	private String[] GetCoordOptions()
-	{
-		String[] options = new String[Constants.baseWareHouseSize];
-
-		for (int i = 1; i <= Constants.baseWareHouseSize; i++)
+		for (int i = 1; i <= theOptions; i++)
 		{
 			options[i - 1] = Integer.toString(i);
 		}
