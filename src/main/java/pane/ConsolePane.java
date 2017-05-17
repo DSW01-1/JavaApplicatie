@@ -17,4 +17,28 @@ public class ConsolePane extends ListView<String>
 		setPrefWidth(ScreenProperties.getScreenWidth() / 4);
 		setPrefHeight(ScreenProperties.getScreenHeight() / 3);
 	}
+
+	public ConsolePane(int x, int y)
+	{
+		super();
+
+
+
+		setLayoutX(x);
+		setLayoutY(y);
+		setPrefWidth(ScreenProperties.getScreenWidth() / 4);
+		setPrefHeight(ScreenProperties.getScreenHeight() / 3);
+	}
+
+	public ConsolePane(int x, int y, int width, int height)
+	{
+		super();
+
+
+
+		setLayoutX(x);
+		setLayoutY(y);
+		setPrefWidth(width);
+		setPrefHeight(height);
+	}
 }

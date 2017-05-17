@@ -33,7 +33,7 @@ public class TspSimulation extends BaseSimulation
 
 	private void AddConsolePane()
 	{
-		consolePane = new ConsolePane();
+		consolePane = new ConsolePane(15,320);
 		getChildren().add(consolePane);
 	}
 
@@ -41,8 +41,9 @@ public class TspSimulation extends BaseSimulation
 	{
 		this.progression = new ProgressBar(0);
 		progression.setLayoutX(15);
-		progression.setLayoutY(550);
+		progression.setLayoutY(285);
 		progression.setPrefWidth(ScreenProperties.getScreenWidth() / 4);
+		progression.setPrefHeight(30);
 		progression.setProgress(0);
 		getChildren().add(progression);
 	}
