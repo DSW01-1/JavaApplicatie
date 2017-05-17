@@ -22,6 +22,7 @@ public class HungarianAssignment
         ArrayList<GridTile> tileOrder = new ArrayList<GridTile>();
         coordList = selectedTiles;
         dG = new DistanceGrid(coordList);
+        routeTSP = new int[dG.distanceGrid.length][2];
     }
 
     public double[] getColumn(double[][] grid, int colNumber) {
@@ -95,18 +96,19 @@ public class HungarianAssignment
 
     public void reducegrid() {
         double[][] newDistanceGrid;
-        int x=999;
-        int y=999;
+        int from=999;
+        int to=999;
         double lowestNumber =999999;
-        int rowNumber = 0;
 
+        int rowNumber = 0;
         for (double[] rowPlace : dG.distanceGrid) {
             int columnNumber = 0;
             for (double columnPlace : rowPlace) {
+                System.out.println(columnNumber);
                 if(columnPlace==0.0&&penaltyZero[rowNumber][columnNumber]<lowestNumber){
                     lowestNumber=penaltyZero[rowNumber][columnNumber];
-                    x=columnNumber;
-                    y=rowNumber;
+                    from=columnNumber;
+                    to=rowNumber;
                 }
                 columnNumber++;
             }
@@ -118,7 +120,7 @@ public class HungarianAssignment
         for (double[] rowPlace : dG.distanceGrid) {
             int columnNumber = 0;
             for (double columnPlace : rowPlace) {
-                if((columnNumber==x||rowNumber==y)||(columnNumber==y&&rowNumber==x)){
+                if((columnNumber==from||rowNumber==to)||(columnNumber==to&&rowNumber==from)){
                     newDistanceGrid[rowNumber][columnNumber] = -999;
                     columnNumber++;
                 }else {
@@ -128,22 +130,36 @@ public class HungarianAssignment
             }
             rowNumber++;
         }
-        System.out.println(String.format("Colomn %s Rij %s",x,y));
-        routeTSP[berekend][0]=x;
-        routeTSP[berekend][1]=y;
+        //from is de index van het begin punt
+        if(from<99||to<999) {
+            coordList.get(from).getXcoord();
+            shortestPath.add(new Vector2(coordList.get(from).getXcoord(), coordList.get(from).getYcoord()));
+            shortestPath.add(new Vector2(coordList.get(to).getXcoord(), coordList.get(to).getYcoord()));
+        }
         berekend++;
         dG.distanceGrid=newDistanceGrid;
     }
 
-    public void test(){
-        int tileCount=0;
-        for(GridTile tile: coordList){
-            int x=tile.getXcoord();
-            int y=tile.getYcoord();
-            System.out.println(String.format("Het %Sste coordinaat is aanwezig op x=%s y=%s",tileCount,x,y));
-            tileCount++;
+    public ArrayList<Vector2> runHungarian(){
+        for(int i=0; i<dG.distanceGrid.length-1;i++){
+            rowMin();
+            columnMin();
+            penaltyZero();
+            reducegrid();
+            printDGrid();
+            System.out.println();
+            System.out.println("----------------------------");
         }
-        dG.print();
+        return shortestPath;
+    }
+
+    private void printDGrid() {
+        for(double[] row:dG.distanceGrid){
+            for (double column:row){
+                System.out.print(column);
+            }
+            System.out.println();
+        }
     }
 
 
