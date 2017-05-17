@@ -98,6 +98,8 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
+		consolePane.getItems().clear();
+
 		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 
 		addConsoleItem("Starting Algorithm 'nearest neighbour'", "DEBUG");
@@ -143,7 +145,7 @@ public class TspSimulation extends BaseSimulation
 	public void ExecuteAlgorithmThree()
 	{
 		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
-
+		consolePane.getItems().clear();
 		addConsoleItem("Starting Algorithm 'Total Enumeration'", "DEBUG");
 		addConsoleItem("Searching for Coordinates", "DEBUG");
 
