@@ -2,6 +2,8 @@ package main.java.pane;
 
 import java.util.ArrayList;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import main.java.constant.Constants;
@@ -17,6 +19,8 @@ import main.java.pane.base.StyledScrollPane;
 
 public class DatabaseManagePane extends StyledPane
 {
+	int newXValue, newYValue = 0;
+
 	public DatabaseManagePane()
 	{
 		super();
@@ -67,6 +71,8 @@ public class DatabaseManagePane extends StyledPane
 		String[] editableLabels =
 		{ "X", "Y", "Size" };
 
+		StyledChoiceBox[] choiceBox = new StyledChoiceBox[editableLabels.length];
+
 		for (int i = 0; i < editableLabels.length; i++)
 		{
 			Label label = new Label(editableLabels[i]);
@@ -89,11 +95,62 @@ public class DatabaseManagePane extends StyledPane
 				break;
 			}
 
-			StyledChoiceBox choiceBox = new StyledChoiceBox(options, new Vector2(60, i * 60), new Vector2(50, 30));
-			pane.getChildren().add(choiceBox);
+			final int j = i;
+
+			choiceBox[i] = new StyledChoiceBox(options, new Vector2(60, i * 60), new Vector2(50, 30));
+			choiceBox[i].getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+			{
+				@Override
+				public void changed(ObservableValue<? extends Number> observableValue, Number number, Number newValue)
+				{
+					switch (j)
+					{
+					case 0:
+						newXValue = Integer.parseInt(choiceBox[j].getItems().get((Integer) newValue));
+						CheckIfValid();
+						break;
+					case 1:
+						newYValue = Integer.parseInt(choiceBox[j].getItems().get((Integer) newValue));
+						CheckIfValid();
+						break;
+					default:
+						break;
+					}
+				}
+
+			});
+			pane.getChildren().add(choiceBox[i]);
 		}
 
+		StyledButton confirmButton = new StyledButton("btn.confirm", new Vector2(30, 200));
+		pane.getChildren().add(confirmButton);
+
 		getChildren().add(pane);
+	}
+
+	private boolean CheckIfValid()
+	{
+		boolean isXSame = false;
+		boolean isYSame = false;
+
+		ArrayList<Product> product = DatabaseConnection.GetAvailableProducts();
+
+		for (int i = 0; i < product.size(); i++)
+		{
+
+			if ((int) product.get(i).GetCoords().getX() == newXValue)
+			{
+				isXSame = true;
+			}
+
+			if ((int) product.get(i).GetCoords().getY() == newYValue)
+			{
+				isYSame = true;
+			}
+
+		}
+		System.out.println(isXSame && isYSame);
+		return (isXSame && isYSame);
 	}
 
 	private String[] GetChoiceOptions(int theOptions)
@@ -107,4 +164,5 @@ public class DatabaseManagePane extends StyledPane
 
 		return options;
 	}
+
 }
