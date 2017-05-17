@@ -3,10 +3,13 @@ package main.java.pane;
 import java.util.ArrayList;
 
 import javafx.scene.layout.VBox;
+import main.java.constant.Constants;
 import main.java.database.DatabaseConnection;
 import main.java.graphs.Product;
+import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
 
@@ -15,6 +18,14 @@ public class DatabaseManagePane extends StyledPane
 	public DatabaseManagePane()
 	{
 		super();
+
+		// Back to menu button
+		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
+		goBackToMenu.setOnAction(event ->
+		{
+			Main.SwitchPane(new MainMenu());
+		});
+		getChildren().add(goBackToMenu);
 
 		AddScrollPane();
 	}
@@ -31,9 +42,11 @@ public class DatabaseManagePane extends StyledPane
 
 		for (Product product : products)
 		{
-			AdvancedProductPane productPane = new AdvancedProductPane(product, new Vector2(paneWidth, 200));
+			AdvancedProductPane productPane = new AdvancedProductPane(product, new Vector2(paneWidth, 100));
 			column.getChildren().add(productPane);
 		}
+		
+		column.getChildren().add(new AdvancedProductPane(null, new Vector2(paneWidth, 100), true));
 
 		Vector2 pos = new Vector2(paneWidth - paneWidth / 2, paneHeight - (paneHeight / 3) * 2);
 		Vector2 size = new Vector2(paneWidth, paneHeight);
