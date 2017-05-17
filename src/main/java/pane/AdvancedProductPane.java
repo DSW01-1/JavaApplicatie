@@ -37,6 +37,7 @@ public class AdvancedProductPane extends StyledPane
 	public AdvancedProductPane(Vector2 size)
 	{
 		super();
+		setId("product");
 		this.size = size;
 		setPrefSize(size.getX(), size.getY());
 	}
