@@ -3,6 +3,7 @@ package main.java.pane.simulation;
 import java.util.ArrayList;
 
 import javafx.scene.control.ProgressBar;
+import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.algorithms.tsp.TotalEnumeration;
 import main.java.constant.Constants;
@@ -135,7 +136,18 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmTwo()
 	{
+		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 
+		addConsoleItem("Starting Algorithm 'Hungarian Assignment'", "DEBUG");
+		addConsoleItem("Searching for Coordinates", "DEBUG");
+
+		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
+		if (activeTiles.size() > 0) {
+			addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
+			long startTime = System.nanoTime();
+			HungarianAssignment algoritme = new HungarianAssignment(activeTiles);
+			algoritme.test();
+		}
 	}
 
 	// Brute Force
