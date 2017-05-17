@@ -1,5 +1,6 @@
 package main.java.algorithms.tsp;
 import javafx.application.Platform;
+import main.java.graphs.DistanceGrid;
 import main.java.graphs.GridTile;
 import main.java.main.Vector2;
 import main.java.pane.simulation.TspSimulation;
@@ -13,6 +14,7 @@ public class TotalEnumeration extends Thread
     private ArrayList<GridTile> tileList;
     private ArrayList<EnumPath> pathList = new ArrayList<>();
     private EnumPath shortestPath;
+    private DistanceGrid dG;
 
     ArrayList<ArrayList<Integer>> possibilities;
     private int possiblePaths;
@@ -24,11 +26,13 @@ public class TotalEnumeration extends Thread
     public TotalEnumeration(ArrayList<GridTile> tileList){
         this.tileList = tileList;
         this.simulation = new TspSimulation();
+        dG = new DistanceGrid(tileList);
     }
     public TotalEnumeration(ArrayList<GridTile> tileList, TspSimulation simulation){
         this.tileList = tileList;
         this.simulation = simulation;
         logging = true;
+        dG = new DistanceGrid(tileList);
     }
 
     public void run(){
@@ -116,50 +120,26 @@ public class TotalEnumeration extends Thread
             double totalLength = 0;
             ArrayList<Vector2> tileCoordinates = new ArrayList<>();
 
-            int beginX = 0;
-            int beginY = 0;
+            int lastIndex=0;
 
 
             // loop through indexes
             for(int index : path){
 
                 // get difference
+                double xyDiff = dG.distanceGrid[lastIndex][index];
 
-                //double xDiff = (tileList.get(index).getXcoord() < beginX) ? beginX - tileList.get(index).getXcoord() : tileList.get(index).getXcoord() - beginX ;
-                //double yDiff = (tileList.get(index).getYcoord() < beginY) ? beginY - tileList.get(index).getYcoord() : tileList.get(index).getYcoord() - beginY ;
-
-                // ============================| VERVANGING 2 REGELS HIERBOVEN |=====================================
-                double xDiff;
-                double yDiff;
-
-                if(tileList.get(index).getXcoord() < beginX){
-                    xDiff = beginX - tileList.get(index).getXcoord();
-                }else{
-                    xDiff = tileList.get(index).getXcoord() - beginX;
-                }
-
-                if(tileList.get(index).getYcoord() < beginY){
-                    yDiff = beginY - tileList.get(index).getYcoord();
-                }else{
-                    yDiff = tileList.get(index).getYcoord() - beginY;
-                }
-                // ============================| VERVANGING 2 REGELS HIERBOVEN |=====================================
-
-
-                double xyDiff = Math.hypot(xDiff, yDiff);
-
-                beginX = tileList.get(index).getXcoord();
-                beginY = tileList.get(index).getYcoord();
-
-                tileCoordinates.add(new Vector2(beginX, beginY));
+                lastIndex = index;
+                tileCoordinates.add(new Vector2(tileList.get(index).getXcoord(), tileList.get(index).getYcoord()));
 
                 totalLength += xyDiff;
         }
-
-            double xyDiff = Math.hypot(beginX, beginY);
+            int lastCoorX=tileList.get(lastIndex).getXcoord();
+            int lastCoorY=tileList.get(lastIndex).getYcoord();
+            double xyDiff = Math.hypot(lastCoorX, lastCoorY);
             totalLength += xyDiff;
 
-            tileCoordinates.add(new Vector2(beginX, beginY));
+            tileCoordinates.add(new Vector2(lastCoorX, lastCoorY));
 
             if(totalLength < pathLength || pathLength == 0){
                 pathLength = totalLength;
@@ -203,7 +183,7 @@ public class TotalEnumeration extends Thread
             }
 
             result = new ArrayList<ArrayList<Integer>>(current);
-            System.out.println(result);
+//            System.out.println(result);
         }
 
         return result;
