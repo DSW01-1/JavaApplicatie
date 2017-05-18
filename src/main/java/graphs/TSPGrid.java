@@ -2,14 +2,13 @@ package main.java.graphs;
 
 import java.util.ArrayList;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import main.java.constant.Constants;
 import main.java.main.Vector2;
 
-public class Grid extends Canvas
+public class TSPGrid extends BaseGrid
 {
 	private ArrayList<GridTile> gridTileArray;
 	private GraphicsContext gc;
@@ -21,9 +20,9 @@ public class Grid extends Canvas
 	private boolean isInteractive;
 	private ArrayList<Vector2> pathList;
 
-	public Grid(int tileAmount, boolean isInteractive)
+	public TSPGrid(int tileAmount, boolean isInteractive)
 	{
-		super();
+		super(tileAmount);
 		gc = getGraphicsContext2D();
 		setWidth(gridSize);
 		setHeight(gridSize);

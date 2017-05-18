@@ -7,8 +7,8 @@ import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.algorithms.tsp.TotalEnumeration;
 import main.java.constant.Constants;
-import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
+import main.java.graphs.TSPGrid;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.ConsolePane;
@@ -16,7 +16,7 @@ import main.java.pane.SimulationControls;
 
 public class TspSimulation extends BaseSimulation
 {
-	private Grid grid;
+	private TSPGrid grid;
 	private boolean isInteractive = true;
 	public ConsolePane consolePane;
 	public ProgressBar progression;
@@ -68,7 +68,7 @@ public class TspSimulation extends BaseSimulation
 	 */
 	public void AddGrid(int size)
 	{
-		grid = new Grid(size, isInteractive);
+		grid = new TSPGrid(size, isInteractive);
 
 		grid.setLayoutX((ScreenProperties.getScreenWidth() / 2) - Constants.gridSize / 2);
 		grid.setLayoutY(15);

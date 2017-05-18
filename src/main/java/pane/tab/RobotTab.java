@@ -1,7 +1,7 @@
 package main.java.pane.tab;
 
 import javafx.scene.layout.GridPane;
-import main.java.graphs.Grid;
+import main.java.graphs.TSPGrid;
 import main.java.main.ScreenProperties;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
@@ -10,7 +10,7 @@ public class RobotTab extends StyledPane
 {
 	public RobotTab()
 	{
-		getChildren().add(new Grid(5, false));
+		getChildren().add(new TSPGrid(5, false));
 
 		CreateControlButtons();
 	}

@@ -1,13 +1,11 @@
 package main.java.algorithms.tsp;
+import java.util.ArrayList;
+
 import javafx.application.Platform;
 import main.java.graphs.DistanceGrid;
-import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
 import main.java.main.Vector2;
 import main.java.pane.simulation.TspSimulation;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 
 public class TotalEnumeration extends Thread
 {

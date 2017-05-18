@@ -1,16 +1,16 @@
 package main.java.controller;
 
 import main.java.constant.ArduinoConstants;
-import main.java.graphs.Grid;
+import main.java.graphs.TSPGrid;
 import main.java.handler.ArduinoCommunicationHandler;
 import main.java.main.Vector2;
 
 public class ArduinoController
 {
 	private ArduinoCommunicationHandler comHandler;
-	private Grid grid;
+	private TSPGrid grid;
 
-	public ArduinoController(Grid grid)
+	public ArduinoController(TSPGrid grid)
 	{
 		comHandler = new ArduinoCommunicationHandler(this);
 		comHandler.EstablishConnection();
