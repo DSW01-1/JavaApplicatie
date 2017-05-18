@@ -1,6 +1,7 @@
 package main.java.algorithms.tsp;
 import javafx.application.Platform;
 import main.java.graphs.DistanceGrid;
+import main.java.graphs.Grid;
 import main.java.graphs.GridTile;
 import main.java.main.Vector2;
 import main.java.pane.simulation.TspSimulation;
@@ -10,7 +11,7 @@ import java.util.ArrayList;
 
 public class TotalEnumeration extends Thread
 {
-
+    /* Variables */
     private ArrayList<GridTile> tileList;
     private ArrayList<EnumPath> pathList = new ArrayList<>();
     private EnumPath shortestPath;
@@ -25,11 +26,19 @@ public class TotalEnumeration extends Thread
     private int factor = 0;
     private int progress = 0;
 
+    private boolean suspended = false;
 
 
+    /* Constructors incl overload */
     public TotalEnumeration(ArrayList<GridTile> tileList){
         this.tileList = tileList;
         this.simulation = new TspSimulation();
+        dG = new DistanceGrid(tileList);
+    }
+    public TotalEnumeration(TspSimulation simulation){
+        this.simulation = simulation;
+        this.logging = true;
+        this.tileList = new ArrayList<GridTile>();
         dG = new DistanceGrid(tileList);
     }
     public TotalEnumeration(ArrayList<GridTile> tileList, TspSimulation simulation){
@@ -39,9 +48,25 @@ public class TotalEnumeration extends Thread
         dG = new DistanceGrid(tileList);
     }
 
+
+    /* Getters and/or Setters */
+    public ArrayList<Vector2> getShortestPath(){
+        return shortestPath.getTiles();
+    }
+    public void setTileList(ArrayList<GridTile> tileList){
+        this.tileList = tileList;
+        dG = new DistanceGrid(tileList);
+    }
+    public int getPossiblePaths(){
+        return possiblePaths;
+    }
+    public void showPermutations(int startindex, int[] input) {
+        permute(input,0);
+    }
+    public boolean isSuspended(){ return suspended;}
+
+    /* THREAD RUN method */
     public void run(){
-
-
         long startTime = System.nanoTime();
         if(logging){
             Platform.runLater(new Runnable() {
@@ -101,10 +126,18 @@ public class TotalEnumeration extends Thread
 
     }
 
-    public ArrayList<Vector2> getShortestPath(){
-        return shortestPath.getTiles();
+
+    /* THREAD CONTROLS */
+    public void pauseThread(){
+        this.suspended = true;
+    }
+    public void resumeThread(){
+        this.suspended = false;
+        notify();
     }
 
+
+    /* MISC */
     public void processShortestPath(int[] indexList){
 
         double totalLength = 0;
@@ -145,15 +178,19 @@ public class TotalEnumeration extends Thread
 
     }
 
-    public int getPossiblePaths(){
-        return possiblePaths;
-    }
 
-    public void showPermutations(int startindex, int[] input) {
-        permute(input,0);
-    }
 
     void permute(int []a,int k ) {
+        synchronized(this) {
+            try {
+                while(suspended) {
+                    wait();
+                }
+            }catch(Exception ex){
+                System.out.println("ERROR: " + ex);
+            }
+
+        }
         if (k == a.length) {
             processShortestPath(a);
 
@@ -172,10 +209,11 @@ public class TotalEnumeration extends Thread
     }
 
     public void setFactor(int m) {
-
         for(int y=(m-1) ; y > 0 ; y--) {
             m = m * y;
         }
         this.factor = m;
     }
+
+
 }

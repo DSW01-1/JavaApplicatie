@@ -20,6 +20,8 @@ public class TspSimulation extends BaseSimulation
 	private boolean isInteractive = true;
 	public ConsolePane consolePane;
 	public ProgressBar progression;
+	private TotalEnumeration algorithm = new TotalEnumeration(this);
+
 
 	public TspSimulation()
 	{
@@ -49,7 +51,7 @@ public class TspSimulation extends BaseSimulation
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void AddControls()
 	{
@@ -60,7 +62,7 @@ public class TspSimulation extends BaseSimulation
 	}
 
 	/**
-	 * 
+	 *
 	 * @param size
 	 */
 	public void AddGrid(int size)
@@ -73,7 +75,7 @@ public class TspSimulation extends BaseSimulation
 	}
 
 	/**
-	 * 
+	 *
 	 * @param newSize
 	 */
 	public void UpdateGrid(int newSize)
@@ -88,7 +90,7 @@ public class TspSimulation extends BaseSimulation
 	}
 
 	/**
-	 * 
+	 *
 	 * @param interactive
 	 */
 	public void SetInteractive(boolean interactive)
@@ -159,33 +161,47 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmThree()
 	{
-		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
-		consolePane.getItems().clear();
-		addConsoleItem("Starting Algorithm 'Total Enumeration'", "DEBUG");
-		addConsoleItem("Searching for Coordinates", "DEBUG");
+		if(algorithm.isSuspended()){
+			algorithm.resumeThread();
+			addConsoleItem("Resuming thread", "DEBUG");
+		}else{
+			ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
+			consolePane.getItems().clear();
+			addConsoleItem("Starting Algorithm 'Total Enumeration'", "DEBUG");
+			addConsoleItem("Searching for Coordinates", "DEBUG");
 
-		if (activeTiles.size() > 0)
-		{
-			TotalEnumeration algoritme = new TotalEnumeration(activeTiles, this);
-			algoritme.start();
-
-			if (algoritme.getState() == Thread.State.TERMINATED)
+			if (activeTiles.size() > 0)
 			{
-				addConsoleItem("Process has stopped unexpectly", "DEBUG");
+				//TotalEnumeration algoritme = new TotalEnumeration(activeTiles, this);
+				this.algorithm.setTileList(activeTiles);
+				algorithm.start();
 
+				if (algorithm.getState() == Thread.State.TERMINATED)
+				{
+					addConsoleItem("Process has stopped unexpectly", "DEBUG");
+
+				}
+			}
+			else
+			{
+				addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
+						"DEBUG");
 			}
 		}
-		else
-		{
-			addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
-					"DEBUG");
-		}
+
 	}
 
 	// Own Algorithm
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
+
+	}
+
+	@Override
+	public void pauseAlgorithm(){
+		algorithm.pauseThread();
+		addConsoleItem("Thread has been paused","DEBUG");
 
 	}
 
