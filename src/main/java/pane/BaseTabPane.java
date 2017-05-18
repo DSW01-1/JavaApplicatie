@@ -14,6 +14,7 @@ public class BaseTabPane extends StyledPane
 		super();
 		this.name = name;
 		this.tabArray = tabArray;
+
 	}
 
 	@Override
