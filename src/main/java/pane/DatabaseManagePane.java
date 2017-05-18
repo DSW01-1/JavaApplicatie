@@ -149,7 +149,6 @@ public class DatabaseManagePane extends StyledPane
 			}
 
 		}
-		System.out.println(isXSame && isYSame);
 		return (isXSame && isYSame);
 	}
 

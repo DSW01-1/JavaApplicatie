@@ -1,10 +1,9 @@
 package main.java.constant;
 
 import javafx.scene.paint.Color;
-import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 
-public class Constants
+public final class Constants
 {
 	// Resources
 	public static String styleSheetLocation = "main/resources/stylesheets/";
@@ -25,10 +24,10 @@ public class Constants
 	// Back to main menu position and size
 	public static Vector2 backTMMBP = new Vector2(15, 15);
 	public static Vector2 backTMMBS = new Vector2(250, 50);
-	
-	//Standards Colorsn
+
+	// Standards Colors
 	public static Color standardLineColor = Color.INDIANRED;
-	
+
 	public static int baseWareHouseSize = 5;
 	public static int baseBoxSize = 10;
 
