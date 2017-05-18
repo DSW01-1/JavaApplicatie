@@ -56,7 +56,7 @@ public class BruteForce
 		simulation.addConsoleItem("Best Box amount = " + bestBoxAmount, "DEBUG");
 		simulation.addConsoleItem("FINISHED", "INFO");
 		simulation.addConsoleItem("Calculated "+amountOfCalculations+ " calculations", "INFO");
-		Long duration = (endTime - startTime) / 100000;
+		Long duration = (endTime - startTime) / 1000000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		simulation.addConsoleItem("---------------------------------------------------------------------","INFO");
 		startTime=null;
