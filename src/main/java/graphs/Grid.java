@@ -177,12 +177,12 @@ public class Grid extends Canvas
 	 */
 	public void DrawTileIfSelected(Vector2 tilePos)
 	{
-		double x = tilePos.getX() * tileSize - tileSize + 1;
-		double y = tilePos.getY() * tileSize - tileSize + 1;
+		double x = tilePos.getX() * tileSize - tileSize + 15;
+		double y = tilePos.getY() * tileSize - tileSize + 15;
 
 		//gc.fillOval(x, y, tileSize / 3, tileSize / 3);
-		gc.setFill(Color.LIGHTGRAY);
-		gc.fillRect(x,y,tileSize-2,tileSize-2);
+		gc.setFill(Color.GREY);
+		gc.fillRect(x,y,tileSize-30,tileSize-30);
 
 
 	}
@@ -212,7 +212,7 @@ public class Grid extends Canvas
 	/**
 	 * Set the current Position of the robot
 	 * 
-	 * @param pos
+	 * @param //pos
 	 */
 	public void SetRobotPos(Vector2 transPos)
 	{

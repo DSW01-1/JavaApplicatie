@@ -29,7 +29,7 @@ public class SimulationControls extends StyledPane
 		for (int i = 1; i <= algorithmNames.length; i++)
 		{
 			StyledRadioButton chkAlgorithm = new StyledRadioButton(algorithmNames[i - 1],
-					new Vector2(15, 100 + (i * 25)));
+				new Vector2(15, 100 + (i * 25)));
 			chkAlgorithm.setUserData("Algorithm" + i);
 			chkAlgorithm.setToggleGroup(radioGroup);
 
@@ -57,7 +57,7 @@ public class SimulationControls extends StyledPane
 		StyledButton pauseButton = new StyledButton("btn.pause", new Vector2(80, 250), new Vector2(60, 20));
 		pauseButton.setOnAction(event ->
 		{
-			// TODO
+			simulation.pauseAlgorithm();
 		});
 		getChildren().add(pauseButton);
 
@@ -90,4 +90,5 @@ public class SimulationControls extends StyledPane
 			break;
 		}
 	}
+
 }
