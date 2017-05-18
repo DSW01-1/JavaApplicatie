@@ -5,36 +5,33 @@ import main.java.graphs.GridTile;
 import main.java.main.Vector2;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HungarianAssignment
 {
-    private ArrayList<GridTile> coordList;
-    private List<Integer> usedIndex = new ArrayList<>();
-    private ArrayList<Vector2> shortestPath = new ArrayList<>();
-    private DistanceGrid dG;
-    public int[][] routeTSP;
-    private int berekend;
-    public double[][] penaltyZero;
+    private ArrayList<GridTile> coordList;                          //Punten lijst
+    private ArrayList<Vector2> shortestPath = new ArrayList<>();    //Route om te tekenen
+    private DistanceGrid dG;                                        //Distance Grid klasse
+    public int[][] routeTSP;                                        // uitgerekende route's tussen punten
+    private int berekend;                                           // aantal berkende route's
+    public double[][] penaltyZero;                                  // penalty van zero tabel
 
-    public HungarianAssignment(ArrayList<GridTile> selectedTiles)
+    public HungarianAssignment(ArrayList<GridTile> selectedTiles)   //Constructor
     {
-        ArrayList<GridTile> tileOrder = new ArrayList<GridTile>();
-        coordList = selectedTiles;
-        dG = new DistanceGrid(coordList);
-        routeTSP = new int[dG.distanceGrid.length][2];
+        coordList = selectedTiles;                                  //Zet de geselecteerde vakjes in een lokale arraylist
+        dG = new DistanceGrid(coordList);                           //Nieuw DistanceGrid berekenen aan de hand van de coordinaten lijst
+        routeTSP = new int[dG.distanceGrid.length][2];              //RouteTSP array net zo lang als het aantal punten
     }
 
-    public double[] getColumn(double[][] grid, int colNumber) {
+    public double[] getColumn(double[][] grid, int colNumber) {     //Pakt de kolom van een 2D Array
         int rowNumber;
         double[] colArray = new double[grid.length];
         for (rowNumber = 0; rowNumber < grid.length; rowNumber++) {
-            colArray[rowNumber] = grid[rowNumber][colNumber];
+            colArray[rowNumber] = grid[rowNumber][colNumber];       //Zet het kolomnummer in de kolom array
         }
         return colArray;
     }
 
-    public double min(double[] numbers, boolean ignoreFirstZero) {
+    public double min(double[] numbers, boolean ignoreFirstZero) {  //Pakt het laagste getal in een rij, en krijgt te horen of hij de eerste nul moet negeren
         double lowest = 999999999;
         for (double num : numbers) {
             if (num < lowest && num != -999.0&&!(ignoreFirstZero&&num==0)) {
@@ -46,7 +43,7 @@ public class HungarianAssignment
         return lowest;
     }
 
-    public void rowMin() {
+    public void rowMin() {                                                      //Rij minimalisatie
         int rowCount = 0;
         for (double[] row : dG.distanceGrid) {
             int columnCount = 0;
@@ -131,11 +128,9 @@ public class HungarianAssignment
             rowNumber++;
         }
         //from is de index van het begin punt
-        if(from<99||to<999) {
-            coordList.get(from).getXcoord();
-            shortestPath.add(new Vector2(coordList.get(from).getXcoord(), coordList.get(from).getYcoord()));
-            shortestPath.add(new Vector2(coordList.get(to).getXcoord(), coordList.get(to).getYcoord()));
-        }
+        routeTSP[berekend][0]=from;
+        routeTSP[berekend][1]=to;
+
         berekend++;
         dG.distanceGrid=newDistanceGrid;
     }
