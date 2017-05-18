@@ -42,6 +42,11 @@ public class Product implements Comparable<Object>
 		return size;
 	}
 
+	public int GetSizeInInt()
+	{
+		return size;
+	}
+
 	@Override
 	public int compareTo(Object o)
 	{
