@@ -3,7 +3,7 @@ package main.java.pane.simulation;
 import javafx.scene.control.ColorPicker;
 import main.java.constant.Constants;
 import main.java.controller.ArduinoController;
-import main.java.graphs.Grid;
+import main.java.graphs.TSPGrid;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
@@ -15,7 +15,7 @@ public class RobotSimulation extends StyledPane
 {
 	public RobotSimulation()
 	{
-		Grid grid = new Grid(5, false);
+		TSPGrid grid = new TSPGrid(5, false);
 		grid.setLayoutX(ScreenProperties.getScreenWidth() - Constants.gridSize - 10);
 		grid.setLayoutY(10);
 		getChildren().add(grid);

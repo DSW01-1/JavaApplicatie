@@ -31,6 +31,7 @@ public class BruteForce
 		int bestBoxAmount = products.size() + 1;
 		int amountOfCalculations=0;
 		//loop through all possibilities
+		simulation.addConsoleItem(String.valueOf(products.size()),"DEBUG");
 		for (int i = 0; i < factorial(products.size()); i++)
 		{
 				amountOfCalculations++;
@@ -51,17 +52,16 @@ public class BruteForce
 			Collections.rotate(products, 1);
 
 		}
-		long endTime = System.nanoTime();
+		Long endTime = System.nanoTime();
 		simulation.addConsoleItem("Best Box amount = " + bestBoxAmount, "DEBUG");
-		simulation.addConsoleItem("Boxes ordered: "+returnBoxes,"DEBUG");
-		for(int k=0;k<returnBoxes.get(0).getSize();k++){
-			simulation.addConsoleItem(returnBoxes.get(0).printSizeAtLocation(k),"DEBUG");
-		}
 		simulation.addConsoleItem("FINISHED", "INFO");
 		simulation.addConsoleItem("Calculated "+amountOfCalculations+ " calculations", "INFO");
-		Long duration = (endTime - startTime) / 100000;
+		Long duration = (endTime - startTime) / 1000000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		simulation.addConsoleItem("---------------------------------------------------------------------","INFO");
+		startTime=null;
+		endTime=null;
+		duration=null;
 		System.gc();
 		return returnBoxes;
 	}
@@ -82,7 +82,6 @@ public class BruteForce
 				//does it fit in box? yes: add product
 				if (currentBox.checkFit((int) product.GetSize()) && !doesFit)
 				{
-					simulation.addConsoleItem("Added product (size: " + product.GetSize() + ") to current box.","DEBUG");
 					currentBox.addProduct(product);
 					doesFit = true;
 				}
@@ -93,9 +92,6 @@ public class BruteForce
 				Box newBox = new Box(boxVolume);
 				sortedBoxes.add(newBox);
 				newBox.addProduct(product);
-				simulation.addConsoleItem("Could not add product(size: " + product.GetSize()
-						+ ") to current box. Created new box. Total amount of boxes: " + sortedBoxes.size()
-						+ ". Added product to new box.", "DEBUG");
 			}
 			doesFit = false;
 		}

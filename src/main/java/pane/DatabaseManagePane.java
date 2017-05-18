@@ -1,21 +1,14 @@
 package main.java.pane;
 
-import java.util.ArrayList;
-
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 import main.java.constant.Constants;
-import main.java.database.DatabaseConnection;
-import main.java.graphs.Product;
+import main.java.graphs.ProductGrid;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
-import main.java.pane.base.StyledChoiceBox;
 import main.java.pane.base.StyledPane;
-import main.java.pane.base.StyledScrollPane;
 
 public class DatabaseManagePane extends StyledPane
 {
@@ -33,31 +26,14 @@ public class DatabaseManagePane extends StyledPane
 		});
 		getChildren().add(goBackToMenu);
 
-		AddScrollPane();
+		AddProductGrid();
 		AddProductEditor();
 	}
 
-	public void AddScrollPane()
+	private void AddProductGrid()
 	{
-		int paneWidth = ScreenProperties.getScreenWidth() / 2;
-		int paneHeight = ScreenProperties.getScreenHeight() / 2;
+		ProductGrid grid = new ProductGrid(Constants.baseWareHouseSize);
 
-		VBox column = new VBox();
-		column.setPrefWidth(paneWidth);
-
-		ArrayList<Product> products = DatabaseConnection.GetAvailableProducts();
-
-		for (Product product : products)
-		{
-			AdvancedProductPane productPane = new AdvancedProductPane(product, new Vector2(paneWidth, 100));
-			column.getChildren().add(productPane);
-		}
-
-		Vector2 pos = new Vector2(paneWidth - paneWidth / 2, paneHeight - (paneHeight / 3) * 2);
-		Vector2 size = new Vector2(paneWidth, paneHeight);
-
-		StyledScrollPane scrollPane = new StyledScrollPane(column, pos, size);
-		getChildren().add(scrollPane);
 	}
 
 	public void AddProductEditor()
@@ -65,91 +41,19 @@ public class DatabaseManagePane extends StyledPane
 		int paneHeight = ScreenProperties.getScreenHeight() / 2;
 
 		StyledPane pane = new StyledPane();
-		pane.setLayoutX(ScreenProperties.getScreenWidth() - 300);
+		pane.setLayoutX(ScreenProperties.getScreenWidth() - 500);
 		pane.setLayoutY(paneHeight - (paneHeight / 3) * 2);
 
-		String[] editableLabels =
-		{ "X", "Y", "Size" };
+		Label sizeLabel = new Label();
+		pane.getChildren().add(sizeLabel);
 
-		StyledChoiceBox[] choiceBox = new StyledChoiceBox[editableLabels.length];
+		ChoiceBox<String> sizeChoiceBox = new ChoiceBox<String>();
+		pane.getChildren().add(sizeChoiceBox);
 
-		for (int i = 0; i < editableLabels.length; i++)
-		{
-			Label label = new Label(editableLabels[i]);
-			label.setLayoutX(30);
-			label.setLayoutY(i * 60);
-			pane.getChildren().add(label);
-
-			String[] options = null;
-
-			switch (i)
-			{
-			case 0:
-			case 1:
-				options = GetChoiceOptions(Constants.baseWareHouseSize);
-				break;
-			case 2:
-				options = GetChoiceOptions(Constants.baseBoxSize);
-				break;
-			default:
-				break;
-			}
-
-			final int j = i;
-
-			choiceBox[i] = new StyledChoiceBox(options, new Vector2(60, i * 60), new Vector2(50, 30));
-			choiceBox[i].getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
-			{
-				@Override
-				public void changed(ObservableValue<? extends Number> observableValue, Number number, Number newValue)
-				{
-					switch (j)
-					{
-					case 0:
-						newXValue = Integer.parseInt(choiceBox[j].getItems().get((Integer) newValue));
-						CheckIfValid();
-						break;
-					case 1:
-						newYValue = Integer.parseInt(choiceBox[j].getItems().get((Integer) newValue));
-						CheckIfValid();
-						break;
-					default:
-						break;
-					}
-				}
-
-			});
-			pane.getChildren().add(choiceBox[i]);
-		}
-
-		StyledButton confirmButton = new StyledButton("btn.confirm", new Vector2(30, 200));
+		StyledButton confirmButton = new StyledButton("btn.confirm", new Vector2(280, 200));
 		pane.getChildren().add(confirmButton);
 
 		getChildren().add(pane);
-	}
-
-	private boolean CheckIfValid()
-	{
-		boolean isXSame = false;
-		boolean isYSame = false;
-
-		ArrayList<Product> product = DatabaseConnection.GetAvailableProducts();
-
-		for (int i = 0; i < product.size(); i++)
-		{
-
-			if ((int) product.get(i).GetCoords().getX() == newXValue)
-			{
-				isXSame = true;
-			}
-
-			if ((int) product.get(i).GetCoords().getY() == newYValue)
-			{
-				isYSame = true;
-			}
-
-		}
-		return (isXSame && isYSame);
 	}
 
 	private String[] GetChoiceOptions(int theOptions)
@@ -160,7 +64,6 @@ public class DatabaseManagePane extends StyledPane
 		{
 			options[i - 1] = Integer.toString(i);
 		}
-
 		return options;
 	}
 

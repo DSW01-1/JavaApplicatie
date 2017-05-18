@@ -42,23 +42,27 @@ public class BppSimulation extends BaseSimulation {
         nextFit.executeNextFit(products);
         nextFit.boxVolume = boxVolume;
         System.out.print("Test succeeded");
+        products.clear();
     }
     @Override
     public void ExecuteAlgorithmTwo() {
         consolePane.getItems().clear();
 
         firstFit.executeFirstFit(products);
+        products.clear();
     }
     @Override
     public void ExecuteAlgorithmThree() {
         consolePane.getItems().clear();
         bruteForce.executeBruteForce(products);
+        products.clear();
     }
 
     @Override
     public void ExecuteAlgorithmFour(){
         consolePane.getItems().clear();
         decreasingFirstFit.executeDecreasingFirstFit(products);
+        products.clear();
     }
     public void AddControls() {
         String[] algorithmNames =

@@ -2,28 +2,21 @@ package main.java.graphs;
 
 import java.util.ArrayList;
 
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import main.java.constant.Constants;
 import main.java.main.Vector2;
 
-public class Grid extends Canvas
+public class TSPGrid extends BaseGrid
 {
-	private ArrayList<GridTile> gridTileArray;
-	private GraphicsContext gc;
-	private int tileAmount;
-	private int tileSize;
-	private int gridSize = Constants.gridSize;
 	private Vector2 robotPos;
 	private Color lineColor = Constants.standardLineColor;
 	private boolean isInteractive;
 	private ArrayList<Vector2> pathList;
 
-	public Grid(int tileAmount, boolean isInteractive)
+	public TSPGrid(int tileAmount, boolean isInteractive)
 	{
-		super();
+		super(tileAmount);
 		gc = getGraphicsContext2D();
 		setWidth(gridSize);
 		setHeight(gridSize);
@@ -31,7 +24,6 @@ public class Grid extends Canvas
 		this.tileAmount = tileAmount;
 		this.isInteractive = isInteractive;
 
-		CreateTiles();
 		AddMouseEventHandler();
 		Redraw();
 	}
@@ -59,24 +51,6 @@ public class Grid extends Canvas
 				Redraw();
 			}
 		});
-	}
-
-	/**
-	 * Create the tiles
-	 */
-	private void CreateTiles()
-	{
-		gridTileArray = new ArrayList<GridTile>();
-		tileSize = gridSize / tileAmount;
-
-		for (int y = 0; y < gridSize; y++)
-		{
-			for (int x = 0; x < gridSize; x++)
-			{
-				final GridTile tile = new GridTile(new Vector2(x, y));
-				gridTileArray.add(tile);
-			}
-		}
 	}
 
 	/**
@@ -111,6 +85,7 @@ public class Grid extends Canvas
 	/**
 	 * Redraw the grid
 	 */
+	@Override
 	public void Redraw()
 	{
 		gc.clearRect(0, 0, getWidth(), getHeight());
@@ -126,11 +101,6 @@ public class Grid extends Canvas
 				{
 					DrawRobotPos(new Vector2(x, y));
 				}
-
-				// Draw the lines
-				gc.setStroke(Color.BLACK);
-				gc.strokeLine(0, y * tileSize, gridSize, y * tileSize);
-				gc.strokeLine(x * tileSize, 0, x * tileSize, gridSize);
 			}
 		}
 
@@ -146,6 +116,8 @@ public class Grid extends Canvas
 		{
 			DrawPathLines(pathList);
 		}
+
+		super.Redraw();
 	}
 
 	public void Redraw(ArrayList<Vector2> customArray)
@@ -180,10 +152,9 @@ public class Grid extends Canvas
 		double x = tilePos.getX() * tileSize - tileSize + 15;
 		double y = tilePos.getY() * tileSize - tileSize + 15;
 
-		//gc.fillOval(x, y, tileSize / 3, tileSize / 3);
+		// gc.fillOval(x, y, tileSize / 3, tileSize / 3);
 		gc.setFill(Color.GREY);
-		gc.fillRect(x,y,tileSize-30,tileSize-30);
-
+		gc.fillRect(x, y, tileSize - 30, tileSize - 30);
 
 	}
 
