@@ -21,7 +21,7 @@ public class Main extends Application
 
 			SwitchPane(new MainMenu());
 
-			primaryStage.setMaximized(true);
+			//primaryStage.setMaximized(true);
 			primaryStage.show();
 
 			Class.forName("com.mysql.jdbc.Driver");

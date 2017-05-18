@@ -26,7 +26,8 @@ public class TspSimulation extends BaseSimulation
 	public TspSimulation()
 	{
 		super();
-
+		getStyleClass().add("background");
+		//setPrefHeight(ScreenProperties.getScreenHeight() -);
 		AddControls();
 		AddGrid(5);
 		AddConsolePane();

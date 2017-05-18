@@ -26,8 +26,7 @@ public class MainMenu extends StyledPane
 	private void CreateButtons()
 	{
 		setPrefSize(ScreenProperties.getScreenWidth(), ScreenProperties.getScreenHeight());
-		setId("background");
-
+		getStyleClass().add("background");
 		// New Order Button
 		StyledButton newOrderButton = new StyledButton("btn.newOrder",
 				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4), new Vector2(200, 50));

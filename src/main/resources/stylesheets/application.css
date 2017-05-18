@@ -4,11 +4,12 @@
 	-fx-text-fill: #FFF;
 }
 
-#background
+.background
 {
-	-fx-background-color: rgb(255.0,255.0,255.0);
+    -fx-background-image: url("../icons/bg2.png");
+    -fx-background-repeat: stretch;
+    -fx-background-position: bottom right;
 }
-
 #product
 {
 	-fx-border-width: 0.0 0.0 1.0 0.0;
