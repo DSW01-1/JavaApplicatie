@@ -2,6 +2,8 @@ package main.java.pane.simulation;
 
 import java.util.ArrayList;
 
+import javafx.collections.FXCollections;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
@@ -28,7 +30,6 @@ public class TspSimulation extends BaseSimulation
 		super();
 		getStyleClass().add("background");
 		setPrefHeight(ScreenProperties.getScreenHeight() -92);
-		//setPrefHeight(ScreenProperties.getScreenHeight() -);
 		AddControls();
 		AddGrid(5);
 		AddConsolePane();
@@ -61,6 +62,14 @@ public class TspSimulation extends BaseSimulation
 		{ "btn.nearestNeighbour", "btn.hungarianAssignment", "btn.totalEnumeration", "btn.ownAlgorithm" };
 
 		getChildren().add(new SimulationControls(algorithmNames, this));
+
+		ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
+				"Blue", "Red", "Green", "White","Black")
+		);
+		cb.setLayoutX(215);
+		cb.setLayoutY(250);
+		cb.setPrefSize(280,25);
+		getChildren().add(cb);
 	}
 
 	/**
@@ -164,7 +173,7 @@ public class TspSimulation extends BaseSimulation
 	public void ExecuteAlgorithmThree()
 	{
 		if(algorithm.isSuspended()){
-			algorithm.resumeThread();
+			algorithm.resumeII();
 			addConsoleItem("Resuming thread", "DEBUG");
 		}else{
 			ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
@@ -202,7 +211,8 @@ public class TspSimulation extends BaseSimulation
 
 	@Override
 	public void pauseAlgorithm(){
-		algorithm.pauseThread();
+		algorithm.suspendII();
+		//algorithm.pauseThread();
 		addConsoleItem("Thread has been paused","DEBUG");
 
 	}

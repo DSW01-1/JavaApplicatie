@@ -28,7 +28,9 @@ public class TotalEnumeration extends Thread
 
     private boolean suspended = false;
 
-
+    public synchronized void suspendII() { suspended = true; notify(); }
+    public synchronized void resumeII() { suspended = false; notify(); }
+    public synchronized void killII(){ suspended = false; stop(); }
     /* Constructors incl overload */
     public TotalEnumeration(ArrayList<GridTile> tileList){
         this.tileList = tileList;
@@ -126,16 +128,15 @@ public class TotalEnumeration extends Thread
 
     }
 
-
-    /* THREAD CONTROLS */
+/*
     public void pauseThread(){
         this.suspended = true;
     }
     public void resumeThread(){
         this.suspended = false;
         notify();
-    }
-
+   }
+*/
 
     /* MISC */
     public void processShortestPath(int[] indexList){
@@ -181,15 +182,17 @@ public class TotalEnumeration extends Thread
 
 
     void permute(int []a,int k ) {
-        synchronized(this) {
-            try {
-                while(suspended) {
-                    wait();
-                }
-            }catch(Exception ex){
-                System.out.println("ERROR: " + ex);
-            }
 
+        synchronized(this) {
+            while (suspended) {
+                try{
+                    wait(); // The current thread will block until some else calls notify()
+                    // Then if _suspended is false, it keeps looping the for
+                }catch (Exception ex){
+                    System.out.println("Shit failed");
+                }
+
+            }
         }
         if (k == a.length) {
             processShortestPath(a);
@@ -197,6 +200,7 @@ public class TotalEnumeration extends Thread
             this.progress++;
         } else {
             for (int i = k; i < a.length; i++) {
+
                 int temp = a[k];
                 a[k] = a[i];
                 a[i] = temp;
