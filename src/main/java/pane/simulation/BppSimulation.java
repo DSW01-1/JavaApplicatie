@@ -5,12 +5,14 @@ import java.util.ArrayList;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import main.java.algorithms.bpp.BruteForce;
 import main.java.algorithms.bpp.DecreasingFirstFit;
 import main.java.algorithms.bpp.FirstFit;
 import main.java.algorithms.bpp.NextFit;
 import main.java.graphs.Product;
 import main.java.main.ScreenProperties;
+import main.java.main.Vector2;
 import main.java.pane.ConsolePane;
 import main.java.pane.SimulationControls;
 
@@ -87,16 +89,27 @@ public class BppSimulation extends BaseSimulation {
         productsInput.setLayoutY(ScreenProperties.getScreenHeight() - 150);
         productsInput.setPrefSize(ScreenProperties.getScreenWidth() / 3, 30);
         getChildren().add(productsInput);
-        productsInput.setOnKeyPressed(event -> {
+        productsInput.setOnKeyPressed((KeyEvent event) -> {
             if (event.getCode()== KeyCode.ENTER){
                 String productsString = (productsInput.getText());
                 String[] productsToAdd = productsString.split(" ");
                 for (int i = 0; i < productsToAdd.length; i++){
-                    products.add(new Product(Integer.parseInt(productsToAdd[i])));
+                    products.add(new Product(i,"i",new Vector2(0,0),(Integer.parseInt(productsToAdd[i]))));
                 }
                 productsInput.setText("");
             }
         });
+    }
+
+    public String printAllProducts(ArrayList<Product> products)
+    {
+        String productGegevens = new String();
+        for (Product product : products)
+        {
+            productGegevens = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords" + product.GetCoords() + ". Name: " + product.GetName() + ".");
+            this.addConsoleItem(productGegevens,"DEBUG");
+        }
+        return "";
     }
 
     private void AddConsolePane() {
@@ -107,5 +120,5 @@ public class BppSimulation extends BaseSimulation {
     public void addConsoleItem(String Message, String msgType) {
         consolePane.getItems().add(String.format("[%s] %s", msgType, Message));
     }
-    // getters for textfields
+
 }

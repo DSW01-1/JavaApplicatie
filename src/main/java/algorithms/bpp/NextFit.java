@@ -23,12 +23,15 @@ public class NextFit
 
 
 	// method to print all products in list
-	public void printAllProducts(ArrayList<Product> products)
+	public String printAllProducts(ArrayList<Product> products)
 	{
+		String productGegevens = new String();
 		for (Product product : products)
 		{
-			simulation.addConsoleItem("products: " + product, "DEBUG");
+			productGegevens = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords" + product.GetCoords() + ". Name: " + product.GetName() + ".");
+			simulation.addConsoleItem(productGegevens,"DEBUG");
 		}
+		return "";
 	}
 
 	// method to execute algorithm
@@ -70,6 +73,7 @@ public class NextFit
 		simulation.addConsoleItem("FINISHED.", "INFO");
 		Long duration = (endTime - startTime) / 100000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
+		simulation.addConsoleItem("'ArrayList<Product> products' contains: ^^^^" + printAllProducts(products) ,"DEBUG");
 		System.gc();
 		return returnBoxes;
 
