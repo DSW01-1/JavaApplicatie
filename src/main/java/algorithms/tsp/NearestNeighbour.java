@@ -4,7 +4,6 @@ package main.java.algorithms.tsp;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.java.constant.Constants;
 import main.java.graphs.grid.GridTile;
 import main.java.main.Vector2;
 

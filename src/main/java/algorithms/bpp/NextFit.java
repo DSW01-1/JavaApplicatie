@@ -1,11 +1,10 @@
 package main.java.algorithms.bpp;
 
-import javafx.scene.control.ListView;
+import java.util.ArrayList;
+
 import main.java.graphs.Box;
 import main.java.graphs.Product;
 import main.java.pane.simulation.BppSimulation;
-
-import java.util.ArrayList;
 
 public class NextFit
 {

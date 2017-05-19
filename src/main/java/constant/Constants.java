@@ -26,7 +26,8 @@ public final class Constants
 	public static Vector2 backTMMBS = new Vector2(250, 50);
 
 	// Standards Colors
-	public static Color standardLineColor = Color.INDIANRED;
+	public static Color standardLineColor = Color.BLACK;
+	public static Color standardTileColor = Color.GRAY;
 
 	public static int baseWareHouseSize = 5;
 	public static int baseBoxSize = 10;

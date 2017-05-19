@@ -2,9 +2,12 @@ package main.java.pane.simulation;
 
 import java.util.ArrayList;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.paint.Color;
 import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.algorithms.tsp.TotalEnumeration;
@@ -63,13 +66,8 @@ public class TspSimulation extends BaseSimulation
 
 		getChildren().add(new SimulationControls(algorithmNames, this));
 
-		ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
-				"Blue", "Red", "Green", "White","Black")
-		);
-		cb.setLayoutX(215);
-		cb.setLayoutY(250);
-		cb.setPrefSize(280,25);
-		getChildren().add(cb);
+		addChoicebox();
+
 	}
 
 	/**
@@ -226,6 +224,39 @@ public class TspSimulation extends BaseSimulation
 	public void addConsoleItem(String message, String msgType)
 	{
 		consolePane.getItems().add(consolePane.getItems().size(), String.format("[%s] %s", msgType, message));
+	}
+
+	private void addChoicebox(){
+		ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
+				"black", "Red", "Green", "blue")
+		);
+		cb.setLayoutX(215);
+		cb.setLayoutY(250);
+		cb.getSelectionModel().selectFirst();
+		cb.setPrefSize(280,25);
+
+		cb.getSelectionModel().selectedIndexProperty()
+				.addListener(new ChangeListener<Number>() {
+					public void changed(ObservableValue ov, Number value, Number new_value) {
+						switch (new_value.intValue()) {
+							case 0:
+								grid.SetGridColor("black");
+								break;
+							case 1:
+								grid.SetGridColor("red");
+								break;
+							case 2:
+								grid.SetGridColor("green");
+								break;
+							case 3:
+								grid.SetGridColor("blue");
+								break;
+						}
+
+					}
+				});
+
+		getChildren().add(cb);
 	}
 
 	public void changeProgression(int progress)

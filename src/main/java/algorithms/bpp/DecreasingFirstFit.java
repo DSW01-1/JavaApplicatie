@@ -1,11 +1,11 @@
 package main.java.algorithms.bpp;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import main.java.graphs.Box;
 import main.java.graphs.Product;
 import main.java.pane.simulation.BppSimulation;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class DecreasingFirstFit
 {
