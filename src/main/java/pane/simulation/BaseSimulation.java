@@ -1,5 +1,9 @@
 package main.java.pane.simulation;
 
+import main.java.constant.Constants;
+import main.java.main.Main;
+import main.java.pane.MainMenu;
+import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 
 public abstract class BaseSimulation extends StyledPane
@@ -7,6 +11,15 @@ public abstract class BaseSimulation extends StyledPane
 	public BaseSimulation()
 	{
 		super();
+
+		// back to menu button
+		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
+		goBackToMenu.setOnAction(event ->
+		{
+			Main.SwitchPane(new MainMenu());
+		});
+		getChildren().add(goBackToMenu);
+
 	}
 
 	public void ExecuteAlgorithmOne()
@@ -28,17 +41,19 @@ public abstract class BaseSimulation extends StyledPane
 	{
 
 	}
-	
+
 	public void ExecuteAlgorithmFive()
 	{
-		
-	}
-
-	public void pauseAlgorithm(){
 
 	}
 
-	public void stopAlgorithm(){
+	public void pauseAlgorithm()
+	{
+
+	}
+
+	public void stopAlgorithm()
+	{
 
 	}
 }

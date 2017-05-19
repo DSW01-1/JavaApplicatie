@@ -81,8 +81,6 @@ public class OrderForm extends GridPane
 				rightColumnVBox.getParent().setStyle("-fx-border-color: #FF4943");
 			}
 
-			System.out.println(proceedAmount);
-
 			if (proceedAmount == 6)
 			{
 				ProcessForm();
