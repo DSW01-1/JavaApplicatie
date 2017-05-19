@@ -14,13 +14,16 @@ public class BaseGrid extends Canvas
 	protected GraphicsContext gc;
 	protected int tileAmount;
 	protected int tileSize;
-	protected int gridSize = Constants.gridSize;
+	protected int gridSize;
 
 	public BaseGrid(int tileAmount)
 	{
-		gc = getGraphicsContext2D();
 		this.tileAmount = tileAmount;
-
+		gc = getGraphicsContext2D();
+		gridSize = Constants.gridSize;
+		setWidth(gridSize);
+		setHeight(gridSize);
+		setScaleY(-1);
 		CreateTiles();
 	}
 

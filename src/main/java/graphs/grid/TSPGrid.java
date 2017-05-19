@@ -17,10 +17,6 @@ public class TSPGrid extends BaseGrid
 	public TSPGrid(int tileAmount, boolean isInteractive)
 	{
 		super(tileAmount);
-		gc = getGraphicsContext2D();
-		setWidth(gridSize);
-		setHeight(gridSize);
-		setScaleY(-1);
 		this.tileAmount = tileAmount;
 		this.isInteractive = isInteractive;
 
@@ -89,7 +85,6 @@ public class TSPGrid extends BaseGrid
 	public void Redraw()
 	{
 		gc.clearRect(0, 0, getWidth(), getHeight());
-
 		gc.setLineWidth(1);
 
 		for (int y = tileAmount; y >= 0; y--)
@@ -159,7 +154,7 @@ public class TSPGrid extends BaseGrid
 	}
 
 	/**
-	 * Draw the paths
+	 * Draw lines between the given points
 	 * 
 	 * @param points
 	 */
@@ -183,7 +178,7 @@ public class TSPGrid extends BaseGrid
 	/**
 	 * Set the current Position of the robot
 	 * 
-	 * @param //pos
+	 * @param pos
 	 */
 	public void SetRobotPos(Vector2 transPos)
 	{
