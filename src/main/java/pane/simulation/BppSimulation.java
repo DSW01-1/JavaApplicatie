@@ -9,6 +9,7 @@ import main.java.algorithms.bpp.BruteForce;
 import main.java.algorithms.bpp.DecreasingFirstFit;
 import main.java.algorithms.bpp.FirstFit;
 import main.java.algorithms.bpp.NextFit;
+import main.java.graphs.BoxPane;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
@@ -20,6 +21,7 @@ public class BppSimulation extends BaseSimulation
 	private static int boxVolume;
 	private ConsolePane consolePane;
 	private ArrayList<Product> products = new ArrayList<Product>();
+	private BoxPane boxPane;
 
 	public BppSimulation()
 	{
@@ -27,6 +29,7 @@ public class BppSimulation extends BaseSimulation
 		AddControls();
 		AddConsolePane();
 		AddInputFields();
+		AddBoxPane();
 	}
 
 	// create algorithms
@@ -38,7 +41,6 @@ public class BppSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
-
 		consolePane.getItems().clear();
 		addConsoleItem("Starting Algorithm 'Next Fit'", "DEBUG");
 		nextFit.executeNextFit(products);
@@ -97,7 +99,6 @@ public class BppSimulation extends BaseSimulation
 				decreasingFirstFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 				boxSizeInput.setText("");
 			}
-
 		});
 
 		// products input
@@ -124,6 +125,12 @@ public class BppSimulation extends BaseSimulation
 				}
 			}
 		});
+	}
+
+	public void AddBoxPane()
+	{
+		boxPane = new BoxPane();
+		getChildren().add(boxPane);
 	}
 
 	public String printAllProducts(ArrayList<Product> products)

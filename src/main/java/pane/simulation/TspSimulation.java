@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
 import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
@@ -17,6 +15,7 @@ import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.ConsolePane;
 import main.java.pane.SimulationControls;
+import main.java.pane.base.StyledChoiceBox;
 
 public class TspSimulation extends BaseSimulation
 {
@@ -158,6 +157,7 @@ public class TspSimulation extends BaseSimulation
 		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
 		addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
 
+		@SuppressWarnings("unused")
 		long startTime = System.nanoTime();
 
 		HungarianAssignment algoritme = new HungarianAssignment(activeTiles);
@@ -211,9 +211,7 @@ public class TspSimulation extends BaseSimulation
 					grid.setActive(false);
 				}
 			}
-
 		}
-
 	}
 
 	// Own Algorithm
@@ -247,15 +245,15 @@ public class TspSimulation extends BaseSimulation
 
 	private void addChoicebox()
 	{
-		ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList("black", "Red", "Green", "blue"));
-		cb.setLayoutX(215);
-		cb.setLayoutY(250);
+		String[] colorOptions =
+		{ "black", "Red", "Green", "blue" };
+
+		StyledChoiceBox cb = new StyledChoiceBox(colorOptions, new Vector2(215, 250), new Vector2(280, 25));
 		cb.getSelectionModel().selectFirst();
-		cb.setPrefSize(280, 25);
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
 		{
-			public void changed(ObservableValue ov, Number value, Number new_value)
+			public void changed(ObservableValue<? extends Number> ov, Number value, Number new_value)
 			{
 				switch (new_value.intValue())
 				{
