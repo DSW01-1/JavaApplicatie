@@ -87,4 +87,14 @@ public class Product implements Comparable<Object>
 	{
 		return GetCoords().getX() + 1 == tileCoord.getX() && GetCoords().getY() + 1 == tileCoord.getY() ? true : false;
 	}
+
+	public void SetName(String name)
+	{
+		this.name = name;		
+	}
+
+	public void SetSize(int size)
+	{
+		this.size = size;		
+	}
 }

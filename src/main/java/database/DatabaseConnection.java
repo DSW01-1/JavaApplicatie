@@ -66,6 +66,7 @@ public class DatabaseConnection
 
 						// Retry to make a connection
 						conn = DriverManager.getConnection("jdbc:mysql://localhost:3307/", connectionProps);
+						conn.setAutoCommit(false);
 					}
 					catch (IOException ex)
 					{

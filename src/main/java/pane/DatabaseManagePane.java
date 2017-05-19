@@ -1,7 +1,6 @@
 package main.java.pane;
 
 import main.java.constant.Constants;
-import main.java.database.DatabaseManagement;
 import main.java.graphs.grid.ProductGrid;
 import main.java.main.Main;
 import main.java.main.product.Product;
@@ -44,7 +43,7 @@ public class DatabaseManagePane extends StyledPane
 			getChildren().remove(editorPane);
 		}
 
-		editorPane = new DatabaseEditorPane(product);
+		editorPane = new DatabaseEditorPane(product, grid);
 		getChildren().add(editorPane);
 	}
 }
