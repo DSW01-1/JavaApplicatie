@@ -33,7 +33,8 @@ public class DatabaseManagePane extends StyledPane
 	private void AddProductGrid()
 	{
 		ProductGrid grid = new ProductGrid(Constants.baseWareHouseSize);
-
+		grid.Redraw();
+		getChildren().add(grid);
 	}
 
 	public void AddProductEditor()
