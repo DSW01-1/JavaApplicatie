@@ -5,11 +5,17 @@ import main.java.pane.base.StyledPane;
 
 public class Boxpane extends StyledPane
 {
+	private int size;
 
 	public Boxpane(int size)
 	{
 		super();
+		this.size = size;
+	}
 
+	@Override
+	public void InitPane()
+	{
 		setLayoutX(200);
 		setLayoutY(400);
 		setPrefSize(200, 400);

@@ -13,7 +13,11 @@ public class RobotSimulation extends BaseSimulation
 	public RobotSimulation()
 	{
 		super();
-		
+	}
+
+	@Override
+	public void InitPane()
+	{
 		TSPGrid grid = new TSPGrid(5, false);
 		grid.setLayoutX(ScreenProperties.getScreenWidth() - Constants.gridSize - 10);
 		grid.setLayoutY(10);

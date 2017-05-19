@@ -9,9 +9,8 @@ import main.java.pane.base.StyledPane;
 
 public class DatabaseManagePane extends StyledPane
 {
-	int newXValue, newYValue = 0;
-	DatabaseEditorPane editorPane;
-	ProductGrid grid;
+	private DatabaseEditorPane editorPane;
+	private ProductGrid grid;
 
 	public DatabaseManagePane()
 	{
@@ -24,7 +23,11 @@ public class DatabaseManagePane extends StyledPane
 			Main.SwitchPane(new MainMenu());
 		});
 		getChildren().add(goBackToMenu);
+	}
 
+	@Override
+	public void InitPane()
+	{
 		AddProductGrid();
 	}
 

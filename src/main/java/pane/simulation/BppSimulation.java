@@ -23,21 +23,26 @@ public class BppSimulation extends BaseSimulation
 	private ArrayList<Product> products = new ArrayList<Product>();
 	private BoxPane boxPane;
 
+	// create algorithms
+	private NextFit nextFit = new NextFit(this);
+	private FirstFit firstFit = new FirstFit(this);
+	private BruteForce bruteForce = new BruteForce(this);
+	private DecreasingFirstFit decreasingFirstFit = new DecreasingFirstFit(this);
+
 	public BppSimulation()
 	{
 		super();
 
+	}
+
+	@Override
+	public void InitPane()
+	{
 		AddControls();
 		AddConsolePane();
 		AddInputFields();
 		AddBoxPane();
 	}
-
-	// create algorithms
-	NextFit nextFit = new NextFit(this);
-	FirstFit firstFit = new FirstFit(this);
-	BruteForce bruteForce = new BruteForce(this);
-	DecreasingFirstFit decreasingFirstFit = new DecreasingFirstFit(this);
 
 	@Override
 	public void ExecuteAlgorithmOne()
@@ -139,7 +144,7 @@ public class BppSimulation extends BaseSimulation
 
 	public String printAllProducts(ArrayList<Product> products)
 	{
-		String productGegevens = new String();
+		String productGegevens;
 		for (Product product : products)
 		{
 			productGegevens = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords"

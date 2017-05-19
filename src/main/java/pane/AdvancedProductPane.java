@@ -18,7 +18,11 @@ public class AdvancedProductPane extends StyledPane
 		setId("product");
 		this.size = size;
 		setPrefSize(size.getX(), size.getY());
-		
+	}
+
+	@Override
+	public void InitPane()
+	{
 		AddInfoLabels();
 	}
 

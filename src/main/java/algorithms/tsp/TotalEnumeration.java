@@ -12,7 +12,7 @@ public class TotalEnumeration extends Thread
 {
 	/* Variables */
 	private ArrayList<GridTile> tileList;
-	ArrayList<ArrayList<Integer>> possibilities;
+	private ArrayList<ArrayList<Integer>> possibilities;
 
 	private EnumPath shortestPath;
 	private DistanceGrid dG;
@@ -233,7 +233,7 @@ public class TotalEnumeration extends Thread
 
 	}
 
-	void permute(int[] a, int k)
+	private void permute(int[] a, int k)
 	{
 
 		synchronized (this)
@@ -242,12 +242,14 @@ public class TotalEnumeration extends Thread
 			{
 				try
 				{
-					wait(); // The current thread will block until some else
-							// calls notify()
-					// Then if _suspended is false, it keeps looping the for
+					wait();
+					// The current thread will block until someone else calls
+					// notify(),Then if _suspended is false, it keeps looping
+					// the for loop
 				}
 				catch (Exception ex)
 				{
+					//TODO, gebruik geen System.out, en zeker geen "Shit failed". Gebruik LogHandler
 					System.out.println("Shit failed");
 				}
 

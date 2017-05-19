@@ -21,6 +21,12 @@ public class BoxPane extends StyledPane
 	public BoxPane()
 	{
 		super(pos, size);
+
+	}
+
+	@Override
+	public void InitPane()
+	{
 		AddScrollPane();
 	}
 

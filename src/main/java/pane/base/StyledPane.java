@@ -3,7 +3,7 @@ package main.java.pane.base;
 import javafx.scene.layout.Pane;
 import main.java.main.Vector2;
 
-public class StyledPane extends Pane
+public abstract class StyledPane extends Pane
 {
 
 	public StyledPane()
@@ -24,8 +24,5 @@ public class StyledPane extends Pane
 		setPrefSize(size.getX(), size.getY());
 	}
 
-	public void InitPane()
-	{
-	}
-
+	public abstract void InitPane();
 }

@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import main.java.constant.Constants;
 import main.java.main.Vector2;
 
-public class BaseGrid extends Canvas
+public abstract class BaseGrid extends Canvas
 {
 	protected ArrayList<GridTile> gridTileArray;
 	protected GraphicsContext gc;
@@ -18,6 +18,7 @@ public class BaseGrid extends Canvas
 
 	public BaseGrid(int tileAmount)
 	{
+		super();
 		this.tileAmount = tileAmount;
 		gc = getGraphicsContext2D();
 		gridSize = Constants.gridSize;
@@ -30,10 +31,7 @@ public class BaseGrid extends Canvas
 	/**
 	 * Add a mouse handler to add points on the grid
 	 */
-	protected void AddMouseEventHandler()
-	{
-
-	}
+	protected abstract void AddMouseEventHandler();
 
 	/**
 	 * Redraw the grid
