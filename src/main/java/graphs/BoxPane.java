@@ -12,13 +12,15 @@ import main.java.pane.base.StyledScrollPane;
 
 public class BoxPane extends StyledPane
 {
-	private int boxPaneSize = Constants.gridSize;
+	private static int boxPaneSize = Constants.gridSize;
 	private StyledScrollPane scrollPane;
 	private HBox hBox;
+	private static Vector2 size = new Vector2(boxPaneSize, boxPaneSize);
+	private static Vector2 pos = new Vector2((ScreenProperties.getScreenWidth() / 2) - boxPaneSize / 2, 15);
 
 	public BoxPane()
 	{
-		super();
+		super(pos, size);
 		AddScrollPane();
 	}
 
@@ -28,7 +30,7 @@ public class BoxPane extends StyledPane
 		hBox.setPrefHeight(boxPaneSize);
 
 		Vector2 size = new Vector2(boxPaneSize, boxPaneSize);
-		Vector2 pos = new Vector2((ScreenProperties.getScreenWidth() / 2) - boxPaneSize / 2, 15);
+		Vector2 pos = new Vector2(0, 0);
 
 		scrollPane = new StyledScrollPane(hBox, pos, size, true);
 		getChildren().add(scrollPane);

@@ -10,12 +10,18 @@ public class StyledPane extends Pane
 	{
 		super();
 	}
-	
+
 	public StyledPane(Vector2 pos)
 	{
 		this();
 		setLayoutX(pos.getX());
 		setLayoutY(pos.getY());
+	}
+
+	public StyledPane(Vector2 pos, Vector2 size)
+	{
+		this(pos);
+		setPrefSize(size.getX(), size.getY());
 	}
 
 	public void InitPane()
