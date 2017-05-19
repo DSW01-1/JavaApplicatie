@@ -1,7 +1,7 @@
 package main.java.algorithms.tsp;
 
-import main.java.graphs.DistanceGrid;
-import main.java.graphs.GridTile;
+import main.java.graphs.grid.DistanceGrid;
+import main.java.graphs.grid.GridTile;
 import main.java.main.Vector2;
 
 import java.util.ArrayList;

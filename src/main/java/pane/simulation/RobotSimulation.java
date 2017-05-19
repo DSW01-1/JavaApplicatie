@@ -3,7 +3,7 @@ package main.java.pane.simulation;
 import javafx.scene.control.ColorPicker;
 import main.java.constant.Constants;
 import main.java.controller.ArduinoController;
-import main.java.graphs.TSPGrid;
+import main.java.graphs.grid.TSPGrid;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;

@@ -1,7 +1,7 @@
 package main.java.pane.tab;
 
 import javafx.scene.layout.GridPane;
-import main.java.graphs.TSPGrid;
+import main.java.graphs.grid.TSPGrid;
 import main.java.main.ScreenProperties;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;

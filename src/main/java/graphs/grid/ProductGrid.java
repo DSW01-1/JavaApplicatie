@@ -1,4 +1,4 @@
-package main.java.graphs;
+package main.java.graphs.grid;
 
 public class ProductGrid extends BaseGrid
 {

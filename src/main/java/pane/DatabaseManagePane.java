@@ -3,7 +3,7 @@ package main.java.pane;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import main.java.constant.Constants;
-import main.java.graphs.ProductGrid;
+import main.java.graphs.grid.ProductGrid;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;

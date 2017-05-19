@@ -1,7 +1,7 @@
 package main.java.controller;
 
 import main.java.constant.ArduinoConstants;
-import main.java.graphs.TSPGrid;
+import main.java.graphs.grid.TSPGrid;
 import main.java.handler.ArduinoCommunicationHandler;
 import main.java.main.Vector2;
 

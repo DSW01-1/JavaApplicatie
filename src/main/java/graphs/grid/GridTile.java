@@ -1,4 +1,4 @@
-package main.java.graphs;
+package main.java.graphs.grid;
 
 import main.java.main.Vector2;
 

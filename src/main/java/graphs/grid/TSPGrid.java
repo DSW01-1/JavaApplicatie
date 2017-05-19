@@ -1,4 +1,4 @@
-package main.java.graphs;
+package main.java.graphs.grid;
 
 import java.util.ArrayList;
 
