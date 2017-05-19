@@ -8,46 +8,42 @@ import main.java.main.Vector2;
 
 public class HungarianAssignment
 {
-	// Route om te tekenen
-	private ArrayList<Vector2> shortestPath = new ArrayList<>();
-	// Distance Grid klasse
-	private DistanceGrid dG;
-	// uitgerekende route's tussen punten
-	public int[][] routeTSP;
-	// aantal berkende route's
-	private int berekend;
-	// penalty van zero tabel
-	public double[][] penaltyZero;
+	private ArrayList<GridTile> coordList; // Punten lijst
+	private ArrayList<Vector2> shortestPath = new ArrayList<>(); // Route om te
+																	// tekenen
+	private DistanceGrid dG; // Distance Grid klasse
+	public int[][] routeTSP; // uitgerekende route's tussen punten
+	private int berekend; // aantal berkende route's
+	public double[][] penaltyZero; // penalty van zero tabel
 
-	public HungarianAssignment(ArrayList<GridTile> selectedTiles)
+	public HungarianAssignment(ArrayList<GridTile> selectedTiles) // Constructor
 	{
-		// Zet de geselecteerde vakjes in een lokale arraylist
-		ArrayList<GridTile> coordList = selectedTiles;
-
-		// Nieuw DistanceGrid berekenen aan de hand van de coordinaten lijst
-		dG = new DistanceGrid(coordList);
-		// RouteTSP array net zo lang als het aantal punten
-		routeTSP = new int[dG.distanceGrid.length][2];
+		coordList = selectedTiles; // Zet de geselecteerde vakjes in een lokale
+									// arraylist
+		dG = new DistanceGrid(coordList); // Nieuw DistanceGrid berekenen aan de
+											// hand van de coordinaten lijst
+		routeTSP = new int[dG.distanceGrid.length][2]; // RouteTSP array net zo
+														// lang als het aantal
+														// punten
 	}
 
 	public double[] getColumn(double[][] grid, int colNumber)
-	{
-		// Pakt de kolom van een 2D Array
+	{ // Pakt de kolom van een 2D Array
 		int rowNumber;
 		double[] colArray = new double[grid.length];
-
 		for (rowNumber = 0; rowNumber < grid.length; rowNumber++)
 		{
-			// Zet het kolomnummer in de kolom array
-			colArray[rowNumber] = grid[rowNumber][colNumber];
+			colArray[rowNumber] = grid[rowNumber][colNumber]; // Zet het
+																// kolomnummer
+																// in de kolom
+																// array
 		}
 		return colArray;
 	}
 
 	public double min(double[] numbers, boolean ignoreFirstZero)
-	{
-		// Pakt het laagste getal in een rij, en krijgt te horen of hij de
-		// eerste nul moet negeren
+	{ // Pakt het laagste getal in een rij, en krijgt te horen of hij de eerste
+		// nul moet negeren
 		double lowest = 999999999;
 		for (double num : numbers)
 		{
@@ -58,16 +54,13 @@ public class HungarianAssignment
 			else if (ignoreFirstZero && num == 0)
 			{
 				ignoreFirstZero = false;
-				// TODO ignoreFirstZero word verder niet gebruikt. Waarom is het
-				// hier?
 			}
 		}
 		return lowest;
 	}
 
 	public void rowMin()
-	{
-		// Rij minimalisatie
+	{ // Rij minimalisatie
 		int rowCount = 0;
 		for (double[] row : dG.distanceGrid)
 		{
@@ -77,7 +70,6 @@ public class HungarianAssignment
 			{
 				if (column == -999.0)
 				{
-					// TODO Wat gebeurt er als het -999.0 is?
 				}
 				else
 				{
@@ -100,7 +92,6 @@ public class HungarianAssignment
 			{
 				if (num == -999.0)
 				{
-					// TODO Wat gebeurt er als het -999.0 is?
 				}
 				else
 				{

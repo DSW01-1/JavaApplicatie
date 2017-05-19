@@ -28,11 +28,6 @@ public class TspSimulation extends BaseSimulation
 	public TspSimulation()
 	{
 		super();
-	}
-
-	@Override
-	public void InitPane()
-	{
 		getStyleClass().add("background");
 		setPrefHeight(ScreenProperties.getScreenHeight() - 92);
 		AddControls();

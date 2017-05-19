@@ -20,8 +20,7 @@ public class StyledScrollPane extends ScrollPane
 
 	public StyledScrollPane(Node node, Vector2 pos, Vector2 size, boolean isVertical)
 	{
-		super(node);
-
+		super();
 		if (isVertical)
 		{
 			setHbarPolicy(ScrollBarPolicy.AS_NEEDED);

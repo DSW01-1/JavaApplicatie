@@ -9,9 +9,9 @@ import main.java.pane.simulation.BaseSimulation;
 
 public class SimulationControls extends StyledPane
 {
-	private String[] algorithmNames;
-	private String chkState;
-	private BaseSimulation simulation;
+	String[] algorithmNames;
+	String chkState;
+	BaseSimulation simulation;
 
 	public SimulationControls(String[] algorithmNames, BaseSimulation simulation)
 	{
@@ -20,11 +20,7 @@ public class SimulationControls extends StyledPane
 
 		setLayoutX(0);
 		setLayoutY(100);
-	}
 
-	@Override
-	public void InitPane()
-	{
 		CreateRadioButtons();
 		CreateControlButtons();
 	}

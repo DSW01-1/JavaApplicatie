@@ -8,10 +8,10 @@ import main.java.pane.base.StyledPane;
 
 public class RobotTab extends StyledPane
 {
-	@Override
-	public void InitPane()
+	public RobotTab()
 	{
 		getChildren().add(new TSPGrid(5, false));
+
 		CreateControlButtons();
 	}
 

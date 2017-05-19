@@ -13,8 +13,8 @@ import main.java.pane.DatabaseManagePane;
 
 public class ProductGrid extends BaseGrid
 {
-	private ArrayList<Product> productArray;
-	private DatabaseManagePane databaseManage;
+	ArrayList<Product> productArray;
+	DatabaseManagePane databaseManage;
 
 	public ProductGrid(int tileAmount, DatabaseManagePane databaseManage)
 	{

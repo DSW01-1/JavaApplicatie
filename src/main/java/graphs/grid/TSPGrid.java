@@ -9,12 +9,24 @@ import main.java.main.Vector2;
 
 public class TSPGrid extends BaseGrid
 {
+	private Vector2 robotPos;
 	private Color lineColor = Constants.standardLineColor;
 	private Color tileColor = Constants.standardTileColor;
-	private ArrayList<Vector2> pathList;
-	private boolean isActive = false;
+
 	private boolean isInteractive;
-	private Vector2 robotPos;
+	private ArrayList<Vector2> pathList;
+
+	public boolean isActive()
+	{
+		return isActive;
+	}
+
+	public void setActive(boolean active)
+	{
+		isActive = active;
+	}
+
+	private boolean isActive = false;
 
 	public TSPGrid(int tileAmount, boolean isInteractive)
 	{
@@ -234,10 +246,6 @@ public class TSPGrid extends BaseGrid
 			tileColor = Color.DARKGREEN;
 			lineColor = Color.GREEN;
 			break;
-		default:
-			tileColor = Color.BLACK;
-			lineColor = Color.GRAY;
-			break;
 		}
 		Redraw();
 	}
@@ -251,15 +259,5 @@ public class TSPGrid extends BaseGrid
 	public void SetInteractivity(boolean isInteractive)
 	{
 		this.isInteractive = isInteractive;
-	}
-
-	public boolean isActive()
-	{
-		return isActive;
-	}
-
-	public void setActive(boolean active)
-	{
-		isActive = active;
 	}
 }

@@ -24,7 +24,7 @@ public class NextFit
 	// method to print all products in list
 	public String printAllProducts(ArrayList<Product> products)
 	{
-		String productGegevens;
+		String productGegevens = new String();
 		for (Product product : products)
 		{
 			productGegevens = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords"

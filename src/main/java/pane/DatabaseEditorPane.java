@@ -26,11 +26,7 @@ public class DatabaseEditorPane extends StyledPane
 		super(new Vector2(ScreenProperties.getScreenWidth() - 500, paneHeight - (paneHeight / 3) * 2));
 		this.product = product;
 		this.grid = grid;
-	}
 
-	@Override
-	public void InitPane()
-	{
 		AddName();
 		AddCoord();
 		AddSize();
