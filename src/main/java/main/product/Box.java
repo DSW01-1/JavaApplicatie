@@ -48,7 +48,7 @@ public class Box
 	{
 		return products.size();
 	}
-	
+
 	public float GetVolume()
 	{
 		return volume;

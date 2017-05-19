@@ -59,8 +59,8 @@ public class JsonHandler
 				jsonOrdersDirectory.mkdir();
 			}
 
-			PrintWriter writer = new PrintWriter(
-					new FileOutputStream(new File(jsonOrdersDirectory + "/[" + dateFormat.format(date) + "]jsonFile.json"), true));
+			PrintWriter writer = new PrintWriter(new FileOutputStream(
+					new File(jsonOrdersDirectory + "/[" + dateFormat.format(date) + "]jsonFile.json"), true));
 			writer.print(json);
 			writer.close();
 		}

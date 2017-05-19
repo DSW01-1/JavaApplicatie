@@ -8,7 +8,7 @@ public class ErrorConstants
 {
 	public static String actionLogFile = "";
 	public static String errorLogFile = "";
-	
+
 	public static String ConnectionException = "08";
 
 	private static String GetDateFormat()

@@ -16,10 +16,10 @@ public class NextFit
 	private Box currentBox = new Box(0);
 	private BppSimulation simulation;
 
-	public NextFit(BppSimulation simulation){
-		this.simulation=simulation;
+	public NextFit(BppSimulation simulation)
+	{
+		this.simulation = simulation;
 	}
-
 
 	// method to print all products in list
 	public String printAllProducts(ArrayList<Product> products)
@@ -27,8 +27,9 @@ public class NextFit
 		String productGegevens = new String();
 		for (Product product : products)
 		{
-			productGegevens = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords" + product.GetCoords() + ". Name: " + product.GetName() + ".");
-			simulation.addConsoleItem(productGegevens,"DEBUG");
+			productGegevens = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords"
+					+ product.GetCoords() + ". Name: " + product.GetName() + ".");
+			simulation.addConsoleItem(productGegevens, "DEBUG");
 		}
 		return "";
 	}
@@ -72,7 +73,7 @@ public class NextFit
 		simulation.addConsoleItem("FINISHED.", "INFO");
 		Long duration = (endTime - startTime) / 100000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
-		simulation.addConsoleItem("'ArrayList<Product> products' contains: ^^^^" + printAllProducts(products) ,"DEBUG");
+		simulation.addConsoleItem("'ArrayList<Product> products' contains: ^^^^" + printAllProducts(products), "DEBUG");
 		System.gc();
 		return returnBoxes;
 

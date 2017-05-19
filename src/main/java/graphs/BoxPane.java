@@ -20,7 +20,6 @@ public class BoxPane extends StyledPane
 	{
 		super();
 		AddScrollPane();
-
 	}
 
 	private void AddScrollPane()
@@ -30,7 +29,7 @@ public class BoxPane extends StyledPane
 
 		Vector2 size = new Vector2(boxPaneSize, boxPaneSize);
 		Vector2 pos = new Vector2((ScreenProperties.getScreenWidth() / 2) - boxPaneSize / 2, 15);
-		
+
 		scrollPane = new StyledScrollPane(hBox, pos, size, true);
 		getChildren().add(scrollPane);
 	}

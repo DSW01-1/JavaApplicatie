@@ -7,7 +7,6 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.paint.Color;
 import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.algorithms.tsp.TotalEnumeration;
@@ -25,14 +24,13 @@ public class TspSimulation extends BaseSimulation
 	private boolean isInteractive = true;
 	public ConsolePane consolePane;
 	public ProgressBar progression;
-	private TotalEnumeration algorithm  = new TotalEnumeration(this);
-
+	private TotalEnumeration algorithm = new TotalEnumeration(this);
 
 	public TspSimulation()
 	{
 		super();
 		getStyleClass().add("background");
-		setPrefHeight(ScreenProperties.getScreenHeight() -92);
+		setPrefHeight(ScreenProperties.getScreenHeight() - 92);
 		AddControls();
 		AddGrid(5);
 		AddConsolePane();
@@ -41,7 +39,7 @@ public class TspSimulation extends BaseSimulation
 
 	private void AddConsolePane()
 	{
-		consolePane = new ConsolePane(15,320);
+		consolePane = new ConsolePane(15, 320);
 		getChildren().add(consolePane);
 	}
 
@@ -111,9 +109,12 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
-		if(grid.isActive()){
-			addConsoleItem("Algorithm blocked, thread is already running","ERROR");
-		}else{
+		if (grid.isActive())
+		{
+			addConsoleItem("Algorithm blocked, thread is already running", "ERROR");
+		}
+		else
+		{
 			consolePane.getItems().clear();
 			grid.setActive(true);
 			ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
@@ -156,12 +157,15 @@ public class TspSimulation extends BaseSimulation
 
 		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
 		addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
+
 		long startTime = System.nanoTime();
+
 		HungarianAssignment algoritme = new HungarianAssignment(activeTiles);
 		ArrayList<Vector2> vector = algoritme.runHungarian();
 		grid.Redraw(vector);
-		for(Vector2 vect:vector){
-			System.out.println(String.format("x: %s y: %s   ",vect.getX(),vect.getY()));
+		for (Vector2 vect : vector)
+		{
+			System.out.println(String.format("x: %s y: %s   ", vect.getX(), vect.getY()));
 		}
 	}
 
@@ -169,13 +173,19 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmThree()
 	{
-		if(algorithm.showState() == 1){
+		if (algorithm.showState() == 1)
+		{
 			algorithm.resumeII();
 			addConsoleItem("Resuming thread", "ALERT");
-		}else{
-			if(grid.isActive()){
-				addConsoleItem("Algorithm blocked, thread is already running","ERROR");
-			}else{
+		}
+		else
+		{
+			if (grid.isActive())
+			{
+				addConsoleItem("Algorithm blocked, thread is already running", "ERROR");
+			}
+			else
+			{
 				grid.setActive(true);
 				ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 				consolePane.getItems().clear();
@@ -195,7 +205,8 @@ public class TspSimulation extends BaseSimulation
 				}
 				else
 				{
-					addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
+					addConsoleItem(
+							String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
 							"ERROR");
 					grid.setActive(false);
 				}
@@ -213,16 +224,18 @@ public class TspSimulation extends BaseSimulation
 	}
 
 	@Override
-	public void pauseAlgorithm(){
+	public void pauseAlgorithm()
+	{
 		algorithm.suspendII();
-		//algorithm.pauseThread();
-		addConsoleItem("Thread has been paused","ALERT");
+		// algorithm.pauseThread();
+		addConsoleItem("Thread has been paused", "ALERT");
 
 	}
 
 	@Override
-	public void stopAlgorithm(){
-		addConsoleItem("Attempting to murder Thread 'algorithm' in his sleep.","INFO");
+	public void stopAlgorithm()
+	{
+		addConsoleItem("Attempting to murder Thread 'algorithm' in his sleep.", "INFO");
 
 		algorithm.killII();
 	}
@@ -232,35 +245,36 @@ public class TspSimulation extends BaseSimulation
 		consolePane.getItems().add(consolePane.getItems().size(), String.format("[%s] %s", msgType, message));
 	}
 
-	private void addChoicebox(){
-		ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList(
-				"black", "Red", "Green", "blue")
-		);
+	private void addChoicebox()
+	{
+		ChoiceBox cb = new ChoiceBox(FXCollections.observableArrayList("black", "Red", "Green", "blue"));
 		cb.setLayoutX(215);
 		cb.setLayoutY(250);
 		cb.getSelectionModel().selectFirst();
-		cb.setPrefSize(280,25);
+		cb.setPrefSize(280, 25);
 
-		cb.getSelectionModel().selectedIndexProperty()
-				.addListener(new ChangeListener<Number>() {
-					public void changed(ObservableValue ov, Number value, Number new_value) {
-						switch (new_value.intValue()) {
-							case 0:
-								grid.SetGridColor("black");
-								break;
-							case 1:
-								grid.SetGridColor("red");
-								break;
-							case 2:
-								grid.SetGridColor("green");
-								break;
-							case 3:
-								grid.SetGridColor("blue");
-								break;
-						}
+		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+		{
+			public void changed(ObservableValue ov, Number value, Number new_value)
+			{
+				switch (new_value.intValue())
+				{
+				case 0:
+					grid.SetGridColor("black");
+					break;
+				case 1:
+					grid.SetGridColor("red");
+					break;
+				case 2:
+					grid.SetGridColor("green");
+					break;
+				case 3:
+					grid.SetGridColor("blue");
+					break;
+				}
 
-					}
-				});
+			}
+		});
 
 		getChildren().add(cb);
 	}

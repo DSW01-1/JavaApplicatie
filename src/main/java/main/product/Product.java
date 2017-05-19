@@ -90,11 +90,11 @@ public class Product implements Comparable<Object>
 
 	public void SetName(String name)
 	{
-		this.name = name;		
+		this.name = name;
 	}
 
 	public void SetSize(int size)
 	{
-		this.size = size;		
+		this.size = size;
 	}
 }

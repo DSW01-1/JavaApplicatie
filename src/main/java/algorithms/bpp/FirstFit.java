@@ -8,7 +8,7 @@ import main.java.pane.simulation.BppSimulation;
 
 public class FirstFit
 {
-	public ArrayList<Box> returnBoxes = new ArrayList();
+	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	private boolean doesFit = false;
 
 	public int boxVolume;
@@ -53,8 +53,8 @@ public class FirstFit
 				+ products.size() + " products.", "INFO");
 		this.simulation.addConsoleItem("FINISHED.", "INFO");
 		Long endtime = System.nanoTime();
-		Long duration = (endtime - startTime)/100000;
-		simulation.addConsoleItem("Took " + duration + " milliseconds","INFO");
+		Long duration = (endtime - startTime) / 100000;
+		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		endtime = null;
 		startTime = null;
 		duration = null;

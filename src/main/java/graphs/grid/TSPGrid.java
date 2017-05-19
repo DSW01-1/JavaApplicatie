@@ -16,10 +16,13 @@ public class TSPGrid extends BaseGrid
 	private boolean isInteractive;
 	private ArrayList<Vector2> pathList;
 
-	public boolean isActive() {
+	public boolean isActive()
+	{
 		return isActive;
 	}
-	public void setActive(boolean active) {
+
+	public void setActive(boolean active)
+	{
 		isActive = active;
 	}
 
@@ -34,9 +37,6 @@ public class TSPGrid extends BaseGrid
 		AddMouseEventHandler();
 		Redraw();
 	}
-
-
-
 
 	public void chgLineColor(Color color)
 	{
@@ -167,7 +167,7 @@ public class TSPGrid extends BaseGrid
 		double y = tilePos.getY() * tileSize - tileSize + 25;
 
 		gc.setFill(tileColor);
-		gc.fillRoundRect(x, y, tileSize - 50, tileSize - 50, 8,8);
+		gc.fillRoundRect(x, y, tileSize - 50, tileSize - 50, 8, 8);
 	}
 
 	/**

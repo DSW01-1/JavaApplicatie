@@ -49,14 +49,12 @@ public class LogHandler
 							ste.getClassName() + ", " + ste.getMethodName() + " on line :" + ste.getLineNumber());
 				}
 			}
-
 			writer.close();
 		}
 		catch (IOException ex)
 		{
 			LogHandler.WriteErrorToLogFile(ex, "IOException");
 		}
-
 	}
 
 	// Write the next action done to the action log file to see what the user

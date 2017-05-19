@@ -13,9 +13,6 @@ public class DecreasingFirstFit
 	private BppSimulation simulation;
 	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	private boolean doesFit = false;
-	// initialize currentBox with volume 0 so a new one gets called at the
-	// start.
-	private Box currentBox = new Box(0);
 
 	public DecreasingFirstFit(BppSimulation simulation)
 	{

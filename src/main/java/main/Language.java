@@ -7,7 +7,6 @@ import main.java.constant.Constants;
 
 public class Language
 {
-
 	public static String currentLanguage = "nl";
 	public static String currentCountry = "NL";
 

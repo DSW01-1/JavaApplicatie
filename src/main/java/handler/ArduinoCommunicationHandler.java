@@ -46,7 +46,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 	public CommPortIdentifier GetArduinoPort()
 	{
 		CommPortIdentifier portId = null;
-		Enumeration portEnum = CommPortIdentifier.getPortIdentifiers();
+		Enumeration<?> portEnum = CommPortIdentifier.getPortIdentifiers();
 
 		// Loop through every port
 		while (portEnum.hasMoreElements())

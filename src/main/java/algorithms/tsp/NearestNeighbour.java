@@ -9,40 +9,44 @@ import main.java.main.Vector2;
 
 public class NearestNeighbour
 {
-	private ArrayList<GridTile> CoordList;
+	private ArrayList<GridTile> coordList;
 	private List<Integer> usedIndex = new ArrayList<>();
 	private ArrayList<Vector2> shortestPath = new ArrayList<>();
 
-	public NearestNeighbour(ArrayList<GridTile> selectedTiles /* TspSimulation simulatie */ )
+	public NearestNeighbour(ArrayList<GridTile> selectedTiles)
 	{
-		ArrayList<GridTile> tileOrder = new ArrayList<GridTile>();
-		CoordList = selectedTiles;
+		coordList = selectedTiles;
 
 		// SEARCH FOR FIRST TILE
 		int currentIndex = findFirstTileOptimized();
 		usedIndex.add(currentIndex);
-		shortestPath.add(new Vector2(CoordList.get(currentIndex).getXcoord(), CoordList.get(currentIndex).getYcoord()));
+		shortestPath.add(new Vector2(coordList.get(currentIndex).getXcoord(), coordList.get(currentIndex).getYcoord()));
 
 		// LOOP THROUGH ITEMS
-		for (int cnt = 0; cnt < (CoordList.size() - 1); cnt++)
+		for (int cnt = 0; cnt < (coordList.size() - 1); cnt++)
 		{
 			currentIndex = findNext(currentIndex);
 		}
 	}
 
-	private int findFirstTileOptimized(){
+	private int findFirstTileOptimized()
+	{
 		double closestDot = 0;
 		int index = 0;
 
 		int cnt = 0;
-		for (GridTile tile : CoordList)
+		for (GridTile tile : coordList)
 		{
-			if(closestDot == 0){
+			if (closestDot == 0)
+			{
 				closestDot = Math.hypot(tile.getXcoord(), tile.getYcoord());
 				index = cnt;
-			}else{
+			}
+			else
+			{
 				double xyLength = Math.hypot(tile.getXcoord(), tile.getYcoord());
-				if(xyLength < closestDot){
+				if (xyLength < closestDot)
+				{
 					closestDot = xyLength;
 					index = cnt;
 				}
@@ -59,13 +63,12 @@ public class NearestNeighbour
 		Double[] shortestRoute =
 		{ (double) 0, (double) 0 };
 
-
-		for (GridTile tile : CoordList)
+		for (GridTile tile : coordList)
 		{
 			if (!usedIndex.contains(cnt) && cnt != index)
 			{
-				double xDiff = tile.getXcoord() - CoordList.get(index).getXcoord();
-				double yDiff = tile.getYcoord() - CoordList.get(index).getYcoord();
+				double xDiff = tile.getXcoord() - coordList.get(index).getXcoord();
+				double yDiff = tile.getYcoord() - coordList.get(index).getYcoord();
 				double xyDiff = Math.hypot(xDiff, yDiff);
 
 				if (shortestRoute[1] == 0 || shortestRoute[1] > xyDiff)
@@ -80,7 +83,7 @@ public class NearestNeighbour
 
 		int FinalInt = (int) Math.round(shortestRoute[0]); // Line replaced
 		usedIndex.add(FinalInt);
-		shortestPath.add(new Vector2(CoordList.get(FinalInt).getXcoord(), CoordList.get(FinalInt).getYcoord()));
+		shortestPath.add(new Vector2(coordList.get(FinalInt).getXcoord(), coordList.get(FinalInt).getYcoord()));
 		return FinalInt;
 	}
 

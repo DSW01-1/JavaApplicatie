@@ -16,7 +16,7 @@ public class DatabaseOrder
 		ArrayList<Order> orderList = new ArrayList<Order>();
 
 		ResultSet rs = DatabaseConnection.GetDataFromDatabase("");
-		
+
 		try
 		{
 			while (rs.next())
