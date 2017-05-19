@@ -11,6 +11,8 @@ public class TSPGrid extends BaseGrid
 {
 	private Vector2 robotPos;
 	private Color lineColor = Constants.standardLineColor;
+	private Color tileColor = Constants.standardTileColor;
+
 	private boolean isInteractive;
 	private ArrayList<Vector2> pathList;
 
@@ -22,6 +24,10 @@ public class TSPGrid extends BaseGrid
 
 		AddMouseEventHandler();
 		Redraw();
+	}
+
+	public void chgLineColor(Color color){
+		this.lineColor = color;
 	}
 
 	/**
@@ -100,6 +106,10 @@ public class TSPGrid extends BaseGrid
 		}
 
 		// Draw the points
+		if (pathList != null)
+		{
+			DrawPathLines(pathList);
+		}
 		for (GridTile tile : gridTileArray)
 		{
 			if (tile.IsSelected())
@@ -107,10 +117,7 @@ public class TSPGrid extends BaseGrid
 				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
 			}
 		}
-		if (pathList != null)
-		{
-			DrawPathLines(pathList);
-		}
+
 
 		super.Redraw();
 	}
@@ -148,7 +155,7 @@ public class TSPGrid extends BaseGrid
 		double y = tilePos.getY() * tileSize - tileSize + 15;
 
 		// gc.fillOval(x, y, tileSize / 3, tileSize / 3);
-		gc.setFill(Color.GREY);
+		gc.setFill(tileColor);
 		gc.fillRect(x, y, tileSize - 30, tileSize - 30);
 
 	}
@@ -178,7 +185,6 @@ public class TSPGrid extends BaseGrid
 	/**
 	 * Set the current Position of the robot
 	 * 
-	 * @param pos
 	 */
 	public void SetRobotPos(Vector2 transPos)
 	{
@@ -210,9 +216,26 @@ public class TSPGrid extends BaseGrid
 		return robotPos;
 	}
 
-	public void SetLineColor(Color color)
+	public void SetGridColor(String color)
 	{
-		lineColor = color;
+		switch (color) {
+			case "black":
+				tileColor = Color.BLACK;
+				lineColor = Color.GRAY;
+				break;
+			case "red":
+				tileColor = Color.DARKRED;
+				lineColor = Color.RED;
+				break;
+			case "blue":
+				tileColor = Color.DARKBLUE;
+				lineColor = Color.BLUE;
+				break;
+			case "green":
+				tileColor = Color.DARKGREEN;
+				lineColor = Color.GREEN;
+				break;
+		}
 		Redraw();
 	}
 

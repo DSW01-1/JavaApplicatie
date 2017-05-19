@@ -38,7 +38,7 @@ public class RobotSimulation extends StyledPane
 		getChildren().add(connectArduino);
 		
 		ColorPicker colorPicker = new ColorPicker();
-		grid.SetLineColor(colorPicker.getValue());
+		grid.chgLineColor(colorPicker.getValue());
 		getChildren().add(colorPicker);
 	}
 }
