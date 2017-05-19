@@ -156,7 +156,8 @@ public class TSPGrid extends BaseGrid
 
 		// gc.fillOval(x, y, tileSize / 3, tileSize / 3);
 		gc.setFill(tileColor);
-		gc.fillRect(x, y, tileSize - 30, tileSize - 30);
+		gc.fillRoundRect(x, y, tileSize - 30, tileSize - 30, 8,8);
+		//gc.fillRect(x, y, tileSize - 30, tileSize - 30);
 
 	}
 
