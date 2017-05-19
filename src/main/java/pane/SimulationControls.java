@@ -18,6 +18,9 @@ public class SimulationControls extends StyledPane
 		this.algorithmNames = algorithmNames;
 		this.simulation = simulation;
 
+		setLayoutX(0);
+		setLayoutY(100);
+
 		CreateRadioButtons();
 		CreateControlButtons();
 	}
@@ -28,8 +31,7 @@ public class SimulationControls extends StyledPane
 
 		for (int i = 1; i <= algorithmNames.length; i++)
 		{
-			StyledRadioButton chkAlgorithm = new StyledRadioButton(algorithmNames[i - 1],
-				new Vector2(15, 100 + (i * 25)));
+			StyledRadioButton chkAlgorithm = new StyledRadioButton(algorithmNames[i - 1], new Vector2(15, i * 25));
 			chkAlgorithm.setUserData("Algorithm" + i);
 			chkAlgorithm.setToggleGroup(radioGroup);
 
@@ -47,21 +49,21 @@ public class SimulationControls extends StyledPane
 
 	private void CreateControlButtons()
 	{
-		StyledButton startButton = new StyledButton("btn.start", new Vector2(15, 250), new Vector2(60, 20));
+		StyledButton startButton = new StyledButton("btn.start", new Vector2(15, 150), new Vector2(60, 20));
 		startButton.setOnAction(event ->
 		{
 			CheckAndDoALgorithm();
 		});
 		getChildren().add(startButton);
 
-		StyledButton pauseButton = new StyledButton("btn.pause", new Vector2(80, 250), new Vector2(60, 20));
+		StyledButton pauseButton = new StyledButton("btn.pause", new Vector2(80, 150), new Vector2(60, 20));
 		pauseButton.setOnAction(event ->
 		{
 			simulation.pauseAlgorithm();
 		});
 		getChildren().add(pauseButton);
 
-		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(145, 250), new Vector2(60, 20));
+		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(145, 150), new Vector2(60, 20));
 		stopButton.setOnAction(event ->
 		{
 			simulation.stopAlgorithm();

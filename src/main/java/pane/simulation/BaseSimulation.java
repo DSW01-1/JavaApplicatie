@@ -19,7 +19,6 @@ public abstract class BaseSimulation extends StyledPane
 			Main.SwitchPane(new MainMenu());
 		});
 		getChildren().add(goBackToMenu);
-
 	}
 
 	public void ExecuteAlgorithmOne()
