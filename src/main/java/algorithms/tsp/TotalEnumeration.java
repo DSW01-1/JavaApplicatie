@@ -24,11 +24,12 @@ public class TotalEnumeration extends Thread
     private int factor = 0;
     private int progress = 0;
 
-    private boolean suspended = false;
+    private int state = 0;   // 0 = inactive, 1 = suspended, 2 = active
 
-    public synchronized void suspendII() { suspended = true; notify(); }
-    public synchronized void resumeII() { suspended = false; notify(); }
-    public synchronized void killII(){ suspended = false; stop(); }
+    public synchronized void suspendII() { state = 1; notify(); }
+    public synchronized void resumeII() { state = 2; notify(); }
+    public synchronized void killII(){ state = 0; notify(); killProcess(); }
+
     /* Constructors incl overload */
     public TotalEnumeration(ArrayList<GridTile> tileList){
         this.tileList = tileList;
@@ -63,10 +64,11 @@ public class TotalEnumeration extends Thread
     public void showPermutations(int startindex, int[] input) {
         permute(input,0);
     }
-    public boolean isSuspended(){ return suspended;}
+    public int showState(){ return state;}
 
     /* THREAD RUN method */
     public void run(){
+        state = 2;
         long startTime = System.nanoTime();
         if(logging){
             Platform.runLater(new Runnable() {
@@ -83,58 +85,53 @@ public class TotalEnumeration extends Thread
         }
 
         // calc factor
-        setFactor(tileList.size());
-        if(logging){
-            Platform.runLater(new Runnable() {
-                @Override public void run() {
-                    simulation.addConsoleItem(factor + " Possible paths","DEBUG");
-                }
-            });
-        }
-
-        showPermutations(0,tileIndexes);
-
-        ArrayList<Vector2> shortestPath = this.getShortestPath();
-        Platform.runLater(new Runnable() {
-            @Override public void run() {
-                simulation.addConsoleItem("Applying path to the grid..", "DEBUG");
+        if(state != 0){
+            setFactor(tileList.size());
+            if(logging){
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        simulation.addConsoleItem(factor + " Possible paths","DEBUG");
+                    }
+                });
             }
-        });
+            showPermutations(0,tileIndexes);
+        }
 
-        simulation.updatePath(shortestPath);
 
-        if(logging){
+        ArrayList<Vector2> shortestPath = new ArrayList<Vector2>();
+        if(state != 0) {
+            shortestPath = this.getShortestPath();
             Platform.runLater(new Runnable() {
                 @Override public void run() {
-                    simulation.addConsoleItem("Finished configuring 'total enumeration' algorithm", "DEBUG");
+                    simulation.addConsoleItem("Applying path to the grid..", "DEBUG");
                 }
             });
+            simulation.updatePath(shortestPath);
+            if(logging){
+                Platform.runLater(new Runnable() {
+                    @Override public void run() {
+                        simulation.addConsoleItem("Finished configuring 'total enumeration' algorithm", "DEBUG");
+                    }
+                });
+            }
         }
+
+
 
         long stopTime = System.nanoTime();
         long duration = (stopTime - startTime) / 100000;
         if(logging){
             Platform.runLater(new Runnable() {
                 @Override public void run() {
-                    String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms, moving to the next step";
+                    String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
                     simulation.addConsoleItem(showDuration, "INFO");
                 }
             });
 
         }
 
-
+        simulation.changeProgression(0);
     }
-
-/*
-    public void pauseThread(){
-        this.suspended = true;
-    }
-    public void resumeThread(){
-        this.suspended = false;
-        notify();
-   }
-*/
 
     /* MISC */
     public void processShortestPath(int[] indexList){
@@ -182,7 +179,7 @@ public class TotalEnumeration extends Thread
     void permute(int []a,int k ) {
 
         synchronized(this) {
-            while (suspended) {
+            while (state == 1) {
                 try{
                     wait(); // The current thread will block until some else calls notify()
                     // Then if _suspended is false, it keeps looping the for
@@ -192,22 +189,25 @@ public class TotalEnumeration extends Thread
 
             }
         }
-        if (k == a.length) {
-            processShortestPath(a);
+        if(state != 0){
+            if (k == a.length) {
+                processShortestPath(a);
 
-            this.progress++;
-        } else {
-            for (int i = k; i < a.length; i++) {
+                this.progress++;
+            } else {
+                for (int i = k; i < a.length; i++) {
 
-                int temp = a[k];
-                a[k] = a[i];
-                a[i] = temp;
-                permute(a, k + 1);
-                temp = a[k];
-                a[k] = a[i];
-                a[i] = temp;
+                    int temp = a[k];
+                    a[k] = a[i];
+                    a[i] = temp;
+                    permute(a, k + 1);
+                    temp = a[k];
+                    a[k] = a[i];
+                    a[i] = temp;
+                }
             }
         }
+
     }
 
     public void setFactor(int m) {
@@ -217,5 +217,14 @@ public class TotalEnumeration extends Thread
         this.factor = m;
     }
 
+    public void killProcess(){
+        simulation.addConsoleItem("The process has been killed","INFO");
+        simulation.addConsoleItem("Removing evidence..","INFO");
+
+        tileList = new ArrayList<GridTile>();
+        simulation.addConsoleItem("Evidence succesfully removed","INFO");
+
+
+    }
 
 }

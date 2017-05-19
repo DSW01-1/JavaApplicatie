@@ -22,7 +22,7 @@ public class TspSimulation extends BaseSimulation
 	private boolean isInteractive = true;
 	public ConsolePane consolePane;
 	public ProgressBar progression;
-	private TotalEnumeration algorithm = new TotalEnumeration(this);
+	private TotalEnumeration algorithm  = new TotalEnumeration(this);
 
 
 	public TspSimulation()
@@ -172,7 +172,7 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmThree()
 	{
-		if(algorithm.isSuspended()){
+		if(algorithm.showState() == 1){
 			algorithm.resumeII();
 			addConsoleItem("Resuming thread", "DEBUG");
 		}else{
@@ -183,8 +183,7 @@ public class TspSimulation extends BaseSimulation
 
 			if (activeTiles.size() > 0)
 			{
-				//TotalEnumeration algoritme = new TotalEnumeration(activeTiles, this);
-				this.algorithm.setTileList(activeTiles);
+				algorithm = new TotalEnumeration(activeTiles, this);
 				algorithm.start();
 
 				if (algorithm.getState() == Thread.State.TERMINATED)
@@ -215,6 +214,13 @@ public class TspSimulation extends BaseSimulation
 		//algorithm.pauseThread();
 		addConsoleItem("Thread has been paused","DEBUG");
 
+	}
+
+	@Override
+	public void stopAlgorithm(){
+		addConsoleItem("Attempting to murder Thread 'algorithm' in his sleep.","DEBUG");
+
+		algorithm.killII();
 	}
 
 	public void addConsoleItem(String message, String msgType)

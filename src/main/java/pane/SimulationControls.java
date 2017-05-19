@@ -64,7 +64,7 @@ public class SimulationControls extends StyledPane
 		StyledButton stopButton = new StyledButton("btn.stop", new Vector2(145, 250), new Vector2(60, 20));
 		stopButton.setOnAction(event ->
 		{
-			// TODO
+			simulation.stopAlgorithm();
 		});
 		getChildren().add(stopButton);
 

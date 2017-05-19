@@ -37,4 +37,8 @@ public abstract class BaseSimulation extends StyledPane
 	public void pauseAlgorithm(){
 
 	}
+
+	public void stopAlgorithm(){
+
+	}
 }
