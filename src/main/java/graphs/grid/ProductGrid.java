@@ -70,8 +70,8 @@ public class ProductGrid extends BaseGrid
 	{
 		for (Product product : productArray)
 		{
-			double x = (product.GetCoords().getX() + 1) * tileSize - tileSize + 15;
-			double y = (product.GetCoords().getY() + 1) * tileSize - tileSize + 15;
+			double x = product.GetCoords().getX() * tileSize - tileSize + 15;
+			double y = product.GetCoords().getY() * tileSize - tileSize + 15;
 
 			gc.setFill(new Color(Math.random(), Math.random(), Math.random(), 1));
 			gc.fillRect(x, y, tileSize - 30, tileSize - 30);
