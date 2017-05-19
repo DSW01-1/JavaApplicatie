@@ -21,7 +21,7 @@ public class ProductGrid extends BaseGrid
 		super(tileAmount);
 		this.databaseManage = databaseManage;
 		setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.gridSize / 2);
-		setLayoutY(15);
+		setLayoutY(50);
 
 		productArray = new ArrayList<Product>();
 		AddMouseEventHandler();
@@ -73,8 +73,8 @@ public class ProductGrid extends BaseGrid
 			double x = product.GetCoords().getX() * tileSize - tileSize + 15;
 			double y = product.GetCoords().getY() * tileSize - tileSize + 15;
 
-			gc.setFill(new Color(Math.random(), Math.random(), Math.random(), 1));
-			gc.fillRect(x, y, tileSize - 30, tileSize - 30);
+			gc.setFill(new Color(1 - (product.GetSize() / 10), 1 - (product.GetSize() / 10), 1, 1));
+			gc.fillRoundRect(x, y, tileSize - 30, tileSize - 30, 8, 8);
 		}
 
 		super.Redraw();

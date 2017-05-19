@@ -3,6 +3,7 @@ package main.java.database;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import main.java.constant.Constants;
 import main.java.main.product.Product;
@@ -59,6 +60,14 @@ public class DatabaseManagement
 		catch (SQLException e)
 		{
 			e.printStackTrace();
+		}
+	}
+
+	public static void CreateListOfNewProducts(ArrayList<Product> products)
+	{
+		for (Product product : products)
+		{
+			CreateNewProduct(product);
 		}
 	}
 }

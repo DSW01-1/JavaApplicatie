@@ -28,6 +28,7 @@ public final class Constants
 	// Standards Colors
 	public static Color standardLineColor = Color.BLACK;
 	public static Color standardTileColor = Color.GRAY;
+	public static Color standardProductColor = Color.TAN;
 
 	public static int baseWareHouseSize = 5;
 	public static int baseBoxSize = 10;
