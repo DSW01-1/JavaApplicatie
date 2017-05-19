@@ -3,8 +3,8 @@ package main.java.algorithms.bpp;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import main.java.graphs.Box;
-import main.java.graphs.Product;
+import main.java.main.product.Box;
+import main.java.main.product.Product;
 import main.java.pane.simulation.BppSimulation;
 
 public class DecreasingFirstFit

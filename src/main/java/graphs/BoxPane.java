@@ -6,6 +6,7 @@ import javafx.scene.layout.HBox;
 import main.java.constant.Constants;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.main.product.Box;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
 

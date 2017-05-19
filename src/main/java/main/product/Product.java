@@ -1,4 +1,4 @@
-package main.java.graphs;
+package main.java.main.product;
 
 import main.java.main.Vector2;
 
@@ -9,10 +9,30 @@ public class Product implements Comparable<Object>
 	private Vector2 coords;
 	private int size;
 
-
+	/**
+	 * General constructor
+	 * 
+	 * @param id
+	 * @param name
+	 * @param coords
+	 * @param size
+	 */
 	public Product(int id, String name, Vector2 coords, int size)
 	{
+		this(name, coords, size);
 		this.id = id;
+	}
+
+	/**
+	 * Constructor needed to create new products in the database, id is set by
+	 * database
+	 * 
+	 * @param name
+	 * @param coords
+	 * @param size
+	 */
+	public Product(String name, Vector2 coords, int size)
+	{
 		this.name = name;
 		this.coords = coords;
 		this.size = size;
@@ -37,7 +57,7 @@ public class Product implements Comparable<Object>
 	{
 		return size;
 	}
-	
+
 	public int GetSizeInInt()
 	{
 		return size;
@@ -61,5 +81,10 @@ public class Product implements Comparable<Object>
 			returnedInt = 1;
 		}
 		return returnedInt;
+	}
+
+	public boolean CheckCoords(Vector2 tileCoord)
+	{
+		return GetCoords().getX() + 1 == tileCoord.getX() && GetCoords().getY() + 1 == tileCoord.getY() ? true : false;
 	}
 }

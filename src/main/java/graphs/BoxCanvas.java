@@ -4,6 +4,8 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import main.java.main.ScreenProperties;
+import main.java.main.product.Box;
+import main.java.main.product.Product;
 
 public class BoxCanvas extends Canvas
 {

@@ -1,4 +1,4 @@
-package main.java.graphs;
+package main.java.main.product;
 
 import java.util.ArrayList;
 

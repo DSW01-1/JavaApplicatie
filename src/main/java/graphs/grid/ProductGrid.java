@@ -6,8 +6,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import main.java.constant.Constants;
 import main.java.database.DatabaseConnection;
-import main.java.graphs.Product;
 import main.java.main.ScreenProperties;
+import main.java.main.Vector2;
+import main.java.main.product.Product;
 import main.java.pane.DatabaseManagePane;
 
 public class ProductGrid extends BaseGrid
@@ -38,10 +39,30 @@ public class ProductGrid extends BaseGrid
 			{
 				if (tile.getXcoord() == x && tile.getYcoord() == y)
 				{
-
+					databaseManage.AddProductEditor(TileHasProduct(new Vector2(x, y)));
 				}
 			}
 		});
+	}
+
+	private Product TileHasProduct(Vector2 tileCoord)
+	{
+		Product returnProduct = null;
+
+		for (Product product : productArray)
+		{
+			if (product.CheckCoords(tileCoord) && returnProduct == null)
+			{
+				returnProduct = product;
+			}
+		}
+
+		if (returnProduct == null)
+		{
+			returnProduct = new Product("", tileCoord, 0);
+		}
+
+		return returnProduct;
 	}
 
 	@Override

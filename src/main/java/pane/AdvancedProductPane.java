@@ -2,8 +2,8 @@ package main.java.pane;
 
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
-import main.java.graphs.Product;
 import main.java.main.Vector2;
+import main.java.main.product.Product;
 import main.java.pane.base.StyledPane;
 
 public class AdvancedProductPane extends StyledPane

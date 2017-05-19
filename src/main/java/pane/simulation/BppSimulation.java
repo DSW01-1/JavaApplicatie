@@ -10,9 +10,9 @@ import main.java.algorithms.bpp.BruteForce;
 import main.java.algorithms.bpp.DecreasingFirstFit;
 import main.java.algorithms.bpp.FirstFit;
 import main.java.algorithms.bpp.NextFit;
-import main.java.graphs.Product;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.main.product.Product;
 import main.java.pane.ConsolePane;
 import main.java.pane.SimulationControls;
 
