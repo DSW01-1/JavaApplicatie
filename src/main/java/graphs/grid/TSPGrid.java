@@ -24,10 +24,8 @@ public class TSPGrid extends BaseGrid
 		Redraw();
 	}
 
-	/**
-	 * Add a mouse handler to add points on the grid
-	 */
-	private void AddMouseEventHandler()
+	@Override
+	protected void AddMouseEventHandler()
 	{
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
 		{

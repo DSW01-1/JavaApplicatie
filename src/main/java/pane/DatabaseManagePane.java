@@ -1,6 +1,7 @@
 package main.java.pane;
 
 import main.java.constant.Constants;
+import main.java.graphs.Product;
 import main.java.graphs.grid.ProductGrid;
 import main.java.main.Main;
 import main.java.pane.base.StyledButton;
@@ -25,19 +26,17 @@ public class DatabaseManagePane extends StyledPane
 		getChildren().add(goBackToMenu);
 
 		AddProductGrid();
-		AddProductEditor();
 	}
 
 	private void AddProductGrid()
 	{
-		grid = new ProductGrid(Constants.baseWareHouseSize);
+		grid = new ProductGrid(Constants.baseWareHouseSize, this);
 
 		grid.UpdateProductArray();
-		grid.Redraw();
 		getChildren().add(grid);
 	}
 
-	public void AddProductEditor()
+	public void AddProductEditor(Product product)
 	{
 		if (editorPane != null)
 		{

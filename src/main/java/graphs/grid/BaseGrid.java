@@ -28,6 +28,14 @@ public class BaseGrid extends Canvas
 	}
 
 	/**
+	 * Add a mouse handler to add points on the grid
+	 */
+	protected void AddMouseEventHandler()
+	{
+
+	}
+
+	/**
 	 * Redraw the grid
 	 */
 	public void Redraw()

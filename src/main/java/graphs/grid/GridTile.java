@@ -12,12 +12,12 @@ public class GridTile
 		this.pos = pos;
 		isSelected = false;
 	}
-	
+
 	public int getXcoord()
 	{
 		return (int) pos.getX();
 	}
-	
+
 	public int getYcoord()
 	{
 		return (int) pos.getY();
@@ -27,12 +27,12 @@ public class GridTile
 	{
 		return isSelected;
 	}
-	
+
 	public void SetSelected(boolean selected)
 	{
 		isSelected = selected;
 	}
-	
+
 	public Vector2 GetPos()
 	{
 		return pos;
