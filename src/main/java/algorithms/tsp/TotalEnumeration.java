@@ -12,23 +12,26 @@ public class TotalEnumeration extends Thread
     /* Variables */
     private ArrayList<GridTile> tileList;
     private ArrayList<EnumPath> pathList = new ArrayList<>();
+    ArrayList<ArrayList<Integer>> possibilities;
+
     private EnumPath shortestPath;
     private DistanceGrid dG;
-
-    ArrayList<ArrayList<Integer>> possibilities;
-    private int possiblePaths;
     private TspSimulation simulation;
+
     private boolean logging = false;
     private double pathLength = 0;
 
+    private int possiblePaths;
     private int factor = 0;
     private int progress = 0;
-
     private int state = 0;   // 0 = inactive, 1 = suspended, 2 = active
 
+
+    /* Controls */
     public synchronized void suspendII() { state = 1; notify(); }
     public synchronized void resumeII() { state = 2; notify(); }
-    public synchronized void killII(){ state = 0; notify(); killProcess(); }
+    public synchronized void killII(){ state = 0; notify(); cleanKill(); }
+
 
     /* Constructors incl overload */
     public TotalEnumeration(ArrayList<GridTile> tileList){
@@ -66,31 +69,33 @@ public class TotalEnumeration extends Thread
     }
     public int showState(){ return state;}
 
+
     /* THREAD RUN method */
     public void run(){
+        // Algoritme voorbereiden
         state = 2;
         long startTime = System.nanoTime();
         if(logging){
             Platform.runLater(new Runnable() {
                 @Override public void run() {
-                    simulation.addConsoleItem("Starting thread","DEBUG");
+                    simulation.addConsoleItem("Starting thread","ALERT");
                 }
             });
         }
 
-        // creating array of all tile indexes
+        // Structuur van het pad opzetten
         int[] tileIndexes = new int[tileList.size()];
         for(int i=0; i < tileList.size();i++){
             tileIndexes[i] = i;
         }
 
-        // calc factor
+        // Factor berekenen (aantal mogelijke paden)
         if(state != 0){
             setFactor(tileList.size());
             if(logging){
                 Platform.runLater(new Runnable() {
                     @Override public void run() {
-                        simulation.addConsoleItem(factor + " Possible paths","DEBUG");
+                        simulation.addConsoleItem(factor + " Possible paths","INFO");
                     }
                 });
             }
@@ -98,26 +103,27 @@ public class TotalEnumeration extends Thread
         }
 
 
+        // Kortste pad zoeken
         ArrayList<Vector2> shortestPath = new ArrayList<Vector2>();
         if(state != 0) {
             shortestPath = this.getShortestPath();
             Platform.runLater(new Runnable() {
                 @Override public void run() {
-                    simulation.addConsoleItem("Applying path to the grid..", "DEBUG");
+                    simulation.addConsoleItem("Applying path to the grid..", "INFO");
                 }
             });
             simulation.updatePath(shortestPath);
             if(logging){
                 Platform.runLater(new Runnable() {
                     @Override public void run() {
-                        simulation.addConsoleItem("Finished configuring 'total enumeration' algorithm", "DEBUG");
+                        simulation.addConsoleItem("Finished configuring 'total enumeration' algorithm", "INFO");
                     }
                 });
             }
         }
 
 
-
+        // Algoritme afronden
         long stopTime = System.nanoTime();
         long duration = (stopTime - startTime) / 100000;
         if(logging){
@@ -130,8 +136,10 @@ public class TotalEnumeration extends Thread
 
         }
 
+        // Progress bar resetten
         simulation.changeProgression(0);
     }
+
 
     /* MISC */
     public void processShortestPath(int[] indexList){
@@ -153,6 +161,7 @@ public class TotalEnumeration extends Thread
 
             totalLength += xyDiff;
         }
+
         int lastCoorX=tileList.get(lastIndex).getXcoord();
         int lastCoorY=tileList.get(lastIndex).getYcoord();
         double xyDiff = Math.hypot(lastCoorX, lastCoorY);
@@ -175,7 +184,6 @@ public class TotalEnumeration extends Thread
     }
 
 
-
     void permute(int []a,int k ) {
 
         synchronized(this) {
@@ -192,7 +200,6 @@ public class TotalEnumeration extends Thread
         if(state != 0){
             if (k == a.length) {
                 processShortestPath(a);
-
                 this.progress++;
             } else {
                 for (int i = k; i < a.length; i++) {
@@ -217,14 +224,11 @@ public class TotalEnumeration extends Thread
         this.factor = m;
     }
 
-    public void killProcess(){
-        simulation.addConsoleItem("The process has been killed","INFO");
+    public void cleanKill(){
+        simulation.addConsoleItem("The process has been killed","ALERT");
         simulation.addConsoleItem("Removing evidence..","INFO");
 
         tileList = new ArrayList<GridTile>();
         simulation.addConsoleItem("Evidence succesfully removed","INFO");
-
-
     }
-
 }

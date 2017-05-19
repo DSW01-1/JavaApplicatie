@@ -115,25 +115,18 @@ public class TspSimulation extends BaseSimulation
 
 		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 
-		addConsoleItem("Starting Algorithm 'nearest neighbour'", "DEBUG");
-		addConsoleItem("Searching for Coordinates", "DEBUG");
+		addConsoleItem("Starting Algorithm 'nearest neighbour'", "INFO");
+		addConsoleItem("Searching for Coordinates", "INFO");
 
 		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
 		if (activeTiles.size() > 0)
 		{
-			addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "DEBUG");
+			addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "ALERT");
 			long startTime = System.nanoTime();
 			NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
 			ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
 			long stopTime = System.nanoTime();
-			addConsoleItem("==========| Kortste pad gevonden |==========", "INFO");
-			String coordinates = "Coordinates: ";
-			for (Vector2 coordinate : shortestPath)
-			{
-				coordinates += String.format("(%s, %s) ", coordinate.getX(), coordinate.getY());
-				addConsoleItem(String.format("Tile: x=%s, y=%s", coordinate.getX(), coordinate.getY()), "INFO");
-			}
-			addConsoleItem(coordinates, "INFO");
+			addConsoleItem("Kortste pad gevonden", "INFO");
 			long duration = (stopTime - startTime) / 100000;
 			String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
 			addConsoleItem(showDuration, "INFO");
@@ -142,7 +135,7 @@ public class TspSimulation extends BaseSimulation
 		else
 		{
 			addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
-					"DEBUG");
+					"ERROR");
 		}
 	}
 
@@ -172,12 +165,12 @@ public class TspSimulation extends BaseSimulation
 	{
 		if(algorithm.showState() == 1){
 			algorithm.resumeII();
-			addConsoleItem("Resuming thread", "DEBUG");
+			addConsoleItem("Resuming thread", "ALERT");
 		}else{
 			ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 			consolePane.getItems().clear();
-			addConsoleItem("Starting Algorithm 'Total Enumeration'", "DEBUG");
-			addConsoleItem("Searching for Coordinates", "DEBUG");
+			addConsoleItem("Starting Algorithm 'Total Enumeration'", "INFO");
+			addConsoleItem("Searching for Coordinates", "INFO");
 
 			if (activeTiles.size() > 0)
 			{
@@ -186,14 +179,14 @@ public class TspSimulation extends BaseSimulation
 
 				if (algorithm.getState() == Thread.State.TERMINATED)
 				{
-					addConsoleItem("Process has stopped unexpectly", "DEBUG");
+					addConsoleItem("Process has stopped unexpectly", "ERROR");
 
 				}
 			}
 			else
 			{
 				addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
-						"DEBUG");
+						"ERROR");
 			}
 		}
 
@@ -210,13 +203,13 @@ public class TspSimulation extends BaseSimulation
 	public void pauseAlgorithm(){
 		algorithm.suspendII();
 		//algorithm.pauseThread();
-		addConsoleItem("Thread has been paused","DEBUG");
+		addConsoleItem("Thread has been paused","ALERT");
 
 	}
 
 	@Override
 	public void stopAlgorithm(){
-		addConsoleItem("Attempting to murder Thread 'algorithm' in his sleep.","DEBUG");
+		addConsoleItem("Attempting to murder Thread 'algorithm' in his sleep.","INFO");
 
 		algorithm.killII();
 	}

@@ -58,8 +58,7 @@ public class NearestNeighbour
 		int cnt = 0;
 		Double[] shortestRoute =
 		{ (double) 0, (double) 0 };
-		// simulatie.addConsoleItem(" ==========| Starting Loop
-		// |==========","DEBUG");
+
 
 		for (GridTile tile : CoordList)
 		{
