@@ -21,7 +21,7 @@ import main.java.pane.SimulationControls;
 
 public class TspSimulation extends BaseSimulation
 {
-	private TSPGrid grid;
+	public TSPGrid grid;
 	private boolean isInteractive = true;
 	public ConsolePane consolePane;
 	public ProgressBar progression;
@@ -111,32 +111,38 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
-		consolePane.getItems().clear();
+		if(grid.isActive()){
+			addConsoleItem("Algorithm blocked, thread is already running","ERROR");
+		}else{
+			consolePane.getItems().clear();
+			grid.setActive(true);
+			ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 
-		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
+			addConsoleItem("Starting Algorithm 'nearest neighbour'", "INFO");
+			addConsoleItem("Searching for Coordinates", "INFO");
 
-		addConsoleItem("Starting Algorithm 'nearest neighbour'", "INFO");
-		addConsoleItem("Searching for Coordinates", "INFO");
-
-		// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
-		if (activeTiles.size() > 0)
-		{
-			addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "ALERT");
-			long startTime = System.nanoTime();
-			NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
-			ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
-			long stopTime = System.nanoTime();
-			addConsoleItem("Kortste pad gevonden", "INFO");
-			long duration = (stopTime - startTime) / 100000;
-			String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
-			addConsoleItem(showDuration, "INFO");
-			grid.Redraw(shortestPath);
+			// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
+			if (activeTiles.size() > 0)
+			{
+				addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "ALERT");
+				long startTime = System.nanoTime();
+				NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
+				ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
+				long stopTime = System.nanoTime();
+				addConsoleItem("Kortste pad gevonden", "INFO");
+				long duration = (stopTime - startTime) / 100000;
+				String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
+				addConsoleItem(showDuration, "INFO");
+				grid.Redraw(shortestPath);
+			}
+			else
+			{
+				addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
+						"ERROR");
+			}
+			grid.setActive(false);
 		}
-		else
-		{
-			addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
-					"ERROR");
-		}
+
 	}
 
 	// Hungarian Assignment
@@ -167,27 +173,34 @@ public class TspSimulation extends BaseSimulation
 			algorithm.resumeII();
 			addConsoleItem("Resuming thread", "ALERT");
 		}else{
-			ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
-			consolePane.getItems().clear();
-			addConsoleItem("Starting Algorithm 'Total Enumeration'", "INFO");
-			addConsoleItem("Searching for Coordinates", "INFO");
+			if(grid.isActive()){
+				addConsoleItem("Algorithm blocked, thread is already running","ERROR");
+			}else{
+				grid.setActive(true);
+				ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
+				consolePane.getItems().clear();
+				addConsoleItem("Starting Algorithm 'Total Enumeration'", "INFO");
+				addConsoleItem("Searching for Coordinates", "INFO");
 
-			if (activeTiles.size() > 0)
-			{
-				algorithm = new TotalEnumeration(activeTiles, this);
-				algorithm.start();
-
-				if (algorithm.getState() == Thread.State.TERMINATED)
+				if (activeTiles.size() > 0)
 				{
-					addConsoleItem("Process has stopped unexpectly", "ERROR");
+					algorithm = new TotalEnumeration(activeTiles, this);
+					algorithm.start();
 
+					if (algorithm.getState() == Thread.State.TERMINATED)
+					{
+						addConsoleItem("Process has stopped unexpectly", "ERROR");
+
+					}
+				}
+				else
+				{
+					addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
+							"ERROR");
+					grid.setActive(false);
 				}
 			}
-			else
-			{
-				addConsoleItem(String.format("%s coordinates found, algorithm has been cancelled", activeTiles.size()),
-						"ERROR");
-			}
+
 		}
 
 	}

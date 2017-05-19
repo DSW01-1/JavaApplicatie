@@ -138,6 +138,7 @@ public class TotalEnumeration extends Thread
 
         // Progress bar resetten
         simulation.changeProgression(0);
+        simulation.grid.setActive(false);
     }
 
 

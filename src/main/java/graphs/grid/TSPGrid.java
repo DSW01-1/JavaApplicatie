@@ -16,6 +16,15 @@ public class TSPGrid extends BaseGrid
 	private boolean isInteractive;
 	private ArrayList<Vector2> pathList;
 
+	public boolean isActive() {
+		return isActive;
+	}
+	public void setActive(boolean active) {
+		isActive = active;
+	}
+
+	private boolean isActive = false;
+
 	public TSPGrid(int tileAmount, boolean isInteractive)
 	{
 		super(tileAmount);
@@ -25,6 +34,9 @@ public class TSPGrid extends BaseGrid
 		AddMouseEventHandler();
 		Redraw();
 	}
+
+
+
 
 	public void chgLineColor(Color color)
 	{
