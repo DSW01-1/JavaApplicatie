@@ -46,13 +46,13 @@ public class DecreasingFirstFit
 				Box newBox = new Box(boxVolume);
 				returnBoxes.add(newBox);
 				newBox.addProduct(product);
-				simulation.addConsoleItem("Product did not fit with size: " + product.GetSize()
-						+ ", new box created and added, amount of boxes " + returnBoxes.size(), "DEBUG");
+				simulation.addConsoleItem("Product (size: "+product.GetSize()+")"+
+						" did not fit. new box created and added, amount of boxes " + returnBoxes.size(), "DEBUG");
 			}
 			doesFit = false;
 		}
 		simulation.addConsoleItem("FINISHED", "INFO");
-		simulation.addConsoleItem("Boxes used: " + returnBoxes.size(), "INFO");
+		simulation.addConsoleItem("Boxes needed: " + returnBoxes.size(), "INFO");
 		return returnBoxes;
 	}
 }

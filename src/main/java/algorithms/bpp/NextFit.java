@@ -68,12 +68,10 @@ public class NextFit
 		// and added next time at execution
 		currentBox = new Box(0);
 		Long endTime = System.nanoTime();
-		simulation.addConsoleItem("Total amount of boxes needed:" + returnBoxes.size() + ", filled with "
-				+ products.size() + " products.", "INFO");
 		simulation.addConsoleItem("FINISHED.", "INFO");
-		Long duration = (endTime - startTime) / 100000;
+		simulation.addConsoleItem("Boxes needed: " + returnBoxes.size(),"INFO");
+		Long duration = (endTime - startTime) / 1000000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
-		simulation.addConsoleItem("'ArrayList<Product> products' contains: ^^^^" + printAllProducts(products), "DEBUG");
 		System.gc();
 		return returnBoxes;
 

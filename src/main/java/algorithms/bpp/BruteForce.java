@@ -57,12 +57,12 @@ public class BruteForce
 
 		}
 		Long endTime = System.nanoTime();
-		simulation.addConsoleItem("Best Box amount = " + bestBoxAmount, "DEBUG");
-		simulation.addConsoleItem("FINISHED", "INFO");
 		simulation.addConsoleItem("Calculated " + amountOfCalculations + " calculations", "INFO");
+		simulation.addConsoleItem("FINISHED", "INFO");
+		simulation.addConsoleItem("Boxes needed: " + bestBoxAmount, "INFO");
+
 		Long duration = (endTime - startTime) / 1000000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
-		simulation.addConsoleItem("---------------------------------------------------------------------", "INFO");
 		startTime = null;
 		endTime = null;
 		duration = null;

@@ -49,11 +49,10 @@ public class FirstFit
 			}
 			doesFit = false;
 		}
-		this.simulation.addConsoleItem("Total amount of boxes needed:" + returnBoxes.size() + ", filled with "
-				+ products.size() + " products.", "INFO");
 		this.simulation.addConsoleItem("FINISHED.", "INFO");
+		this.simulation.addConsoleItem("Boxes needed:" + returnBoxes.size() + ", filled with ", "INFO");
 		Long endtime = System.nanoTime();
-		Long duration = (endtime - startTime) / 100000;
+		Long duration = (endtime - startTime) / 1000000;
 		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		endtime = null;
 		startTime = null;
