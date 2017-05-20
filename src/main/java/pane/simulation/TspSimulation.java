@@ -8,6 +8,7 @@ import javafx.scene.control.ProgressBar;
 import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.algorithms.tsp.TotalEnumeration;
+import main.java.algorithms.tsp.TwoWayEdgeNearestNeighbour;
 import main.java.constant.Constants;
 import main.java.graphs.grid.GridTile;
 import main.java.graphs.grid.TSPGrid;
@@ -218,7 +219,7 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
-
+		
 	}
 
 	@Override
