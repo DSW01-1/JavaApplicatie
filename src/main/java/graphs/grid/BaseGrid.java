@@ -20,7 +20,7 @@ public class BaseGrid extends Canvas
 	{
 		this.tileAmount = tileAmount;
 		gc = getGraphicsContext2D();
-		gridSize = Constants.gridSize;
+		gridSize = Constants.drawnGridSize;
 		setWidth(gridSize);
 		setHeight(gridSize);
 		setScaleY(-1);

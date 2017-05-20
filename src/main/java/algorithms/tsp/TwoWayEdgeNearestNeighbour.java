@@ -8,9 +8,9 @@ import main.java.main.Vector2;
 public class TwoWayEdgeNearestNeighbour extends Algorithm
 {
 
-	public TwoWayEdgeNearestNeighbour()
+	public TwoWayEdgeNearestNeighbour(int gridSize)
 	{
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	@Override

@@ -76,7 +76,7 @@ public class TspSimulation extends BaseSimulation
 	{
 		grid = new TSPGrid(size, isInteractive);
 
-		grid.setLayoutX((ScreenProperties.getScreenWidth() / 2) - Constants.gridSize / 2);
+		grid.setLayoutX((ScreenProperties.getScreenWidth() / 2) - Constants.drawnGridSize / 2);
 		grid.setLayoutY(15);
 		getChildren().add(grid);
 	}

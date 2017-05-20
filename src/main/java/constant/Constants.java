@@ -19,7 +19,7 @@ public final class Constants
 	public static String xImage = iconLocation + "x.png";
 
 	// Size of the grid
-	public static int gridSize = (int) (665);
+	public static int drawnGridSize = (int) (665);
 
 	// Back to main menu position and size
 	public static Vector2 backTMMBP = new Vector2(15, 15);
