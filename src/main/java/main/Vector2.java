@@ -2,15 +2,15 @@ package main.java.main;
 
 public class Vector2
 {
-	private double x, y;
+	private int x, y;
 
-	public Vector2(double x, double y)
+	public Vector2(int x, int y)
 	{
 		this.x = x;
 		this.y = y;
 	}
 
-	public double getX()
+	public int getX()
 	{
 		return x;
 	}
@@ -20,7 +20,7 @@ public class Vector2
 		this.x = x;
 	}
 
-	public double getY()
+	public int getY()
 	{
 		return y;
 	}

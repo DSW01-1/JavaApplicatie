@@ -12,7 +12,7 @@ import main.java.pane.base.StyledScrollPane;
 
 public class BoxPane extends StyledPane
 {
-	private static int boxPaneSize = Constants.gridSize;
+	private static int boxPaneSize = Constants.drawnGridSize;
 	private StyledScrollPane scrollPane;
 	private HBox hBox;
 	private static Vector2 size = new Vector2(boxPaneSize, boxPaneSize);

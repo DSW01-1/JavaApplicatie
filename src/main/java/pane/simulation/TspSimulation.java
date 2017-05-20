@@ -8,6 +8,7 @@ import javafx.scene.control.ProgressBar;
 import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.algorithms.tsp.TotalEnumeration;
+import main.java.algorithms.tsp.TwoWayEdgeNearestNeighbour;
 import main.java.constant.Constants;
 import main.java.graphs.grid.GridTile;
 import main.java.graphs.grid.TSPGrid;
@@ -75,7 +76,7 @@ public class TspSimulation extends BaseSimulation
 	{
 		grid = new TSPGrid(size, isInteractive);
 
-		grid.setLayoutX((ScreenProperties.getScreenWidth() / 2) - Constants.gridSize / 2);
+		grid.setLayoutX((ScreenProperties.getScreenWidth() / 2) - Constants.drawnGridSize / 2);
 		grid.setLayoutY(15);
 		getChildren().add(grid);
 	}
@@ -218,7 +219,20 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
+		TwoWayEdgeNearestNeighbour twoWay = new TwoWayEdgeNearestNeighbour(5);
+		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
 
+		if (activeTiles.size() > 0)
+		{
+			ArrayList<Vector2> pointList = new ArrayList<Vector2>();
+
+			for (GridTile tile : activeTiles)
+			{
+				pointList.add(tile.GetPos());
+			}
+
+			twoWay.GetShortestPath(pointList);
+		}
 	}
 
 	@Override

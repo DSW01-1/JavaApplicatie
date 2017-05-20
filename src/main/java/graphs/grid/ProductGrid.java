@@ -20,7 +20,7 @@ public class ProductGrid extends BaseGrid
 	{
 		super(tileAmount);
 		this.databaseManage = databaseManage;
-		setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.gridSize / 2);
+		setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2);
 		setLayoutY(50);
 
 		productArray = new ArrayList<Product>();
