@@ -29,6 +29,8 @@ public class ScissorEdge extends Algorithm
 
 		while (remainingPoints.size() > 0)
 		{
+			System.out.println(currentIndex);
+
 			if ((currentIndex % 2) == 0)
 			{
 				rightSideList.add(AddNewPoint(false));
@@ -52,18 +54,16 @@ public class ScissorEdge extends Algorithm
 	private Vector2 AddNewPoint(boolean isLeft)
 	{
 		double shortestDistance = gridSize * gridSize;
-		Vector2 closestPoint = new Vector2(0, 0);
+		Vector2 closestPoint = new Vector2(100, 100);
 
-		for (int i = 0; i < remainingPoints.size(); i++)
+		for (Vector2 remainingPoint : remainingPoints)
 		{
-
-			double distance = isLeft ? CalculateLeftDistance(remainingPoints.get(i))
-					: CalculateRightDistance(remainingPoints.get(i));
+			double distance = isLeft ? CalculateLeftDistance(remainingPoint) : CalculateRightDistance(remainingPoint);
 
 			if (distance < shortestDistance)
 			{
 				shortestDistance = distance;
-				closestPoint = remainingPoints.get(i);
+				closestPoint = remainingPoint;
 			}
 		}
 		remainingPoints.remove(closestPoint);

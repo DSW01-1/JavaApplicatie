@@ -32,7 +32,7 @@ public class TspSimulation extends BaseSimulation
 		getStyleClass().add("background");
 		setPrefHeight(ScreenProperties.getScreenHeight() - 92);
 		AddControls();
-		AddGrid(5);
+		AddGrid(10);
 		AddConsolePane();
 		AddProgressBar();
 	}
@@ -65,7 +65,6 @@ public class TspSimulation extends BaseSimulation
 		getChildren().add(new SimulationControls(algorithmNames, this));
 
 		addChoicebox();
-
 	}
 
 	/**
