@@ -112,21 +112,17 @@ public class BppSimulation extends BaseSimulation
 		{
 			if (event.getCode() == KeyCode.ENTER)
 			{
-				if (!event.getText().matches("[0-9 *]+"))
-				{
-					String productsString = (productsInput.getText());
+				String productsString = (productsInput.getText());
+				if(productsString.matches("[0-9 *]+")) {
 					String[] productsToAdd = productsString.split(" ");
-					for (int i = 0; i < productsToAdd.length; i++)
-					{
+					for (int i = 0; i < productsToAdd.length; i++) {
 						products.add(new Product(i, "i", new Vector2(0, 0), (Integer.parseInt(productsToAdd[i]))));
 					}
-					productsInput.setText("");
-				}
-				else
+				}else
 				{
-					addConsoleItem("Please use only numerical characters!(0 to 9)", "ERROR");
-					System.out.print("I got to here!");
+					addConsoleItem("Only numerical and spaces are accepted.","ERROR");
 				}
+				productsInput.setText("");
 			}
 		});
 	}
