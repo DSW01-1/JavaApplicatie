@@ -29,7 +29,7 @@ public class MainMenu extends StyledPane
 		getStyleClass().add("background");
 		// New Order Button
 		StyledButton newOrderButton = new StyledButton("btn.newOrder",
-				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4), new Vector2(200, 50));
+				new Vector2((int) (getPrefWidth() / 2 - 100), (int) (getPrefHeight() / 4)), new Vector2(200, 50));
 		newOrderButton.setOnAction(event ->
 		{
 			Main.SwitchPane(new NewOrder());
@@ -39,7 +39,7 @@ public class MainMenu extends StyledPane
 
 		// Order History Button
 		StyledButton orderHistoryButton = new StyledButton("btn.orderHistory",
-				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 100), new Vector2(200, 50));
+				new Vector2((int) (getPrefWidth() / 2 - 100), (int) (getPrefHeight() / 4 + 100)), new Vector2(200, 50));
 		orderHistoryButton.setOnAction(event ->
 		{
 			// TODO
@@ -48,7 +48,7 @@ public class MainMenu extends StyledPane
 
 		// Simulations Button
 		StyledButton simulationsButton = new StyledButton("btn.simulations",
-				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 200), new Vector2(200, 50));
+				new Vector2((int) (getPrefWidth() / 2 - 100), (int) (getPrefHeight() / 4 + 200)), new Vector2(200, 50));
 		simulationsButton.setOnAction(event ->
 		{
 			StyledPane[] tabArray =
@@ -60,19 +60,19 @@ public class MainMenu extends StyledPane
 			Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
 		});
 		getChildren().add(simulationsButton);
-		
+
 		// Database Button
-				StyledButton databaseButton = new StyledButton("btn.dtbsmgmnt",
-						new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 300), new Vector2(200, 50));
-				databaseButton.setOnAction(event ->
-				{
-					Main.SwitchPane(new DatabaseManagePane());
-				});
-				getChildren().add(databaseButton);
+		StyledButton databaseButton = new StyledButton("btn.dtbsmgmnt",
+				new Vector2((int) (getPrefWidth() / 2 - 100), (int) (getPrefHeight() / 4 + 300)), new Vector2(200, 50));
+		databaseButton.setOnAction(event ->
+		{
+			Main.SwitchPane(new DatabaseManagePane());
+		});
+		getChildren().add(databaseButton);
 
 		// Exit Button
 		StyledButton exitButton = new StyledButton("btn.exit",
-				new Vector2(getPrefWidth() / 2 - 100, getPrefHeight() / 4 + 450), new Vector2(200, 50));
+				new Vector2((int) (getPrefWidth() / 2 - 100), (int) (getPrefHeight() / 4 + 450)), new Vector2(200, 50));
 		exitButton.setOnAction(event ->
 		{
 			// Exits the application

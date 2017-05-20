@@ -219,7 +219,20 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
-		
+		TwoWayEdgeNearestNeighbour twoWay = new TwoWayEdgeNearestNeighbour(5);
+		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
+
+		if (activeTiles.size() > 0)
+		{
+			ArrayList<Vector2> pointList = new ArrayList<Vector2>();
+
+			for (GridTile tile : activeTiles)
+			{
+				pointList.add(tile.GetPos());
+			}
+
+			twoWay.GetShortestPath(pointList);
+		}
 	}
 
 	@Override
