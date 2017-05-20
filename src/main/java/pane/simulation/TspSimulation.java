@@ -134,9 +134,8 @@ public class TspSimulation extends BaseSimulation
 				long stopTime = System.nanoTime();
 				addConsoleItem("Kortste pad gevonden", "INFO");
 
-				long duration = (stopTime - startTime) / 100000;
-				String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
-				addConsoleItem(showDuration, "INFO");
+				float duration = (stopTime - startTime) / 100000f;
+				addConsoleItem("duration: " + duration + " ms", "INFO");
 				grid.Redraw(shortestPath);
 			}
 			else
@@ -218,23 +217,16 @@ public class TspSimulation extends BaseSimulation
 		}
 	}
 
-	// Own Algorithm
+	// Own Algorithm, ScissorEdge
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
 		consolePane.getItems().clear();
-
-		ScissorEdge twoWay = new ScissorEdge(5);
-
-		long startTime = System.nanoTime();
 		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
-		long stopTime = System.nanoTime();
-
-		long duration = (stopTime - startTime) / 100000;
-		addConsoleItem("duration: " + duration + " ms", "INFO");
 
 		if (activeTiles.size() > 0)
 		{
+			ScissorEdge twoWay = new ScissorEdge(5);
 			ArrayList<Vector2> pointList = new ArrayList<Vector2>();
 
 			for (GridTile tile : activeTiles)
@@ -242,9 +234,26 @@ public class TspSimulation extends BaseSimulation
 				pointList.add(tile.GetPos());
 			}
 
+			long startTime = System.nanoTime();
 			ArrayList<Vector2> shortestPath = twoWay.GetShortestPath(pointList);
+			long stopTime = System.nanoTime();
 
-			grid.Redraw(shortestPath);
+			float duration = (stopTime - startTime) / 100000f;
+			addConsoleItem("duration: " + duration + " ms", "INFO");
+
+			double totalPathDistance = 0;
+
+			for (int i = 0; i < shortestPath.size() - 1; i++)
+			{
+				double x = (shortestPath.get(i).getX() - shortestPath.get(i + 1).getX());
+				double y = (shortestPath.get(i).getY() - shortestPath.get(i + 1).getY());
+
+				totalPathDistance += Math.sqrt(x * x + y * y);
+			}
+
+			addConsoleItem("Total path distance: " + totalPathDistance, "INFO");
+
+			grid.ScissorRedraw(shortestPath);
 		}
 	}
 

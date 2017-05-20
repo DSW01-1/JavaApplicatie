@@ -146,6 +146,12 @@ public class TSPGrid extends BaseGrid
 		Redraw();
 	}
 
+	public void ScissorRedraw(ArrayList<Vector2> customArray)
+	{
+		pathList = customArray;
+		Redraw();
+	}
+
 	/**
 	 * Draw the current Robot position on the grid
 	 * 

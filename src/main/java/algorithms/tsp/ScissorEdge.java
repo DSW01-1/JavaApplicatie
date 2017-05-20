@@ -29,11 +29,11 @@ public class ScissorEdge extends Algorithm
 		{
 			if ((currentIndex % 2) == 0)
 			{
-				leftSideList.add(AddNewPoint(true));
+				rightSideList.add(AddNewPoint(false));
 			}
 			else
 			{
-				rightSideList.add(AddNewPoint(false));
+				leftSideList.add(AddNewPoint(true));
 			}
 			currentIndex++;
 		}
@@ -42,6 +42,7 @@ public class ScissorEdge extends Algorithm
 		shortestPath.addAll(rightSideList);
 		Collections.reverse(leftSideList);
 		shortestPath.addAll(leftSideList);
+		shortestPath.add(new Vector2(1, 1));
 
 		return shortestPath;
 	}
@@ -85,10 +86,10 @@ public class ScissorEdge extends Algorithm
 	private double CalculateRightDistance(Vector2 point)
 	{
 		// a^2 + b^2 = c^2
-		double a1 = Math.pow(point.getX(), 2);
-		double a2 = Math.pow(gridSize - point.getX(), 2);
+		double a1 = Math.pow(point.getX() - 1, 2);
+		double a2 = Math.pow((gridSize - point.getX()) * 0.8, 2);
 
-		double b = Math.pow(point.getY(), 2);
+		double b = Math.pow(point.getY() - 1, 2);
 
 		double c1 = Math.sqrt(a1 + b);
 		double c2 = Math.sqrt(a2 + b);
