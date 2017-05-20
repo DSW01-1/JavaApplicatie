@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 import main.java.main.Vector2;
 
-/**
- * Created by aukev on 15-5-2017.
- */
 public class EnumPath
 {
 	private double pathLength;
