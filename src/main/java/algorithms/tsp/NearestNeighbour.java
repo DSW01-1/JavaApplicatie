@@ -27,6 +27,9 @@ public class NearestNeighbour
 		{
 			currentIndex = findNext(currentIndex);
 		}
+
+		shortestPath.add(0, new Vector2(1, 1));
+		shortestPath.add(shortestPath.size(), new Vector2(1, 1));
 	}
 
 	private int findFirstTileOptimized()
@@ -89,6 +92,7 @@ public class NearestNeighbour
 
 	public ArrayList<Vector2> getShortestPath()
 	{
+
 		return shortestPath;
 	}
 }

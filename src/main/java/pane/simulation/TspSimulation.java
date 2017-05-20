@@ -136,6 +136,8 @@ public class TspSimulation extends BaseSimulation
 
 				float duration = (stopTime - startTime) / 100000f;
 				addConsoleItem("duration: " + duration + " ms", "INFO");
+				addConsoleItem("Total path distance: " + CalculatePathLength(shortestPath), "INFO");
+
 				grid.Redraw(shortestPath);
 			}
 			else
@@ -203,7 +205,6 @@ public class TspSimulation extends BaseSimulation
 					if (algorithm.getState() == Thread.State.TERMINATED)
 					{
 						addConsoleItem("Process has stopped unexpectly", "ERROR");
-
 					}
 				}
 				else
@@ -241,19 +242,9 @@ public class TspSimulation extends BaseSimulation
 			float duration = (stopTime - startTime) / 100000f;
 			addConsoleItem("duration: " + duration + " ms", "INFO");
 
-			double totalPathDistance = 0;
+			addConsoleItem("Total path distance: " + CalculatePathLength(shortestPath), "INFO");
 
-			for (int i = 0; i < shortestPath.size() - 1; i++)
-			{
-				double x = (shortestPath.get(i).getX() - shortestPath.get(i + 1).getX());
-				double y = (shortestPath.get(i).getY() - shortestPath.get(i + 1).getY());
-
-				totalPathDistance += Math.sqrt(x * x + y * y);
-			}
-
-			addConsoleItem("Total path distance: " + totalPathDistance, "INFO");
-
-			grid.ScissorRedraw(shortestPath);
+			grid.Redraw(shortestPath);
 		}
 	}
 
@@ -316,6 +307,22 @@ public class TspSimulation extends BaseSimulation
 	public void changeProgression(int progress)
 	{
 		progression.setProgress(progress);
+	}
+
+	public static double CalculatePathLength(ArrayList<Vector2> shortestPath)
+	{
+		// Calculate the total path distance
+		double totalPathDistance = 0;
+
+		for (int i = 0; i < shortestPath.size() - 1; i++)
+		{
+			double x = (shortestPath.get(i).getX() - shortestPath.get(i + 1).getX());
+			double y = (shortestPath.get(i).getY() - shortestPath.get(i + 1).getY());
+
+			totalPathDistance += Math.sqrt(x * x + y * y);
+		}
+
+		return totalPathDistance;
 	}
 
 }

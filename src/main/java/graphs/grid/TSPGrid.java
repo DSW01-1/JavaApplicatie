@@ -140,14 +140,6 @@ public class TSPGrid extends BaseGrid
 	 */
 	public void Redraw(ArrayList<Vector2> customArray)
 	{
-		customArray.add(0, new Vector2(1, 1));
-		customArray.add(customArray.size(), new Vector2(1, 1));
-		pathList = customArray;
-		Redraw();
-	}
-
-	public void ScissorRedraw(ArrayList<Vector2> customArray)
-	{
 		pathList = customArray;
 		Redraw();
 	}

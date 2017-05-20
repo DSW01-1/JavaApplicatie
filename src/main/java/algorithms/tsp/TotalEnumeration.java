@@ -56,10 +56,7 @@ public class TotalEnumeration extends Thread
 
 	public TotalEnumeration(TspSimulation simulation)
 	{
-		this.simulation = simulation;
-		this.logging = true;
-		this.tileList = new ArrayList<GridTile>();
-		dG = new DistanceGrid(tileList);
+		this(new ArrayList<GridTile>(), simulation);
 	}
 
 	public TotalEnumeration(ArrayList<GridTile> tileList, TspSimulation simulation)
@@ -169,7 +166,9 @@ public class TotalEnumeration extends Thread
 
 		// Algoritme afronden
 		long stopTime = System.nanoTime();
-		long duration = (stopTime - startTime) / 100000;
+		float duration = (stopTime - startTime) / 100000f;
+		ArrayList<Vector2> pathLength = shortestPath;
+
 		if (logging)
 		{
 			Platform.runLater(new Runnable()
@@ -177,8 +176,9 @@ public class TotalEnumeration extends Thread
 				@Override
 				public void run()
 				{
-					String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
-					simulation.addConsoleItem(showDuration, "INFO");
+					simulation.addConsoleItem("duration: " + duration + " ms", "INFO");
+					simulation.addConsoleItem("Total path distance: " + TspSimulation.CalculatePathLength(pathLength),
+							"INFO");
 				}
 			});
 

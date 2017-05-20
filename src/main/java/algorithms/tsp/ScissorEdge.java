@@ -39,6 +39,7 @@ public class ScissorEdge extends Algorithm
 		}
 
 		ArrayList<Vector2> shortestPath = new ArrayList<Vector2>();
+		shortestPath.add(new Vector2(1, 1));
 		shortestPath.addAll(rightSideList);
 		Collections.reverse(leftSideList);
 		shortestPath.addAll(leftSideList);
