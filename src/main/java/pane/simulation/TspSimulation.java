@@ -7,8 +7,8 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ProgressBar;
 import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
+import main.java.algorithms.tsp.ScissorEdge;
 import main.java.algorithms.tsp.TotalEnumeration;
-import main.java.algorithms.tsp.TwoWayEdgeNearestNeighbour;
 import main.java.constant.Constants;
 import main.java.graphs.grid.GridTile;
 import main.java.graphs.grid.TSPGrid;
@@ -126,11 +126,14 @@ public class TspSimulation extends BaseSimulation
 			if (activeTiles.size() > 0)
 			{
 				addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "ALERT");
+
 				long startTime = System.nanoTime();
 				NearestNeighbour algoritme = new NearestNeighbour(activeTiles);
 				ArrayList<Vector2> shortestPath = algoritme.getShortestPath();
+
 				long stopTime = System.nanoTime();
 				addConsoleItem("Kortste pad gevonden", "INFO");
+
 				long duration = (stopTime - startTime) / 100000;
 				String showDuration = (duration < 1) ? "duration: less then a ms" : "duration: " + duration + " ms";
 				addConsoleItem(showDuration, "INFO");
@@ -219,8 +222,16 @@ public class TspSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
-		TwoWayEdgeNearestNeighbour twoWay = new TwoWayEdgeNearestNeighbour(5);
+		consolePane.getItems().clear();
+
+		ScissorEdge twoWay = new ScissorEdge(5);
+
+		long startTime = System.nanoTime();
 		ArrayList<GridTile> activeTiles = grid.getSelectedTiles();
+		long stopTime = System.nanoTime();
+
+		long duration = (stopTime - startTime) / 100000;
+		addConsoleItem("duration: " + duration + " ms", "INFO");
 
 		if (activeTiles.size() > 0)
 		{
@@ -231,7 +242,9 @@ public class TspSimulation extends BaseSimulation
 				pointList.add(tile.GetPos());
 			}
 
-			twoWay.GetShortestPath(pointList);
+			ArrayList<Vector2> shortestPath = twoWay.GetShortestPath(pointList);
+
+			grid.Redraw(shortestPath);
 		}
 	}
 
