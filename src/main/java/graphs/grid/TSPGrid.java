@@ -12,22 +12,16 @@ public class TSPGrid extends BaseGrid
 	private Vector2 robotPos;
 	private Color lineColor = Constants.standardLineColor;
 	private Color tileColor = Constants.standardTileColor;
-
-	private boolean isInteractive;
 	private ArrayList<Vector2> pathList;
-
-	public boolean isActive()
-	{
-		return isActive;
-	}
-
-	public void setActive(boolean active)
-	{
-		isActive = active;
-	}
-
 	private boolean isActive = false;
+	private boolean isInteractive;
 
+	/**
+	 * The TSP Grid, used for drawing lines between set points
+	 * 
+	 * @param tileAmount
+	 * @param isInteractive
+	 */
 	public TSPGrid(int tileAmount, boolean isInteractive)
 	{
 		super(tileAmount);
@@ -38,6 +32,11 @@ public class TSPGrid extends BaseGrid
 		Redraw();
 	}
 
+	/**
+	 * Change the color of the line being drawn
+	 * 
+	 * @param color
+	 */
 	public void chgLineColor(Color color)
 	{
 		this.lineColor = color;
@@ -53,16 +52,21 @@ public class TSPGrid extends BaseGrid
 			int x = (int) Math.ceil(event.getX() / (gridSize / tileAmount));
 			int y = (int) Math.ceil(event.getY() / (gridSize / tileAmount));
 
+			// If the user is allowed to click
 			if (isInteractive)
 			{
+				// For every tile in the grid
 				for (GridTile tile : gridTileArray)
 				{
 					if (tile.getXcoord() == x && tile.getYcoord() == y)
 					{
+						// Select the clicked tile, tile will be put into an
+						// ArrayList
 						tile.SetSelected(!tile.IsSelected());
 						pathList = null;
 					}
 				}
+				// Redraw, will draw the newly selected tile on the grid
 				Redraw();
 			}
 		});
@@ -106,18 +110,6 @@ public class TSPGrid extends BaseGrid
 		gc.clearRect(0, 0, getWidth(), getHeight());
 		gc.setLineWidth(1);
 
-		for (int y = tileAmount; y >= 0; y--)
-		{
-			for (int x = 0; x <= tileAmount; x++)
-			{
-				// Draw the Robot position if possible
-				if (robotPos != null)
-				{
-					DrawRobotPos(new Vector2(x, y));
-				}
-			}
-		}
-
 		// Draw the points
 		if (pathList != null)
 		{
@@ -125,6 +117,13 @@ public class TSPGrid extends BaseGrid
 		}
 		for (GridTile tile : gridTileArray)
 		{
+			// Draw the Robot position if possible
+			if (robotPos != null)
+			{
+				DrawRobotPos(new Vector2(tile.getXcoord(), tile.getYcoord()));
+			}
+
+			// Draw a tile if it is selected
 			if (tile.IsSelected())
 			{
 				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
@@ -134,6 +133,11 @@ public class TSPGrid extends BaseGrid
 		super.Redraw();
 	}
 
+	/**
+	 * Redraw the grid with a given set of points
+	 * 
+	 * @param customArray
+	 */
 	public void Redraw(ArrayList<Vector2> customArray)
 	{
 		customArray.add(0, new Vector2(1, 1));
@@ -259,5 +263,15 @@ public class TSPGrid extends BaseGrid
 	public void SetInteractivity(boolean isInteractive)
 	{
 		this.isInteractive = isInteractive;
+	}
+
+	public boolean isActive()
+	{
+		return isActive;
+	}
+
+	public void setActive(boolean active)
+	{
+		isActive = active;
 	}
 }

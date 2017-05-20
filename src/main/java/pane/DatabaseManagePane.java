@@ -20,6 +20,9 @@ public class DatabaseManagePane extends StyledPane
 	DatabaseEditorPane editorPane;
 	ProductGrid grid;
 
+	/**
+	 * The main database manager
+	 */
 	public DatabaseManagePane()
 	{
 		super();
@@ -36,6 +39,9 @@ public class DatabaseManagePane extends StyledPane
 		CreateButtons();
 	}
 
+	/**
+	 * Add the product grid
+	 */
 	private void AddProductGrid()
 	{
 		grid = new ProductGrid(Constants.baseWareHouseSize, this);
@@ -44,17 +50,27 @@ public class DatabaseManagePane extends StyledPane
 		getChildren().add(grid);
 	}
 
+	/**
+	 * Add the product editor, is added when clicking on a product
+	 * 
+	 * @param product
+	 */
 	public void AddProductEditor(Product product)
 	{
+		// Delete the editor pane if it exists
 		if (editorPane != null)
 		{
 			getChildren().remove(editorPane);
 		}
 
+		// Create a new Editor Pane
 		editorPane = new DatabaseEditorPane(product, grid);
 		getChildren().add(editorPane);
 	}
 
+	/**
+	 * Create the control buttons
+	 */
 	private void CreateButtons()
 	{
 		Vector2 pos = new Vector2(110, 200);
@@ -69,24 +85,33 @@ public class DatabaseManagePane extends StyledPane
 
 			ArrayList<Product> productList = DatabaseConnection.GetAvailableProducts();
 
+			// For every product in the database
 			for (Product product : productList)
 			{
+				// Add the product to the corresponding coord in the array
 				productArray[(int) product.GetCoords().getX()][(int) product.GetCoords().getY()] = product;
 			}
 
+			// For every possible coordinate on the grid
 			for (int y = 0; y < baseWareHouseSize; y++)
 			{
 				for (int x = 0; x < baseWareHouseSize; x++)
 				{
+					// If there isn't a product already
 					if (productArray[x][y] == null)
 					{
+						// Create a new product with a random name and a random
+						// size
 						Random r = new Random();
-						Product product = new Product(NameConstant.GetRandomName(), new Vector2(x + 1, y + 1), r.nextInt(10));
+						Product product = new Product(NameConstant.GetRandomName(), new Vector2(x + 1, y + 1),
+								r.nextInt(10));
 						newProductArray.add(product);
 					}
 				}
 				grid.Redraw();
 			}
+
+			// Push all the created products to the database
 			DatabaseManagement.CreateListOfNewProducts(newProductArray);
 		});
 		getChildren().add(randomFill);
