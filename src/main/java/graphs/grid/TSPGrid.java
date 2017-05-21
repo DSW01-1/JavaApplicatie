@@ -165,11 +165,11 @@ public class TSPGrid extends BaseGrid
 	 */
 	public void DrawTileIfSelected(Vector2 tilePos)
 	{
-		double x = tilePos.getX() * tileSize - tileSize + 25;
-		double y = tilePos.getY() * tileSize - tileSize + 25;
+		double x = tilePos.getX() * tileSize - tileSize + 15;
+		double y = tilePos.getY() * tileSize - tileSize + 15;
 
 		gc.setFill(tileColor);
-		gc.fillRoundRect(x, y, tileSize - 50, tileSize - 50, 8, 8);
+		gc.fillRoundRect(x, y, tileSize - 35, tileSize - 35, 8, 8);
 	}
 
 	/**

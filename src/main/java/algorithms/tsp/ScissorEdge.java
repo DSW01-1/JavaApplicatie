@@ -20,6 +20,11 @@ public class ScissorEdge extends Algorithm
 	@Override
 	public ArrayList<Vector2> GetShortestPath(ArrayList<Vector2> points)
 	{
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		
 		remainingPoints = points;
 		leftSideList = new ArrayList<Vector2>();
 		rightSideList = new ArrayList<Vector2>();
@@ -29,7 +34,7 @@ public class ScissorEdge extends Algorithm
 
 		while (remainingPoints.size() > 0)
 		{
-			System.out.println(currentIndex);
+			System.out.println(remainingPoints.size());
 
 			if ((currentIndex % 2) == 0)
 			{

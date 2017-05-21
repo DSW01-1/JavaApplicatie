@@ -25,6 +25,7 @@ public class TspSimulation extends BaseSimulation
 	public ConsolePane consolePane;
 	public ProgressBar progression;
 	private TotalEnumeration algorithm = new TotalEnumeration(this);
+	private SimulationControls simulationControls;
 
 	public TspSimulation()
 	{
@@ -32,7 +33,9 @@ public class TspSimulation extends BaseSimulation
 		getStyleClass().add("background");
 		setPrefHeight(ScreenProperties.getScreenHeight() - 92);
 		AddControls();
-		AddGrid(10);
+
+		// Add a default grid
+		AddGrid(Constants.baseWareHouseSize);
 		AddConsolePane();
 		AddProgressBar();
 	}
@@ -62,9 +65,12 @@ public class TspSimulation extends BaseSimulation
 		String[] algorithmNames =
 		{ "btn.nearestNeighbour", "btn.hungarianAssignment", "btn.totalEnumeration", "btn.ownAlgorithm" };
 
-		getChildren().add(new SimulationControls(algorithmNames, this));
+		simulationControls = new SimulationControls(algorithmNames, this);
 
-		addChoicebox();
+		getChildren().add(simulationControls);
+
+		addColorChoicebox();
+		addGridSizeChoicebox();
 	}
 
 	/**
@@ -73,6 +79,11 @@ public class TspSimulation extends BaseSimulation
 	 */
 	public void AddGrid(int size)
 	{
+		if (grid != null)
+		{
+			getChildren().remove(grid);
+		}
+
 		grid = new TSPGrid(size, isInteractive);
 
 		grid.setLayoutX((ScreenProperties.getScreenWidth() / 2) - Constants.drawnGridSize / 2);
@@ -269,12 +280,12 @@ public class TspSimulation extends BaseSimulation
 		consolePane.getItems().add(consolePane.getItems().size(), String.format("[%s] %s", msgType, message));
 	}
 
-	private void addChoicebox()
+	private void addColorChoicebox()
 	{
 		String[] colorOptions =
 		{ "black", "Red", "Green", "blue" };
 
-		StyledChoiceBox cb = new StyledChoiceBox(colorOptions, new Vector2(215, 250), new Vector2(280, 25));
+		StyledChoiceBox cb = new StyledChoiceBox(colorOptions, new Vector2(215, 250), new Vector2(100, 25));
 		cb.getSelectionModel().selectFirst();
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
@@ -295,12 +306,36 @@ public class TspSimulation extends BaseSimulation
 				case 3:
 					grid.SetGridColor("blue");
 					break;
+				default:
+					grid.SetGridColor("black");
+					break;
 				}
-
 			}
 		});
-
 		getChildren().add(cb);
+	}
+
+	private void addGridSizeChoicebox()
+	{
+		String[] numberOptions = new String[18];
+
+		for (int i = 0; i < numberOptions.length; i++)
+		{
+			numberOptions[i] = Integer.toString(i + 3);
+		}
+
+		StyledChoiceBox choiceBox = new StyledChoiceBox(numberOptions, new Vector2(330, 250), new Vector2(50, 25));
+		choiceBox.getSelectionModel().selectFirst();
+
+		choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
+		{
+			public void changed(ObservableValue<? extends Number> ov, Number value, Number new_value)
+			{
+				AddGrid(Integer.parseInt(choiceBox.getItems().get((Integer) new_value)));
+			}
+		});
+		getChildren().add(choiceBox);
+		choiceBox.getSelectionModel().select(2);
 	}
 
 	public void changeProgression(int progress)
