@@ -110,19 +110,22 @@ public class BppSimulation extends BaseSimulation
 		getChildren().add(productsInput);
 		productsInput.setOnKeyPressed((KeyEvent event) ->
 		{
-			if (event.getCode() == KeyCode.ENTER)
-			{
-				String productsString = (productsInput.getText());
-				if(productsString.matches("[0-9 *]+")) {
-					String[] productsToAdd = productsString.split(" ");
-					for (int i = 0; i < productsToAdd.length; i++) {
-						products.add(new Product(i, "i", new Vector2(0, 0), (Integer.parseInt(productsToAdd[i]))));
-					}
-				}else
+			if (event.getCode() == KeyCode.ENTER) {
+				if (boxVolume != 0)
 				{
-					addConsoleItem("Only numerical and spaces are accepted.","ERROR");
+					String productsString = (productsInput.getText());
+					if (productsString.matches("[0-9 *]+")) {
+						String[] productsToAdd = productsString.split(" ");
+						for (int i = 0; i < productsToAdd.length; i++) {
+							products.add(new Product(i, "i", new Vector2(0, 0), (Integer.parseInt(productsToAdd[i]))));
+						}
+					} else {
+						addConsoleItem("Only numerical and spaces are accepted.", "ERROR");
+					}
+					productsInput.setText("");
+				}else{
+					addConsoleItem("Please enter a box size first.","ERROR");
 				}
-				productsInput.setText("");
 			}
 		});
 	}

@@ -46,7 +46,6 @@ public class BruteForce
 				returnBoxes = sortProducts(products);
 				// set a new best box amount
 				bestBoxAmount = currentBoxAmount;
-				simulation.addConsoleItem("New best amount", "DEBUG");
 			}
 			// rotate one product one place ahead, so we test all possible
 			// locations.
