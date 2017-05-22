@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Box
 {
 	private ArrayList<Product> products = new ArrayList<Product>();
-	private float volume;
+	private int totalSpace;
+	private int remainingSpace;
 
-	public Box(float volume)
+	public Box(int totalSpace)
 	{
-		this.volume = volume;
+		this.totalSpace = totalSpace;
+		remainingSpace = totalSpace;
 	}
 
 	public Box(Product[] productArray)
@@ -24,14 +26,14 @@ public class Box
 
 	public boolean checkFit(int size)
 	{
-		return size <= volume;
+		return size <= remainingSpace;
 	}
 
 	public void addProduct(Product product)
 	{
 		// not necessary to check fit, done in algorithm
 		this.products.add(product);
-		this.volume = this.volume - product.GetSize();
+		remainingSpace = (int) (remainingSpace - product.GetSize());
 	}
 
 	public String printNameAtLocation(int i)
@@ -49,9 +51,9 @@ public class Box
 		return products.size();
 	}
 
-	public float GetVolume()
+	public float GetTotalSpace()
 	{
-		return volume;
+		return totalSpace;
 	}
 
 	public ArrayList<Product> GetProductArray()

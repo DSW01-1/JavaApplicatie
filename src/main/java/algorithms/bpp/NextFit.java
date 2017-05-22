@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import main.java.algorithms.BPPAlgorithm;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
-import main.java.pane.simulation.BppSimulation;
 
 public class NextFit extends BPPAlgorithm
 {
@@ -23,7 +22,8 @@ public class NextFit extends BPPAlgorithm
 		for (Product product : products)
 		{
 			productGegevens = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords"
-					+ product.GetCoords() + ". Name: " + product.GetName() + ".");;
+					+ product.GetCoords() + ". Name: " + product.GetName() + ".");
+			;
 		}
 		return productGegevens;
 	}
@@ -56,6 +56,7 @@ public class NextFit extends BPPAlgorithm
 		currentBox = new Box(0);
 		Long endTime = System.nanoTime();
 		Long duration = (endTime - startTime) / 1000000;
+		// TODO DOE WAT MET DE TIJD, EN DOE DAT HIERBUITEN OMG
 		System.gc();
 		return returnBoxes;
 

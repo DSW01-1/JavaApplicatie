@@ -10,16 +10,14 @@ public class BoxCanvas extends Canvas
 {
 	private GraphicsContext gc;
 	private Box box;
-	private int boxPaneSize;
 
 	public BoxCanvas(Box box, int boxPaneSize)
 	{
 		super();
 		this.box = box;
-		this.boxPaneSize = boxPaneSize;
 		gc = getGraphicsContext2D();
 		setWidth(100);
-		setHeight(boxPaneSize);
+		setHeight(boxPaneSize - 50);
 		Redraw();
 	}
 
@@ -29,9 +27,7 @@ public class BoxCanvas extends Canvas
 
 		for (Product product : box.GetProductArray())
 		{
-			System.out.print("prodS: " + product.GetSizeInInt() + ", boxV: " + box.GetVolume() + ", ");
-
-			int relativeProductHeight = (int) ((getHeight() / box.GetVolume()) * product.GetSizeInInt());
+			int relativeProductHeight = (int) ((getHeight() / box.GetTotalSpace()) * product.GetSizeInInt());
 			int x = 0;
 			int y = (int) (getHeight() - relativeProductHeight - fillAmount);
 			int w = (int) getWidth();
@@ -43,9 +39,7 @@ public class BoxCanvas extends Canvas
 
 			gc.setFill(color);
 			gc.fillRect(x, y, w, h);
-
 		}
-		System.out.println();
 
 		gc.setFill(Color.BLACK);
 		gc.strokeRect(0, 0, getWidth(), getHeight());

@@ -33,12 +33,12 @@ public class BoxPane extends StyledPane
 		hBox = new HBox();
 		hBox.setSpacing(10);
 		hBox.setPadding(new Insets(15, 12, 15, 12));
-		hBox.setPrefHeight(boxPaneSize);
 
 		Vector2 size = new Vector2(boxPaneSize, boxPaneSize);
 		Vector2 pos = new Vector2(0, 0);
 
 		scrollPane = new StyledScrollPane(hBox, pos, size, false);
+		scrollPane.setFitToHeight(true);
 		getChildren().add(scrollPane);
 	}
 
