@@ -11,21 +11,21 @@ public class ScissorEdge extends Algorithm
 	private int gridSize;
 	private ArrayList<Vector2> remainingPoints;
 	private ArrayList<Vector2> leftSideList, rightSideList;
+	private int currentIndex;
 
-	public ScissorEdge(int gridSize)
+	public ScissorEdge(int gridSize, int currentIndex)
 	{
 		this.gridSize = gridSize;
+		this.currentIndex = currentIndex;
 	}
 
 	@Override
 	public ArrayList<Vector2> GetShortestPath(ArrayList<Vector2> points)
-	{
+	{		
 		remainingPoints = points;
 		leftSideList = new ArrayList<Vector2>();
 		rightSideList = new ArrayList<Vector2>();
 		rightSideList.add(new Vector2(1, 1));
-
-		int currentIndex = 0;
 
 		while (remainingPoints.size() > 0 && currentIndex < 100)
 		{
@@ -73,7 +73,7 @@ public class ScissorEdge extends Algorithm
 		// a^2 + b^2 = c^2
 		double a = Math.pow(point.getX() - 1, 2);
 
-		double b1 = Math.pow((point.getY() - 1) * 1.4f, 2);
+		double b1 = Math.pow((point.getY() - 1) * 1.4, 2);
 		double b2 = Math.pow(gridSize - point.getY(), 2);
 
 		double c3 = 0;
@@ -88,19 +88,20 @@ public class ScissorEdge extends Algorithm
 		double c1 = Math.sqrt(a + b1);
 		double c2 = Math.sqrt(a + b2);
 
-		return c1 + c2 + (c3 * 0.5f);
+		return c1 + c2 + (c3 * 0.5);
 	}
 
 	private double CalculateRightDistance(Vector2 point)
 	{
 		// a^2 + b^2 = c^2
 		double a1 = Math.pow(point.getX() - 1, 2);
-		double a2 = Math.pow((gridSize - point.getX()) * 1.4f, 2);
+		double a2 = Math.pow((gridSize - point.getX()) * 1.4, 2);
 
 		double b = Math.pow(point.getY() - 1, 2);
 
 		double c3 = 0;
 
+		// Get distance between points
 		if (rightSideList.size() > 0)
 		{
 			double x = (rightSideList.get(rightSideList.size() - 1).getX() - point.getX());
@@ -111,6 +112,6 @@ public class ScissorEdge extends Algorithm
 		double c1 = Math.sqrt(a1 + b);
 		double c2 = Math.sqrt(a2 + b);
 
-		return c1 + c2 + (c3 * 0.5f);
+		return c1 + c2 + (c3 * 0.5);
 	}
 }

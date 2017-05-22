@@ -237,22 +237,40 @@ public class TspSimulation extends BaseSimulation
 
 		if (activeTiles.size() > 0)
 		{
-			ScissorEdge twoWay = new ScissorEdge(5);
-			ArrayList<Vector2> pointList = new ArrayList<Vector2>();
+			ScissorEdge twoWayLeft = new ScissorEdge(grid.GetTileAmount(), 0);
+			ScissorEdge twoWayRight = new ScissorEdge(grid.GetTileAmount(), 1);
+
+			ArrayList<Vector2> pointList1 = new ArrayList<Vector2>();
+			ArrayList<Vector2> pointList2 = new ArrayList<Vector2>();
 
 			for (GridTile tile : activeTiles)
 			{
-				pointList.add(tile.GetPos());
+				pointList1.add(tile.GetPos());
+				pointList2.add(tile.GetPos());
 			}
 
+			// Try Left
 			long startTime = System.nanoTime();
-			ArrayList<Vector2> shortestPath = twoWay.GetShortestPath(pointList);
+			ArrayList<Vector2> shortestPathLeft = twoWayLeft.GetShortestPath(pointList1);
 			long stopTime = System.nanoTime();
 
-			float duration = (stopTime - startTime) / 100000f;
-			addConsoleItem("duration: " + duration + " ms", "INFO");
+			float durationRight = (stopTime - startTime) / 100000f;
+			addConsoleItem("duration left: " + durationRight + " ms", "INFO");
+			addConsoleItem("Total path distance left: " + CalculatePathLength(shortestPathLeft), "INFO");
 
-			addConsoleItem("Total path distance: " + CalculatePathLength(shortestPath), "INFO");
+			// Try Right
+			startTime = System.nanoTime();
+			ArrayList<Vector2> shortestPathRight = twoWayRight.GetShortestPath(pointList2);
+			stopTime = System.nanoTime();
+
+			float durationLeft = (stopTime - startTime) / 100000f;
+			addConsoleItem("duration right: " + durationLeft + " ms", "INFO");
+			addConsoleItem("Total path distance right: " + CalculatePathLength(shortestPathRight), "INFO");
+
+			addConsoleItem("Total duration: " + (durationLeft + durationRight) + " ms", "INFO");
+			
+			ArrayList<Vector2> shortestPath = CalculatePathLength(shortestPathLeft) < CalculatePathLength(
+					shortestPathRight) ? shortestPathLeft : shortestPathRight;
 
 			grid.Redraw(shortestPath);
 		}
