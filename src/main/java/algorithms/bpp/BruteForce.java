@@ -59,6 +59,7 @@ public class BruteForce extends BPPAlgorithm
 		endTime = null;
 		duration = null;
 		System.gc();
+
 		return returnBoxes;
 	}
 

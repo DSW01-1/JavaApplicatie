@@ -11,7 +11,7 @@ import main.java.pane.simulation.BppSimulation;
 public class DecreasingFirstFit extends BPPAlgorithm
 {
 	public int boxVolume;
-	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
+	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	private boolean doesFit = false;
 
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)

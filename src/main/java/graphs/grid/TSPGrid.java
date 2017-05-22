@@ -183,6 +183,7 @@ public class TSPGrid extends BaseGrid
 		gc.setLineWidth(5);
 		gc.setStroke(lineColor);
 
+		
 		for (int i = 0; i < points.size() - 1; i++)
 		{
 			double x1 = points.get(i).getX() * tileSize - tileSize + (tileSize / 2);
@@ -193,6 +194,7 @@ public class TSPGrid extends BaseGrid
 
 			gc.strokeLine(x1, y1, x2, y2);
 		}
+		
 	}
 
 	/**
@@ -272,5 +274,10 @@ public class TSPGrid extends BaseGrid
 	public void setActive(boolean active)
 	{
 		isActive = active;
+	}
+	
+	public int GetTileAmount()
+	{
+		return tileAmount;
 	}
 }
