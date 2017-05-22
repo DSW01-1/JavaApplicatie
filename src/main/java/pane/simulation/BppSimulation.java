@@ -34,10 +34,10 @@ public class BppSimulation extends BaseSimulation
 	}
 
 	// create algorithms
-	NextFit nextFit = new NextFit(this);
-	FirstFit firstFit = new FirstFit(this);
-	BruteForce bruteForce = new BruteForce(this);
-	DecreasingFirstFit decreasingFirstFit = new DecreasingFirstFit(this);
+	NextFit nextFit = new NextFit();
+	FirstFit firstFit = new FirstFit();
+	BruteForce bruteForce = new BruteForce();
+	DecreasingFirstFit decreasingFirstFit = new DecreasingFirstFit();
 
 	@Override
 	public void ExecuteAlgorithmOne()

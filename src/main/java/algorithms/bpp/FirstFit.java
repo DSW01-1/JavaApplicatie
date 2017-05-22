@@ -12,12 +12,6 @@ public class FirstFit
 	private boolean doesFit = false;
 
 	public int boxVolume;
-	private BppSimulation simulation;
-
-	public FirstFit(BppSimulation simulation)
-	{
-		this.simulation = simulation;
-	}
 
 	public ArrayList<Box> executeFirstFit(ArrayList<Product> products)
 	{
