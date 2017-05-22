@@ -12,6 +12,7 @@ import main.java.algorithms.bpp.NextFit;
 import main.java.graphs.BoxPane;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.main.product.Box;
 import main.java.main.product.Product;
 import main.java.pane.ConsolePane;
 import main.java.pane.SimulationControls;
@@ -45,37 +46,39 @@ public class BppSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
-		if(testInputs())
+		if (testInputs())
 		{
 			consolePane.getItems().clear();
 			nextFit.getBoxes(products);
 			products.clear();
-			addConsoleItem("Boxes needed: " + nextFit.returnBoxes.size(),"DEBUG");
+			addConsoleItem("Boxes needed: " + nextFit.returnBoxes.size(), "DEBUG");
+			boxPane.AddBoxList(nextFit.returnBoxes);
 		}
 	}
 
 	@Override
 	public void ExecuteAlgorithmTwo()
 	{
-		if(testInputs())
+		if (testInputs())
 		{
 			consolePane.getItems().clear();
 			firstFit.getBoxes(products);
 			products.clear();
-			addConsoleItem("Boxes needed: " + firstFit.returnBoxes.size(),"DEBUG");
-
+			addConsoleItem("Boxes needed: " + firstFit.returnBoxes.size(), "DEBUG");
+			boxPane.AddBoxList(nextFit.returnBoxes);
 		}
 	}
 
 	@Override
 	public void ExecuteAlgorithmThree()
 	{
-		if(testInputs()) {
+		if (testInputs())
+		{
 			consolePane.getItems().clear();
 			bruteForce.getBoxes(products);
 			products.clear();
-			addConsoleItem("Boxes needed: " + bruteForce.returnBoxes.size(),"DEBUG");
-
+			addConsoleItem("Boxes needed: " + bruteForce.returnBoxes.size(), "DEBUG");
+			boxPane.AddBoxList(nextFit.returnBoxes);
 		}
 		consolePane.getItems().clear();
 		bruteForce.getBoxes(products);
@@ -85,12 +88,13 @@ public class BppSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
-		if(testInputs()) {
+		if (testInputs())
+		{
 			consolePane.getItems().clear();
 			decreasingFirstFit.getBoxes(products);
 			products.clear();
-			addConsoleItem("Boxes needed: " + decreasingFirstFit.returnBoxes.size(),"DEBUG");
-
+			addConsoleItem("Boxes needed: " + decreasingFirstFit.returnBoxes.size(), "DEBUG");
+			boxPane.AddBoxList(nextFit.returnBoxes);
 		}
 	}
 
@@ -104,10 +108,12 @@ public class BppSimulation extends BaseSimulation
 
 	private void AddInputFields()
 	{
-		StyledLabel boxSizeInputLabel = new StyledLabel("lbl.boxSize",new Vector2((ScreenProperties.getScreenWidth()/2)- (ScreenProperties.getScreenWidth()/3/2)-125,ScreenProperties.getScreenHeight()-192),16);
+		StyledLabel boxSizeInputLabel = new StyledLabel("lbl.boxSize",
+				new Vector2((ScreenProperties.getScreenWidth() / 2) - (ScreenProperties.getScreenWidth() / 3 / 2) - 125,
+						ScreenProperties.getScreenHeight() - 192),
+				16);
 		getChildren().add(boxSizeInputLabel);
-		StyledButton boxSizeInputButton = new StyledButton("btn.confirmBox",new Vector2((ScreenProperties.getScreenWidth()/2)- (ScreenProperties.getScreenWidth()/3/2)+100,ScreenProperties.getScreenHeight()-200));
-		getChildren().add(boxSizeInputButton);
+
 		TextField boxSizeInput = new TextField();
 		boxSizeInput.setLayoutX(ScreenProperties.getScreenWidth() / 2 - (ScreenProperties.getScreenWidth() / 3) / 2);
 		boxSizeInput.setLayoutY(ScreenProperties.getScreenHeight() - 200);
@@ -125,7 +131,13 @@ public class BppSimulation extends BaseSimulation
 				boxSizeInput.setText("");
 			}
 		});
-		boxSizeInputButton.setOnAction(event -> {
+
+		StyledButton boxSizeInputButton = new StyledButton("btn.confirmBox",
+				new Vector2((ScreenProperties.getScreenWidth() / 2) - (ScreenProperties.getScreenWidth() / 3 / 2) + 100,
+						ScreenProperties.getScreenHeight() - 200));
+		getChildren().add(boxSizeInputButton);
+		boxSizeInputButton.setOnAction(event ->
+		{
 			nextFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 			firstFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 			bruteForce.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
@@ -133,54 +145,80 @@ public class BppSimulation extends BaseSimulation
 			boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 			boxSizeInput.setText("");
 		});
+
 		// products input
-		StyledLabel productsInputLabel = new StyledLabel("lbl.productSize",new Vector2((ScreenProperties.getScreenWidth()/2)- (ScreenProperties.getScreenWidth()/3/2)-145,ScreenProperties.getScreenHeight()-148),16);
+		StyledLabel productsInputLabel = new StyledLabel("lbl.productSize",
+				new Vector2((ScreenProperties.getScreenWidth() / 2) - (ScreenProperties.getScreenWidth() / 3 / 2) - 145,
+						ScreenProperties.getScreenHeight() - 148),
+				16);
 		getChildren().add(productsInputLabel);
+
 		TextField productsInput = new TextField();
 		productsInput.setLayoutX(ScreenProperties.getScreenWidth() / 2 - (ScreenProperties.getScreenWidth() / 3) / 2);
 		productsInput.setLayoutY(ScreenProperties.getScreenHeight() - 150);
 		productsInput.setPrefSize(ScreenProperties.getScreenWidth() / 3, 30);
 		getChildren().add(productsInput);
-		StyledButton productsInputButton = new StyledButton("btn.confirmProduct",new Vector2((ScreenProperties.getScreenWidth()/2)- (ScreenProperties.getScreenWidth()/3/2)+200,ScreenProperties.getScreenHeight()-200));
+
+		StyledButton productsInputButton = new StyledButton("btn.confirmProduct",
+				new Vector2((ScreenProperties.getScreenWidth() / 2) - (ScreenProperties.getScreenWidth() / 3 / 2) + 200,
+						ScreenProperties.getScreenHeight() - 200));
 		getChildren().add(productsInputButton);
 		productsInput.setOnKeyPressed((KeyEvent event) ->
 		{
-			if (event.getCode() == KeyCode.ENTER) {
+			if (event.getCode() == KeyCode.ENTER)
+			{
 				if (!(boxVolume == 0))
 				{
 					String productsString = (productsInput.getText());
-					if (productsString.matches("[0-9 *]+")) {
+					if (productsString.matches("[0-9 *]+"))
+					{
 						String[] productsToAdd = productsString.split(" ");
-						for (int i = 0; i < productsToAdd.length; i++) {
+						for (int i = 0; i < productsToAdd.length; i++)
+						{
 							products.add(new Product(i, "i", new Vector2(0, 0), (Integer.parseInt(productsToAdd[i]))));
 						}
 						productsInput.setText("");
-					} else {
+					}
+					else
+					{
 						addConsoleItem("Only numerical and spaces are accepted.", "ERROR");
+						// TODO Geen System.out
 						System.out.println("Input error");
 					}
-				}else{
-					addConsoleItem("Please enter a box size first.","ERROR");
+				}
+				else
+				{
+					addConsoleItem("Please enter a box size first.", "ERROR");
+					// TODO Geen System.out
 					System.out.println("Box size error");
 				}
 			}
 		});
-		productsInputButton.setOnAction(event -> {
+		productsInputButton.setOnAction(event ->
+		{
 			if (!(boxVolume == 0))
 			{
 				String productsString = (productsInput.getText());
-				if (productsString.matches("[0-9 *]+")) {
+				if (productsString.matches("[0-9 *]+"))
+				{
 					String[] productsToAdd = productsString.split(" ");
-					for (int i = 0; i < productsToAdd.length; i++) {
+					for (int i = 0; i < productsToAdd.length; i++)
+					{
 						products.add(new Product(i, "i", new Vector2(0, 0), (Integer.parseInt(productsToAdd[i]))));
 					}
 					productsInput.setText("");
-				} else {
+				}
+				else
+				{
 					addConsoleItem("Only numerical and spaces are accepted.", "ERROR");
+					// TODO Geen System.out
 					System.out.println("Input error");
 				}
-			}else{
-				addConsoleItem("Please enter a box size first.","ERROR");
+			}
+			else
+			{
+				addConsoleItem("Please enter a box size first.", "ERROR");
+				// TODO Geen System.out
 				System.out.println("Box size error");
 			}
 		});
@@ -204,12 +242,15 @@ public class BppSimulation extends BaseSimulation
 		return "";
 	}
 
-	public boolean testInputs(){
-		if(boxVolume == 0|| products.size() == 0){
-			addConsoleItem("Please enter a box size and products!","ERROR");
+	public boolean testInputs()
+	{
+		if (boxVolume == 0 || products.size() == 0)
+		{
+			addConsoleItem("Please enter a box size and products!", "ERROR");
 			return false;
 		}
-		else{
+		else
+		{
 			return true;
 		}
 	}

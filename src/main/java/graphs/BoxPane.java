@@ -2,6 +2,7 @@ package main.java.graphs;
 
 import java.util.ArrayList;
 
+import javafx.geometry.Insets;
 import javafx.scene.layout.HBox;
 import main.java.constant.Constants;
 import main.java.main.ScreenProperties;
@@ -24,26 +25,35 @@ public class BoxPane extends StyledPane
 		AddScrollPane();
 	}
 
+	/**
+	 * Add the scrollpane pane to the BoxPane
+	 */
 	private void AddScrollPane()
 	{
 		hBox = new HBox();
+		hBox.setSpacing(10);
+		hBox.setPadding(new Insets(15, 12, 15, 12));
 		hBox.setPrefHeight(boxPaneSize);
 
 		Vector2 size = new Vector2(boxPaneSize, boxPaneSize);
 		Vector2 pos = new Vector2(0, 0);
 
-		scrollPane = new StyledScrollPane(hBox, pos, size, true);
+		scrollPane = new StyledScrollPane(hBox, pos, size, false);
 		getChildren().add(scrollPane);
 	}
 
+	/**
+	 * Add the boxes to be visualised
+	 * 
+	 * @param boxArrayList
+	 */
 	public void AddBoxList(ArrayList<Box> boxArrayList)
 	{
 		hBox.getChildren().removeAll();
 
 		for (Box box : boxArrayList)
 		{
-			hBox.getChildren().add(new BoxCanvas(box));
+			hBox.getChildren().add(new BoxCanvas(box, boxPaneSize));
 		}
-
 	}
 }
