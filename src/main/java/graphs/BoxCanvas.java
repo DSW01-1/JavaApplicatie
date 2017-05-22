@@ -29,19 +29,26 @@ public class BoxCanvas extends Canvas
 
 		for (Product product : box.GetProductArray())
 		{
-			int relativeProductHeight = (int) ((product.GetSize() / box.GetVolume()) * boxPaneSize);
+			System.out.print("prodS: " + product.GetSizeInInt() + ", boxV: " + box.GetVolume() + ", ");
+
+			int relativeProductHeight = (int) ((getHeight() / box.GetVolume()) * product.GetSizeInInt());
 			int x = 0;
 			int y = (int) (getHeight() - relativeProductHeight - fillAmount);
 			int w = (int) getWidth();
 			int h = relativeProductHeight;
 
-			fillAmount += ((product.GetSize() / box.GetVolume()) * boxPaneSize);
-		
-			gc.setFill(Color.color(Math.random(), Math.random(), Math.random()));
+			fillAmount += relativeProductHeight;
+
+			Color color = Color.color(Math.random(), Math.random(), Math.random(), 1);
+
+			gc.setFill(color);
 			gc.fillRect(x, y, w, h);
+
 		}
+		System.out.println();
 
 		gc.setFill(Color.BLACK);
 		gc.strokeRect(0, 0, getWidth(), getHeight());
+
 	}
 }

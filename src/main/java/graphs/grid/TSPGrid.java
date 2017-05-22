@@ -197,11 +197,11 @@ public class TSPGrid extends BaseGrid
 			}
 
 			gc.setStroke(Color.PURPLE);
-			double[] pathCoords1 = GetPathLine(points.get((points.size() / 2)), points.get((points.size() / 2) + 1));
+			double[] pathCoords1 = GetPathLine(points.get((points.size() / 2) - 1), points.get((points.size() / 2)));
 			gc.strokeLine(pathCoords1[0], pathCoords1[2], pathCoords1[1], pathCoords1[3]);
 
 			gc.setStroke(Color.BLUE);
-			for (int i = (points.size() / 2) + 1; i < points.size() - 1; i++)
+			for (int i = (points.size() / 2); i < points.size() - 1; i++)
 			{
 				double[] pathCoords = GetPathLine(points.get(i), points.get(i + 1));
 				gc.strokeLine(pathCoords[0], pathCoords[2], pathCoords[1], pathCoords[3]);

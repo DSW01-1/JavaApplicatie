@@ -12,7 +12,6 @@ import main.java.algorithms.bpp.NextFit;
 import main.java.graphs.BoxPane;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
-import main.java.main.product.Box;
 import main.java.main.product.Product;
 import main.java.pane.ConsolePane;
 import main.java.pane.SimulationControls;
