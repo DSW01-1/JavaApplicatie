@@ -11,10 +11,14 @@ public class BruteForce extends BPPAlgorithm
 	// returnBoxes is de arrayList die boxen returned met de producten.
 	// latestBoxes is de laatste gesorteerde arraylist
 	public int boxVolume;
+	private ArrayList<Product> productList1 = new ArrayList<>();
+	private ArrayList<Product> productList2 = new ArrayList<>();
 	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
 
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
+		productList1.addAll(0,products.subList(0,(products.size()/2)-1));
+		productList2.addAll(0,products.subList((products.size()/2),products.size()+1));
 		returnBoxes.clear();
 		Long startTime = System.nanoTime();
 		int currentBoxAmount;
@@ -37,13 +41,18 @@ public class BruteForce extends BPPAlgorithm
 				bestBoxAmount = currentBoxAmount;
 			}
 			// rotate one product one place ahead, so we test all possible
-			// locations.
-			Collections.rotate(products.subList(1, products.size()), 1);
+			// locations in both sublists.
+			Collections.rotate(productList1.subList(1, 2), -1);
+			Collections.rotate(productList2.subList(1, 2), -1);
 			// rotate all products one place ahead so all possible combinations
 			// get tested.
-			Collections.rotate(products, 1);
-
-		}
+			Collections.rotate(productList1, 1);
+			Collections.rotate(productList2, 1);
+			//merge productlist
+			products.clear();
+			products.addAll(productList1);
+			products.addAll(productList2);
+			}
 		Long endTime = System.nanoTime();
 		Long duration = (endTime - startTime) / 1000000;
 		startTime = null;
