@@ -30,6 +30,7 @@ public class BppSimulation extends BaseSimulation
 		AddControls();
 		AddConsolePane();
 		AddInputFields();
+		getStyleClass().add("background");
 		AddBoxPane();
 	}
 
@@ -98,6 +99,7 @@ public class BppSimulation extends BaseSimulation
 				firstFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 				bruteForce.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 				decreasingFirstFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
+				boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 				boxSizeInput.setText("");
 			}
 		});
@@ -111,7 +113,7 @@ public class BppSimulation extends BaseSimulation
 		productsInput.setOnKeyPressed((KeyEvent event) ->
 		{
 			if (event.getCode() == KeyCode.ENTER) {
-				if (boxVolume != 0)
+				if (!(boxVolume == 0))
 				{
 					String productsString = (productsInput.getText());
 					if (productsString.matches("[0-9 *]+")) {
@@ -119,12 +121,14 @@ public class BppSimulation extends BaseSimulation
 						for (int i = 0; i < productsToAdd.length; i++) {
 							products.add(new Product(i, "i", new Vector2(0, 0), (Integer.parseInt(productsToAdd[i]))));
 						}
+						productsInput.setText("");
 					} else {
 						addConsoleItem("Only numerical and spaces are accepted.", "ERROR");
+						System.out.println("Input error");
 					}
-					productsInput.setText("");
 				}else{
 					addConsoleItem("Please enter a box size first.","ERROR");
+					System.out.println("Box size error");
 				}
 			}
 		});
