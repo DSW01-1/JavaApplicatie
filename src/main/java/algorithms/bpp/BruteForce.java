@@ -2,19 +2,18 @@ package main.java.algorithms.bpp;
 
 import java.util.ArrayList;
 import java.util.Collections;
-
+import main.java.algorithms.BPPAlgorithm;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
-import main.java.pane.simulation.BppSimulation;
 
-public class BruteForce
+public class BruteForce extends BPPAlgorithm
 {
 	// returnBoxes is de arrayList die boxen returned met de producten.
 	// latestBoxes is de laatste gesorteerde arraylist
 	public int boxVolume;
-	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
+	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 
-	public ArrayList<Box> executeBruteForce(ArrayList<Product> products)
+	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		returnBoxes.clear();
 		Long startTime = System.nanoTime();
@@ -51,6 +50,7 @@ public class BruteForce
 		endTime = null;
 		duration = null;
 		System.gc();
+
 		return returnBoxes;
 	}
 

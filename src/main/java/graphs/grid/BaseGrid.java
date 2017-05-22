@@ -42,16 +42,29 @@ public class BaseGrid extends Canvas
 	{
 		gc.setLineWidth(1);
 
-		for (int y = tileAmount; y >= 0; y--)
+		for (int y = 0; y  < tileAmount; y++)
 		{
-			for (int x = 0; x <= tileAmount; x++)
+			for (int x = 0; x < tileAmount; x++)
 			{
 				// Draw the lines
-				gc.setStroke(Color.BLACK);
-				gc.strokeLine(0, y * tileSize, gridSize, y * tileSize);
-				gc.strokeLine(x * tileSize, 0, x * tileSize, gridSize);
+				int x1 = (x * tileSize);
+				int x2 = ((x + 1) * tileSize);
+
+				int y1 = (y * tileSize);
+				int y2 = ((y + 1) * tileSize);
+
+				// x lines
+				gc.strokeLine(x1, y1, x2, y1);
+				gc.strokeLine(x1, y2, x2, y2);
+
+				// y lines
+				gc.strokeLine(x1, y1, x1, y2);
+				gc.strokeLine(x2, y1, x2, y2);
+
 			}
 		}
+
+
 	}
 
 	/**
