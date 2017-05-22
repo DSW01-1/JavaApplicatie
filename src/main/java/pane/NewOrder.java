@@ -74,7 +74,7 @@ public class NewOrder extends StyledPane
 	{
 		// Get all products available
 		ArrayList<Product> productList = DatabaseConnection.GetAvailableProducts();
-
+		
 		// If there are products in the database, add them to the list
 		if (productList.size() > 0)
 		{

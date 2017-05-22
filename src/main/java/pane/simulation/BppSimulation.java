@@ -45,6 +45,7 @@ public class BppSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
+<<<<<<< HEAD
 		if(testInputs())
 		{
 			consolePane.getItems().clear();
@@ -52,6 +53,14 @@ public class BppSimulation extends BaseSimulation
 			products.clear();
 			addConsoleItem("Boxes needed: " + nextFit.returnBoxes.size(),"DEBUG");
 		}
+=======
+		consolePane.getItems().clear();
+		addConsoleItem("Starting Algorithm 'Next Fit'", "DEBUG");
+		nextFit.getBoxes(products);
+		nextFit.boxVolume = boxVolume;
+		System.out.print("Test succeeded");
+		products.clear();
+>>>>>>> fffd54977ac6725a395585eaf543602464ae42df
 	}
 
 	@Override
@@ -64,12 +73,18 @@ public class BppSimulation extends BaseSimulation
 			products.clear();
 			addConsoleItem("Boxes needed: " + firstFit.returnBoxes.size(),"DEBUG");
 
+<<<<<<< HEAD
 		}
+=======
+		firstFit.getBoxes(products);
+		products.clear();
+>>>>>>> fffd54977ac6725a395585eaf543602464ae42df
 	}
 
 	@Override
 	public void ExecuteAlgorithmThree()
 	{
+<<<<<<< HEAD
 		if(testInputs()) {
 			consolePane.getItems().clear();
 			bruteForce.executeBruteForce(products);
@@ -77,11 +92,17 @@ public class BppSimulation extends BaseSimulation
 			addConsoleItem("Boxes needed: " + bruteForce.returnBoxes.size(),"DEBUG");
 
 		}
+=======
+		consolePane.getItems().clear();
+		bruteForce.getBoxes(products);
+		products.clear();
+>>>>>>> fffd54977ac6725a395585eaf543602464ae42df
 	}
 
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
+<<<<<<< HEAD
 		if(testInputs()) {
 			consolePane.getItems().clear();
 			decreasingFirstFit.executeDecreasingFirstFit(products);
@@ -89,6 +110,11 @@ public class BppSimulation extends BaseSimulation
 			addConsoleItem("Boxes needed: " + decreasingFirstFit.returnBoxes.size(),"DEBUG");
 
 		}
+=======
+		consolePane.getItems().clear();
+		decreasingFirstFit.getBoxes(products);
+		products.clear();
+>>>>>>> fffd54977ac6725a395585eaf543602464ae42df
 	}
 
 	public void AddControls()
