@@ -12,26 +12,16 @@ public class BruteForce
 	// returnBoxes is de arrayList die boxen returned met de producten.
 	// latestBoxes is de laatste gesorteerde arraylist
 	public int boxVolume;
-	private BppSimulation simulation;
 	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
-
-	public BruteForce(BppSimulation simulation)
-	{
-		this.simulation = simulation;
-	}
 
 	public ArrayList<Box> executeBruteForce(ArrayList<Product> products)
 	{
-		simulation.addConsoleItem("Cleared cache.", "DEBUG");
-		simulation.addConsoleItem("Starting Brute Force Algorithm.", "INFO");
-		simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
 		returnBoxes.clear();
 		Long startTime = System.nanoTime();
 		int currentBoxAmount;
 		int bestBoxAmount = products.size() + 1;
 		int amountOfCalculations = 0;
 		// loop through all possibilities
-		simulation.addConsoleItem(String.valueOf(products.size()), "DEBUG");
 		for (int i = 0; i < factorial(products.size()); i++)
 		{
 			amountOfCalculations++;
@@ -56,12 +46,7 @@ public class BruteForce
 
 		}
 		Long endTime = System.nanoTime();
-		simulation.addConsoleItem("Calculated " + amountOfCalculations + " calculations", "INFO");
-		simulation.addConsoleItem("FINISHED", "INFO");
-		simulation.addConsoleItem("Boxes needed: " + bestBoxAmount, "INFO");
-
 		Long duration = (endTime - startTime) / 1000000;
-		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		startTime = null;
 		endTime = null;
 		duration = null;

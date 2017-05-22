@@ -23,9 +23,6 @@ public class FirstFit
 	{
 		Long startTime = System.nanoTime();
 		returnBoxes.clear();
-		this.simulation.addConsoleItem("Cleared cache.", "DEBUG");
-		this.simulation.addConsoleItem("Starting First Fit Algorithm.", "INFO");
-		this.simulation.addConsoleItem("Box size used: " + boxVolume + ". Starting with 0 boxes.", "INFO");
 		for (Product product : products)
 		{
 			for (Box currentBox : returnBoxes)
@@ -34,7 +31,6 @@ public class FirstFit
 				{
 					currentBox.addProduct(product);
 					doesFit = true;
-					this.simulation.addConsoleItem("Added product (size: " + product.GetSize() + ")to a box.", "DEBUG");
 				}
 			}
 			if (!doesFit)
@@ -42,18 +38,11 @@ public class FirstFit
 				Box newBox = new Box(boxVolume);
 				returnBoxes.add(newBox);
 				newBox.addProduct(product);
-				this.simulation.addConsoleItem("Could not add product(size: " + product.GetSize()
-						+ ") to a box. Created new box. Total amount of boxes: " + returnBoxes.size()
-						+ ". Added product to new box.", "DEBUG");
-
 			}
 			doesFit = false;
 		}
-		this.simulation.addConsoleItem("FINISHED.", "INFO");
-		this.simulation.addConsoleItem("Boxes needed:" + returnBoxes.size() + ", filled with ", "INFO");
 		Long endtime = System.nanoTime();
 		Long duration = (endtime - startTime) / 1000000;
-		simulation.addConsoleItem("Took " + duration + " milliseconds", "INFO");
 		endtime = null;
 		startTime = null;
 		duration = null;
