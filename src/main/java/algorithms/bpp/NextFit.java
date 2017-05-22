@@ -2,11 +2,12 @@ package main.java.algorithms.bpp;
 
 import java.util.ArrayList;
 
+import main.java.algorithms.BPPAlgorithm;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
 import main.java.pane.simulation.BppSimulation;
 
-public class NextFit
+public class NextFit extends BPPAlgorithm
 {
 	// boxVolume gets set from bppSimulation
 	public int boxVolume;
@@ -28,7 +29,7 @@ public class NextFit
 	}
 
 	// method to execute algorithm
-	public ArrayList<Box> executeNextFit(ArrayList<Product> products)
+	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		// clear returnBoxes arraylist so no leftovers of previous calculations
 		// remain.

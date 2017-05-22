@@ -3,17 +3,18 @@ package main.java.algorithms.bpp;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import main.java.algorithms.BPPAlgorithm;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
 import main.java.pane.simulation.BppSimulation;
 
-public class DecreasingFirstFit
+public class DecreasingFirstFit extends BPPAlgorithm
 {
 	public int boxVolume;
 	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	private boolean doesFit = false;
 
-	public ArrayList<Box> executeDecreasingFirstFit(ArrayList<Product> products)
+	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		returnBoxes.clear();
 		// sort and reverse collection ordered in descending order

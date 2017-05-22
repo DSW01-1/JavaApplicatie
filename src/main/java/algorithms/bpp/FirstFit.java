@@ -2,18 +2,19 @@ package main.java.algorithms.bpp;
 
 import java.util.ArrayList;
 
+import main.java.algorithms.BPPAlgorithm;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
 import main.java.pane.simulation.BppSimulation;
 
-public class FirstFit
+public class FirstFit extends BPPAlgorithm
 {
 	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	private boolean doesFit = false;
 
 	public int boxVolume;
 
-	public ArrayList<Box> executeFirstFit(ArrayList<Product> products)
+	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		Long startTime = System.nanoTime();
 		returnBoxes.clear();

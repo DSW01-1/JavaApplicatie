@@ -44,7 +44,7 @@ public class BppSimulation extends BaseSimulation
 	{
 		consolePane.getItems().clear();
 		addConsoleItem("Starting Algorithm 'Next Fit'", "DEBUG");
-		nextFit.executeNextFit(products);
+		nextFit.getBoxes(products);
 		nextFit.boxVolume = boxVolume;
 		System.out.print("Test succeeded");
 		products.clear();
@@ -55,7 +55,7 @@ public class BppSimulation extends BaseSimulation
 	{
 		consolePane.getItems().clear();
 
-		firstFit.executeFirstFit(products);
+		firstFit.getBoxes(products);
 		products.clear();
 	}
 
@@ -63,7 +63,7 @@ public class BppSimulation extends BaseSimulation
 	public void ExecuteAlgorithmThree()
 	{
 		consolePane.getItems().clear();
-		bruteForce.executeBruteForce(products);
+		bruteForce.getBoxes(products);
 		products.clear();
 	}
 
@@ -71,7 +71,7 @@ public class BppSimulation extends BaseSimulation
 	public void ExecuteAlgorithmFour()
 	{
 		consolePane.getItems().clear();
-		decreasingFirstFit.executeDecreasingFirstFit(products);
+		decreasingFirstFit.getBoxes(products);
 		products.clear();
 	}
 
@@ -111,7 +111,7 @@ public class BppSimulation extends BaseSimulation
 		productsInput.setOnKeyPressed((KeyEvent event) ->
 		{
 			if (event.getCode() == KeyCode.ENTER) {
-				if (boxVolume != 0)
+				if (boxVolume == 0)
 				{
 					String productsString = (productsInput.getText());
 					if (productsString.matches("[0-9 *]+")) {
