@@ -74,22 +74,25 @@ public class SimulationControls extends StyledPane
 
 	private void CheckAndDoALgorithm()
 	{
-		switch (chkState)
+		if (chkState != null && chkState != "")
 		{
-		case "Algorithm1":
-			simulation.ExecuteAlgorithmOne();
-			break;
-		case "Algorithm2":
-			simulation.ExecuteAlgorithmTwo();
-			break;
-		case "Algorithm3":
-			simulation.ExecuteAlgorithmThree();
-			break;
-		case "Algorithm4":
-			simulation.ExecuteAlgorithmFour();
-			break;
-		default:
-			break;
+			switch (chkState)
+			{
+			case "Algorithm1":
+				simulation.ExecuteAlgorithmOne();
+				break;
+			case "Algorithm2":
+				simulation.ExecuteAlgorithmTwo();
+				break;
+			case "Algorithm3":
+				simulation.ExecuteAlgorithmThree();
+				break;
+			case "Algorithm4":
+				simulation.ExecuteAlgorithmFour();
+				break;
+			default:
+				break;
+			}
 		}
 	}
 

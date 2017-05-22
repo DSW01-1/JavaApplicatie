@@ -131,8 +131,7 @@ public class TspSimulation extends BaseSimulation
 
 			addConsoleItem("Starting Algorithm 'nearest neighbour'", "INFO");
 			addConsoleItem("Searching for Coordinates", "INFO");
-
-			// ArrayList<GridTile> activeTiles = newGrid.getSelectedTiles();
+			
 			if (activeTiles.size() > 0)
 			{
 				addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "ALERT");
@@ -268,11 +267,13 @@ public class TspSimulation extends BaseSimulation
 			addConsoleItem("Total path distance right: " + CalculatePathLength(shortestPathRight), "INFO");
 
 			addConsoleItem("Total duration: " + (durationLeft + durationRight) + " ms", "INFO");
-			
+
 			ArrayList<Vector2> shortestPath = CalculatePathLength(shortestPathLeft) < CalculatePathLength(
 					shortestPathRight) ? shortestPathLeft : shortestPathRight;
 
+			grid.SetAlgorithm(twoWayLeft);
 			grid.Redraw(shortestPath);
+			grid.SetAlgorithm(null);
 		}
 	}
 

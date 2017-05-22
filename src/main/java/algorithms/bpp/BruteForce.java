@@ -13,7 +13,7 @@ public class BruteForce extends BPPAlgorithm
 	public int boxVolume;
 	private ArrayList<Product> productList1 = new ArrayList<>();
 	private ArrayList<Product> productList2 = new ArrayList<>();
-	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
+	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{

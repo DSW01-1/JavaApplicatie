@@ -3,10 +3,10 @@ package main.java.algorithms.tsp;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import main.java.algorithms.Algorithm;
+import main.java.algorithms.ITspAlgorithm;
 import main.java.main.Vector2;
 
-public class ScissorEdge extends Algorithm
+public class ScissorEdge implements ITspAlgorithm
 {
 	private int gridSize;
 	private ArrayList<Vector2> remainingPoints;

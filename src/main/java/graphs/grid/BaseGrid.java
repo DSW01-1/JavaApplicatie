@@ -41,6 +41,7 @@ public class BaseGrid extends Canvas
 	public void Redraw()
 	{
 		gc.setLineWidth(1);
+		gc.setStroke(Color.BLACK);
 
 		for (int y = 0; y  < tileAmount; y++)
 		{

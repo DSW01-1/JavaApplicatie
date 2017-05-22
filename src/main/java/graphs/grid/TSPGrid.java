@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import main.java.algorithms.ITspAlgorithm;
+import main.java.algorithms.tsp.ScissorEdge;
 import main.java.constant.Constants;
 import main.java.main.Vector2;
 
@@ -15,6 +17,8 @@ public class TSPGrid extends BaseGrid
 	private ArrayList<Vector2> pathList;
 	private boolean isActive = false;
 	private boolean isInteractive;
+	private ITspAlgorithm usedAlgorithm;
+	public int tileAmount;
 
 	/**
 	 * The TSP Grid, used for drawing lines between set points
@@ -166,8 +170,8 @@ public class TSPGrid extends BaseGrid
 	public void DrawTileIfSelected(Vector2 tilePos)
 	{
 		double miniGrid = tileSize / 6;
-		double x = tilePos.getX() * tileSize - (miniGrid*5);
-		double y = tilePos.getY() * tileSize - (miniGrid*5);
+		double x = tilePos.getX() * tileSize - (miniGrid * 5);
+		double y = tilePos.getY() * tileSize - (miniGrid * 5);
 
 		gc.setFill(tileColor);
 		gc.fillRoundRect(x, y, miniGrid * 4, miniGrid * 4, 8, 8);
@@ -183,18 +187,46 @@ public class TSPGrid extends BaseGrid
 		gc.setLineWidth(5);
 		gc.setStroke(lineColor);
 
-		
-		for (int i = 0; i < points.size() - 1; i++)
+		if (usedAlgorithm instanceof ScissorEdge)
 		{
-			double x1 = points.get(i).getX() * tileSize - tileSize + (tileSize / 2);
-			double x2 = points.get(i + 1).getX() * tileSize - tileSize + (tileSize / 2);
+			gc.setStroke(Color.RED);
+			for (int i = 0; i <= ((points.size() - 2) / 2); i++)
+			{
+				double[] pathCoords = GetPathLine(points.get(i), points.get(i + 1));
+				gc.strokeLine(pathCoords[0], pathCoords[2], pathCoords[1], pathCoords[3]);
+			}
 
-			double y1 = points.get(i).getY() * tileSize - tileSize + (tileSize / 2);
-			double y2 = points.get(i + 1).getY() * tileSize - tileSize + (tileSize / 2);
+			gc.setStroke(Color.PURPLE);
+			double[] pathCoords1 = GetPathLine(points.get((points.size() / 2)), points.get((points.size() / 2) + 1));
+			gc.strokeLine(pathCoords1[0], pathCoords1[2], pathCoords1[1], pathCoords1[3]);
 
-			gc.strokeLine(x1, y1, x2, y2);
+			gc.setStroke(Color.BLUE);
+			for (int i = (points.size() / 2) + 1; i < points.size() - 1; i++)
+			{
+				double[] pathCoords = GetPathLine(points.get(i), points.get(i + 1));
+				gc.strokeLine(pathCoords[0], pathCoords[2], pathCoords[1], pathCoords[3]);
+			}
 		}
-		
+		else
+		{
+			for (int i = 0; i < points.size() - 1; i++)
+			{
+				double[] pathCoords = GetPathLine(points.get(i), points.get(i + 1));
+				gc.strokeLine(pathCoords[0], pathCoords[2], pathCoords[1], pathCoords[3]);
+			}
+		}
+
+	}
+
+	private double[] GetPathLine(Vector2 point1, Vector2 point2)
+	{
+		double[] line = new double[4];
+		line[0] = (point1.getX() * tileSize) - tileSize + (tileSize / 2);
+		line[1] = (point2.getX() * tileSize) - tileSize + (tileSize / 2);
+
+		line[2] = (point1.getY() * tileSize) - tileSize + (tileSize / 2);
+		line[3] = (point2.getY() * tileSize) - tileSize + (tileSize / 2);
+		return line;
 	}
 
 	/**
@@ -275,9 +307,14 @@ public class TSPGrid extends BaseGrid
 	{
 		isActive = active;
 	}
-	
+
 	public int GetTileAmount()
 	{
 		return tileAmount;
+	}
+
+	public void SetAlgorithm(ITspAlgorithm usedAlgorithm)
+	{
+		this.usedAlgorithm = usedAlgorithm;
 	}
 }
