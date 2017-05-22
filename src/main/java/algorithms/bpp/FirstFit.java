@@ -14,20 +14,26 @@ public class FirstFit extends BPPAlgorithm
 
 	public int boxVolume;
 
+	//method that sorts the products, returns arraylist with sorted boxes containing products
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		Long startTime = System.nanoTime();
+		//clear returnboxes so it starts clean.
 		returnBoxes.clear();
+		//walk through all products
 		for (Product product : products)
 		{
+			//check for each box if it fits
 			for (Box currentBox : returnBoxes)
 			{
+				//if it fits and has not fitted already put it in currentBox
 				if (currentBox.checkFit((int) product.GetSize()) && !doesFit)
 				{
 					currentBox.addProduct(product);
 					doesFit = true;
 				}
 			}
+			//if product didn't fit anywhere create new box
 			if (!doesFit)
 			{
 				Box newBox = new Box(boxVolume);
@@ -37,6 +43,7 @@ public class FirstFit extends BPPAlgorithm
 			doesFit = false;
 		}
 		Long endtime = System.nanoTime();
+		//time to measure efficiency
 		Long duration = (endtime - startTime) / 1000000;
 		endtime = null;
 		startTime = null;
