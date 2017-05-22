@@ -12,7 +12,7 @@ public class BruteForce
 	// returnBoxes is de arrayList die boxen returned met de producten.
 	// latestBoxes is de laatste gesorteerde arraylist
 	public int boxVolume;
-	private ArrayList<Box> returnBoxes = new ArrayList<Box>();
+	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 
 	public ArrayList<Box> executeBruteForce(ArrayList<Product> products)
 	{
@@ -51,6 +51,7 @@ public class BruteForce
 		endTime = null;
 		duration = null;
 		System.gc();
+
 		return returnBoxes;
 	}
 
