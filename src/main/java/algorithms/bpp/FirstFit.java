@@ -9,7 +9,6 @@ import main.java.pane.simulation.BppSimulation;
 
 public class FirstFit extends BPPAlgorithm
 {
-	public ArrayList<Box> returnBoxes = new ArrayList<>();
 	private boolean doesFit = false;
 
 	public int boxVolume;

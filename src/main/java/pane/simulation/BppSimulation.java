@@ -239,7 +239,6 @@ public class BppSimulation extends BaseSimulation
 		{
 			addConsoleItem("Starting.","INFO");
 			long startTime = System.nanoTime();
-			consolePane.getItems().clear();
 			algorithmToRun.getBoxes(products);
 			products.clear();
 			long endTime = System.nanoTime();
