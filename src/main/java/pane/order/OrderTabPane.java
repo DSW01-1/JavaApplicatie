@@ -5,7 +5,6 @@ import main.java.pane.base.StyledPane;
 
 public class OrderTabPane extends BaseTabPane
 {
-	
 
 	public OrderTabPane(String[] name, StyledPane[] tabArray)
 	{
@@ -15,7 +14,7 @@ public class OrderTabPane extends BaseTabPane
 	@Override
 	public void InitPane()
 	{
-
+		CreateTabPane();
 	}
 
 }
