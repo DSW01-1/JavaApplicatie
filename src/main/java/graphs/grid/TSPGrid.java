@@ -36,6 +36,9 @@ public class TSPGrid extends BaseGrid
 		Redraw();
 	}
 
+	public ArrayList<Vector2> getPathList() {return pathList; }
+	public void resetPathList() {pathList = null;}
+
 	/**
 	 * Change the color of the line being drawn
 	 * 

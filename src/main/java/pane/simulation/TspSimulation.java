@@ -294,6 +294,14 @@ public class TspSimulation extends BaseSimulation
 		algorithm.killII();
 	}
 
+	public void clearField(){
+		for(GridTile tile : grid.getSelectedTiles()){
+			tile.SetSelected(false);
+		}
+		grid.resetPathList();
+		grid.Redraw();
+	}
+
 	public void addConsoleItem(String message, String msgType)
 	{
 		consolePane.getItems().add(consolePane.getItems().size(), String.format("[%s] %s", msgType, message));
@@ -304,7 +312,7 @@ public class TspSimulation extends BaseSimulation
 		String[] colorOptions =
 		{ "black", "Red", "Green", "blue" };
 
-		StyledChoiceBox cb = new StyledChoiceBox(colorOptions, new Vector2(215, 250), new Vector2(100, 25));
+		StyledChoiceBox cb = new StyledChoiceBox(colorOptions, new Vector2(340, 250), new Vector2(100, 25));
 		cb.getSelectionModel().selectFirst();
 
 		cb.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
@@ -343,7 +351,7 @@ public class TspSimulation extends BaseSimulation
 			numberOptions[i] = Integer.toString(i + 3);
 		}
 
-		StyledChoiceBox choiceBox = new StyledChoiceBox(numberOptions, new Vector2(330, 250), new Vector2(50, 25));
+		StyledChoiceBox choiceBox = new StyledChoiceBox(numberOptions, new Vector2(445, 250), new Vector2(50, 25));
 		choiceBox.getSelectionModel().selectFirst();
 
 		choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()

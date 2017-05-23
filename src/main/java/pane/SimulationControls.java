@@ -70,6 +70,14 @@ public class SimulationControls extends StyledPane
 		});
 		getChildren().add(stopButton);
 
+		StyledButton clearButton = new StyledButton("btn.clear", new Vector2(210, 150), new Vector2(125, 20));
+		clearButton.setOnAction(event ->
+		{
+			simulation.clearField();
+		});
+		getChildren().add(clearButton);
+		//// 340
+
 	}
 
 	private void CheckAndDoALgorithm()
