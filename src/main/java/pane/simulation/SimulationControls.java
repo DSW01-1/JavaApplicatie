@@ -1,11 +1,10 @@
-package main.java.pane;
+package main.java.pane.simulation;
 
 import javafx.scene.control.ToggleGroup;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledRadioButton;
-import main.java.pane.simulation.BaseSimulation;
 
 public class SimulationControls extends StyledPane
 {
