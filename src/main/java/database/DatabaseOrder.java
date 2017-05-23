@@ -64,9 +64,16 @@ public class DatabaseOrder
 		Connection conn = DatabaseConnection.Connect();
 		String customerStatement = "INSERT INTO " + customerTable + "(Firstname,Lastname, Address,Zipcode,City) VALUES (?, ?, ?, ?,?);";
 		String orderStatement = "INSERT INTO "+ orderTable+ "(Customerid,Orderdate) VALUES (?,?);";
+		String receiptStatement = "INSERT INTO "+ receiptTable + "(Orderid,Productid) VALUES (?,?);";
 
 		try
 		{
+			for(String productnr: order.getProductnumber()){
+				PreparedStatement preparedStatementReceipt = conn.prepareStatement(receiptStatement);
+				preparedStatementReceipt.setString(0,order.getOrderid());
+				preparedStatementReceipt.setString(1,productnr);
+				preparedStatementReceipt.executeUpdate();
+			}
 
 			PreparedStatement preparedStatementOrder = conn.prepareStatement(orderStatement);
 			preparedStatementOrder.setInt(0, order.getCustomerinfo().getId());
