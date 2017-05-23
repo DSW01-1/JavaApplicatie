@@ -116,8 +116,8 @@ public class DatabaseConnection
 			{
 				while (rs.next())
 				{
-					products.add(new Product(rs.getInt("id"), rs.getString("name"),
-							new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("size")));
+					products.add(new Product(rs.getInt("Productid"), rs.getString("Productname"),
+							new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("Productsize")));
 				}
 			}
 		}

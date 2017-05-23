@@ -22,18 +22,18 @@ public class DatabaseOrder
 			while (rs.next())
 			{
 				CustomerInfo cusInfo = new CustomerInfo();
-				cusInfo.setFirstname(rs.getString("firstname"));
-				cusInfo.setLastname(rs.getString("lastname"));
-				cusInfo.setAddress(rs.getString("address"));
-				cusInfo.setZipcode(rs.getString("zipcode"));
-				cusInfo.setCity(rs.getString("city"));
+				cusInfo.setFirstname(rs.getString("Firstname"));
+				cusInfo.setLastname(rs.getString("Lastname"));
+				cusInfo.setAddress(rs.getString("Street"));
+				cusInfo.setZipcode(rs.getString("Zipcode"));
+				cusInfo.setCity(rs.getString("City"));
 
 				Order order = new Order();
 				order.setCustomerinfo(cusInfo);
-				order.setDate(rs.getString("date"));
-				order.setOrderid(rs.getString("orderid"));
+				order.setDate(rs.getString("Orderdate"));
+				order.setOrderid(rs.getString("Orderid"));
 
-				Array array = rs.getArray("products");
+				Array array = rs.getArray("product");
 				String[] productArray = (String[]) array.getArray();
 				ArrayList<String> products = new ArrayList<String>();
 
@@ -47,7 +47,7 @@ public class DatabaseOrder
 		}
 		catch (SQLException e)
 		{
-			LogHandler.WriteErrorToLogFile(e, "Could not retrieve order info from datebase");
+			LogHandler.WriteErrorToLogFile(e, "Could not retrieve order info from datebees");
 		}
 
 		return orderList;

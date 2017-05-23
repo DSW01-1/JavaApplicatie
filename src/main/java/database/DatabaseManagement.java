@@ -43,7 +43,7 @@ public class DatabaseManagement
 		String table = Constants.databaseName + "." + Constants.productTableName;
 		Connection conn = DatabaseConnection.Connect();
 
-		String statement = "INSERT INTO " + table + "(name, xcoord, ycoord, size) VALUES (?, ?, ?, ?);";
+		String statement = "INSERT INTO " + table + "(Productname,Productsize, xcoord, ycoord) VALUES (?, ?, ?, ?);";
 
 		try
 		{
