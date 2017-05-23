@@ -4,15 +4,12 @@ import java.util.ArrayList;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
-import main.java.constant.Constants;
 import main.java.database.DatabaseConnection;
 import main.java.main.Language;
-import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
-import main.java.pane.MainMenu;
-import main.java.pane.base.StyledButton;
+import main.java.pane.base.BackToMainMenuButton;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
 
@@ -23,13 +20,7 @@ public class NewOrder extends StyledPane
 	@Override
 	public void InitPane()
 	{
-		// Back to menu button
-		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
-		goBackToMenu.setOnAction(event ->
-		{
-			Main.SwitchPane(new MainMenu());
-		});
-		getChildren().add(goBackToMenu);
+		getChildren().add(new BackToMainMenuButton());
 
 		// Create the columns
 		CreateLeftColumn();

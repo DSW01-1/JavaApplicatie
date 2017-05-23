@@ -5,6 +5,7 @@ import main.java.constant.Constants;
 import main.java.graphs.grid.TSPGrid;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.pane.base.BackToMainMenuButton;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 
@@ -24,15 +25,18 @@ public class RobotTab extends StyledPane
 		grid.setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2);
 		grid.setLayoutY(15);
 		getChildren().add(grid);
-		
-		Vector2 pos = new Vector2(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2, Constants.drawnGridSize + 20);
-		
+
+		Vector2 pos = new Vector2(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2,
+				Constants.drawnGridSize + 20);
+
 		StyledButton togglePathButton = new StyledButton("btn.toggleTspPath", pos);
 		getChildren().add(togglePathButton);
 	}
 
 	private void CreateControlButtons()
 	{
+		getChildren().add(new BackToMainMenuButton());
+
 		GridPane gridPane = new GridPane();
 		gridPane.setLayoutX(ScreenProperties.getScreenWidth() / 4 * 3);
 		gridPane.setLayoutY(ScreenProperties.getScreenHeight() / 8);
