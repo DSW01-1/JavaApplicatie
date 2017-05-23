@@ -29,12 +29,12 @@ public class NextFit extends BPPAlgorithm
 	}
 
 	// method to execute algorithm
+	@Override
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		// clear returnBoxes arraylist so no leftovers of previous calculations
 		// remain.
 		returnBoxes.clear();
-		Long startTime = System.nanoTime();
 		// loop through all products asked for
 		for (Product product : products)
 		{
@@ -54,10 +54,6 @@ public class NextFit extends BPPAlgorithm
 		// set currentBox size 0 again so a new one immediately gets initialized
 		// and added next time at execution
 		currentBox = new Box(0);
-		Long endTime = System.nanoTime();
-		Long duration = (endTime - startTime) / 1000000;
-		// TODO DOE WAT MET DE TIJD, EN DOE DAT HIERBUITEN OMG
-		System.gc();
 		return returnBoxes;
 
 	}

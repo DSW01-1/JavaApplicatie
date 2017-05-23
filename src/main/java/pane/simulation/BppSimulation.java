@@ -17,6 +17,7 @@ import main.java.pane.ConsolePane;
 import main.java.pane.SimulationControls;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
+import main.java.algorithms.BPPAlgorithm;
 
 public class BppSimulation extends BaseSimulation
 {
@@ -45,56 +46,25 @@ public class BppSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
-		if (testInputs())
-		{
-			consolePane.getItems().clear();
-			nextFit.getBoxes(products);
-			products.clear();
-			addConsoleItem("Boxes needed: " + nextFit.returnBoxes.size(), "DEBUG");
-			boxPane.AddBoxList(nextFit.returnBoxes);
-		}
+		runAlgorithm(nextFit);
 	}
 
 	@Override
 	public void ExecuteAlgorithmTwo()
 	{
-		if (testInputs())
-		{
-			consolePane.getItems().clear();
-			firstFit.getBoxes(products);
-			products.clear();
-			addConsoleItem("Boxes needed: " + firstFit.returnBoxes.size(), "DEBUG");
-			boxPane.AddBoxList(firstFit.returnBoxes);
-		}
+		runAlgorithm(firstFit);
 	}
 
 	@Override
 	public void ExecuteAlgorithmThree()
 	{
-		if (testInputs())
-		{
-			consolePane.getItems().clear();
-			bruteForce.getBoxes(products);
-			products.clear();
-			addConsoleItem("Boxes needed: " + bruteForce.returnBoxes.size(), "DEBUG");
-			boxPane.AddBoxList(bruteForce.returnBoxes);
-		}
-		consolePane.getItems().clear();
-		bruteForce.getBoxes(products);
-		products.clear();
+		runAlgorithm(bruteForce);
 	}
 
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
-		if (testInputs())
-		{
-			consolePane.getItems().clear();
-			decreasingFirstFit.getBoxes(products);
-			products.clear();
-			addConsoleItem("Boxes needed: " + decreasingFirstFit.returnBoxes.size(), "DEBUG");
-			boxPane.AddBoxList(decreasingFirstFit.returnBoxes);
-		}
+		runAlgorithm(decreasingFirstFit);
 	}
 
 	public void AddControls()
@@ -263,6 +233,20 @@ public class BppSimulation extends BaseSimulation
 	public void addConsoleItem(String Message, String msgType)
 	{
 		consolePane.getItems().add(String.format("[%s] %s", msgType, Message));
+	}
+	public void runAlgorithm(BPPAlgorithm algorithmToRun){
+		if (testInputs())
+		{
+			addConsoleItem("Starting.","INFO");
+			Long startTime = System.nanoTime();
+			consolePane.getItems().clear();
+			algorithmToRun.getBoxes(products);
+			products.clear();
+			Long endTime = System.nanoTime();
+			Long duration = (endTime-startTime)/1000000;
+			addConsoleItem("Duration (milliseconds): "+duration,"INFO");
+			boxPane.AddBoxList(algorithmToRun.returnBoxes);
+		}
 	}
 
 }

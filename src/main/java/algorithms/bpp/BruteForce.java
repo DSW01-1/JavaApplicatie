@@ -15,12 +15,12 @@ public class BruteForce extends BPPAlgorithm
 	private ArrayList<Product> productList2 = new ArrayList<>();
 	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 
+	@Override
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		productList1.addAll(0,products.subList(0,(products.size()/2)));
 		productList2.addAll(0,products.subList((products.size()/2),products.size()));
 		returnBoxes.clear();
-		Long startTime = System.nanoTime();
 		int currentBoxAmount;
 		int bestBoxAmount = products.size() + 1;
 		int amountOfCalculations = 0;
@@ -53,12 +53,6 @@ public class BruteForce extends BPPAlgorithm
 			products.addAll(productList1);
 			products.addAll(productList2);
 			}
-		Long endTime = System.nanoTime();
-		Long duration = (endTime - startTime) / 1000000;
-		startTime = null;
-		endTime = null;
-		duration = null;
-		System.gc();
 
 		return returnBoxes;
 	}

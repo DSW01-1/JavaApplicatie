@@ -2,9 +2,12 @@ package main.java.pane.simulation;
 
 import main.java.constant.Constants;
 import main.java.main.Main;
+import main.java.main.product.Product;
 import main.java.pane.MainMenu;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
+
+import java.util.ArrayList;
 
 public abstract class BaseSimulation extends StyledPane
 {
@@ -55,4 +58,6 @@ public abstract class BaseSimulation extends StyledPane
 	{
 
 	}
+
+
 }

@@ -15,9 +15,9 @@ public class FirstFit extends BPPAlgorithm
 	public int boxVolume;
 
 	//method that sorts the products, returns arraylist with sorted boxes containing products
+	@Override
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
-		Long startTime = System.nanoTime();
 		//clear returnboxes so it starts clean.
 		returnBoxes.clear();
 		//walk through all products
@@ -42,13 +42,7 @@ public class FirstFit extends BPPAlgorithm
 			}
 			doesFit = false;
 		}
-		Long endtime = System.nanoTime();
-		//time to measure efficiency
-		Long duration = (endtime - startTime) / 1000000;
-		endtime = null;
-		startTime = null;
-		duration = null;
-		System.gc();
+
 		return returnBoxes;
 
 	}

@@ -14,6 +14,7 @@ public class DecreasingFirstFit extends BPPAlgorithm
 	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 	private boolean doesFit = false;
 
+	@Override
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		returnBoxes.clear();
