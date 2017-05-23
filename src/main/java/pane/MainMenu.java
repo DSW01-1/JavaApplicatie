@@ -89,7 +89,7 @@ public class MainMenu extends StyledPane
 		{ "Nederlands", "English", "Deutsch" };
 
 		StyledChoiceBox choiceBox = new StyledChoiceBox(languages,
-				new Vector2(ScreenProperties.getScreenWidth() - 100, 0));
+				new Vector2(ScreenProperties.getScreenWidth() - 150, 0), new Vector2(150, 30));
 
 		for (int i = 0; i < languages.length; i++)
 		{
@@ -98,7 +98,6 @@ public class MainMenu extends StyledPane
 				choiceBox.getSelectionModel().select(languages[i]);
 			}
 		}
-		choiceBox.setPrefWidth(100);
 		choiceBox.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>()
 		{
 			@Override

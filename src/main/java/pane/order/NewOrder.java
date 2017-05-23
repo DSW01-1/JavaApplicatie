@@ -21,6 +21,7 @@ public class NewOrder extends StyledPane
 	public void InitPane()
 	{
 		getChildren().add(new BackToMainMenuButton());
+		getStyleClass().add("background");
 
 		// Create the columns
 		CreateLeftColumn();
@@ -66,7 +67,7 @@ public class NewOrder extends StyledPane
 	{
 		// Get all products available
 		ArrayList<Product> productList = DatabaseConnection.GetAvailableProducts();
-		
+
 		// If there are products in the database, add them to the list
 		if (productList.size() > 0)
 		{

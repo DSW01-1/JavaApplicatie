@@ -9,6 +9,7 @@ import main.java.controller.ArduinoController;
 import main.java.graphs.grid.RobotGrid;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.pane.base.BackToMainMenuButton;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 
@@ -28,7 +29,8 @@ public class RobotSimulation extends StyledPane
 	public void InitPane()
 	{
 		super.InitPane();
-
+		getStyleClass().add("background");
+		getChildren().add(new BackToMainMenuButton());
 		CreateGrid();
 		CreateButtons();
 	}
