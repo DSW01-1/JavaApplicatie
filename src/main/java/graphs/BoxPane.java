@@ -49,7 +49,7 @@ public class BoxPane extends StyledPane
 	 */
 	public void AddBoxList(ArrayList<Box> boxArrayList)
 	{
-		hBox.getChildren().removeAll();
+		hBox.getChildren().clear();
 
 		for (Box box : boxArrayList)
 		{
