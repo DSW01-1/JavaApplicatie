@@ -73,4 +73,10 @@ public class RobotGrid extends BaseGrid
 
 	}
 
+	public void SetRobotPos(Vector2 vector2)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -17,6 +17,7 @@ public final class Constants
 	public static String iconLocation = "main/resources/icons/";
 	public static String shoppingCartImage = iconLocation + "shoppingcart.png";
 	public static String xImage = iconLocation + "x.png";
+	public static String ApplicationIcon = iconLocation + "ApplicatieLogo.png";
 
 	// Size of the grid
 	public static int drawnGridSize = (int) (665);
