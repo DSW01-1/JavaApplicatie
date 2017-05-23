@@ -39,6 +39,8 @@ public class BoxCanvas extends Canvas
 
 			gc.setFill(color);
 			gc.fillRect(x, y, w, h);
+			gc.setFill(Color.WHITE);
+			gc.fillText(String.valueOf(product.GetSizeInInt()),w/2,fillAmount/2);
 		}
 
 		gc.setFill(Color.BLACK);
