@@ -11,8 +11,8 @@ public final class Constants
 	public static String jsonOrderDirectory = "JsonOrders";
 
 	public static String databaseName = "magazijn";
-	public static String productTableName = "product";
-	public static String orderTableName = "order";
+	public static String productTableName = "products";
+	public static String orderTableName = "orders";
 
 	public static String iconLocation = "main/resources/icons/";
 	public static String shoppingCartImage = iconLocation + "shoppingcart.png";
