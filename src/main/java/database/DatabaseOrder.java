@@ -1,13 +1,13 @@
 package main.java.database;
 
-import java.sql.Array;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
+import main.java.constant.Constants;
 import main.java.handler.LogHandler;
 import main.java.main.product.CustomerInfo;
 import main.java.main.product.Order;
+import main.java.main.product.Product;
 
 public class DatabaseOrder
 {
@@ -15,7 +15,11 @@ public class DatabaseOrder
 	{
 		ArrayList<Order> orderList = new ArrayList<Order>();
 
-		ResultSet rs = DatabaseConnection.GetDataFromDatabase("");
+		ResultSet rs = DatabaseConnection.GetDataFromDatabase("select Firstname,Lastname,Street,Zipcode,City,o.Orderdate,o.Orderid,p.Productid,\n" +
+				"p.Productname,Productsize,xcoord,ycoord  \n" +
+				"From customers c join orders o on c.Customerid=o.Customerid \n" +
+				"join receipts r on r.Orderid = o.Orderid\n" +
+				"join products p on p.Productid = r.Productid ");
 
 		try
 		{
@@ -24,7 +28,7 @@ public class DatabaseOrder
 				CustomerInfo cusInfo = new CustomerInfo();
 				cusInfo.setFirstname(rs.getString("Firstname"));
 				cusInfo.setLastname(rs.getString("Lastname"));
-				cusInfo.setAddress(rs.getString("Street"));
+				cusInfo.setAddress(rs.getString("Address"));
 				cusInfo.setZipcode(rs.getString("Zipcode"));
 				cusInfo.setCity(rs.getString("City"));
 
@@ -51,5 +55,44 @@ public class DatabaseOrder
 		}
 
 		return orderList;
+	}
+
+	public static void addOrderToDatabase(Order order){
+		String customerTable = Constants.databaseName + "." + Constants.customerTableName;
+		String orderTable = Constants.databaseName + "." + Constants.orderTableName;
+		String receiptTable = Constants.databaseName + "." + Constants.receiptTableName;
+		Connection conn = DatabaseConnection.Connect();
+		String customerStatement = "INSERT INTO " + customerTable + "(Firstname,Lastname, Address,Zipcode,City) VALUES (?, ?, ?, ?,?);";
+		String orderStatement = "INSERT INTO "+ orderTable+ "(Customerid,Orderdate) VALUES (?,?);";
+		String receiptStatement = "INSERT INTO "+ receiptTable + "(Orderid,Productid) VALUES (?,?);";
+
+		try
+		{
+			for(String productnr: order.getProductnumber()){
+				PreparedStatement preparedStatementReceipt = conn.prepareStatement(receiptStatement);
+				preparedStatementReceipt.setString(0,order.getOrderid());
+				preparedStatementReceipt.setString(1,productnr);
+				preparedStatementReceipt.executeUpdate();
+			}
+
+			PreparedStatement preparedStatementOrder = conn.prepareStatement(orderStatement);
+			preparedStatementOrder.setInt(0, order.getCustomerinfo().getId());
+			preparedStatementOrder.setString(1, order.getDate());
+
+			PreparedStatement preparedStatementCustomer = conn.prepareStatement(customerStatement);
+			preparedStatementCustomer.setString(0, order.getCustomerinfo().getFirstname());
+			preparedStatementCustomer.setString(1, order.getCustomerinfo().getLastname());
+			preparedStatementCustomer.setString(2, order.getCustomerinfo().getAddress());
+			preparedStatementCustomer.setString(3, order.getCustomerinfo().getZipcode());
+			preparedStatementCustomer.setString(4, order.getCustomerinfo().getCity());
+
+			preparedStatementOrder.executeUpdate();
+			preparedStatementCustomer.executeUpdate();
+			conn.close();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
