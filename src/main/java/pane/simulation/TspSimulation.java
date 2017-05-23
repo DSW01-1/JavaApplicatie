@@ -129,7 +129,7 @@ public class TspSimulation extends BaseSimulation
 
 			addConsoleItem("Starting Algorithm 'nearest neighbour'", "INFO");
 			addConsoleItem("Searching for Coordinates", "INFO");
-			
+
 			if (activeTiles.size() > 0)
 			{
 				addConsoleItem(String.format("%s coordinates found, starting algorithm", activeTiles.size()), "ALERT");
@@ -292,8 +292,10 @@ public class TspSimulation extends BaseSimulation
 		algorithm.killII();
 	}
 
-	public void clearField(){
-		for(GridTile tile : grid.getSelectedTiles()){
+	public void clearField()
+	{
+		for (GridTile tile : grid.getSelectedTiles())
+		{
 			tile.SetSelected(false);
 		}
 		grid.resetPathList();

@@ -11,7 +11,6 @@ import main.java.main.Vector2;
 
 public class TSPGrid extends BaseGrid
 {
-	private Vector2 robotPos;
 	private Color lineColor = Constants.standardLineColor;
 	private Color tileColor = Constants.standardTileColor;
 	private ArrayList<Vector2> pathList;
@@ -36,8 +35,23 @@ public class TSPGrid extends BaseGrid
 		Redraw();
 	}
 
-	public ArrayList<Vector2> getPathList() {return pathList; }
-	public void resetPathList() {pathList = null;}
+	/**
+	 * TODO
+	 * 
+	 * @return
+	 */
+	public ArrayList<Vector2> getPathList()
+	{
+		return pathList;
+	}
+
+	/**
+	 * TODO
+	 */
+	public void resetPathList()
+	{
+		pathList = null;
+	}
 
 	/**
 	 * Change the color of the line being drawn
@@ -49,9 +63,7 @@ public class TSPGrid extends BaseGrid
 		this.lineColor = color;
 	}
 
-	/**
-	 * Add a mouse handler to add points on the grid
-	 */
+	@Override
 	protected void AddMouseEventHandler()
 	{
 		addEventHandler(MouseEvent.MOUSE_CLICKED, event ->
@@ -79,39 +91,6 @@ public class TSPGrid extends BaseGrid
 		});
 	}
 
-	/**
-	 * Get the gridTileArray
-	 * 
-	 * @return
-	 */
-	public ArrayList<GridTile> GetGridTileArray()
-	{
-		return gridTileArray;
-	}
-
-	/**
-	 * Get a list of all the current selected tiles
-	 * 
-	 * @return
-	 */
-	public ArrayList<GridTile> getSelectedTiles()
-	{
-		ArrayList<GridTile> selectedTiles = new ArrayList<>();
-
-		for (GridTile currentTile : this.gridTileArray)
-		{
-			if (currentTile.IsSelected())
-			{
-				selectedTiles.add(currentTile);
-			}
-		}
-		
-		return selectedTiles;
-	}
-
-	/**
-	 * Redraw the grid
-	 */
 	@Override
 	public void Redraw()
 	{
@@ -137,7 +116,6 @@ public class TSPGrid extends BaseGrid
 				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
 			}
 		}
-
 		super.Redraw();
 	}
 
@@ -150,20 +128,6 @@ public class TSPGrid extends BaseGrid
 	{
 		pathList = customArray;
 		Redraw();
-	}
-
-	/**
-	 * Draw the current Robot position on the grid
-	 * 
-	 * @param coords
-	 */
-	private void DrawRobotPos(Vector2 coords)
-	{
-		if (robotPos.getX() == coords.getX() && robotPos.getY() == coords.getY())
-		{
-			gc.setFill(Color.ANTIQUEWHITE);
-			gc.fillRect(robotPos.getX() * tileSize, robotPos.getY() * tileSize, tileSize, tileSize);
-		}
 	}
 
 	/**
@@ -222,6 +186,13 @@ public class TSPGrid extends BaseGrid
 
 	}
 
+	/**
+	 * TODO
+	 * 
+	 * @param point1
+	 * @param point2
+	 * @return
+	 */
 	private double[] GetPathLine(Vector2 point1, Vector2 point2)
 	{
 		double[] line = new double[4];
@@ -236,6 +207,7 @@ public class TSPGrid extends BaseGrid
 	/**
 	 * Set the current Position of the robot
 	 * 
+	 * @param transPos
 	 */
 	public void SetRobotPos(Vector2 transPos)
 	{
@@ -302,21 +274,37 @@ public class TSPGrid extends BaseGrid
 		this.isInteractive = isInteractive;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean isActive()
 	{
 		return isActive;
 	}
 
+	/**
+	 * 
+	 * @param active
+	 */
 	public void setActive(boolean active)
 	{
 		isActive = active;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public int GetTileAmount()
 	{
 		return tileAmount;
 	}
 
+	/**
+	 * 
+	 * @param usedAlgorithm
+	 */
 	public void SetAlgorithm(ITspAlgorithm usedAlgorithm)
 	{
 		this.usedAlgorithm = usedAlgorithm;
