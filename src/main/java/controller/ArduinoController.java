@@ -44,6 +44,6 @@ public class ArduinoController
 
 	public void HandleOutput(String command)
 	{
-		comHandler.WriteToArduino(command);
+		comHandler.WriteToArduino("<" + command + ">");
 	}
 }

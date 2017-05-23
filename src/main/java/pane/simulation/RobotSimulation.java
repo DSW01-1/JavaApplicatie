@@ -58,16 +58,19 @@ public class RobotSimulation extends BaseSimulation
 			StyledButton button = new StyledButton(buttonNames[i], pos);
 			button.setOnAction(event ->
 			{
+				Vector2 coordPos = grid.GetSelectedTile().GetPos();
+				String coordString = "[" + coordPos.getX() + "!" + coordPos.getY() + "]";
+
 				switch (buttonNames[j])
 				{
 				case "btn.connectArduino":
 					controller.EstablishConnection();
 					break;
 				case "btn.moveToCoord":
-					// TODO
+					OutToArduino(ArduinoConstants.cmdMoveToCoord + coordString);
 					break;
 				case "btn.getPackageAt":
-					// TODO
+					OutToArduino(ArduinoConstants.cmdGetPackage + coordString);
 				default:
 					OutToArduino(cmdButtonMap.get(buttonNames[j]));
 					break;
@@ -88,7 +91,6 @@ public class RobotSimulation extends BaseSimulation
 
 	private void OutToArduino(String command)
 	{
-		System.out.println(command);
-		// controller.HandleOutput(command);
+		controller.HandleOutput(command);
 	}
 }
