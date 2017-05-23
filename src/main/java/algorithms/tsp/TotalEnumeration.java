@@ -10,7 +10,7 @@ import main.java.pane.simulation.TspSimulation;
 
 public class TotalEnumeration extends Thread
 {
-	/* Variables */
+	// Variables
 	private ArrayList<GridTile> tileList;
 	ArrayList<ArrayList<Integer>> possibilities;
 
@@ -26,7 +26,12 @@ public class TotalEnumeration extends Thread
 	private int progress = 0;
 	private int state = 0; // 0 = inactive, 1 = suspended, 2 = active
 
-	/* Controls */
+	float estInSec = 0;
+	float estTenSec = 0;
+	long estStart = 0;
+
+
+	// Algorithm controls
 	public synchronized void suspendII()
 	{
 		state = 1;
@@ -46,7 +51,8 @@ public class TotalEnumeration extends Thread
 		cleanKill();
 	}
 
-	/* Constructors incl overload */
+
+	// Constructors
 	public TotalEnumeration(ArrayList<GridTile> tileList)
 	{
 		this.tileList = tileList;
@@ -67,37 +73,37 @@ public class TotalEnumeration extends Thread
 		dG = new DistanceGrid(tileList);
 	}
 
-	/* Getters and/or Setters */
+
+	// getters and/or setters
 	public ArrayList<Vector2> getShortestPath()
 	{
 		return shortestPath.getTiles();
 	}
-
-	public void setTileList(ArrayList<GridTile> tileList)
-	{
+	public void setTileList(ArrayList<GridTile> tileList) {
 		this.tileList = tileList;
 		dG = new DistanceGrid(tileList);
 	}
-
 	public int getPossiblePaths()
 	{
 		return possiblePaths;
 	}
-
 	public void showPermutations(int startindex, int[] input)
 	{
 		permute(input, 0);
 	}
 
+
+	// Methods
 	public int showState()
 	{
 		return state;
 	}
 
-	/* THREAD RUN method */
+
+	// Main thread
 	public void run()
 	{
-		// Algoritme voorbereiden
+		// preparing algorithm
 		state = 2;
 		long startTime = System.nanoTime();
 		if (logging)
@@ -112,14 +118,15 @@ public class TotalEnumeration extends Thread
 			});
 		}
 
-		// Structuur van het pad opzetten
+		// setting up path structure
 		int[] tileIndexes = new int[tileList.size()];
 		for (int i = 0; i < tileList.size(); i++)
 		{
 			tileIndexes[i] = i;
 		}
 
-		// Factor berekenen (aantal mogelijke paden)
+
+		// Calculate amount of "possible" paths
 		if (state != 0)
 		{
 			setFactor(tileList.size());
@@ -134,10 +141,11 @@ public class TotalEnumeration extends Thread
 					}
 				});
 			}
+			this.estStart = System.nanoTime();
 			showPermutations(0, tileIndexes);
 		}
 
-		// Kortste pad zoeken
+		// Calculating shortest path
 		ArrayList<Vector2> shortestPath = new ArrayList<Vector2>();
 		if (state != 0)
 		{
@@ -164,7 +172,7 @@ public class TotalEnumeration extends Thread
 			}
 		}
 
-		// Algoritme afronden
+		// Finishing algorithm
 		long stopTime = System.nanoTime();
 		float duration = (stopTime - startTime) / 100000f;
 		ArrayList<Vector2> pathLength = shortestPath;
@@ -189,9 +197,11 @@ public class TotalEnumeration extends Thread
 		simulation.grid.setActive(false);
 	}
 
-	/* MISC */
+
+	// Misc
 	public void processShortestPath(int[] indexList)
 	{
+
 
 		double totalLength = 0;
 		ArrayList<Vector2> tileCoordinates = new ArrayList<>();
@@ -201,7 +211,6 @@ public class TotalEnumeration extends Thread
 		// loop through indexes
 		for (int index : indexList)
 		{
-
 			// get difference
 			double xyDiff = dG.distanceGrid[lastIndex][index];
 
@@ -225,30 +234,38 @@ public class TotalEnumeration extends Thread
 
 		}
 
+
+
 		if (logging)
 		{
 			double calc = (double) this.progress / factor;
 			simulation.progression.setProgress(calc);
 		}
 
+		// ETA
+		if(this.progress == 0){
+			long estStop = System.nanoTime();
+			float duration = (estStop - estStart) / 100000f;
+			estimateTimeLeft(duration);
+		}else if(progress%200==0){
+			calcEstTime(this.progress);
+		}
+
 	}
 
 	void permute(int[] a, int k)
 	{
-
 		synchronized (this)
 		{
 			while (state == 1)
 			{
 				try
 				{
-					wait(); // The current thread will block until some else
-							// calls notify()
-					// Then if _suspended is false, it keeps looping the for
+					wait();
 				}
 				catch (Exception ex)
 				{
-					System.out.println("Shit failed");
+					System.out.println("Something went wrong");
 				}
 
 			}
@@ -291,8 +308,36 @@ public class TotalEnumeration extends Thread
 	{
 		simulation.addConsoleItem("The process has been killed", "ALERT");
 		simulation.addConsoleItem("Removing evidence..", "INFO");
-
 		tileList = new ArrayList<GridTile>();
 		simulation.addConsoleItem("Evidence succesfully removed", "INFO");
 	}
+
+	public void estimateTimeLeft(float duration){
+		this.estTenSec = duration;
+		float calc = (factor - 1);
+		float estTime = (calc * duration) / 1000000f;
+		this.estInSec = estTime;
+		Platform.runLater(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				simulation.lblProgSec.setText(String.format("%s sec",Math.round(estTime)));
+			}
+		});
+
+	}
+
+	public void calcEstTime(int index){
+		float calc = (factor - (index + 1));
+		float estTime = (calc * estTenSec) / 1000000f;
+		this.estInSec = estTime;
+		Platform.runLater(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				simulation.lblProgSec.setText(String.format("%s sec",Math.round(estTime)));
+			}
+		});	}
 }

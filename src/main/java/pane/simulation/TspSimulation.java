@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
@@ -22,6 +23,7 @@ public class TspSimulation extends BaseSimulation
 	private boolean isInteractive = true;
 	public ConsolePane consolePane;
 	public ProgressBar progression;
+	public Label lblProgSec;
 	private TotalEnumeration algorithm = new TotalEnumeration(this);
 	private SimulationControls simulationControls;
 
@@ -53,6 +55,12 @@ public class TspSimulation extends BaseSimulation
 		progression.setPrefHeight(30);
 		progression.setProgress(0);
 		getChildren().add(progression);
+
+		this.lblProgSec = new Label("0 sec");
+
+		lblProgSec.setLayoutX((ScreenProperties.getScreenWidth() / 4) + 25);
+		lblProgSec.setLayoutY(290);
+		getChildren().add(lblProgSec);
 	}
 
 	/**
