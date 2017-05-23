@@ -120,6 +120,26 @@ public class BppSimulation extends BaseSimulation
 				16);
 		getChildren().add(productsInputLabel);
 
+		TextField randomProductInput = new TextField();
+		randomProductInput.setLayoutX((ScreenProperties.getScreenWidth() / 2 - (ScreenProperties.getScreenWidth() / 3) / 2)+500);
+		randomProductInput.setLayoutY(ScreenProperties.getScreenHeight() - 200);
+		randomProductInput.setPrefSize(40, 30);
+		getChildren().add(randomProductInput);
+		randomProductInput.setOnKeyPressed(event -> {
+			if(event.getCode() == KeyCode.ENTER){
+				if(boxVolume !=0) {
+					int amount = (Integer.parseInt(randomProductInput.getText()));
+					for (int k = 0; k < amount; k++) {
+						products.add(new Product(1, "1", new Vector2(1, 1), ((int) Math.floor(Math.random() * (boxVolume - 1)) + 1)));
+					}
+					printAllProducts(products);
+					randomProductInput.setText("");
+				}
+				else {
+					addConsoleItem("Please enter a box size first!","ERROR");
+				}
+			}
+		});
 		TextField productsInput = new TextField();
 		productsInput.setLayoutX(ScreenProperties.getScreenWidth() / 2 - (ScreenProperties.getScreenWidth() / 3) / 2);
 		productsInput.setLayoutY(ScreenProperties.getScreenHeight() - 150);
