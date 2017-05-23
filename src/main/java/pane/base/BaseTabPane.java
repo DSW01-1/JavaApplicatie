@@ -1,8 +1,4 @@
-package main.java.pane;
-
-import main.java.pane.base.StyledPane;
-import main.java.pane.base.StyledTab;
-import main.java.pane.base.StyledTabPane;
+package main.java.pane.base;
 
 public class BaseTabPane extends StyledPane
 {

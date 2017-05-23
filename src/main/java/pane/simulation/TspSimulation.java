@@ -14,8 +14,6 @@ import main.java.graphs.grid.GridTile;
 import main.java.graphs.grid.TSPGrid;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
-import main.java.pane.ConsolePane;
-import main.java.pane.SimulationControls;
 import main.java.pane.base.StyledChoiceBox;
 
 public class TspSimulation extends BaseSimulation

@@ -1,4 +1,4 @@
-package main.java.pane;
+package main.java.pane.simulation;
 
 import javafx.scene.control.ListView;
 import main.java.main.ScreenProperties;
