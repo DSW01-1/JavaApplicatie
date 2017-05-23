@@ -7,7 +7,7 @@ import main.java.main.Vector2;
 public class RobotGrid extends BaseGrid
 {
 
-	private Vector2 currentRobotPos;
+	private Vector2 currentRobotPos = new Vector2(1, 1);
 	private GridTile selectedTile;
 
 	public RobotGrid()
@@ -27,6 +27,7 @@ public class RobotGrid extends BaseGrid
 			{
 				if (tile.getXcoord() == x && tile.getYcoord() == y)
 				{
+					System.out.println("jiouuhhuyugyug");
 					tile.SetSelected(true);
 					selectedTile.SetSelected(false);
 					selectedTile = tile;
@@ -42,7 +43,7 @@ public class RobotGrid extends BaseGrid
 		for (GridTile tile : gridTileArray)
 		{
 			// Draw the Robot position if possible
-			if (currentRobotPos != null)
+			if (currentRobotPos == tile.GetPos())
 			{
 				DrawRobotPos(new Vector2(tile.getXcoord(), tile.getYcoord()));
 			}
@@ -53,7 +54,6 @@ public class RobotGrid extends BaseGrid
 				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
 			}
 		}
-
 		super.Redraw();
 	}
 
@@ -67,16 +67,9 @@ public class RobotGrid extends BaseGrid
 		gc.fillRoundRect(x, y, miniGrid * 4, miniGrid * 4, 8, 8);
 	}
 
-	private void DrawRobotPos(Vector2 vector2)
-	{
-		// TODO Auto-generated method stub
-
-	}
-
 	public void SetRobotPos(Vector2 vector2)
 	{
 		// TODO Auto-generated method stub
-		
-	}
 
+	}
 }

@@ -15,6 +15,7 @@ public abstract class BaseGrid extends Canvas
 	protected int tileAmount;
 	protected int tileSize;
 	protected int gridSize;
+	protected Vector2 robotPos;
 
 	public BaseGrid(int tileAmount)
 	{
@@ -40,7 +41,7 @@ public abstract class BaseGrid extends Canvas
 		gc.setLineWidth(1);
 		gc.setStroke(Color.BLACK);
 
-		for (int y = 0; y  < tileAmount; y++)
+		for (int y = 0; y < tileAmount; y++)
 		{
 			for (int x = 0; x < tileAmount; x++)
 			{
@@ -58,11 +59,8 @@ public abstract class BaseGrid extends Canvas
 				// y lines
 				gc.strokeLine(x1, y1, x1, y2);
 				gc.strokeLine(x2, y1, x2, y2);
-
 			}
 		}
-
-
 	}
 
 	/**
@@ -80,6 +78,50 @@ public abstract class BaseGrid extends Canvas
 				final GridTile tile = new GridTile(new Vector2(x, y));
 				gridTileArray.add(tile);
 			}
+		}
+	}
+
+	/**
+	 * Get the gridTileArray
+	 * 
+	 * @return
+	 */
+	public ArrayList<GridTile> GetGridTileArray()
+	{
+		return gridTileArray;
+	}
+
+	/**
+	 * Get a list of all the current selected tiles
+	 * 
+	 * @return
+	 */
+	public ArrayList<GridTile> getSelectedTiles()
+	{
+		ArrayList<GridTile> selectedTiles = new ArrayList<>();
+
+		for (GridTile currentTile : this.gridTileArray)
+		{
+			if (currentTile.IsSelected())
+			{
+				selectedTiles.add(currentTile);
+			}
+		}
+
+		return selectedTiles;
+	}
+
+	/**
+	 * Draw the current Robot position on the grid
+	 * 
+	 * @param coords
+	 */
+	protected void DrawRobotPos(Vector2 coords)
+	{
+		if (robotPos.getX() == coords.getX() && robotPos.getY() == coords.getY())
+		{
+			gc.setFill(Color.ANTIQUEWHITE);
+			gc.fillRect(robotPos.getX() * tileSize, robotPos.getY() * tileSize, tileSize, tileSize);
 		}
 	}
 }

@@ -1,7 +1,9 @@
 #button
 {
-	-fx-background-color: #0000AD;
+	-fx-background-color: #6495ED;
 	-fx-text-fill: #FFF;
+	-fx-text-transform: uppercase;
+	-fx-font-weight: bold;
 }
 
 .background

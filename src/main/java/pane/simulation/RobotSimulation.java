@@ -80,9 +80,10 @@ public class RobotSimulation extends BaseSimulation
 	private void CreateGrid()
 	{
 		grid = new RobotGrid();
-		grid.setLayoutX(ScreenProperties.getScreenWidth() - Constants.drawnGridSize - 10);
+		grid.setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2);
 		grid.setLayoutY(10);
 		getChildren().add(grid);
+		grid.Redraw();
 	}
 
 	private void OutToArduino(String command)
