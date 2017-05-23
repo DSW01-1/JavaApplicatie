@@ -1,4 +1,4 @@
-package main.java.pane;
+package main.java.pane.database;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -11,6 +11,7 @@ import main.java.graphs.grid.ProductGrid;
 import main.java.main.Main;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
+import main.java.pane.MainMenu;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 

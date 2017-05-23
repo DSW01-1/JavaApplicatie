@@ -9,7 +9,7 @@ import main.java.database.DatabaseConnection;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
-import main.java.pane.DatabaseManagePane;
+import main.java.pane.database.DatabaseManagePane;
 
 public class ProductGrid extends BaseGrid
 {

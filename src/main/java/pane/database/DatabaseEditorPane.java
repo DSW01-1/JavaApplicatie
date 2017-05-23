@@ -1,4 +1,4 @@
-package main.java.pane;
+package main.java.pane.database;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

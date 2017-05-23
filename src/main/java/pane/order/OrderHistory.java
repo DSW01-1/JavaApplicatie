@@ -1,4 +1,4 @@
-package main.java.pane;
+package main.java.pane.order;
 
 import java.util.ArrayList;
 

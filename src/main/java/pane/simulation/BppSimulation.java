@@ -13,8 +13,6 @@ import main.java.graphs.BoxPane;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
-import main.java.pane.ConsolePane;
-import main.java.pane.SimulationControls;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
 import main.java.algorithms.BPPAlgorithm;

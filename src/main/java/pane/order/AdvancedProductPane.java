@@ -1,4 +1,4 @@
-package main.java.pane;
+package main.java.pane.order;
 
 import javafx.scene.control.Label;
 import javafx.scene.text.Font;
