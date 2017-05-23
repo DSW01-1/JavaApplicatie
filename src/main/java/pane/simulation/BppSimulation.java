@@ -236,12 +236,13 @@ public class BppSimulation extends BaseSimulation
 		if (testInputs())
 		{
 			addConsoleItem("Starting.","INFO");
-			Long startTime = System.nanoTime();
+			long startTime = System.nanoTime();
 			consolePane.getItems().clear();
 			algorithmToRun.getBoxes(products);
+			System.out.print(algorithmToRun.returnBoxes);
 			products.clear();
-			Long endTime = System.nanoTime();
-			Long duration = (endTime-startTime)/1000000;
+			long endTime = System.nanoTime();
+			long duration = (endTime-startTime)/1000000;
 			addConsoleItem("Duration (milliseconds): "+duration,"INFO");
 			boxPane.AddBoxList(algorithmToRun.returnBoxes);
 		}
