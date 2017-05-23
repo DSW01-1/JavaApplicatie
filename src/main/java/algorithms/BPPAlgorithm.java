@@ -5,7 +5,15 @@ import main.java.main.product.Product;
 
 import java.util.ArrayList;
 
-public abstract class BPPAlgorithm {
-    public abstract ArrayList<Box> getBoxes(ArrayList<Product> products);
-    public ArrayList<Box> returnBoxes;
+public abstract class BPPAlgorithm
+{
+	/**
+	 * Gets the least amount of boxes
+	 * 
+	 * @param products
+	 * @return
+	 */
+	public abstract ArrayList<Box> getBoxes(ArrayList<Product> products);
+
+	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 }
