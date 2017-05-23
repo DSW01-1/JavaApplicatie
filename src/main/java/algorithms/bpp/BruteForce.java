@@ -18,7 +18,7 @@ public class BruteForce extends BPPAlgorithm
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
 		productList1.addAll(0,products.subList(0,(products.size()/2)-1));
-		productList2.addAll(0,products.subList((products.size()/2),products.size()+1));
+		productList2.addAll(0,products.subList((products.size()/2),products.size()));
 		returnBoxes.clear();
 		Long startTime = System.nanoTime();
 		int currentBoxAmount;
