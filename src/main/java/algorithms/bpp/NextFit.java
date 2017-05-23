@@ -27,7 +27,6 @@ public class NextFit extends BPPAlgorithm
 		return productGegevens;
 	}
 
-	// method to execute algorithm
 	@Override
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
