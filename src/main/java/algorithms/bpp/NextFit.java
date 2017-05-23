@@ -10,8 +10,7 @@ public class NextFit extends BPPAlgorithm
 {
 	// boxVolume gets set from bppSimulation
 	public int boxVolume;
-	// list of boxes returned
-	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
+
 	// initialize currentbox as box with volume 0 so a new box gets created.
 	private Box currentBox = new Box(0);
 
@@ -54,7 +53,7 @@ public class NextFit extends BPPAlgorithm
 		// set currentBox size 0 again so a new one immediately gets initialized
 		// and added next time at execution
 		currentBox = new Box(0);
-		return returnBoxes;
 
+		return returnBoxes;
 	}
 }

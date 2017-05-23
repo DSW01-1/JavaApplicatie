@@ -232,17 +232,22 @@ public class BppSimulation extends BaseSimulation
 	{
 		consolePane.getItems().add(String.format("[%s] %s", msgType, Message));
 	}
-	public void runAlgorithm(BPPAlgorithm algorithmToRun){
+
+	public void runAlgorithm(BPPAlgorithm algorithmToRun)
+	{
 		if (testInputs())
 		{
-			addConsoleItem("Starting.","INFO");
-			Long startTime = System.nanoTime();
+			addConsoleItem("Starting.", "INFO");
 			consolePane.getItems().clear();
+
+			long startTime = System.nanoTime();
 			algorithmToRun.getBoxes(products);
+			long endTime = System.nanoTime();
+
 			products.clear();
-			Long endTime = System.nanoTime();
-			Long duration = (endTime-startTime)/1000000;
-			addConsoleItem("Duration (milliseconds): "+duration,"INFO");
+			float duration = (endTime - startTime) / 1000000f;
+			addConsoleItem("Duration (milliseconds): " + duration, "INFO");
+					
 			boxPane.AddBoxList(algorithmToRun.returnBoxes);
 		}
 	}
