@@ -10,8 +10,9 @@ import main.java.graphs.grid.RobotGrid;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.StyledButton;
+import main.java.pane.base.StyledPane;
 
-public class RobotSimulation extends BaseSimulation
+public class RobotSimulation extends StyledPane
 {
 
 	private RobotGrid grid;

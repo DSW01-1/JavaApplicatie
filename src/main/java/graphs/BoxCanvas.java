@@ -1,9 +1,12 @@
 package main.java.graphs;
 
+import java.util.ArrayList;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import main.java.constant.Constants;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
 
@@ -25,23 +28,40 @@ public class BoxCanvas extends Canvas
 	public void Redraw()
 	{
 		int fillAmount = 0;
+		ArrayList<Product> products = box.GetProductArray();
 		Color color;
-		for (Product product : box.GetProductArray())
+
+		for (int i = 0; i < products.size(); i++)
 		{
-			int relativeProductHeight = (int) ((getHeight() / box.GetTotalSpace()) * product.GetSizeInInt());
+			int relativeProductHeight = (int) ((getHeight() / box.GetTotalSpace()) * products.get(i).GetSizeInInt());
 			int x = 0;
 			int y = (int) (getHeight() - relativeProductHeight - fillAmount);
 			int w = (int) getWidth();
 			int h = relativeProductHeight;
 
 			fillAmount += relativeProductHeight;
-			color = Color.rgb((int) Math.floor(Math.random() * (256 - 128)) + 128, (int) Math.floor(Math.random() * (256 - 128)) + 128, (int) Math.floor(Math.random() * (256 - 128)) + 128);
+
+			// Rainbow all the way
+			if (products.size() == 7)
+			{
+				color = Constants.GetRainbowColor(6 - i);
+			}
+			else
+			{
+				color = Color.rgb((int) Math.floor(Math.random() * (256 - 128)) + 128,
+						(int) Math.floor(Math.random() * (256 - 128)) + 128,
+						(int) Math.floor(Math.random() * (256 - 128)) + 128);
+			}
+
+			// Draw the box
 			gc.setFill(color);
 			gc.fillRect(x, y, w, h);
+
+			// Draw the number
 			String fontName = "largeFont";
-			gc.setFont(new Font(fontName,24));
+			gc.setFont(new Font(fontName, 24));
 			gc.setFill(Color.BLACK);
-			gc.fillText(String.valueOf(product.GetSizeInInt()),(w/2)-8,y+relativeProductHeight/2);
+			gc.fillText(String.valueOf(products.get(i).GetSizeInInt()), (w / 2) - 8, y + relativeProductHeight / 2);
 		}
 
 		gc.setFill(Color.BLACK);
