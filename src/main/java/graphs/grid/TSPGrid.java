@@ -229,16 +229,6 @@ public class TSPGrid extends BaseGrid
 		Redraw();
 	}
 
-	/**
-	 * Get the current robot position
-	 * 
-	 * @return
-	 */
-	public Vector2 GetRobotPos()
-	{
-		return robotPos;
-	}
-
 	public void SetGridColor(String color)
 	{
 		switch (color)

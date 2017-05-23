@@ -40,10 +40,13 @@ public class RobotGrid extends BaseGrid
 	@Override
 	public void Redraw()
 	{
+		gc.clearRect(0, 0, getWidth(), getHeight());
+		gc.setLineWidth(1);
+
 		for (GridTile tile : gridTileArray)
 		{
 			// Draw the Robot position if possible
-			if (currentRobotPos == tile.GetPos())
+			if (robotPos != null)
 			{
 				DrawRobotPos(new Vector2(tile.getXcoord(), tile.getYcoord()));
 			}

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import main.java.constant.Constants;
-import main.java.constant.NameConstant;
+import main.java.constant.NameConstants;
 import main.java.database.DatabaseConnection;
 import main.java.database.DatabaseManagement;
 import main.java.graphs.grid.ProductGrid;
@@ -104,7 +104,7 @@ public class DatabaseManagePane extends StyledPane
 						// Create a new product with a random name and a random
 						// size
 						Random r = new Random();
-						Product product = new Product(NameConstant.GetRandomName(), new Vector2(x + 1, y + 1),
+						Product product = new Product(NameConstants.GetRandomProductName(), new Vector2(x + 1, y + 1),
 								r.nextInt(10));
 						newProductArray.add(product);
 					}

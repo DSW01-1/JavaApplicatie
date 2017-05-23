@@ -112,6 +112,16 @@ public abstract class BaseGrid extends Canvas
 	}
 
 	/**
+	 * Get the current robot position
+	 * 
+	 * @return
+	 */
+	public Vector2 GetRobotPos()
+	{
+		return robotPos;
+	}
+
+	/**
 	 * Draw the current Robot position on the grid
 	 * 
 	 * @param coords
