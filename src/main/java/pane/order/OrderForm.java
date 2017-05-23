@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import main.java.database.DatabaseConnection;
+import main.java.database.DatabaseOrder;
 import main.java.handler.JsonHandler;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
@@ -108,7 +110,7 @@ public class OrderForm extends GridPane
 		}
 
 		JsonHandler.SaveOrderToJSON(userData, productID);
-
+		DatabaseOrder.addOrderToDatabase(JsonHandler.GetNewestOrder());
 		StyledPane[] tabArray =
 		{ new RobotTab(), new BPPTab() };
 

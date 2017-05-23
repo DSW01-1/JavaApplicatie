@@ -70,21 +70,21 @@ public class DatabaseOrder
 		{
 			for(String productnr: order.getProductnumber()){
 				PreparedStatement preparedStatementReceipt = conn.prepareStatement(receiptStatement);
-				preparedStatementReceipt.setString(0,order.getOrderid());
-				preparedStatementReceipt.setString(1,productnr);
+				preparedStatementReceipt.setString(1, String.valueOf(getLastReceiptIndex()+1));
+				preparedStatementReceipt.setString(2,productnr);
 				preparedStatementReceipt.executeUpdate();
 			}
 
 			PreparedStatement preparedStatementOrder = conn.prepareStatement(orderStatement);
-			preparedStatementOrder.setInt(0, order.getCustomerinfo().getId());
-			preparedStatementOrder.setString(1, order.getDate());
+			preparedStatementOrder.setInt(1, order.getCustomerinfo().getId());
+			preparedStatementOrder.setString(2, order.getDate());
 
 			PreparedStatement preparedStatementCustomer = conn.prepareStatement(customerStatement);
-			preparedStatementCustomer.setString(0, order.getCustomerinfo().getFirstname());
-			preparedStatementCustomer.setString(1, order.getCustomerinfo().getLastname());
-			preparedStatementCustomer.setString(2, order.getCustomerinfo().getAddress());
-			preparedStatementCustomer.setString(3, order.getCustomerinfo().getZipcode());
-			preparedStatementCustomer.setString(4, order.getCustomerinfo().getCity());
+			preparedStatementCustomer.setString(1, order.getCustomerinfo().getFirstname());
+			preparedStatementCustomer.setString(2, order.getCustomerinfo().getLastname());
+			preparedStatementCustomer.setString(3, order.getCustomerinfo().getAddress());
+			preparedStatementCustomer.setString(4, order.getCustomerinfo().getZipcode());
+			preparedStatementCustomer.setString(5, order.getCustomerinfo().getCity());
 
 			preparedStatementOrder.executeUpdate();
 			preparedStatementCustomer.executeUpdate();
@@ -94,5 +94,17 @@ public class DatabaseOrder
 		{
 			e.printStackTrace();
 		}
+	}
+	public static int getLastReceiptIndex() {
+		int toReturn =0;
+		ResultSet rs = DatabaseConnection.GetDataFromDatabase("select * from receipts order by orderid desc limit 1;");
+		try {
+			while(rs.first()){
+				toReturn = rs.getInt("Orderid");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return toReturn;
 	}
 }
