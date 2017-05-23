@@ -3,6 +3,7 @@ package main.java.graphs;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
 
@@ -24,7 +25,7 @@ public class BoxCanvas extends Canvas
 	public void Redraw()
 	{
 		int fillAmount = 0;
-
+		Color color;
 		for (Product product : box.GetProductArray())
 		{
 			int relativeProductHeight = (int) ((getHeight() / box.GetTotalSpace()) * product.GetSizeInInt());
@@ -34,13 +35,13 @@ public class BoxCanvas extends Canvas
 			int h = relativeProductHeight;
 
 			fillAmount += relativeProductHeight;
-
-			Color color = Color.color(Math.random(), Math.random(), Math.random(), 1);
-
+			color = Color.rgb((int) Math.floor(Math.random() * (256 - 128)) + 128, (int) Math.floor(Math.random() * (256 - 128)) + 128, (int) Math.floor(Math.random() * (256 - 128)) + 128);
 			gc.setFill(color);
 			gc.fillRect(x, y, w, h);
-			gc.setFill(Color.WHITE);
-			gc.fillText(String.valueOf(product.GetSizeInInt()),w/2,fillAmount/2);
+			String fontName = "largeFont";
+			gc.setFont(new Font(fontName,24));
+			gc.setFill(Color.BLACK);
+			gc.fillText(String.valueOf(product.GetSizeInInt()),(w/2)-8,y+relativeProductHeight/2);
 		}
 
 		gc.setFill(Color.BLACK);
