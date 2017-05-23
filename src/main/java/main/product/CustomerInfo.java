@@ -20,6 +20,9 @@ public class CustomerInfo
 	@SerializedName("city")
 	@Expose
 	private String city;
+	@SerializedName("id")
+	@Expose
+	private int id;
 
 	public String getFirstname()
 	{
@@ -69,5 +72,13 @@ public class CustomerInfo
 	public void setCity(String city)
 	{
 		this.city = city;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }
