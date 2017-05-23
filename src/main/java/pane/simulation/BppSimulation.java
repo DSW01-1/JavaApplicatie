@@ -64,7 +64,7 @@ public class BppSimulation extends BaseSimulation
 			firstFit.getBoxes(products);
 			products.clear();
 			addConsoleItem("Boxes needed: " + firstFit.returnBoxes.size(), "DEBUG");
-			boxPane.AddBoxList(nextFit.returnBoxes);
+			boxPane.AddBoxList(firstFit.returnBoxes);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class BppSimulation extends BaseSimulation
 			bruteForce.getBoxes(products);
 			products.clear();
 			addConsoleItem("Boxes needed: " + bruteForce.returnBoxes.size(), "DEBUG");
-			boxPane.AddBoxList(nextFit.returnBoxes);
+			boxPane.AddBoxList(bruteForce.returnBoxes);
 		}
 		consolePane.getItems().clear();
 		bruteForce.getBoxes(products);
@@ -93,7 +93,7 @@ public class BppSimulation extends BaseSimulation
 			decreasingFirstFit.getBoxes(products);
 			products.clear();
 			addConsoleItem("Boxes needed: " + decreasingFirstFit.returnBoxes.size(), "DEBUG");
-			boxPane.AddBoxList(nextFit.returnBoxes);
+			boxPane.AddBoxList(decreasingFirstFit.returnBoxes);
 		}
 	}
 
