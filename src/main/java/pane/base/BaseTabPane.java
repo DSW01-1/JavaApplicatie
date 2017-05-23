@@ -34,6 +34,5 @@ public class BaseTabPane extends StyledPane
 		}
 
 		getChildren().add(tabPane);
-
 	}
 }

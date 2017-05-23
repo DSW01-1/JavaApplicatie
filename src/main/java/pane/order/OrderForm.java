@@ -14,7 +14,6 @@ import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
 import main.java.pane.tab.BPPTab;
 import main.java.pane.tab.RobotTab;
-import main.java.pane.tab.TSPTab;
 
 public class OrderForm extends GridPane
 {
@@ -111,12 +110,12 @@ public class OrderForm extends GridPane
 		JsonHandler.SaveOrderToJSON(userData, productID);
 
 		StyledPane[] tabArray =
-		{ new RobotTab(), new TSPTab(), new BPPTab() };
+		{ new RobotTab(), new BPPTab() };
 
 		String[] nameArray =
-		{ "Robot", "TSP", "BPP" };
+		{ "Robot & TSP", "BPP" };
 
-		Main.SwitchPane(new BaseTabPane(nameArray, tabArray));
+		Main.SwitchPane(new OrderTabPane(nameArray, tabArray));
 	}
 
 }
