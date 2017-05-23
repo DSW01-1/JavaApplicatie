@@ -1,20 +1,24 @@
 package main.java.controller;
 
 import main.java.constant.ArduinoConstants;
-import main.java.graphs.grid.TSPGrid;
+import main.java.graphs.grid.RobotGrid;
 import main.java.handler.ArduinoCommunicationHandler;
 import main.java.main.Vector2;
 
 public class ArduinoController
 {
 	private ArduinoCommunicationHandler comHandler;
-	private TSPGrid grid;
+	private RobotGrid grid;
 
-	public ArduinoController(TSPGrid grid)
+	public ArduinoController(RobotGrid grid)
+	{
+		this.grid = grid;
+	}
+
+	public void EstablishConnection()
 	{
 		comHandler = new ArduinoCommunicationHandler(this);
 		comHandler.EstablishConnection();
-		this.grid = grid;
 	}
 
 	public void HandleInput(String input)

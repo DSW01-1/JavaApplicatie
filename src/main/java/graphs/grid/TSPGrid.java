@@ -105,6 +105,7 @@ public class TSPGrid extends BaseGrid
 				selectedTiles.add(currentTile);
 			}
 		}
+		
 		return selectedTiles;
 	}
 

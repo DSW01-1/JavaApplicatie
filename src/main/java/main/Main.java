@@ -2,6 +2,7 @@ package main.java.main;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.java.constant.Constants;
 import main.java.handler.LogHandler;
@@ -18,6 +19,7 @@ public class Main extends Application
 		try
 		{
 			Main.primaryStage = primaryStage;
+			primaryStage.getIcons().add(new Image(Constants.ApplicationIcon));
 
 			SwitchPane(new MainMenu());
 
