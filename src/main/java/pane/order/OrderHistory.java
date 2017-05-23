@@ -12,6 +12,10 @@ import main.java.pane.base.StyledScrollPane;
 
 public class OrderHistory extends StyledPane
 {
+	public OrderHistory()
+	{
+		super();
+	}
 
 	@Override
 	public void InitPane()

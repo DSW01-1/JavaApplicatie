@@ -2,6 +2,7 @@ package main.java.pane.order;
 
 import java.util.ArrayList;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -10,7 +11,6 @@ import main.java.database.DatabaseOrder;
 import main.java.handler.JsonHandler;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
-import main.java.pane.base.BaseTabPane;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
@@ -54,7 +54,15 @@ public class OrderForm extends GridPane
 
 	public void AddButton()
 	{
-		// The order button, can't be pressed if no items are in the rightcolumn
+		Button button = new Button("Skip");
+		button.setLayoutX(200);
+		button.setOnAction(event ->
+		{
+			SwitchToMainApp();
+		});
+		add(button, 2, labelArray.length);
+
+		// The orderbutton, can't be pressed if no items are in the rightcolumn
 		StyledButton orderButton = new StyledButton("btn.order");
 		orderButton.setOnAction(event ->
 		{
@@ -111,6 +119,12 @@ public class OrderForm extends GridPane
 
 		JsonHandler.SaveOrderToJSON(userData, productID);
 		DatabaseOrder.addOrderToDatabase(JsonHandler.GetNewestOrder());
+
+		SwitchToMainApp();
+	}
+
+	private void SwitchToMainApp()
+	{
 		StyledPane[] tabArray =
 		{ new RobotTab(), new BPPTab() };
 

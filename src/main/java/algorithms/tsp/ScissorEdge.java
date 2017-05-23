@@ -21,13 +21,13 @@ public class ScissorEdge implements ITspAlgorithm
 
 	@Override
 	public ArrayList<Vector2> GetShortestPath(ArrayList<Vector2> points)
-	{		
+	{
 		remainingPoints = points;
 		leftSideList = new ArrayList<Vector2>();
 		rightSideList = new ArrayList<Vector2>();
 		rightSideList.add(new Vector2(1, 1));
 
-		while (remainingPoints.size() > 0 && currentIndex < 100)
+		while (remainingPoints.size() > 0)
 		{
 			if ((currentIndex % 2) == 0)
 			{
