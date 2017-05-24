@@ -26,10 +26,7 @@ public class TotalEnumeration extends Thread
 	private int progress = 0;
 	private int state = 0; // 0 = inactive, 1 = suspended, 2 = active
 
-	float estInSec = 0;
-	float estTenSec = 0;
-	long estStart = 0;
-
+	private int frameCounter = 0;
 
 	// Algorithm controls
 	public synchronized void suspendII()
@@ -227,11 +224,20 @@ public class TotalEnumeration extends Thread
 
 		tileCoordinates.add(new Vector2(lastCoorX, lastCoorY));
 
+
 		if (totalLength < this.pathLength || this.pathLength == 0)
 		{
 			this.pathLength = totalLength;
 			shortestPath = new EnumPath(this.pathLength, tileCoordinates);
 
+		}
+		EnumPath curPath = new EnumPath(this.pathLength, tileCoordinates);
+
+		if(frameCounter >= 50000){
+			simulation.updatePath(curPath.getTiles());
+			frameCounter = 0;
+		}else{
+			frameCounter++;
 		}
 
 
@@ -241,6 +247,8 @@ public class TotalEnumeration extends Thread
 			double calc = (double) this.progress / factor;
 			simulation.progression.setProgress(calc);
 		}
+
+
 
 	}
 
