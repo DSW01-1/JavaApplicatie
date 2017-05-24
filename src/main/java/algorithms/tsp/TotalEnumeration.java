@@ -102,7 +102,6 @@ public class TotalEnumeration extends Thread
 	{
 		// preparing algorithm
 		state = 2;
-		long startTime = System.nanoTime();
 		if (logging)
 		{
 			Platform.runLater(new Runnable()
@@ -122,8 +121,8 @@ public class TotalEnumeration extends Thread
 			tileIndexes[i] = i;
 		}
 
-
 		// Calculate amount of "possible" paths
+
 		if (state != 0)
 		{
 			setFactor(tileList.size());
@@ -138,39 +137,31 @@ public class TotalEnumeration extends Thread
 					}
 				});
 			}
-			showPermutations(0, tileIndexes);
 		}
 
+
+		/* ================= ALGORITHM =============================== */
+		long startTime = System.nanoTime();
+
 		// Calculating shortest path
+		if(state != 0){
+			showPermutations(0, tileIndexes);
+		}
+		/* ================= ALGORITHM =============================== */
+
+
+		// Applying shortest path
 		ArrayList<Vector2> shortestPath = new ArrayList<Vector2>();
 		if (state != 0)
 		{
 			shortestPath = this.getShortestPath();
-			Platform.runLater(new Runnable()
-			{
-				@Override
-				public void run()
-				{
-					simulation.addConsoleItem("Applying path to the grid..", "INFO");
-				}
-			});
 			simulation.updatePath(shortestPath);
-			if (logging)
-			{
-				Platform.runLater(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						simulation.addConsoleItem("Finished configuring 'total enumeration' algorithm", "INFO");
-					}
-				});
-			}
 		}
+
 
 		// Finishing algorithm
 		long stopTime = System.nanoTime();
-		float duration = (stopTime - startTime) / 100000f;
+		float duration = ( (stopTime - startTime) / 1000000f) / 1000f; // naar sec
 		ArrayList<Vector2> pathLength = shortestPath;
 
 		if (logging)
@@ -198,8 +189,6 @@ public class TotalEnumeration extends Thread
 	/* ====================================| Process shortest path |=========================================== */
 	public void processShortestPath(int[] indexList)
 	{
-
-
 		double totalLength = 0;
 		ArrayList<Vector2> tileCoordinates = new ArrayList<>();
 
@@ -222,6 +211,7 @@ public class TotalEnumeration extends Thread
 		double xyDiff = Math.hypot(lastCoorX, lastCoorY);
 		totalLength += xyDiff;
 
+
 		tileCoordinates.add(new Vector2(lastCoorX, lastCoorY));
 
 
@@ -229,28 +219,15 @@ public class TotalEnumeration extends Thread
 		{
 			this.pathLength = totalLength;
 			shortestPath = new EnumPath(this.pathLength, tileCoordinates);
-
-		}
-		EnumPath curPath = new EnumPath(this.pathLength, tileCoordinates);
-
-		if(frameCounter >= 50000){
-			simulation.updatePath(curPath.getTiles());
-			frameCounter = 0;
-		}else{
-			frameCounter++;
 		}
 
-
-
-		if (logging)
-		{
-			double calc = (double) this.progress / factor;
-			simulation.progression.setProgress(calc);
-		}
-
-
-
+		//if (logging)
+		//{
+		//	double calc = (double) this.progress / factor;
+		//	simulation.progression.setProgress(calc);
+		//}
 	}
+
 
 	void permute(int[] a, int k)
 	{
@@ -276,13 +253,11 @@ public class TotalEnumeration extends Thread
 			{
 				processShortestPath(a);
 				this.progress++;
-
 			}
 			else
 			{
 				for (int i = k; i < a.length; i++)
 				{
-
 					int temp = a[k];
 					a[k] = a[i];
 					a[i] = temp;
@@ -297,6 +272,7 @@ public class TotalEnumeration extends Thread
 
 	}
 
+
 	public void setFactor(int m)
 	{
 		for (int y = (m - 1); y > 0; y--)
@@ -305,6 +281,7 @@ public class TotalEnumeration extends Thread
 		}
 		this.factor = m;
 	}
+	
 
 	public void cleanKill()
 	{
