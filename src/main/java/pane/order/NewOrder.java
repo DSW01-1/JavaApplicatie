@@ -33,7 +33,7 @@ public class NewOrder extends StyledPane
 
 	private void CreateForm()
 	{
-		OrderForm form = new OrderForm(rightColumnVBox);
+		OrderForm form = new OrderForm(rightColumnVBox, this);
 		getChildren().add(form);
 	}
 

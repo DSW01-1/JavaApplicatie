@@ -90,7 +90,7 @@ public class DatabaseManagePane extends StyledPane
 			for (Product product : productList)
 			{
 				// Add the product to the corresponding coord in the array
-				productArray[(int) product.GetCoords().getX()][(int) product.GetCoords().getY()] = product;
+				productArray[(int) product.GetCoords().getX() - 1][(int) product.GetCoords().getY() - 1] = product;
 			}
 
 			// For every possible coordinate on the grid

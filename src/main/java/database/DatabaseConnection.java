@@ -160,4 +160,37 @@ public class DatabaseConnection
 		}
 		return rs;
 	}
+
+	public static Product GetProductInfo(int productId)
+	{
+		Product product = null;
+
+		System.out.println(productId);
+
+		try
+		{
+			// Path of the product table
+			String table = Constants.databaseName + "." + Constants.productTableName;
+			ResultSet rs = GetDataFromDatabase("select * from " + table + "where productid = " + productId);
+
+			if (rs != null)
+			{
+				product = new Product(productId, rs.getString("productname"),
+						new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("productsize"));
+			}
+		}
+		catch (SQLException e)
+		{
+			if (e.getSQLState().startsWith("42"))
+			{
+				LogHandler.WriteErrorToLogFile(e, "SQL Exception: Table does not exist");
+			}
+			else
+			{
+				LogHandler.WriteErrorToLogFile(e, "SQL Exception: " + e.getSQLState() + ", Check list for error");
+			}
+		}
+
+		return product;
+	}
 }

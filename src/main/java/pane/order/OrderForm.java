@@ -1,16 +1,21 @@
 package main.java.pane.order;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import main.java.database.DatabaseConnection;
 import main.java.database.DatabaseOrder;
 import main.java.handler.JsonHandler;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
+import main.java.main.product.Order;
+import main.java.main.product.Product;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
@@ -21,21 +26,23 @@ public class OrderForm extends GridPane
 {
 	private TextField[] formItems;
 	private VBox rightColumnVBox;
+	private NewOrder newOrder;
 	private String[] labelArray =
 	{ "form.firstname", "form.lastname", "form.address", "form.zipcode", "form.city" };
 	private TextField[] textFields = new TextField[labelArray.length];
 
-	public OrderForm(VBox rightColumnVBox)
+	public OrderForm(VBox rightColumnVBox, NewOrder newOrder)
 	{
 		super();
 		this.rightColumnVBox = rightColumnVBox;
+		this.newOrder = newOrder;
 		setLayoutX(ScreenProperties.getScreenWidth() / 4 * 2.5f);
 		setLayoutY(300);
 		setHgap(15);
 		setVgap(15);
 
 		AddLabels();
-		AddButton();
+		AddButtons();
 	}
 
 	public void AddLabels()
@@ -52,7 +59,7 @@ public class OrderForm extends GridPane
 		}
 	}
 
-	public void AddButton()
+	public void AddButtons()
 	{
 		Button button = new Button("Skip");
 		button.setLayoutX(200);
@@ -61,6 +68,39 @@ public class OrderForm extends GridPane
 			SwitchToMainApp();
 		});
 		add(button, 2, labelArray.length);
+
+		// Load Button
+		StyledButton loadOrderButton = new StyledButton("btn.loadOrder");
+		loadOrderButton.setOnAction(event ->
+		{
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Resource File");
+			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Json Files", "*.json"));
+			File selectedFile = fileChooser.showOpenDialog(loadOrderButton.getScene().getWindow());
+			if (selectedFile != null)
+			{
+				Order order = JsonHandler.FileToJson(selectedFile);
+
+				for (int i = 0; i < textFields.length; i++)
+				{
+					String[] cusInfo = order.getCustomerinfoArray();
+
+					textFields[i].setText(cusInfo[i]);
+				}
+
+				ArrayList<String> productID = new ArrayList<String>();
+
+				for (int i = 0; i < order.getProducts().size(); i++)
+				{
+					Product product = DatabaseConnection.GetProductInfo(Integer.parseInt(order.getProducts().get(i)));
+
+					// ProductPane productPane = new ProductPane(product,
+					// "right", newOrder);
+				}
+
+			}
+		});
+		add(loadOrderButton, 0, labelArray.length);
 
 		// The orderbutton, can't be pressed if no items are in the rightcolumn
 		StyledButton orderButton = new StyledButton("btn.order");
