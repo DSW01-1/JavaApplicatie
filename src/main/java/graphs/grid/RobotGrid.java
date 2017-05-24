@@ -6,13 +6,13 @@ import main.java.main.Vector2;
 
 public class RobotGrid extends BaseGrid
 {
-
 	private Vector2 currentRobotPos = new Vector2(1, 1);
 	private GridTile selectedTile;
 
 	public RobotGrid()
 	{
 		super(5);
+		AddMouseEventHandler();
 	}
 
 	@Override
@@ -27,10 +27,24 @@ public class RobotGrid extends BaseGrid
 			{
 				if (tile.getXcoord() == x && tile.getYcoord() == y)
 				{
-					System.out.println("jiouuhhuyugyug");
-					tile.SetSelected(true);
-					selectedTile.SetSelected(false);
-					selectedTile = tile;
+					if (selectedTile != null)
+					{
+						if (selectedTile != tile)
+						{
+							tile.SetSelected(true);
+							selectedTile.SetSelected(false);
+							selectedTile = tile;
+						}
+						else
+						{
+							selectedTile.SetSelected(!selectedTile.IsSelected());
+						}
+					}
+					else
+					{
+						selectedTile = tile;
+						selectedTile.SetSelected(true);
+					}
 				}
 			}
 			Redraw();
@@ -46,9 +60,9 @@ public class RobotGrid extends BaseGrid
 		for (GridTile tile : gridTileArray)
 		{
 			// Draw the Robot position if possible
-			if (robotPos != null)
+			if (currentRobotPos == tile.GetPos())
 			{
-				DrawRobotPos(new Vector2(tile.getXcoord(), tile.getYcoord()));
+				DrawRobotPos(currentRobotPos);
 			}
 
 			// Draw a tile if it is selected
@@ -66,13 +80,21 @@ public class RobotGrid extends BaseGrid
 		double x = selectedTile.GetPos().getX() * tileSize - (miniGrid * 5);
 		double y = selectedTile.GetPos().getY() * tileSize - (miniGrid * 5);
 
-		gc.setFill(Color.AQUA);
+		gc.setFill(Color.DODGERBLUE);
 		gc.fillRoundRect(x, y, miniGrid * 4, miniGrid * 4, 8, 8);
 	}
 
 	public void SetRobotPos(Vector2 vector2)
 	{
 		// TODO Auto-generated method stub
-
+	}
+	
+	/**
+	 * Get the current selected tile
+	 * @return  GridTile
+	 */
+	public GridTile GetSelectedTile()
+	{
+		return selectedTile;		
 	}
 }

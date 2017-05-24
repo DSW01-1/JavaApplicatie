@@ -5,6 +5,8 @@ import javafx.scene.control.TextField;
 import main.java.constant.Constants;
 import main.java.database.DatabaseManagement;
 import main.java.graphs.grid.ProductGrid;
+import main.java.handler.LogHandler;
+import main.java.main.Language;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
@@ -93,6 +95,8 @@ public class DatabaseEditorPane extends StyledPane
 				DatabaseManagement.UpdateProduct(product);
 			}
 			grid.UpdateProductArray();
+			System.out.println("Test");
+			LogHandler.ShowWarning(Language.getTranslation("warning.productAdded"),"Ok");
 		});
 		getChildren().add(confirmButton);
 	}

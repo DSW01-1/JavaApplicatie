@@ -17,6 +17,7 @@ public class TSPGrid extends BaseGrid
 	private boolean isActive = false;
 	private boolean isInteractive;
 	private ITspAlgorithm usedAlgorithm;
+	private double pathLength;
 	public int tileAmount;
 
 	/**
@@ -124,9 +125,11 @@ public class TSPGrid extends BaseGrid
 	 * 
 	 * @param customArray
 	 */
-	public void Redraw(ArrayList<Vector2> customArray)
+	public void Redraw(ArrayList<Vector2> customArray, double pathLength)
 	{
 		pathList = customArray;
+		this.pathLength = pathLength;
+
 		Redraw();
 	}
 
@@ -153,22 +156,22 @@ public class TSPGrid extends BaseGrid
 	public void DrawPathLines(ArrayList<Vector2> points)
 	{
 		gc.setLineWidth(5);
-		gc.setStroke(lineColor);
+		gc.setStroke(Constants.GetBlzitNumber(pathLength) ? Constants.standardBlzitColor : lineColor);
 
 		if (usedAlgorithm instanceof ScissorEdge)
 		{
-			gc.setStroke(Color.RED);
+			gc.setStroke(Constants.GetBlzitNumber(pathLength) ? Constants.standardBlzitColor : Color.RED);
 			for (int i = 0; i <= ((points.size() - 2) / 2); i++)
 			{
 				double[] pathCoords = GetPathLine(points.get(i), points.get(i + 1));
 				gc.strokeLine(pathCoords[0], pathCoords[2], pathCoords[1], pathCoords[3]);
 			}
 
-			gc.setStroke(Color.PURPLE);
+			gc.setStroke(Constants.GetBlzitNumber(pathLength) ? Constants.standardBlzitColor : Color.PURPLE);
 			double[] pathCoords1 = GetPathLine(points.get((points.size() / 2) - 1), points.get((points.size() / 2)));
 			gc.strokeLine(pathCoords1[0], pathCoords1[2], pathCoords1[1], pathCoords1[3]);
 
-			gc.setStroke(Color.BLUE);
+			gc.setStroke(Constants.GetBlzitNumber(pathLength) ? Constants.standardBlzitColor : Color.BLUE);
 			for (int i = (points.size() / 2); i < points.size() - 1; i++)
 			{
 				double[] pathCoords = GetPathLine(points.get(i), points.get(i + 1));

@@ -22,7 +22,7 @@ public class BaseTabPane extends StyledPane
 	/**
 	 * Create the tabpane
 	 */
-	private void CreateTabPane()
+	protected void CreateTabPane()
 	{
 		StyledTabPane tabPane = new StyledTabPane();
 
@@ -34,6 +34,5 @@ public class BaseTabPane extends StyledPane
 		}
 
 		getChildren().add(tabPane);
-
 	}
 }
