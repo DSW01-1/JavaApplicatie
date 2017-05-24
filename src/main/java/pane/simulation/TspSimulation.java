@@ -55,12 +55,6 @@ public class TspSimulation extends BaseSimulation
 		progression.setPrefHeight(30);
 		progression.setProgress(0);
 		getChildren().add(progression);
-
-		this.lblProgSec = new Label("0 sec");
-
-		lblProgSec.setLayoutX((ScreenProperties.getScreenWidth() / 4) + 25);
-		lblProgSec.setLayoutY(290);
-		getChildren().add(lblProgSec);
 	}
 
 	/**
