@@ -83,7 +83,8 @@ public class NewOrder extends StyledPane
 		{
 			TextArea text = new TextArea(Language.getTranslation("warning.nodatabaseconnection"));
 			text.setWrapText(true);
-			text.setMaxWidth(200);
+			text.setMinWidth(298);
+			text.setPrefHeight(598);
 			text.setEditable(false);
 
 			leftColumnVBox.getChildren().add(text);

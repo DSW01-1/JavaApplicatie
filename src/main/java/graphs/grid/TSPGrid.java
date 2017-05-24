@@ -11,8 +11,6 @@ import main.java.main.Vector2;
 
 public class TSPGrid extends BaseGrid
 {
-	private Color lineColor = Constants.standardLineColor;
-	private Color tileColor = Constants.standardTileColor;
 	private ArrayList<Vector2> pathList;
 	private boolean isActive = false;
 	private boolean isInteractive;
@@ -114,7 +112,7 @@ public class TSPGrid extends BaseGrid
 			// Draw a tile if it is selected
 			if (tile.IsSelected())
 			{
-				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
+				DrawTile(new Vector2(tile.getXcoord(), tile.getYcoord()));
 			}
 		}
 		super.Redraw();
@@ -127,25 +125,10 @@ public class TSPGrid extends BaseGrid
 	 */
 	public void Redraw(ArrayList<Vector2> customArray, double pathLength)
 	{
-		pathList = customArray;
 		this.pathLength = pathLength;
+		pathList = customArray;
 
 		Redraw();
-	}
-
-	/**
-	 * Draw circles on the tiles that are selected
-	 * 
-	 * @param tilePos
-	 */
-	public void DrawTileIfSelected(Vector2 tilePos)
-	{
-		double miniGrid = tileSize / 6;
-		double x = tilePos.getX() * tileSize - (miniGrid * 5);
-		double y = tilePos.getY() * tileSize - (miniGrid * 5);
-
-		gc.setFill(tileColor);
-		gc.fillRoundRect(x, y, miniGrid * 4, miniGrid * 4, 8, 8);
 	}
 
 	/**
@@ -186,7 +169,6 @@ public class TSPGrid extends BaseGrid
 				gc.strokeLine(pathCoords[0], pathCoords[2], pathCoords[1], pathCoords[3]);
 			}
 		}
-
 	}
 
 	/**
@@ -229,30 +211,6 @@ public class TSPGrid extends BaseGrid
 			robotPos.setY((int) (robotPos.getY() + transPos.getY()));
 		}
 
-		Redraw();
-	}
-
-	public void SetGridColor(String color)
-	{
-		switch (color)
-		{
-		case "black":
-			tileColor = Color.BLACK;
-			lineColor = Color.GRAY;
-			break;
-		case "red":
-			tileColor = Color.DARKRED;
-			lineColor = Color.RED;
-			break;
-		case "blue":
-			tileColor = Color.DARKBLUE;
-			lineColor = Color.BLUE;
-			break;
-		case "green":
-			tileColor = Color.DARKGREEN;
-			lineColor = Color.GREEN;
-			break;
-		}
 		Redraw();
 	}
 

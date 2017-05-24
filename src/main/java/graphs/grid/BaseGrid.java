@@ -10,6 +10,8 @@ import main.java.main.Vector2;
 
 public abstract class BaseGrid extends Canvas
 {
+	protected Color lineColor = Constants.standardLineColor;
+	protected Color tileColor = Constants.standardTileColor;
 	protected ArrayList<GridTile> gridTileArray;
 	public GraphicsContext gc;
 	protected int tileAmount;
@@ -35,6 +37,8 @@ public abstract class BaseGrid extends Canvas
 
 	/**
 	 * Redraw the grid
+	 * 
+	 * @param products
 	 */
 	public void Redraw()
 	{
@@ -133,5 +137,44 @@ public abstract class BaseGrid extends Canvas
 			gc.setFill(Color.ANTIQUEWHITE);
 			gc.fillRect(robotPos.getX() * tileSize, robotPos.getY() * tileSize, tileSize, tileSize);
 		}
+	}
+
+	/**
+	 * Draw rounded rectangles on the tiles that are selected
+	 * 
+	 * @param tilePos
+	 */
+	public void DrawTile(Vector2 tilePos)
+	{
+		double miniGrid = tileSize / 6;
+		double x = tilePos.getX() * tileSize - (miniGrid * 5);
+		double y = tilePos.getY() * tileSize - (miniGrid * 5);
+
+		gc.setFill(tileColor);
+		gc.fillRoundRect(x, y, miniGrid * 4, miniGrid * 4, 8, 8);
+	}
+
+	public void SetGridColor(String color)
+	{
+		switch (color)
+		{
+		case "black":
+			tileColor = Color.BLACK;
+			lineColor = Color.GRAY;
+			break;
+		case "red":
+			tileColor = Color.DARKRED;
+			lineColor = Color.RED;
+			break;
+		case "blue":
+			tileColor = Color.DARKBLUE;
+			lineColor = Color.BLUE;
+			break;
+		case "green":
+			tileColor = Color.DARKGREEN;
+			lineColor = Color.GREEN;
+			break;
+		}
+		Redraw();
 	}
 }

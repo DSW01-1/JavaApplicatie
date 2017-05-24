@@ -56,6 +56,8 @@ public class DatabaseConnection
 				{
 					try
 					{
+						System.out.println(Constants.usbWebServer);
+						
 						// Try to open the webserver
 						String cmd = Constants.usbWebServer;
 						Runtime.getRuntime().exec(cmd);

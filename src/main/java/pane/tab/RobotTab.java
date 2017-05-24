@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.layout.GridPane;
 import main.java.algorithms.tsp.ScissorEdge;
 import main.java.constant.Constants;
-import main.java.graphs.grid.TSPGrid;
+import main.java.graphs.grid.MainAppGrid;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
@@ -15,7 +15,7 @@ import main.java.pane.base.StyledPane;
 
 public class RobotTab extends StyledPane
 {
-	private TSPGrid grid;
+	private MainAppGrid grid;
 
 	public RobotTab()
 	{
@@ -25,7 +25,7 @@ public class RobotTab extends StyledPane
 
 	private void CreateGrid()
 	{
-		grid = new TSPGrid(Constants.baseWareHouseSize, false);
+		grid = new MainAppGrid();
 		grid.setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2);
 		grid.setLayoutY(15);
 		getChildren().add(grid);
@@ -87,6 +87,6 @@ public class RobotTab extends StyledPane
 
 		System.out.println("Path length: " + scissorEdge.CalculatePathLength(shortestPathOne));
 
-		grid.Redraw(shortestPath, scissorEdge.CalculatePathLength(shortestPath));
+		grid.Redraw(shortestPath, products);
 	}
 }
