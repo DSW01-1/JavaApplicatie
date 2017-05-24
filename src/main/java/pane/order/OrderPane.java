@@ -5,19 +5,18 @@ import javafx.scene.Cursor;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
-import main.java.database.DatabaseOrder;
 
-import java.util.List;
 
 public class OrderPane extends Pane{
-    int customerId;
+    int ordernr;
     OrderHistory parentScript;
-    public OrderPane(int customerId, OrderHistory parentScript){
+    public OrderPane(int ordernr, OrderHistory parentScript){
         this.parentScript=parentScript;
-        this.customerId=customerId;
-        List<Integer> Orders = DatabaseOrder.getOrdersFromId(customerId);
+        this.ordernr=ordernr;
+        AddText("Ordernummer: "+ordernr,0,20);
         setId("customer");
         setPrefSize(200, 50);
+        addClickable();
     }
 
     private void AddText(String name,int x, int y)
@@ -35,7 +34,7 @@ public class OrderPane extends Pane{
         getChildren().add(clickPane);
         clickPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-
+                parentScript.createProductVBox(ordernr);
             }
         });
     }
