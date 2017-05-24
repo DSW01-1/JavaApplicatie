@@ -141,7 +141,6 @@ public class TotalEnumeration extends Thread
 					}
 				});
 			}
-			this.estStart = System.nanoTime();
 			showPermutations(0, tileIndexes);
 		}
 
@@ -243,17 +242,6 @@ public class TotalEnumeration extends Thread
 			simulation.progression.setProgress(calc);
 		}
 
-		// ETA
-		/*
-		if(this.progress == 0){
-			long estStop = System.nanoTime();
-			float duration = (estStop - estStart) / 100000f;
-			estimateTimeLeft(duration);
-		}else if(progress%350==0){
-			calcEstTime(this.progress);
-		}
-		*/
-
 	}
 
 	void permute(int[] a, int k)
@@ -275,10 +263,12 @@ public class TotalEnumeration extends Thread
 		}
 		if (state != 0)
 		{
+
 			if (k == a.length)
 			{
 				processShortestPath(a);
 				this.progress++;
+
 			}
 			else
 			{
@@ -294,6 +284,7 @@ public class TotalEnumeration extends Thread
 					a[i] = temp;
 				}
 			}
+
 		}
 
 	}
@@ -315,38 +306,4 @@ public class TotalEnumeration extends Thread
 		simulation.addConsoleItem("Evidence succesfully removed", "INFO");
 	}
 
-	public void estimateTimeLeft(float duration){
-		this.estTenSec = duration;
-		float calc = (factor - 1);
-		float estTime = (calc * duration) / 1000000f;
-		this.estInSec = estTime;
-		Platform.runLater(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				int min = (int)Math.floor(estTime / 60);
-				int sec = (int)Math.round(estTime - (min*60));
-				String Sec = (sec < 10) ? "0"+sec : ""+sec;
-				simulation.lblProgSec.setText(String.format("%s:%s sec",min,Sec));
-			}
-		});
-
-	}
-
-	public void calcEstTime(int index){
-		float calc = (factor - (index + 1));
-		float estTime = (calc * estTenSec) / 1000000f;
-		this.estInSec = estTime;
-		Platform.runLater(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				int min = (int)Math.floor(estTime / 60);
-				int sec = (int)Math.round(estTime - (min*60));
-				String Sec = (sec < 10) ? "0"+sec : ""+sec;
-				simulation.lblProgSec.setText(String.format("%s:%s sec",min,Sec));
-			}
-		});	}
 }
