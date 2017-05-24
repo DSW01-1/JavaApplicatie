@@ -25,17 +25,19 @@ import main.java.pane.tab.RobotTab;
 public class OrderForm extends GridPane
 {
 	private TextField[] formItems;
-	private VBox rightColumnVBox;
-	private NewOrder newOrder;
+	private VBox rightColumnVBox, leftColumnVBox;
+	private final NewOrder newOrder;
 	private String[] labelArray =
 	{ "form.firstname", "form.lastname", "form.address", "form.zipcode", "form.city" };
 	private TextField[] textFields = new TextField[labelArray.length];
 
-	public OrderForm(VBox rightColumnVBox, NewOrder newOrder)
+	public OrderForm(NewOrder newOrder)
 	{
 		super();
-		this.rightColumnVBox = rightColumnVBox;
 		this.newOrder = newOrder;
+		rightColumnVBox = newOrder.rightColumnVBox;
+		leftColumnVBox = newOrder.leftColumnVBox;
+
 		setLayoutX(ScreenProperties.getScreenWidth() / 4 * 2.5f);
 		setLayoutY(300);
 		setHgap(15);
@@ -94,6 +96,19 @@ public class OrderForm extends GridPane
 
 					ProductPane productPane = new ProductPane(product, "right", newOrder);
 					rightColumnVBox.getChildren().add(productPane);
+
+					for (int j = 0; j < leftColumnVBox.getChildren().size(); j++)
+					{
+						if (leftColumnVBox.getChildren().get(j) instanceof ProductPane)
+						{
+							ProductPane leftProductPane = (ProductPane) leftColumnVBox.getChildren().get(j);
+
+							if (leftProductPane.GetProduct().GetId() == productPane.GetProduct().GetId())
+							{
+								leftColumnVBox.getChildren().remove(j);
+							}
+						}
+					}
 				}
 
 			}
