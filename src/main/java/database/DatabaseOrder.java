@@ -63,20 +63,20 @@ public class DatabaseOrder
 		String receiptTable = Constants.databaseName + "." + Constants.receiptTableName;
 		Connection conn = DatabaseConnection.Connect();
 		String customerStatement = "INSERT INTO " + customerTable + "(Firstname,Lastname, Address,Zipcode,City) VALUES (?, ?, ?, ?,?);";
-		String orderStatement = "INSERT INTO "+ orderTable+ "(Customerid,Orderdate) VALUES (?,?);";
+		String orderStatement = "INSERT INTO "+ orderTable+ "(Customerid, Orderdate) VALUES (?,?);";
 		String receiptStatement = "INSERT INTO "+ receiptTable + "(Orderid,Productid) VALUES (?,?);";
 
 		try
 		{
+			PreparedStatement preparedStatementReceipt = conn.prepareStatement(receiptStatement);
+			preparedStatementReceipt.setString(1, String.valueOf(getLastReceiptIndex()+1));
 			for(String productnr: order.getProductnumber()){
-				PreparedStatement preparedStatementReceipt = conn.prepareStatement(receiptStatement);
-				preparedStatementReceipt.setString(1, String.valueOf(getLastReceiptIndex()+1));
 				preparedStatementReceipt.setString(2,productnr);
 				preparedStatementReceipt.executeUpdate();
 			}
 
 			PreparedStatement preparedStatementOrder = conn.prepareStatement(orderStatement);
-			preparedStatementOrder.setInt(1, order.getCustomerinfo().getId());
+			preparedStatementOrder.setString(1, String.valueOf(getLastCustomerId()+1));
 			preparedStatementOrder.setString(2, order.getDate());
 
 			PreparedStatement preparedStatementCustomer = conn.prepareStatement(customerStatement);
@@ -97,11 +97,33 @@ public class DatabaseOrder
 	}
 	public static int getLastReceiptIndex() {
 		int toReturn =0;
-		ResultSet rs = DatabaseConnection.GetDataFromDatabase("select * from receipts order by orderid desc limit 1;");
+		String receiptTable = Constants.databaseName + "." + Constants.receiptTableName;
+		String orderid = "select * from "+receiptTable+" order by orderid desc limit 1;";
+		Connection conn = DatabaseConnection.Connect();
 		try {
-			while(rs.first()){
+			PreparedStatement preparedStatementReceipt = conn.prepareStatement(orderid);
+			ResultSet rs =preparedStatementReceipt.executeQuery();
+			while(rs.next()) {
 				toReturn = rs.getInt("Orderid");
 			}
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return toReturn;
+	}
+	public static int getLastCustomerId() {
+		int toReturn =0;
+		String customerTable = Constants.databaseName + "." + Constants.customerTableName;
+		String customerid = "select * from "+customerTable+" order by customerid desc limit 1;";
+		Connection conn = DatabaseConnection.Connect();
+		try {
+			PreparedStatement preparedStatementReceipt = conn.prepareStatement(customerid);
+			ResultSet rs =preparedStatementReceipt.executeQuery();
+			while(rs.next()) {
+				toReturn = rs.getInt("Customerid");
+			}
+			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
