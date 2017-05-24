@@ -1,6 +1,8 @@
-package main.java.graphs.grid;
+package main.java.graphs;
 
 import java.util.ArrayList;
+
+import main.java.graphs.grid.GridTile;
 
 /**
  * Created by William on 17-5-2017.

@@ -6,7 +6,7 @@ import main.java.constant.Constants;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
 
-public class MainAppGrid extends BaseGrid
+public class MainAppGrid extends PathGrid
 {
 
 	public MainAppGrid()
@@ -26,11 +26,14 @@ public class MainAppGrid extends BaseGrid
 	{
 		gc.clearRect(0, 0, getWidth(), getHeight());
 
+		DrawPathLines(shortestPath);
+
 		for (Product product : products)
 		{
 			DrawTile(product.GetCoords());
 		}
 		
+		super.Redraw();
 	}
 
 }
