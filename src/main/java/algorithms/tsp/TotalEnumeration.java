@@ -281,7 +281,7 @@ public class TotalEnumeration extends Thread
 		}
 		this.factor = m;
 	}
-	
+
 
 	public void cleanKill()
 	{
