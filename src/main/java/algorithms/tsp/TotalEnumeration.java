@@ -199,6 +199,7 @@ public class TotalEnumeration extends Thread
 
 
 	// Misc
+	/* ====================================| Process shortest path |=========================================== */
 	public void processShortestPath(int[] indexList)
 	{
 
@@ -243,13 +244,15 @@ public class TotalEnumeration extends Thread
 		}
 
 		// ETA
+		/*
 		if(this.progress == 0){
 			long estStop = System.nanoTime();
 			float duration = (estStop - estStart) / 100000f;
 			estimateTimeLeft(duration);
-		}else if(progress%200==0){
+		}else if(progress%350==0){
 			calcEstTime(this.progress);
 		}
+		*/
 
 	}
 
@@ -322,7 +325,10 @@ public class TotalEnumeration extends Thread
 			@Override
 			public void run()
 			{
-				simulation.lblProgSec.setText(String.format("%s sec",Math.round(estTime)));
+				int min = (int)Math.floor(estTime / 60);
+				int sec = (int)Math.round(estTime - (min*60));
+				String Sec = (sec < 10) ? "0"+sec : ""+sec;
+				simulation.lblProgSec.setText(String.format("%s:%s sec",min,Sec));
 			}
 		});
 
@@ -337,7 +343,10 @@ public class TotalEnumeration extends Thread
 			@Override
 			public void run()
 			{
-				simulation.lblProgSec.setText(String.format("%s sec",Math.round(estTime)));
+				int min = (int)Math.floor(estTime / 60);
+				int sec = (int)Math.round(estTime - (min*60));
+				String Sec = (sec < 10) ? "0"+sec : ""+sec;
+				simulation.lblProgSec.setText(String.format("%s:%s sec",min,Sec));
 			}
 		});	}
 }
