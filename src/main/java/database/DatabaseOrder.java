@@ -1,13 +1,16 @@
 package main.java.database;
 
-import java.sql.*;
+import java.sql.Array;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import main.java.constant.Constants;
 import main.java.handler.LogHandler;
 import main.java.main.product.CustomerInfo;
 import main.java.main.product.Order;
-import main.java.main.product.Product;
 
 public class DatabaseOrder
 {

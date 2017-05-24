@@ -148,6 +148,7 @@ public class DatabaseConnection
 
 		if (conn != null)
 		{
+
 			try
 			{
 				PreparedStatement preparedStatement = conn.prepareStatement(statement);
@@ -161,34 +162,48 @@ public class DatabaseConnection
 		return rs;
 	}
 
+	public static ResultSet GetDataFromDatabase(PreparedStatement statement)
+	{
+		Connection conn = Connect();
+		ResultSet rs = null;
+
+		if (conn != null)
+		{
+			try
+			{
+				rs = statement.executeQuery();
+			}
+			catch (SQLException e)
+			{
+				LogHandler.WriteErrorToLogFile(e, "Could not retrieve data from database");
+			}
+		}
+		return rs;
+	}
+
 	public static Product GetProductInfo(int productId)
 	{
 		Product product = null;
 
-		System.out.println(productId);
-
 		try
 		{
-			// Path of the product table
 			String table = Constants.databaseName + "." + Constants.productTableName;
-			ResultSet rs = GetDataFromDatabase("select * from " + table + "where productid = " + productId);
+			String statement = "select * from " + table + " where Productid = ?";
 
-			if (rs != null)
+			PreparedStatement preparedStatement = Connect().prepareStatement(statement);
+			preparedStatement.setInt(1, productId);
+
+			ResultSet rs = GetDataFromDatabase(preparedStatement);
+
+			while (rs.next())
 			{
-				product = new Product(productId, rs.getString("productname"),
-						new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("productsize"));
+				product = new Product(productId, rs.getString("Productname"),
+						new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("Productsize"));
 			}
 		}
-		catch (SQLException e)
+		catch (SQLException ex)
 		{
-			if (e.getSQLState().startsWith("42"))
-			{
-				LogHandler.WriteErrorToLogFile(e, "SQL Exception: Table does not exist");
-			}
-			else
-			{
-				LogHandler.WriteErrorToLogFile(e, "SQL Exception: " + e.getSQLState() + ", Check list for error");
-			}
+
 		}
 
 		return product;

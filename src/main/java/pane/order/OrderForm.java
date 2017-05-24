@@ -88,14 +88,12 @@ public class OrderForm extends GridPane
 					textFields[i].setText(cusInfo[i]);
 				}
 
-				ArrayList<String> productID = new ArrayList<String>();
-
 				for (int i = 0; i < order.getProducts().size(); i++)
 				{
 					Product product = DatabaseConnection.GetProductInfo(Integer.parseInt(order.getProducts().get(i)));
 
-					// ProductPane productPane = new ProductPane(product,
-					// "right", newOrder);
+					ProductPane productPane = new ProductPane(product, "right", newOrder);
+					rightColumnVBox.getChildren().add(productPane);
 				}
 
 			}
