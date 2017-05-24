@@ -15,6 +15,7 @@ public class ProductGrid extends BaseGrid
 {
 	private ArrayList<Product> productArray;
 	private DatabaseManagePane databaseManage;
+	private GridTile selectedTile;
 
 	public ProductGrid(int tileAmount, DatabaseManagePane databaseManage)
 	{
@@ -39,6 +40,26 @@ public class ProductGrid extends BaseGrid
 			{
 				if (tile.getXcoord() == x && tile.getYcoord() == y)
 				{
+					if (selectedTile != null)
+					{
+						if (selectedTile != tile)
+						{
+							tile.SetSelected(true);
+							selectedTile.SetSelected(false);
+							selectedTile = tile;
+						}
+						else
+						{
+							selectedTile.SetSelected(!selectedTile.IsSelected());
+						}
+					}
+					else
+					{
+						selectedTile = tile;
+						selectedTile.SetSelected(true);
+					}
+
+					Redraw();
 					databaseManage.AddProductEditor(TileHasProduct(new Vector2(x, y)));
 				}
 			}
@@ -68,6 +89,15 @@ public class ProductGrid extends BaseGrid
 	@Override
 	public void Redraw()
 	{
+		gc.clearRect(0, 0, gridSize, gridSize);
+		if (selectedTile != null)
+		{
+			gc.setStroke(Constants.standardSelectColor);
+			gc.setLineWidth(10);
+			gc.strokeRect((selectedTile.getXcoord() - 1) * tileSize + 5, (selectedTile.getYcoord() - 1) * tileSize + 5,
+					tileSize - 10, tileSize - 10);
+		}
+
 		for (Product product : productArray)
 		{
 			double x = product.GetCoords().getX() * tileSize - tileSize + 15;

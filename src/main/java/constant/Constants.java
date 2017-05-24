@@ -35,6 +35,7 @@ public final class Constants
 	public static final Color standardTileColor = Color.GRAY;
 	public static final Color standardProductColor = Color.TAN;
 	public static final Color standardBlzitColor = Color.GREENYELLOW;
+	public static final Color standardSelectColor = Color.AQUAMARINE;
 
 	// Rainbow Colors
 	public static final String[] rainbowColors =
