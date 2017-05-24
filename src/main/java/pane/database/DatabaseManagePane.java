@@ -17,9 +17,8 @@ import main.java.pane.base.StyledPane;
 
 public class DatabaseManagePane extends StyledPane
 {
-	int newXValue, newYValue = 0;
-	DatabaseEditorPane editorPane;
-	ProductGrid grid;
+	private DatabaseEditorPane editorPane;
+	private ProductGrid grid;
 
 	/**
 	 * The main database manager

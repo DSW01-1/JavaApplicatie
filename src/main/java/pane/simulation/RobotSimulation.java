@@ -74,6 +74,7 @@ public class RobotSimulation extends StyledPane
 					break;
 				case "btn.getPackageAt":
 					OutToArduino(ArduinoConstants.cmdGetPackage + coordString);
+					break;
 				default:
 					OutToArduino(cmdButtonMap.get(buttonNames[j]));
 					break;

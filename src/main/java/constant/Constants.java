@@ -52,14 +52,7 @@ public final class Constants
 	{
 		String value = String.valueOf(pathLength);
 
-		if (value.contains("420") || value.contains("42.0") || value.contains("4.20"))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return (value.contains("420") || value.contains("42.0") || value.contains("4.20"));
 	}
 
 }

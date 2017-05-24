@@ -25,7 +25,6 @@ public class TspSimulation extends BaseSimulation
 	public ProgressBar progression;
 	public Label lblProgSec;
 	private TotalEnumeration algorithm = new TotalEnumeration(this);
-	private SimulationControls simulationControls;
 
 	public TspSimulation()
 	{
@@ -65,7 +64,7 @@ public class TspSimulation extends BaseSimulation
 		String[] algorithmNames =
 		{ "btn.nearestNeighbour", "btn.hungarianAssignment", "btn.totalEnumeration", "btn.ownAlgorithm" };
 
-		simulationControls = new SimulationControls(algorithmNames, this);
+		SimulationControls simulationControls = new SimulationControls(algorithmNames, this);
 
 		getChildren().add(simulationControls);
 

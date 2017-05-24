@@ -11,7 +11,7 @@ import main.java.pane.base.StyledPane;
 
 public class RobotTab extends StyledPane
 {
-	TSPGrid grid;
+	private TSPGrid grid;
 
 	public RobotTab()
 	{
