@@ -148,6 +148,7 @@ public class DatabaseConnection
 
 		if (conn != null)
 		{
+
 			try
 			{
 				PreparedStatement preparedStatement = conn.prepareStatement(statement);
@@ -159,5 +160,52 @@ public class DatabaseConnection
 			}
 		}
 		return rs;
+	}
+
+	public static ResultSet GetDataFromDatabase(PreparedStatement statement)
+	{
+		Connection conn = Connect();
+		ResultSet rs = null;
+
+		if (conn != null)
+		{
+			try
+			{
+				rs = statement.executeQuery();
+			}
+			catch (SQLException e)
+			{
+				LogHandler.WriteErrorToLogFile(e, "Could not retrieve data from database");
+			}
+		}
+		return rs;
+	}
+
+	public static Product GetProductInfo(int productId)
+	{
+		Product product = null;
+
+		try
+		{
+			String table = Constants.databaseName + "." + Constants.productTableName;
+			String statement = "select * from " + table + " where Productid = ?";
+
+			PreparedStatement preparedStatement = Connect().prepareStatement(statement);
+			preparedStatement.setInt(1, productId);
+
+			ResultSet rs = GetDataFromDatabase(preparedStatement);
+
+			while (rs.next())
+			{
+				product = new Product(productId, rs.getString("Productname"),
+						new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("Productsize"));
+			}
+		}
+		catch (SQLException ex)
+		{
+
+		}
+
+		return product;
 	}
 }

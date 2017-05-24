@@ -1,5 +1,6 @@
 package main.java.main.product;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.annotations.Expose;
@@ -18,7 +19,7 @@ public class Order
 	private String date;
 	@SerializedName("productnumber")
 	@Expose
-	private List<String> productnumber = null;
+	private ArrayList<String> productnumber = null;
 
 	public String getOrderid()
 	{
@@ -50,13 +51,23 @@ public class Order
 		this.date = date;
 	}
 
-	public List<String> getProductnumber()
+	public ArrayList<String> getProducts()
 	{
 		return productnumber;
 	}
 
-	public void setProductnumber(List<String> productnumber)
+	public void setProductnumber(ArrayList<String> productnumber)
 	{
 		this.productnumber = productnumber;
+	}
+
+	public String[] getCustomerinfoArray()
+	{
+		CustomerInfo cusInfo = getCustomerinfo();
+
+		String[] cusInfoArray =
+		{ cusInfo.getFirstname(), cusInfo.getLastname(), cusInfo.getAddress(), cusInfo.getZipcode(),
+				cusInfo.getCity() };
+		return cusInfoArray;
 	}
 }

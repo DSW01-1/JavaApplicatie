@@ -101,4 +101,25 @@ public class JsonHandler
 		}
 		return order;
 	}
+
+	public static Order FileToJson(File file)
+	{
+		Gson gson = new Gson();
+		Order order = null;
+		try
+		{
+			FileReader reader = new FileReader(file);
+			order = gson.fromJson(reader, Order.class);
+			reader.close();
+		}
+		catch (FileNotFoundException e)
+		{
+			LogHandler.WriteErrorToLogFile(e, "File Not found");
+		}
+		catch (IOException e)
+		{
+			LogHandler.WriteErrorToLogFile(e, "IO Exception");
+		}
+		return order;
+	}
 }
