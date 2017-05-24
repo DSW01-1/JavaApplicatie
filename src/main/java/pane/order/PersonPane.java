@@ -44,12 +44,8 @@ public class PersonPane extends Pane {
         getChildren().add(clickPane);
         clickPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event) {
-                getOrders(info.getId());
+
             }
         });
-    }
-
-    private void getOrders(int info){
-        System.out.println(info);
     }
 }

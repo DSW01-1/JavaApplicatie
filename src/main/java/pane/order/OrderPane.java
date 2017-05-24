@@ -11,7 +11,9 @@ import java.util.List;
 
 public class OrderPane extends Pane{
     int customerId;
-    public OrderPane(int customerId){
+    OrderHistory parentScript;
+    public OrderPane(int customerId, OrderHistory parentScript){
+        this.parentScript=parentScript;
         this.customerId=customerId;
         List<Integer> Orders = DatabaseOrder.getOrdersFromId(customerId);
         setId("customer");

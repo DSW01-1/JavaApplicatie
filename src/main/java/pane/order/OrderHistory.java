@@ -49,5 +49,27 @@ public class OrderHistory extends StyledPane
 			vbox.getChildren().add(new PersonPane(info));
 		}
 		getChildren().add(vbox);
+
+		VBox vboxOrder = new VBox();
+		vboxOrder.maxWidth(ScreenProperties.getScreenWidth()/4);
+		vboxOrder.maxHeight(400);
+		vboxOrder.setLayoutX(700);
+		vboxOrder.setLayoutY(270);
+		vboxOrder.setStyle("-fx-border-width: 2;" +
+				"-fx-border-style: solid inside;" +
+				"-fx-border-insets: 5;" +
+				"-fx-border-radius: 5;");
+		getChildren().add(vboxOrder);
 	}
+
+	private void createPersonPane(){
+
+	}
+
+	public void getOrders(int customerId){
+
+	}
+
+
+
 }
