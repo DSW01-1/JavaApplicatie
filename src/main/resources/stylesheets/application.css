@@ -19,3 +19,8 @@
 	-fx-border-color: black;
 	-fx-font: 20.0px Tahoma;
 }
+#customer{
+    -fx-border-width: 0.0 0.0 1.0 0.0;
+	-fx-border-color: black;
+	-fx-font: 16.0px Tahoma;
+}

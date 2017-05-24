@@ -13,6 +13,7 @@ import main.java.pane.base.StyledChoiceBox;
 import main.java.pane.base.StyledPane;
 import main.java.pane.database.DatabaseManagePane;
 import main.java.pane.order.NewOrder;
+import main.java.pane.order.OrderHistory;
 import main.java.pane.simulation.BppSimulation;
 import main.java.pane.simulation.RobotSimulation;
 import main.java.pane.simulation.TspSimulation;
@@ -46,6 +47,7 @@ public class MainMenu extends StyledPane
 		orderHistoryButton.setOnAction(event ->
 		{
 			// TODO
+			Main.SwitchPane(new OrderHistory());
 		});
 		getChildren().add(orderHistoryButton);
 
