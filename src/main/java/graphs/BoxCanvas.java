@@ -6,7 +6,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import main.java.constant.Constants;
+import main.java.constant.ColorConstants;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
 
@@ -44,7 +44,7 @@ public class BoxCanvas extends Canvas
 			// Rainbow all the way
 			if (products.size() == 7)
 			{
-				color = Constants.GetRainbowColor(6 - i);
+				color = ColorConstants.GetRainbowColor(6 - i);
 			}
 			else
 			{

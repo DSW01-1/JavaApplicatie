@@ -10,6 +10,7 @@ import main.java.algorithms.tsp.HungarianAssignment;
 import main.java.algorithms.tsp.NearestNeighbour;
 import main.java.algorithms.tsp.ScissorEdge;
 import main.java.algorithms.tsp.TotalEnumeration;
+import main.java.constant.ColorConstants;
 import main.java.constant.Constants;
 import main.java.graphs.grid.GridTile;
 import main.java.graphs.grid.TSPGrid;
@@ -148,12 +149,12 @@ public class TspSimulation extends BaseSimulation
 				addConsoleItem("duration: " + duration + " ms", "INFO");
 				addConsoleItem("Total path distance: " + pathLength, "INFO");
 
-				if (Constants.GetBlzitNumber(pathLength))
+				if (ColorConstants.GetBlzitNumber(pathLength))
 				{
 					addConsoleItem("420 Blaze it!", "DANK");
 				}
 
-				if (Constants.GetBlzitNumber(pathLength))
+				if (ColorConstants.GetBlzitNumber(pathLength))
 				{
 					addConsoleItem("420 Blaze it!", "DANK");
 				}
@@ -189,7 +190,7 @@ public class TspSimulation extends BaseSimulation
 		ArrayList<Vector2> vector = algoritme.runHungarian();
 
 		// TODO GET PATHLENGTH
-		if (Constants.GetBlzitNumber(0))
+		if (ColorConstants.GetBlzitNumber(0))
 		{
 			addConsoleItem("420 Blaze it!", "DANK");
 		}
@@ -292,7 +293,7 @@ public class TspSimulation extends BaseSimulation
 
 			grid.SetAlgorithm(scissorEdge);
 
-			if (Constants.GetBlzitNumber(CalculatePathLength(shortestPath)))
+			if (ColorConstants.GetBlzitNumber(CalculatePathLength(shortestPath)))
 			{
 				addConsoleItem("420 Blaze it!", "DANK");
 			}

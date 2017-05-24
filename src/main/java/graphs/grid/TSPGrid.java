@@ -97,12 +97,6 @@ public class TSPGrid extends PathGrid
 		}
 		for (GridTile tile : gridTileArray)
 		{
-			// Draw the Robot position if possible
-			if (robotPos != null)
-			{
-				DrawRobotPos(new Vector2(tile.getXcoord(), tile.getYcoord()));
-			}
-
 			// Draw a tile if it is selected
 			if (tile.IsSelected())
 			{

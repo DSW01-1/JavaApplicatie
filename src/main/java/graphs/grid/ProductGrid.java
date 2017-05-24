@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
+import main.java.constant.ColorConstants;
 import main.java.constant.Constants;
 import main.java.database.DatabaseConnection;
 import main.java.main.ScreenProperties;
@@ -92,7 +93,7 @@ public class ProductGrid extends BaseGrid
 		gc.clearRect(0, 0, gridSize, gridSize);
 		if (selectedTile != null)
 		{
-			gc.setStroke(Constants.standardSelectColor);
+			gc.setStroke(ColorConstants.standardSelectColor);
 			gc.setLineWidth(10);
 			gc.strokeRect((selectedTile.getXcoord() - 1) * tileSize + 5, (selectedTile.getYcoord() - 1) * tileSize + 5,
 					tileSize - 10, tileSize - 10);

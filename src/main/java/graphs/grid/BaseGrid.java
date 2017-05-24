@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import main.java.constant.ColorConstants;
 import main.java.constant.Constants;
 import main.java.main.Vector2;
 
 public abstract class BaseGrid extends Canvas
 {
-	protected Color lineColor = Constants.standardLineColor;
-	protected Color tileColor = Constants.standardTileColor;
+	protected Color lineColor = ColorConstants.standardLineColor;
+	protected Color tileColor = ColorConstants.standardTileColor;
 	protected ArrayList<GridTile> gridTileArray;
 	public GraphicsContext gc;
 	protected int tileAmount;

@@ -19,7 +19,6 @@ public class MainAppGrid extends PathGrid
 	protected void AddMouseEventHandler()
 	{
 		// TODO Auto-generated method stub
-
 	}
 
 	public void Redraw(ArrayList<Vector2> shortestPath, ArrayList<Product> products)
@@ -32,7 +31,7 @@ public class MainAppGrid extends PathGrid
 		{
 			DrawTile(product.GetCoords());
 		}
-		
+
 		super.Redraw();
 	}
 
