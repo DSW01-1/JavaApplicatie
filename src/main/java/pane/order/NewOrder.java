@@ -15,7 +15,8 @@ import main.java.pane.base.StyledScrollPane;
 
 public class NewOrder extends StyledPane
 {
-	private VBox rightColumnVBox, leftColumnVBox;
+	protected VBox rightColumnVBox;
+	protected VBox leftColumnVBox;
 
 	@Override
 	public void InitPane()
@@ -33,7 +34,7 @@ public class NewOrder extends StyledPane
 
 	private void CreateForm()
 	{
-		OrderForm form = new OrderForm(rightColumnVBox, this);
+		OrderForm form = new OrderForm(this);
 		getChildren().add(form);
 	}
 
