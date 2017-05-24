@@ -17,7 +17,7 @@ public class DatabaseManagement
 		String table = Constants.databaseName + "." + Constants.productTableName;
 		Connection conn = DatabaseConnection.Connect();
 
-		String statement = "UPDATE " + table + " SET name = ?, size = ? WHERE xcoord = ? AND ycoord = ?;";
+		String statement = "UPDATE " + table + " SET Productname = ?, Productsize = ? WHERE xcoord = ? AND ycoord = ?;";
 
 		try
 		{
@@ -43,7 +43,7 @@ public class DatabaseManagement
 		String table = Constants.databaseName + "." + Constants.productTableName;
 		Connection conn = DatabaseConnection.Connect();
 
-		String statement = "INSERT INTO " + table + "(Productname,Productsize, xcoord, ycoord) VALUES (?, ?, ?, ?);";
+		String statement = "INSERT INTO " + table + "(Productname, xcoord, ycoord,Productsize) VALUES (?, ?, ?, ?);";
 
 		try
 		{
