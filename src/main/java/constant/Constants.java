@@ -34,6 +34,7 @@ public final class Constants
 	public static final Color standardLineColor = Color.BLACK;
 	public static final Color standardTileColor = Color.GRAY;
 	public static final Color standardProductColor = Color.TAN;
+	public static final Color standardBlzitColor = Color.GREENYELLOW;
 
 	// Rainbow Colors
 	public static final String[] rainbowColors =
@@ -45,6 +46,20 @@ public final class Constants
 		double g = Integer.valueOf(rainbowColors[i].substring(3, 5), 16);
 		double b = Integer.valueOf(rainbowColors[i].substring(5, 7), 16);
 		return new Color(r / 255, g / 255, b / 255, 1);
+	}
+
+	public static boolean GetBlzitNumber(double pathLength)
+	{
+		String value = String.valueOf(pathLength);
+
+		if (value.contains("420") || value.contains("42.0") || value.contains("4.20"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
 
 }

@@ -30,7 +30,6 @@ public class TotalEnumeration extends Thread
 	float estTenSec = 0;
 	long estStart = 0;
 
-
 	// Algorithm controls
 	public synchronized void suspendII()
 	{
@@ -50,7 +49,6 @@ public class TotalEnumeration extends Thread
 		notify();
 		cleanKill();
 	}
-
 
 	// Constructors
 	public TotalEnumeration(ArrayList<GridTile> tileList)
@@ -73,32 +71,33 @@ public class TotalEnumeration extends Thread
 		dG = new DistanceGrid(tileList);
 	}
 
-
 	// getters and/or setters
 	public ArrayList<Vector2> getShortestPath()
 	{
 		return shortestPath.getTiles();
 	}
-	public void setTileList(ArrayList<GridTile> tileList) {
+
+	public void setTileList(ArrayList<GridTile> tileList)
+	{
 		this.tileList = tileList;
 		dG = new DistanceGrid(tileList);
 	}
+
 	public int getPossiblePaths()
 	{
 		return possiblePaths;
 	}
+
 	public void showPermutations(int startindex, int[] input)
 	{
 		permute(input, 0);
 	}
-
 
 	// Methods
 	public int showState()
 	{
 		return state;
 	}
-
 
 	// Main thread
 	public void run()
@@ -124,7 +123,6 @@ public class TotalEnumeration extends Thread
 		{
 			tileIndexes[i] = i;
 		}
-
 
 		// Calculate amount of "possible" paths
 		if (state != 0)
@@ -197,11 +195,9 @@ public class TotalEnumeration extends Thread
 		simulation.grid.setActive(false);
 	}
 
-
 	// Misc
 	public void processShortestPath(int[] indexList)
 	{
-
 
 		double totalLength = 0;
 		ArrayList<Vector2> tileCoordinates = new ArrayList<>();
@@ -234,8 +230,6 @@ public class TotalEnumeration extends Thread
 
 		}
 
-
-
 		if (logging)
 		{
 			double calc = (double) this.progress / factor;
@@ -243,11 +237,14 @@ public class TotalEnumeration extends Thread
 		}
 
 		// ETA
-		if(this.progress == 0){
+		if (this.progress == 0)
+		{
 			long estStop = System.nanoTime();
 			float duration = (estStop - estStart) / 100000f;
 			estimateTimeLeft(duration);
-		}else if(progress%200==0){
+		}
+		else if (progress % 200 == 0)
+		{
 			calcEstTime(this.progress);
 		}
 
@@ -312,7 +309,8 @@ public class TotalEnumeration extends Thread
 		simulation.addConsoleItem("Evidence succesfully removed", "INFO");
 	}
 
-	public void estimateTimeLeft(float duration){
+	public void estimateTimeLeft(float duration)
+	{
 		this.estTenSec = duration;
 		float calc = (factor - 1);
 		float estTime = (calc * duration) / 1000000f;
@@ -322,13 +320,14 @@ public class TotalEnumeration extends Thread
 			@Override
 			public void run()
 			{
-				simulation.lblProgSec.setText(String.format("%s sec",Math.round(estTime)));
+				simulation.lblProgSec.setText(String.format("%s sec", Math.round(estTime)));
 			}
 		});
 
 	}
 
-	public void calcEstTime(int index){
+	public void calcEstTime(int index)
+	{
 		float calc = (factor - (index + 1));
 		float estTime = (calc * estTenSec) / 1000000f;
 		this.estInSec = estTime;
@@ -337,7 +336,8 @@ public class TotalEnumeration extends Thread
 			@Override
 			public void run()
 			{
-				simulation.lblProgSec.setText(String.format("%s sec",Math.round(estTime)));
+				simulation.lblProgSec.setText(String.format("%s sec", Math.round(estTime)));
 			}
-		});	}
+		});
+	}
 }

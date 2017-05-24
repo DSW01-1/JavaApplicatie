@@ -109,7 +109,7 @@ public class TspSimulation extends BaseSimulation
 
 	public void updatePath(ArrayList<Vector2> shortestPath)
 	{
-		grid.Redraw(shortestPath);
+		grid.Redraw(shortestPath, 0);
 	}
 
 	/**
@@ -150,10 +150,22 @@ public class TspSimulation extends BaseSimulation
 				addConsoleItem("Kortste pad gevonden", "INFO");
 
 				float duration = (stopTime - startTime) / 100000f;
-				addConsoleItem("duration: " + duration + " ms", "INFO");
-				addConsoleItem("Total path distance: " + CalculatePathLength(shortestPath), "INFO");
+				double pathLength = CalculatePathLength(shortestPath);
 
-				grid.Redraw(shortestPath);
+				addConsoleItem("duration: " + duration + " ms", "INFO");
+				addConsoleItem("Total path distance: " + pathLength, "INFO");
+
+				if (Constants.GetBlzitNumber(pathLength))
+				{
+					addConsoleItem("420 Blaze it!", "DANK");
+				}
+
+				if (Constants.GetBlzitNumber(pathLength))
+				{
+					addConsoleItem("420 Blaze it!", "DANK");
+				}
+
+				grid.Redraw(shortestPath, pathLength);
 			}
 			else
 			{
@@ -182,7 +194,15 @@ public class TspSimulation extends BaseSimulation
 
 		HungarianAssignment algoritme = new HungarianAssignment(activeTiles);
 		ArrayList<Vector2> vector = algoritme.runHungarian();
-		grid.Redraw(vector);
+
+		// TODO GET PATHLENGTH
+		if (Constants.GetBlzitNumber(0))
+		{
+			addConsoleItem("420 Blaze it!", "DANK");
+		}
+
+		grid.Redraw(vector, 0);
+
 		for (Vector2 vect : vector)
 		{
 			System.out.println(String.format("x: %s y: %s   ", vect.getX(), vect.getY()));
@@ -278,7 +298,13 @@ public class TspSimulation extends BaseSimulation
 					shortestPathRight) ? shortestPathLeft : shortestPathRight;
 
 			grid.SetAlgorithm(twoWayLeft);
-			grid.Redraw(shortestPath);
+
+			if (Constants.GetBlzitNumber(CalculatePathLength(shortestPath)))
+			{
+				addConsoleItem("420 Blaze it!", "DANK");
+			}
+
+			grid.Redraw(shortestPath, CalculatePathLength(shortestPath));
 			grid.SetAlgorithm(null);
 		}
 	}
