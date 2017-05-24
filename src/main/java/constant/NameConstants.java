@@ -5,7 +5,35 @@ import java.util.Random;
 public class NameConstants
 {
 	private static String[] productNameArray =
-	{ "ToothBrush", "Pepsi", "Cola", "Car", "Plane", "Boat", "Website", "Box" };
+	{
+			//intel processors
+			"Intel Core i3-7350K",
+			"Intel Core i3-7100",
+			"Intel Core i3-7300",
+			"Intel Core i5-7400",
+			"Intel Core i5-7600",
+			"Intel Core i5-7500",
+			"Intel Core i7-7700",
+			"Intel Core i7-7700k",
+			"Intel Core i7-6800",
+			//Nvidia graphics cards
+			"Nvidia GTX Titan-XP",
+			"Nvidia GTX 1080Ti",
+			"Nvidia GTX 1080",
+			"Nvidia GTX 1070",
+			"Nvidia GTX 1060 6gb",
+			"Nvidia GTX 1060 3gb",
+			"Nvidia GTX 1050Ti",
+			"Nvidia GTX 1050",
+			"Nvidia GTX Titan X",
+			"Nvidia GTX 980Ti",
+			"Nvidia GTX 980",
+			"Nvidia GTX 970",
+			"Nvidia GTX 960",
+			"Nvidia GTX 950",
+			"Nvidia GTX Titan Z",
+			"Nvidia GTX Titan Black"
+	};
 
 	private static String[] titleNameArray =
 	{ "You underestimate the power of COFFEE!",
