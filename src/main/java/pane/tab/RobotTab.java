@@ -1,10 +1,14 @@
 package main.java.pane.tab;
 
+import java.util.ArrayList;
+
 import javafx.scene.layout.GridPane;
+import main.java.algorithms.tsp.ScissorEdge;
 import main.java.constant.Constants;
 import main.java.graphs.grid.TSPGrid;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.main.product.Product;
 import main.java.pane.base.BackToMainMenuButton;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
@@ -59,5 +63,30 @@ public class RobotTab extends StyledPane
 			StyledButton styledButton = new StyledButton(buttonNameArray[i], codeArray[i]);
 			gridPane.add(styledButton, 0, i);
 		}
+	}
+
+	public void Setup(ArrayList<Product> products)
+	{
+		ArrayList<Vector2> pointsOne = new ArrayList<Vector2>();
+		ArrayList<Vector2> pointsTwo = new ArrayList<Vector2>();
+
+		for (Product product : products)
+		{
+			pointsOne.add(product.GetCoords());
+			pointsTwo.add(product.GetCoords());
+		}
+
+		ScissorEdge scissorEdge = new ScissorEdge(Constants.baseWareHouseSize);
+		ArrayList<Vector2> shortestPathOne = scissorEdge.GetShortestPath(pointsOne);
+
+		scissorEdge.currentIndex = 1;
+		ArrayList<Vector2> shortestPathTwo = scissorEdge.GetShortestPath(pointsTwo);
+
+		ArrayList<Vector2> shortestPath = scissorEdge.CalculatePathLength(shortestPathOne) < scissorEdge
+				.CalculatePathLength(shortestPathTwo) ? shortestPathOne : shortestPathTwo;
+
+		System.out.println("Path length: " + scissorEdge.CalculatePathLength(shortestPathOne));
+
+		grid.Redraw(shortestPath, scissorEdge.CalculatePathLength(shortestPath));
 	}
 }

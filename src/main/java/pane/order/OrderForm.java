@@ -20,6 +20,7 @@ import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
 import main.java.pane.tab.BPPTab;
+import main.java.pane.tab.OrderTabPane;
 import main.java.pane.tab.RobotTab;
 
 public class OrderForm extends GridPane
@@ -171,7 +172,6 @@ public class OrderForm extends GridPane
 		}
 
 		JsonHandler.SaveOrderToJSON(userData, productID);
-		DatabaseOrder.addOrderToDatabase(JsonHandler.GetNewestOrder());
 
 		SwitchToMainApp();
 	}
