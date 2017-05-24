@@ -17,6 +17,7 @@ public class NewOrder extends StyledPane
 {
 	protected VBox rightColumnVBox;
 	protected VBox leftColumnVBox;
+	private Vector2 size = new Vector2(300, 600);
 
 	@Override
 	public void InitPane()
@@ -56,7 +57,6 @@ public class NewOrder extends StyledPane
 		leftColumnVBox.setMaxWidth(200);
 
 		Vector2 pos = new Vector2(100, ScreenProperties.getScreenHeight() / 3 - 200);
-		Vector2 size = new Vector2(200, 400);
 
 		getChildren().add(new StyledScrollPane(leftColumnVBox, pos, size));
 	}
@@ -98,8 +98,7 @@ public class NewOrder extends StyledPane
 		rightColumnVBox = new VBox();
 		rightColumnVBox.setMaxWidth(200);
 
-		Vector2 pos = new Vector2(400, ScreenProperties.getScreenHeight() / 3 - 200);
-		Vector2 size = new Vector2(200, 400);
+		Vector2 pos = new Vector2(500, ScreenProperties.getScreenHeight() / 3 - 200);
 
 		getChildren().add(new StyledScrollPane(rightColumnVBox, pos, size));
 	}

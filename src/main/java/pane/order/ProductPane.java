@@ -16,7 +16,6 @@ public class ProductPane extends Pane
 	private NewOrder parentScript;
 	private ProductPane pane;
 	private Product product;
-	
 
 	public ProductPane(Product product, String columnSide, NewOrder parentScript)
 	{
@@ -25,7 +24,8 @@ public class ProductPane extends Pane
 		pane = this;
 
 		setId("product");
-		setPrefSize(200, 50);
+		setPrefSize(300, 50);
+		setMinSize(300, 50);
 
 		AddText(product.GetName());
 
@@ -43,7 +43,7 @@ public class ProductPane extends Pane
 	private void AddRemoveButton()
 	{
 		ImageView imageView = new ImageView();
-		
+
 		try
 		{
 			Image image = new Image(Constants.xImage);
@@ -56,13 +56,13 @@ public class ProductPane extends Pane
 
 		imageView.setFitWidth(30);
 		imageView.setPreserveRatio(true);
-		imageView.setLayoutX(160);
+		imageView.setLayoutX(230);
 		imageView.setLayoutY(5);
 		getChildren().add(imageView);
 
 		Pane clickPane = new Pane();
 		clickPane.setPrefSize(50, 45);
-		clickPane.setLayoutX(150);
+		clickPane.setLayoutX(220);
 		clickPane.setLayoutY(0);
 		clickPane.setCursor(Cursor.HAND);
 		clickPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
@@ -86,7 +86,7 @@ public class ProductPane extends Pane
 	private void AddShoppingCart()
 	{
 		ImageView imageView = new ImageView();
-		
+
 		try
 		{
 			Image image = new Image(Constants.shoppingCartImage);
@@ -96,16 +96,16 @@ public class ProductPane extends Pane
 		{
 			LogHandler.WriteErrorToLogFile(e, "Image string not correct");
 		}
-		
+
 		imageView.setFitWidth(30);
 		imageView.setPreserveRatio(true);
-		imageView.setLayoutX(160);
+		imageView.setLayoutX(230);
 		imageView.setLayoutY(5);
 		getChildren().add(imageView);
 
 		Pane clickPane = new Pane();
 		clickPane.setPrefSize(50, 45);
-		clickPane.setLayoutX(150);
+		clickPane.setLayoutX(220);
 		clickPane.setLayoutY(0);
 		clickPane.setCursor(Cursor.HAND);
 		clickPane.setStyle("-fx-background-color: rgba(255, 255, 255, 0.0);");
@@ -119,7 +119,7 @@ public class ProductPane extends Pane
 			}
 		});
 	}
-	
+
 	public Product GetProduct()
 	{
 		return product;

@@ -9,6 +9,7 @@ public final class Constants
 	public static final String styleSheetLocation = "main/resources/stylesheets/";
 	public static final String localizationLocation = "main/resources/localization/";
 	public static final String jsonOrderDirectory = "JsonOrders";
+	public static final String usbWebServer = "sqlserver/usbwebserver.exe";
 
 	public static final String databaseName = "magazijn";
 	public static final String productTableName = "products";
