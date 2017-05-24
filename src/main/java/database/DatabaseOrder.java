@@ -178,15 +178,15 @@ public class DatabaseOrder
 	}
 
 	public static List<Integer> getOrdersFromId(int id){
-		List<Integer> OrderList=null;
+		List<Integer> OrderList= new ArrayList<Integer>();
 		String orderTable = Constants.databaseName+ "."+Constants.orderTableName;
-		String statement = "Select * from "+orderTable+" where Customerid = "+id+";";
+		String statement = "Select * from "+orderTable+" where Customerid = "+id;
 		Connection conn = DatabaseConnection.Connect();
 		try{
 			PreparedStatement preparedOrderes = conn.prepareStatement(statement);
 			ResultSet rs = preparedOrderes.executeQuery();
 			while(rs.next()){
-				OrderList.add(rs.getInt("Orderid"));
+				OrderList.add(rs.getInt("Customerid"));
 			}
 		}
 		catch(SQLException e){

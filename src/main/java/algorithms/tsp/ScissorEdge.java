@@ -11,12 +11,11 @@ public class ScissorEdge implements ITspAlgorithm
 	private int gridSize;
 	private ArrayList<Vector2> remainingPoints;
 	private ArrayList<Vector2> leftSideList, rightSideList;
-	private int currentIndex;
+	public int currentIndex = 0;
 
-	public ScissorEdge(int gridSize, int currentIndex)
+	public ScissorEdge(int gridSize)
 	{
 		this.gridSize = gridSize;
-		this.currentIndex = currentIndex;
 	}
 
 	@Override
@@ -113,5 +112,21 @@ public class ScissorEdge implements ITspAlgorithm
 		double c2 = Math.sqrt(a2 + b);
 
 		return c1 + c2 + (c3 * 0.5);
+	}
+
+	public double CalculatePathLength(ArrayList<Vector2> shortestPath)
+	{
+		// Calculate the total path distance
+		double totalPathDistance = 0;
+
+		for (int i = 0; i < shortestPath.size() - 1; i++)
+		{
+			double x = (shortestPath.get(i).getX() - shortestPath.get(i + 1).getX());
+			double y = (shortestPath.get(i).getY() - shortestPath.get(i + 1).getY());
+
+			totalPathDistance += Math.sqrt(x * x + y * y);
+		}
+
+		return totalPathDistance;
 	}
 }

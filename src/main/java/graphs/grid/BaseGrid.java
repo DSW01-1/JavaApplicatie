@@ -11,7 +11,7 @@ import main.java.main.Vector2;
 public abstract class BaseGrid extends Canvas
 {
 	protected ArrayList<GridTile> gridTileArray;
-	protected GraphicsContext gc;
+	public GraphicsContext gc;
 	protected int tileAmount;
 	protected int tileSize;
 	protected int gridSize;
