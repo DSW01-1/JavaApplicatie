@@ -85,8 +85,6 @@ public class RobotTab extends StyledPane
 		ArrayList<Vector2> shortestPath = scissorEdge.CalculatePathLength(shortestPathOne) < scissorEdge
 				.CalculatePathLength(shortestPathTwo) ? shortestPathOne : shortestPathTwo;
 
-		System.out.println("Path length: " + scissorEdge.CalculatePathLength(shortestPathOne));
-
 		grid.Redraw(shortestPath, products);
 	}
 }

@@ -27,12 +27,6 @@ public class PathGrid extends BaseGrid
 
 	}
 
-	@Override
-	public void Redraw()
-	{
-		super.Redraw();
-	}
-
 	/**
 	 * Draw lines between the given points
 	 * 
@@ -118,8 +112,6 @@ public class PathGrid extends BaseGrid
 		{
 			robotPos.setY((int) (robotPos.getY() + transPos.getY()));
 		}
-
-		Redraw();
 	}
 
 }

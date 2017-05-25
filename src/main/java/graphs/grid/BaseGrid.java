@@ -18,7 +18,7 @@ public abstract class BaseGrid extends Canvas
 	protected int tileAmount;
 	protected int tileSize;
 	protected int gridSize;
-	protected Vector2 robotPos;
+	protected Vector2 robotPos = new Vector2(0, 0);
 
 	public BaseGrid(int tileAmount)
 	{

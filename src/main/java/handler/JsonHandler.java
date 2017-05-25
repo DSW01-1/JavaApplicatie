@@ -23,10 +23,14 @@ import main.java.main.product.Order;
 public class JsonHandler
 {
 
-	public static void SaveOrderToJSON(String[] userData, ArrayList<String> productID)
+	public static void SaveOrderToJSON(Order order)
 	{
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		WriteOrderToJSON(gson.toJson(order));
+	}
 
+	public static Order DataToOrder(String[] userData, ArrayList<String> productID)
+	{
 		Order order = new Order();
 		CustomerInfo cusInfo = new CustomerInfo();
 		cusInfo.setFirstname(userData[0]);
@@ -43,7 +47,7 @@ public class JsonHandler
 
 		order.setProductnumber(productID);
 
-		WriteOrderToJSON(gson.toJson(order));
+		return order;
 	}
 
 	public static void WriteOrderToJSON(String json)

@@ -9,8 +9,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import main.java.constant.Constants;
 import main.java.database.DatabaseConnection;
-import main.java.database.DatabaseOrder;
 import main.java.handler.JsonHandler;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
@@ -31,6 +31,8 @@ public class OrderForm extends GridPane
 	private String[] labelArray =
 	{ "form.firstname", "form.lastname", "form.address", "form.zipcode", "form.city" };
 	private TextField[] textFields = new TextField[labelArray.length];
+	private boolean isOrderLoaded = false;
+	private Order order;
 
 	public OrderForm(NewOrder newOrder)
 	{
@@ -77,12 +79,14 @@ public class OrderForm extends GridPane
 		loadOrderButton.setOnAction(event ->
 		{
 			FileChooser fileChooser = new FileChooser();
+			fileChooser.setInitialDirectory(new File(Constants.jsonOrderDirectory));
 			fileChooser.setTitle("Open Resource File");
 			fileChooser.getExtensionFilters().addAll(new ExtensionFilter("Json Files", "*.json"));
 			File selectedFile = fileChooser.showOpenDialog(loadOrderButton.getScene().getWindow());
 			if (selectedFile != null)
 			{
-				Order order = JsonHandler.FileToJson(selectedFile);
+				isOrderLoaded = true;
+				order = JsonHandler.FileToJson(selectedFile);
 
 				for (int i = 0; i < textFields.length; i++)
 				{
@@ -171,7 +175,11 @@ public class OrderForm extends GridPane
 			productID.add(Integer.toString(product.GetProduct().GetId()));
 		}
 
-		JsonHandler.SaveOrderToJSON(userData, productID);
+		if (!isOrderLoaded)
+		{
+			order = JsonHandler.DataToOrder(userData, productID);
+			JsonHandler.SaveOrderToJSON(order);
+		}
 
 		SwitchToMainApp();
 	}
@@ -184,7 +192,10 @@ public class OrderForm extends GridPane
 		String[] nameArray =
 		{ "Robot & TSP", "BPP" };
 
-		Main.SwitchPane(new OrderTabPane(nameArray, tabArray));
+		OrderTabPane orderTabPane = isOrderLoaded ? new OrderTabPane(nameArray, tabArray, order)
+				: new OrderTabPane(nameArray, tabArray);
+
+		Main.SwitchPane(orderTabPane);
 	}
 
 }

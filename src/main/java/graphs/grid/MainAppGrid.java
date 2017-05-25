@@ -8,6 +8,7 @@ import main.java.main.product.Product;
 
 public class MainAppGrid extends PathGrid
 {
+	private ArrayList<Product> productArray;
 
 	public MainAppGrid()
 	{
@@ -23,11 +24,28 @@ public class MainAppGrid extends PathGrid
 
 	public void Redraw(ArrayList<Vector2> shortestPath, ArrayList<Product> products)
 	{
+		pathList = shortestPath;
+		productArray = products;
+
+		Redraw();
+	}
+
+	public void Redraw()
+	{
 		gc.clearRect(0, 0, getWidth(), getHeight());
 
-		DrawPathLines(shortestPath);
+		if (robotPos != null)
+		{
+			DrawRobotPos(robotPos);
+		}
+		
+		if(pathList != null)
+		{
+			DrawPathLines(pathList);
+		}
+		
 
-		for (Product product : products)
+		for (Product product : productArray)
 		{
 			DrawTile(product.GetCoords());
 		}

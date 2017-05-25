@@ -13,12 +13,20 @@ import main.java.pane.base.StyledPane;
 
 public class OrderTabPane extends BaseTabPane
 {
-	StyledPane[] tabArray;
+	private ArrayList<Product> products;
+	private StyledPane[] tabArray;
+	private Order order;
 
 	public OrderTabPane(String[] name, StyledPane[] tabArray)
 	{
 		super(name, tabArray);
 		this.tabArray = tabArray;
+	}
+
+	public OrderTabPane(String[] name, StyledPane[] tabArray, Order order)
+	{
+		this(name, tabArray);
+		this.order = order;
 	}
 
 	@Override
@@ -32,22 +40,24 @@ public class OrderTabPane extends BaseTabPane
 	{
 		try
 		{
-		Order order = JsonHandler.GetNewestOrder();
+			if (order == null)
+			{
+				order = JsonHandler.GetNewestOrder();
+				DatabaseOrder.addOrderToDatabase(order);
+			}
 
-		ArrayList<String> productArray = order.getProducts();
-		ArrayList<Product> products = new ArrayList<Product>();
+			ArrayList<String> productArray = order.getProducts();
+			products = new ArrayList<Product>();
 
-		for (String product : productArray)
-		{
-		 products.add(DatabaseConnection.GetProductInfo(Integer.parseInt(product)));
+			for (String product : productArray)
+			{
+				products.add(DatabaseConnection.GetProductInfo(Integer.parseInt(product)));
+			}
+
+			((RobotTab) tabArray[0]).Setup(products);
+			((BPPTab) tabArray[1]).Setup(products);
 		}
-
-		((RobotTab) tabArray[0]).Setup(products);
-		((BPPTab) tabArray[1]).Setup(products);
-
-		DatabaseOrder.addOrderToDatabase(order);
-		}
-		catch(NullPointerException ex)
+		catch (NullPointerException ex)
 		{
 			LogHandler.WriteErrorToLogFile(ex, "Database is not on, could not retrieve info");
 		}
