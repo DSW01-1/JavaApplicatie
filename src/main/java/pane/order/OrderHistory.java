@@ -16,7 +16,6 @@ import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
 
-import javax.xml.crypto.Data;
 
 public class OrderHistory extends StyledPane
 {
@@ -51,11 +50,10 @@ public class OrderHistory extends StyledPane
 	private void createPersonVBox(){
 		ArrayList <CustomerInfo> customers = DatabaseOrder.getAllCustomers();
 		VBox vbox = new VBox();
-		vbox.maxWidth(ScreenProperties.getScreenWidth()/3);
 		vbox.setLayoutX(160);
 		vbox.setLayoutY(270);
 		Vector2 pos = new Vector2(160,270);
-		Vector2 size = new Vector2(160,500);
+		Vector2 size = new Vector2(200,500);
 		for(CustomerInfo info:customers){
 			vbox.getChildren().add(new PersonPane(info,this));
 		}
@@ -64,7 +62,6 @@ public class OrderHistory extends StyledPane
 
 	public void createOrderVBox(int Customerid){
 		VBox vboxOrder = new VBox();
-		vboxOrder.maxWidth(ScreenProperties.getScreenWidth()/3);
 		vboxOrder.setLayoutX(500);
 		vboxOrder.setLayoutY(270);
 		List<Integer> orders;
@@ -73,13 +70,12 @@ public class OrderHistory extends StyledPane
 			vboxOrder.getChildren().add(new OrderPane(ordernr,this));
 		}
 		Vector2 pos = new Vector2(500,270);
-		Vector2 size = new Vector2(160, 500);
+		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxOrder,pos,size));
 	}
 
 	public void createProductVBox(int Ordernr){
 		VBox vboxProduct = new VBox();
-		vboxProduct.maxWidth(ScreenProperties.getScreenWidth()/3);
 		vboxProduct.setLayoutX(840);
 		vboxProduct.setLayoutY(270);
 		List<Integer> products;
@@ -88,29 +84,27 @@ public class OrderHistory extends StyledPane
 			vboxProduct.getChildren().add(new ProductPaneHistory(DatabaseOrder.getProductByID(productid),this));
 		}
 		Vector2 pos = new Vector2(840,270);
-		Vector2 size = new Vector2(160,500);
+		Vector2 size = new Vector2(200,500);
 		getChildren().add(new StyledScrollPane(vboxProduct,pos,size));
 	}
 
 	//ik weet dat dit beter kan :P
 	private void createEmptyOrderVBox(){
 		VBox vboxOrder = new VBox();
-		vboxOrder.maxWidth(ScreenProperties.getScreenWidth()/3);
 		vboxOrder.setLayoutX(500);
 		vboxOrder.setLayoutY(270);
 		Vector2 pos = new Vector2(500,270);
-		Vector2 size = new Vector2(160, 500);
+		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxOrder,pos,size));
 	}
 
 	//ik weet dat dit beter kan :P
 	private void createEmptyProductVBox(){
 		VBox vboxProduct = new VBox();
-		vboxProduct.maxWidth(ScreenProperties.getScreenWidth()/3);
 		vboxProduct.setLayoutX(840);
 		vboxProduct.setLayoutY(270);
 		Vector2 pos = new Vector2(840,270);
-		Vector2 size = new Vector2(160,500);
+		Vector2 size = new Vector2(200,500);
 		getChildren().add(new StyledScrollPane(vboxProduct,pos,size));
 	}
 }

@@ -13,9 +13,9 @@ public class OrderPane extends Pane{
     public OrderPane(int ordernr, OrderHistory parentScript){
         this.parentScript=parentScript;
         this.ordernr=ordernr;
-        AddText("Ordernummer: "+ordernr,0,20);
+        AddText("Ordernummer: "+ordernr,0,0);
         setId("customer");
-        setPrefSize(200, 50);
+        setPrefSize(200, 30);
         addClickable();
     }
 
@@ -29,7 +29,7 @@ public class OrderPane extends Pane{
 
     private void addClickable(){
         Pane clickPane = new Pane();
-        clickPane.setPrefSize(200,50);
+        clickPane.setPrefSize(200,30);
         clickPane.setCursor(Cursor.HAND);
         getChildren().add(clickPane);
         clickPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {

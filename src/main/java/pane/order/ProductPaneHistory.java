@@ -11,6 +11,7 @@ public class ProductPaneHistory extends Pane {
     public ProductPaneHistory(Product product, OrderHistory parentScript){
         this.product=product;
         this.parentScript=parentScript;
+        setPrefSize(200,90);
         setId("customer");
         AddText("Product ID: "+product.GetId(),0,0);
         AddText("Productname: "+product.GetName(),0,20);
