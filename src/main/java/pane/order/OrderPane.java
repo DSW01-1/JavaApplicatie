@@ -8,8 +8,8 @@ import javafx.scene.text.Text;
 
 
 public class OrderPane extends Pane{
-    int ordernr;
-    OrderHistory parentScript;
+    private int ordernr;
+    private OrderHistory parentScript;
     public OrderPane(int ordernr, OrderHistory parentScript){
         this.parentScript=parentScript;
         this.ordernr=ordernr;

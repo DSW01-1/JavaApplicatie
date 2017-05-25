@@ -10,8 +10,10 @@ import java.util.List;
 
 import main.java.constant.Constants;
 import main.java.handler.LogHandler;
+import main.java.main.Vector2;
 import main.java.main.product.CustomerInfo;
 import main.java.main.product.Order;
+import main.java.main.product.Product;
 
 
 public class DatabaseOrder
@@ -188,10 +190,48 @@ public class DatabaseOrder
 			while(rs.next()){
 				OrderList.add(rs.getInt("Customerid"));
 			}
+			conn.close();
 		}
 		catch(SQLException e){
 			e.printStackTrace();
 		}
+
 		return OrderList;
+	}
+
+	public static List<Integer> getProductsIDFromOrder(int orderid){
+		List productList = new ArrayList<Integer>();
+		String receiptTable = Constants.databaseName+"."+Constants.receiptTableName;
+		String statement="Select * from "+receiptTable+" where orderid="+orderid;
+		try{
+			Connection conn = DatabaseConnection.Connect();
+			PreparedStatement preparedReceipt = conn.prepareStatement(statement);
+			ResultSet rs = preparedReceipt.executeQuery();
+			while(rs.next()){
+				productList.add(rs.getInt("productid"));
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return productList;
+	}
+
+	public static Product getProductByID(int productid){
+		Product product=new Product(0,"No product",new Vector2(0,0),0);
+		String productTable = Constants.databaseName+"."+Constants.productTableName;
+		String statement= "Select * from "+productTable+" where productid = "+productid;
+		try{
+			Connection conn = DatabaseConnection.Connect();
+			PreparedStatement preparedProduct = conn.prepareStatement(statement);
+			ResultSet rs = preparedProduct.executeQuery();
+			while(rs.next()) {
+				product = new Product(productid,rs.getString("Productname"), new Vector2(rs.getInt("xcoord"), rs.getInt("ycoord")), rs.getInt("Productsize"));
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return product;
 	}
 }
