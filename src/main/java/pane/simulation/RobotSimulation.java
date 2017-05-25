@@ -7,6 +7,7 @@ import main.java.constant.ArduinoConstants;
 import main.java.constant.Constants;
 import main.java.controller.ArduinoController;
 import main.java.graphs.grid.RobotGrid;
+import main.java.main.Command;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.BackToMainMenuButton;
@@ -37,7 +38,7 @@ public class RobotSimulation extends StyledPane
 
 	private void CreateButtons()
 	{
-		controller = new ArduinoController(grid);
+		controller = new ArduinoController();
 
 		Map<String, String> cmdButtonMap = new HashMap<String, String>();
 
@@ -62,7 +63,7 @@ public class RobotSimulation extends StyledPane
 			button.setOnAction(event ->
 			{
 				Vector2 coordPos = grid.GetSelectedTile().GetPos();
-				String coordString = "[" + coordPos.getX() + "!" + coordPos.getY() + "]";
+				String coordString = coordPos.getX() + "!" + coordPos.getY();
 
 				switch (buttonNames[j])
 				{
@@ -70,13 +71,13 @@ public class RobotSimulation extends StyledPane
 					controller.EstablishConnection();
 					break;
 				case "btn.moveToCoord":
-					OutToArduino(ArduinoConstants.cmdMoveToCoord + coordString);
+					controller.HandleOutput(new Command(ArduinoConstants.cmdMoveToCoord, coordString));
 					break;
 				case "btn.getPackageAt":
-					OutToArduino(ArduinoConstants.cmdGetPackage + coordString);
+					controller.HandleOutput(new Command(ArduinoConstants.cmdGetPackage, coordString));
 					break;
 				default:
-					OutToArduino(cmdButtonMap.get(buttonNames[j]));
+					controller.HandleOutput(new Command(cmdButtonMap.get(buttonNames[j])));
 					break;
 				}
 			});
@@ -91,10 +92,5 @@ public class RobotSimulation extends StyledPane
 		grid.setLayoutY(10);
 		getChildren().add(grid);
 		grid.Redraw();
-	}
-
-	private void OutToArduino(String command)
-	{
-		controller.HandleOutput(command);
 	}
 }

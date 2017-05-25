@@ -1,18 +1,18 @@
 package main.java.controller;
 
 import main.java.constant.ArduinoConstants;
-import main.java.graphs.grid.RobotGrid;
+import main.java.graphs.grid.BaseGrid;
 import main.java.handler.ArduinoCommunicationHandler;
+import main.java.main.Command;
 import main.java.main.Vector2;
 
 public class ArduinoController
 {
 	private ArduinoCommunicationHandler comHandler;
-	private RobotGrid grid;
+	private BaseGrid grid;
 
-	public ArduinoController(RobotGrid grid)
+	public ArduinoController()
 	{
-		this.grid = grid;
 	}
 
 	public void EstablishConnection()
@@ -23,27 +23,33 @@ public class ArduinoController
 
 	public void HandleInput(String input)
 	{
-		switch (input)
+		Command command = Command.SortCommand(input);
+
+		switch (command.getCommand())
 		{
-		case ArduinoConstants.cmdMoveLeft:
-			grid.SetRobotPos(new Vector2(-1, 0));
-			break;
-		case ArduinoConstants.cmdMoveRight:
-			grid.SetRobotPos(new Vector2(1, 0));
-			break;
-		case ArduinoConstants.cmdMoveUp:
-			grid.SetRobotPos(new Vector2(0, 1));
-			break;
-		case ArduinoConstants.cmdMoveDown:
-			grid.SetRobotPos(new Vector2(0, -1));
+		case ArduinoConstants.cmdMoveRobot:
+			String[] posArray = command.getExtraInfo().split("\\!");
+			Vector2 pos = new Vector2(Integer.parseInt(posArray[0]), Integer.parseInt(posArray[1]));
+			grid.SetRobotPos(pos);
 			break;
 		default:
 			break;
 		}
 	}
 
-	public void HandleOutput(String command)
+	public void HandleOutput(Command command)
 	{
-		comHandler.WriteToArduino("<" + command + ">");
+		String cmdString = "<" + command.getCommand();
+
+		if (command.getExtraInfo() != "")
+		{
+			cmdString.concat(command.getExtraInfo());
+		}
+
+		cmdString.concat(">");
+
+		System.out.println(cmdString);
+
+		comHandler.WriteToArduino(cmdString);
 	}
 }

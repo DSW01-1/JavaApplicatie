@@ -155,6 +155,11 @@ public abstract class BaseGrid extends Canvas
 		gc.fillRoundRect(x, y, miniGrid * 4, miniGrid * 4, 8, 8);
 	}
 
+	public void SetRobotPos(Vector2 newPos)
+	{
+		robotPos = newPos;
+	}
+
 	public void SetGridColor(String color)
 	{
 		switch (color)

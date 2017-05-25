@@ -116,7 +116,12 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 			try
 			{
 				String inputLine = input.readLine();
-				controller.HandleInput(inputLine);
+				
+				//Get the command
+				inputLine = inputLine.substring(inputLine.indexOf("<") + 1, inputLine.indexOf(">"));
+			    //String command = inputLine.substring(beginIndex, endIndex)
+				
+				//controller.HandleInput(inputLine);
 			}
 			catch (Exception e)
 			{
