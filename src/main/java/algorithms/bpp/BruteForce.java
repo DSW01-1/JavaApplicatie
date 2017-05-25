@@ -17,16 +17,15 @@ public class BruteForce extends BPPAlgorithm
 	@Override
 	public ArrayList<Box> getBoxes(ArrayList<Product> products)
 	{
-		productList1.addAll(0,products.subList(0,(products.size()/2)));
-		productList2.addAll(0,products.subList((products.size()/2),products.size()));
+		productList1.addAll(0, products.subList(0, (products.size() / 2)));
+		productList2.addAll(0, products.subList((products.size() / 2), products.size()));
 		returnBoxes.clear();
 		int currentBoxAmount;
 		int bestBoxAmount = products.size() + 1;
-		int amountOfCalculations = 0;
+
 		// loop through all possibilities
 		for (int i = 0; i < factorial(products.size()); i++)
 		{
-			amountOfCalculations++;
 			// currentBoxAmount contains the amount products sorted in their
 			// current order.
 			currentBoxAmount = sortProducts(products).size();
@@ -47,11 +46,11 @@ public class BruteForce extends BPPAlgorithm
 			// get tested.
 			Collections.rotate(productList1, 1);
 			Collections.rotate(productList2, 1);
-			//merge productlist
+			// merge productlist
 			products.clear();
 			products.addAll(productList1);
 			products.addAll(productList2);
-			}
+		}
 
 		return returnBoxes;
 	}

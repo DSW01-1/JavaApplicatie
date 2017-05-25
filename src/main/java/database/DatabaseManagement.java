@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import main.java.constant.Constants;
+import main.java.handler.LogHandler;
 import main.java.main.product.Product;
 
 public class DatabaseManagement
@@ -33,7 +34,7 @@ public class DatabaseManagement
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "Could not updata Product info");
 		}
 	}
 

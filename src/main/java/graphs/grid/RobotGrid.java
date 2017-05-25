@@ -68,13 +68,13 @@ public class RobotGrid extends BaseGrid
 			// Draw a tile if it is selected
 			if (tile.IsSelected())
 			{
-				DrawTileIfSelected(new Vector2(tile.getXcoord(), tile.getYcoord()));
+				DrawTileIfSelected();
 			}
 		}
 		super.Redraw();
 	}
 
-	private void DrawTileIfSelected(Vector2 vector2)
+	private void DrawTileIfSelected()
 	{
 		double miniGrid = tileSize / 6;
 		double x = selectedTile.GetPos().getX() * tileSize - (miniGrid * 5);

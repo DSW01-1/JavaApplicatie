@@ -17,14 +17,13 @@ public class NextFit extends BPPAlgorithm
 	// method to print all products in list
 	public String printAllProducts(ArrayList<Product> products)
 	{
-		String productGegevens = new String();
+		String productData = "";
 		for (Product product : products)
 		{
-			productGegevens = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords"
-					+ product.GetCoords() + ". Name: " + product.GetName() + ".");
-			;
+			productData = ("Size: " + product.GetSize() + ". ID: " + product.GetId() + ". Coords" + product.GetCoords()
+					+ ". Name: " + product.GetName() + ".");
 		}
-		return productGegevens;
+		return productData;
 	}
 
 	@Override

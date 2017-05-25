@@ -57,7 +57,7 @@ public class DatabaseConnection
 					try
 					{
 						System.out.println(Constants.usbWebServer);
-						
+
 						// Try to open the webserver
 						String cmd = Constants.usbWebServer;
 						Runtime.getRuntime().exec(cmd);
@@ -205,7 +205,7 @@ public class DatabaseConnection
 		}
 		catch (SQLException ex)
 		{
-
+			LogHandler.WriteErrorToLogFile(ex, "Could not retreive product info");
 		}
 
 		return product;

@@ -81,7 +81,7 @@ public class SimulationControls extends StyledPane
 
 	private void CheckAndDoALgorithm()
 	{
-		if (chkState != null && chkState != "")
+		if (!("".equals(chkState)))
 		{
 			switch (chkState)
 			{

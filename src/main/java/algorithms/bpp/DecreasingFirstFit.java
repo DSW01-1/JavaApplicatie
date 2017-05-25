@@ -6,7 +6,6 @@ import java.util.Collections;
 import main.java.algorithms.BPPAlgorithm;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
-import main.java.pane.simulation.BppSimulation;
 
 public class DecreasingFirstFit extends BPPAlgorithm
 {

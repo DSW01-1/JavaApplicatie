@@ -2,7 +2,6 @@ package main.java.pane.tab;
 
 import java.util.ArrayList;
 
-import main.java.controller.ArduinoController;
 import main.java.database.DatabaseConnection;
 import main.java.database.DatabaseOrder;
 import main.java.handler.JsonHandler;
@@ -17,7 +16,6 @@ public class OrderTabPane extends BaseTabPane
 	private ArrayList<Product> products;
 	private StyledPane[] tabArray;
 	private Order order;
-	private ArduinoController arduinoController;
 
 	public OrderTabPane(String[] name, StyledPane[] tabArray)
 	{
@@ -67,5 +65,4 @@ public class OrderTabPane extends BaseTabPane
 			LogHandler.WriteErrorToLogFile(ex, "Database is not on, could not retrieve info");
 		}
 	}
-
 }

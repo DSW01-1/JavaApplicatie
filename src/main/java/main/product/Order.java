@@ -1,25 +1,13 @@
 package main.java.main.product;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 public class Order
 {
-	@SerializedName("orderid")
-	@Expose
-	private String orderid;
-	@SerializedName("customerinfo")
-	@Expose
-	private CustomerInfo customerinfo;
-	@SerializedName("date")
-	@Expose
-	private String date;
-	@SerializedName("productnumber")
-	@Expose
 	private ArrayList<String> productnumber = null;
+	private CustomerInfo customerinfo;
+	private String orderid;
+	private String date;
 
 	public String getOrderid()
 	{
