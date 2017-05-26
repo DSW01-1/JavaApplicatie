@@ -43,10 +43,10 @@ public class ArduinoController
 
 		if (command.getExtraInfo() != "")
 		{
-			cmdString.concat(command.getExtraInfo());
+			cmdString = cmdString.concat(command.getExtraInfo());
 		}
 
-		cmdString.concat(">");
+		cmdString = cmdString.concat(">");
 
 		System.out.println(cmdString);
 

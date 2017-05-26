@@ -134,7 +134,7 @@ public class DatabaseOrder
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "Could not get last receiptIndex info");
 		}
 		return toReturn;
 	}

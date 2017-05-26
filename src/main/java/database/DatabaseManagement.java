@@ -34,7 +34,7 @@ public class DatabaseManagement
 		}
 		catch (SQLException e)
 		{
-			LogHandler.WriteErrorToLogFile(e, "Could not updata Product info");
+			LogHandler.WriteErrorToLogFile(e, "Could not update Product info");
 		}
 	}
 
@@ -60,7 +60,7 @@ public class DatabaseManagement
 		}
 		catch (SQLException e)
 		{
-			e.printStackTrace();
+			LogHandler.WriteErrorToLogFile(e, "Could not create new product");
 		}
 	}
 

@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public abstract class BPPAlgorithm
 {
+	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
+
 	/**
 	 * Gets the least amount of boxes
 	 * 
@@ -15,5 +17,4 @@ public abstract class BPPAlgorithm
 	 */
 	public abstract ArrayList<Box> getBoxes(ArrayList<Product> products);
 
-	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
 }
