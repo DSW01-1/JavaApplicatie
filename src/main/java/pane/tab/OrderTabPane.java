@@ -57,7 +57,7 @@ public class OrderTabPane extends BaseTabPane
 				products.add(DatabaseConnection.GetProductInfo(Integer.parseInt(product)));
 			}
 
-			((RobotTab) tabArray[0]).Setup(products);
+			((RobotTspTab) tabArray[0]).Setup(products);
 			((BPPTab) tabArray[1]).Setup(products);
 		}
 		catch (NullPointerException ex)

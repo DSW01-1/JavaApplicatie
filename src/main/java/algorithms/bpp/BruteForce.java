@@ -8,15 +8,11 @@ import main.java.main.product.Product;
 
 public class BruteForce extends BPPAlgorithm
 {
-	// returnBoxes is de arrayList die boxen returned met de producten.
-	// latestBoxes is de laatste gesorteerde arraylist
-	public int boxVolume;
-	private ArrayList<Product> productList1 = new ArrayList<>();
-	private ArrayList<Product> productList2 = new ArrayList<>();
-
-	@Override
-	public ArrayList<Box> getBoxes(ArrayList<Product> products)
+	public ArrayList<Box> getBoxes(ArrayList<Product> products, int boxVolume)
 	{
+		ArrayList<Product> productList1 = new ArrayList<>();
+		ArrayList<Product> productList2 = new ArrayList<>();
+
 		productList1.addAll(0, products.subList(0, (products.size() / 2)));
 		productList2.addAll(0, products.subList((products.size() / 2), products.size()));
 		returnBoxes.clear();
@@ -28,13 +24,13 @@ public class BruteForce extends BPPAlgorithm
 		{
 			// currentBoxAmount contains the amount products sorted in their
 			// current order.
-			currentBoxAmount = sortProducts(products).size();
+			currentBoxAmount = sortProducts(products, boxVolume).size();
 			// check if the amount is less than the current optimal amount
 			if (currentBoxAmount < bestBoxAmount)
 			{
 				// if yes then returnBoxes becomes the product sorted in their
 				// current order.
-				returnBoxes = sortProducts(products);
+				returnBoxes = sortProducts(products, boxVolume);
 				// set a new best box amount
 				bestBoxAmount = currentBoxAmount;
 			}
@@ -56,7 +52,7 @@ public class BruteForce extends BPPAlgorithm
 	}
 
 	// sortproducts method, literally sorts products
-	private ArrayList<Box> sortProducts(ArrayList<Product> products)
+	private static ArrayList<Box> sortProducts(ArrayList<Product> products, int boxVolume)
 	{
 		// arraylist to return
 		ArrayList<Box> sortedBoxes = new ArrayList<>();
@@ -86,7 +82,7 @@ public class BruteForce extends BPPAlgorithm
 		return sortedBoxes;
 	}
 
-	private int factorial(int n)
+	private static int factorial(int n)
 	{
 		int factorial = 1;
 		for (int i = 1; i <= n; i++)

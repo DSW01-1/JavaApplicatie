@@ -8,15 +8,10 @@ import main.java.main.product.Product;
 
 public class FirstFit extends BPPAlgorithm
 {
-	private boolean doesFit = false;
-
-	public int boxVolume;
-
-	// method that sorts the products, returns arraylist with sorted boxes
-	// containing products
-	@Override
-	public ArrayList<Box> getBoxes(ArrayList<Product> products)
+	public ArrayList<Box> getBoxes(ArrayList<Product> products, int boxVolume)
 	{
+		boolean doesFit = false;
+
 		// clear returnboxes so it starts clean.
 		returnBoxes.clear();
 		// walk through all products
@@ -41,7 +36,6 @@ public class FirstFit extends BPPAlgorithm
 			}
 			doesFit = false;
 		}
-
 		return returnBoxes;
 
 	}

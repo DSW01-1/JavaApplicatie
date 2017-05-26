@@ -12,6 +12,7 @@ import main.java.algorithms.bpp.NextFit;
 import main.java.graphs.BoxPane;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.main.product.Box;
 import main.java.main.product.Product;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
@@ -19,16 +20,10 @@ import main.java.algorithms.BPPAlgorithm;
 
 public class BppSimulation extends BaseSimulation
 {
-	private static int boxVolume;
+	private int boxVolume;
 	private ConsolePane consolePane;
 	private ArrayList<Product> products = new ArrayList<Product>();
 	private BoxPane boxPane;
-
-	// create algorithms
-	private NextFit nextFit = new NextFit();
-	private FirstFit firstFit = new FirstFit();
-	private BruteForce bruteForce = new BruteForce();
-	private DecreasingFirstFit decreasingFirstFit = new DecreasingFirstFit();
 
 	public BppSimulation()
 	{
@@ -46,25 +41,25 @@ public class BppSimulation extends BaseSimulation
 	@Override
 	public void ExecuteAlgorithmOne()
 	{
-		runAlgorithm(nextFit);
+		runAlgorithm(new NextFit());
 	}
 
 	@Override
 	public void ExecuteAlgorithmTwo()
 	{
-		runAlgorithm(firstFit);
+		runAlgorithm(new FirstFit());
 	}
 
 	@Override
 	public void ExecuteAlgorithmThree()
 	{
-		runAlgorithm(bruteForce);
+		runAlgorithm(new BruteForce());
 	}
 
 	@Override
 	public void ExecuteAlgorithmFour()
 	{
-		runAlgorithm(decreasingFirstFit);
+		runAlgorithm(new DecreasingFirstFit());
 	}
 
 	public void AddControls()
@@ -95,10 +90,6 @@ public class BppSimulation extends BaseSimulation
 			// if the enter button is pressed, do...
 			if (event.getCode() == KeyCode.ENTER)
 			{
-				nextFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
-				firstFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
-				bruteForce.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
-				decreasingFirstFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 				boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 				boxSizeInput.setText("");
 			}
@@ -111,10 +102,6 @@ public class BppSimulation extends BaseSimulation
 		getChildren().add(boxSizeInputButton);
 		boxSizeInputButton.setOnAction(event ->
 		{
-			nextFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
-			firstFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
-			bruteForce.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
-			decreasingFirstFit.boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 			boxVolume = (Integer.parseInt(boxSizeInput.getText()));
 			boxSizeInput.setText("");
 		});
@@ -176,6 +163,10 @@ public class BppSimulation extends BaseSimulation
 		{
 			if (event.getCode() == KeyCode.ENTER)
 			{
+				if (products.size() > 0)
+				{
+					products.clear();
+				}
 				// if the box volume is set
 				if (boxVolume != 0)
 				{
@@ -257,19 +248,14 @@ public class BppSimulation extends BaseSimulation
 
 	public boolean testInputs()
 	{
-		// tests if an algorithm has all inputs set
-		if (boxVolume == 0 || products.size() == 0)
+		boolean isTrue = (boxVolume == 0 || products.size() == 0) ? false : true;
+
+		if (!isTrue)
 		{
-			// if it does not have all required parameters, warn the user
 			addConsoleItem("Please enter a box size and products!", "ERROR");
-			return false;
 		}
-		else
-		{
-			// if it does have the required parameters, return true to start the
-			// algorithm
-			return true;
-		}
+
+		return isTrue;
 	}
 
 	private void AddConsolePane()
@@ -288,18 +274,19 @@ public class BppSimulation extends BaseSimulation
 		// start the algorithm
 		if (testInputs())
 		{
+			System.out.println("Going!");
+
 			addConsoleItem("Starting.", "INFO");
 			// start of algorithm
 			long startTime = System.nanoTime();
-			algorithmToRun.getBoxes(products);
-			products.clear();
+			ArrayList<Box> returnBoxes = algorithmToRun.getBoxes(products, boxVolume);
 			// end of algorithm
 			long endTime = System.nanoTime();
 			// time needed to execute algorithm = end time - start time. Divided
 			// by 1000000 because Nanotime is in nanoseconds.
 			long duration = (endTime - startTime) / 1000000;
 			addConsoleItem("Duration (milliseconds): " + duration, "INFO");
-			boxPane.AddBoxList(algorithmToRun.returnBoxes);
+			boxPane.AddBoxList(returnBoxes);
 		}
 	}
 

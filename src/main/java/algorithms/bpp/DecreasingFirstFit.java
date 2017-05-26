@@ -9,12 +9,11 @@ import main.java.main.product.Product;
 
 public class DecreasingFirstFit extends BPPAlgorithm
 {
-	public int boxVolume;
-	private boolean doesFit = false;
-
 	@Override
-	public ArrayList<Box> getBoxes(ArrayList<Product> products)
+	public ArrayList<Box> getBoxes(ArrayList<Product> products, int boxVolume)
 	{
+		boolean doesFit = false;
+
 		returnBoxes.clear();
 		// sort and reverse collection ordered in descending order
 		Collections.sort(products);

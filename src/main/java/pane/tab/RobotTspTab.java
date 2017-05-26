@@ -13,16 +13,19 @@ import main.java.pane.base.BackToMainMenuButton;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
 
-public class RobotTab extends StyledPane
+public class RobotTspTab extends StyledPane
 {
 	private MainAppGrid grid;
 
-	public RobotTab()
+	public RobotTspTab()
 	{
 		CreateGrid();
 		CreateControlButtons();
 	}
 
+	/**
+	 * Create and setup the grid
+	 */
 	private void CreateGrid()
 	{
 		grid = new MainAppGrid();
@@ -37,6 +40,9 @@ public class RobotTab extends StyledPane
 		getChildren().add(togglePathButton);
 	}
 
+	/**
+	 * Create the control buttons
+	 */
 	private void CreateControlButtons()
 	{
 		getChildren().add(new BackToMainMenuButton());
@@ -65,6 +71,11 @@ public class RobotTab extends StyledPane
 		}
 	}
 
+	/**
+	 * Setup the robot pos and calculate the shortestPath
+	 * 
+	 * @param products
+	 */
 	public void Setup(ArrayList<Product> products)
 	{
 		ArrayList<Vector2> pointsOne = new ArrayList<Vector2>();

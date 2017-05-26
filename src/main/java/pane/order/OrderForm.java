@@ -21,7 +21,7 @@ import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
 import main.java.pane.tab.BPPTab;
 import main.java.pane.tab.OrderTabPane;
-import main.java.pane.tab.RobotTab;
+import main.java.pane.tab.RobotTspTab;
 
 public class OrderForm extends GridPane
 {
@@ -187,7 +187,7 @@ public class OrderForm extends GridPane
 	private void SwitchToMainApp()
 	{
 		StyledPane[] tabArray =
-		{ new RobotTab(), new BPPTab() };
+		{ new RobotTspTab(), new BPPTab() };
 
 		String[] nameArray =
 		{ "Robot & TSP", "BPP" };

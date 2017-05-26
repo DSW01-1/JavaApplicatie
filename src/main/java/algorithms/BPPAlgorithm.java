@@ -1,13 +1,13 @@
 package main.java.algorithms;
 
+import java.util.ArrayList;
+
 import main.java.main.product.Box;
 import main.java.main.product.Product;
 
-import java.util.ArrayList;
-
 public abstract class BPPAlgorithm
 {
-	public ArrayList<Box> returnBoxes = new ArrayList<Box>();
+	public static ArrayList<Box> returnBoxes = new ArrayList<Box>();
 
 	/**
 	 * Gets the least amount of boxes
@@ -15,6 +15,8 @@ public abstract class BPPAlgorithm
 	 * @param products
 	 * @return
 	 */
-	public abstract ArrayList<Box> getBoxes(ArrayList<Product> products);
-
+	public ArrayList<Box> getBoxes(ArrayList<Product> products, int boxSize)
+	{
+		return returnBoxes;
+	}
 }

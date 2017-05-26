@@ -8,14 +8,13 @@ import main.java.main.product.Product;
 
 public class NextFit extends BPPAlgorithm
 {
-	// boxVolume gets set from bppSimulation
-	public int boxVolume;
-
-	// initialize currentbox as box with volume 0 so a new box gets created.
-	private Box currentBox = new Box(0);
-
-	// method to print all products in list
-	public String printAllProducts(ArrayList<Product> products)
+	/**
+	 * Print all products in the list
+	 * 
+	 * @param products
+	 * @return
+	 */
+	public static String printAllProducts(ArrayList<Product> products)
 	{
 		String productData = "";
 		for (Product product : products)
@@ -27,8 +26,9 @@ public class NextFit extends BPPAlgorithm
 	}
 
 	@Override
-	public ArrayList<Box> getBoxes(ArrayList<Product> products)
+	public ArrayList<Box> getBoxes(ArrayList<Product> products, int boxVolume)
 	{
+		Box currentBox = new Box(0);
 		// clear returnBoxes arraylist so no leftovers of previous calculations
 		// remain.
 		returnBoxes.clear();
