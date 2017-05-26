@@ -23,8 +23,7 @@ public class PathGrid extends BaseGrid
 	@Override
 	protected void AddMouseEventHandler()
 	{
-		// TODO Auto-generated method stub
-
+		//TODO
 	}
 
 	/**
