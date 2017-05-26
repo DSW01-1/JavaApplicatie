@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import javafx.scene.layout.GridPane;
 import main.java.algorithms.tsp.ScissorEdge;
+import main.java.constant.ArduinoConstants;
 import main.java.constant.Constants;
+import main.java.controller.ArduinoController;
+import main.java.graphs.StatusCanvas;
 import main.java.graphs.grid.MainAppGrid;
+import main.java.main.Command;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
@@ -16,11 +20,15 @@ import main.java.pane.base.StyledPane;
 public class RobotTspTab extends StyledPane
 {
 	private MainAppGrid grid;
+	private ArduinoController controller;
 
 	public RobotTspTab()
 	{
 		CreateGrid();
 		CreateControlButtons();
+
+		StatusCanvas canvas = new StatusCanvas();
+		getChildren().add(canvas);
 	}
 
 	/**
@@ -58,15 +66,18 @@ public class RobotTspTab extends StyledPane
 
 		Runnable[] codeArray = new Runnable[buttonNameArray.length];
 
-		codeArray[0] = () -> System.out.println("");
-		codeArray[1] = () -> System.out.println("");
-		codeArray[2] = () -> System.out.println("");
-		codeArray[3] = () -> System.out.println("");
-		codeArray[4] = () -> System.out.println("");
+		String[] commandArray =
+		{ ArduinoConstants.cmdStart, ArduinoConstants.cmdPause, ArduinoConstants.cmdReset,
+				ArduinoConstants.cmdDumpPackage, ArduinoConstants.cmdUnloadPackage };
 
 		for (int i = 0; i < 5; i++)
 		{
+			final int j = i;
 			StyledButton styledButton = new StyledButton(buttonNameArray[i], codeArray[i]);
+			styledButton.setOnAction(event ->
+			{
+				controller.HandleOutput(new Command(commandArray[j]));
+			});
 			gridPane.add(styledButton, 0, i);
 		}
 	}
@@ -76,7 +87,18 @@ public class RobotTspTab extends StyledPane
 	 * 
 	 * @param products
 	 */
-	public void Setup(ArrayList<Product> products)
+	public void Setup(ArduinoController controller, ArrayList<Product> products)
+	{
+		CalculateAndDrawPath(products);
+		this.controller = controller;
+	}
+
+	/**
+	 * Calculate and draw the TSP path
+	 * 
+	 * @param products
+	 */
+	void CalculateAndDrawPath(ArrayList<Product> products)
 	{
 		ArrayList<Vector2> pointsOne = new ArrayList<Vector2>();
 		ArrayList<Vector2> pointsTwo = new ArrayList<Vector2>();

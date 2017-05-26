@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import main.java.algorithms.BPPAlgorithm;
 import main.java.algorithms.bpp.DecreasingFirstFit;
+import main.java.controller.ArduinoController;
 import main.java.graphs.BoxPane;
 import main.java.main.product.Box;
 import main.java.main.product.Product;
@@ -13,9 +14,11 @@ public class BPPTab extends StyledPane
 {
 	private BoxPane boxPane;
 	private ArrayList<Product> products;
+	private ArduinoController controller;
 
-	public void Setup(ArrayList<Product> products)
+	public void Setup(ArduinoController controller, ArrayList<Product> products)
 	{
+		this.controller = controller;
 		this.products = products;
 		CreateBoxPane();
 	}

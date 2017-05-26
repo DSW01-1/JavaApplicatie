@@ -13,7 +13,7 @@ public class ArduinoConstants
 	public static final String cmdDumpPackage = "cmd.dumpPackage";
 
 	public static final String cmdStart = "cmd.start";
-	public static final String cmdPauze = "cmd.pauze";
+	public static final String cmdPause = "cmd.pauze";
 	public static final String cmdReset = "cmd.reset";
 
 	// Commands to receive

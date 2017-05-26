@@ -44,7 +44,7 @@ public class RobotSimulation extends StyledPane
 
 		String[] buttonNames =
 		{ "btn.connectArduino", "btn.moveXAxis", "btn.moveYAxis", "btn.moveToCoord", "btn.getPackageAt",
-				"btn.unloadPackage", "btn.dumpPackage", "btn.getLocation" };
+				"btn.unloadPackage", "btn.dumpPackage" };
 
 		String[] cmdArray =
 		{ ArduinoConstants.cmdMoveXAxis, ArduinoConstants.cmdMoveYAxis, ArduinoConstants.cmdUnloadPackage,
@@ -53,7 +53,6 @@ public class RobotSimulation extends StyledPane
 		cmdButtonMap.put(buttonNames[1], cmdArray[0]);
 		cmdButtonMap.put(buttonNames[2], cmdArray[1]);
 		cmdButtonMap.put(buttonNames[5], cmdArray[2]);
-		cmdButtonMap.put(buttonNames[6], cmdArray[3]);
 
 		for (int i = 0; i < buttonNames.length; i++)
 		{
@@ -62,8 +61,13 @@ public class RobotSimulation extends StyledPane
 			StyledButton button = new StyledButton(buttonNames[i], pos);
 			button.setOnAction(event ->
 			{
-				Vector2 coordPos = grid.GetSelectedTile().GetPos();
-				String coordString = coordPos.getX() + "!" + coordPos.getY();
+				String coordString = "";
+
+				if (grid.GetSelectedTile() != null)
+				{
+					Vector2 coordPos = grid.GetSelectedTile().GetPos();
+					coordString = coordPos.getX() + "!" + coordPos.getY();
+				}
 
 				switch (buttonNames[j])
 				{

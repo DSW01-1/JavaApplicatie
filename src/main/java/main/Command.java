@@ -6,13 +6,13 @@ public class Command
 
 	public Command(String command, String extraInfo)
 	{
-		this(command);
+		this.command = command;
 		this.extraInfo = extraInfo;
 	}
 
 	public Command(String command)
 	{
-		this.command = command;
+		this(command, "");
 	}
 
 	public String getCommand()

@@ -3,6 +3,7 @@ package main.java.controller;
 import main.java.constant.ArduinoConstants;
 import main.java.graphs.grid.BaseGrid;
 import main.java.handler.ArduinoCommunicationHandler;
+import main.java.handler.LogHandler;
 import main.java.main.Command;
 import main.java.main.Vector2;
 
@@ -10,10 +11,6 @@ public class ArduinoController
 {
 	private ArduinoCommunicationHandler comHandler;
 	private BaseGrid grid;
-
-	public ArduinoController()
-	{
-	}
 
 	public void EstablishConnection()
 	{
@@ -48,8 +45,14 @@ public class ArduinoController
 
 		cmdString = cmdString.concat(">");
 
-		System.out.println(cmdString);
+		try
+		{
+			comHandler.WriteToArduino(cmdString);
+		}
+		catch (NullPointerException e)
+		{
+			LogHandler.WriteErrorToLogFile(e, "No connection with Arduino, could not write to Arduino");
+		}
 
-		comHandler.WriteToArduino(cmdString);
 	}
 }
