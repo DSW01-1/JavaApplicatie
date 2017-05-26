@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import main.java.algorithms.BPPAlgorithm;
 import main.java.algorithms.bpp.DecreasingFirstFit;
 import main.java.graphs.BoxPane;
+import main.java.main.product.Box;
 import main.java.main.product.Product;
 import main.java.pane.base.StyledPane;
 
@@ -15,21 +16,22 @@ public class BPPTab extends StyledPane
 
 	public void Setup(ArrayList<Product> products)
 	{
+		this.products = products;
 		CreateBoxPane();
 	}
 
 	private void CreateBoxPane()
 	{
-		BoxPane boxPane = new BoxPane();
+		boxPane = new BoxPane();
 		getChildren().add(boxPane);
 
-		DecreasingFirstFit algorithm = new DecreasingFirstFit();
-		runAlgorithm(algorithm);
+		runAlgorithm(new DecreasingFirstFit());
 	}
 
 	public void runAlgorithm(BPPAlgorithm algorithmToRun)
 	{
-		boxPane.AddBoxList(algorithmToRun.getBoxes(products, 10));
+		ArrayList<Box> returnBoxes = algorithmToRun.getBoxes(products, 10);
+		boxPane.AddBoxList(returnBoxes);
 	}
 
 }

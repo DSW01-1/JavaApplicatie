@@ -4,13 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.scene.layout.VBox;
-import main.java.constant.Constants;
 import main.java.database.DatabaseOrder;
-import main.java.main.Main;
+import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.CustomerInfo;
-import main.java.pane.MainMenu;
-import main.java.pane.base.StyledButton;
+import main.java.pane.base.BackToMainMenuButton;
 import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
 import main.java.pane.base.StyledScrollPane;
@@ -25,21 +23,19 @@ public class OrderHistory extends StyledPane
 	@Override
 	public void InitPane()
 	{
-		// Back to menu button
-		StyledButton goBackToMenu = new StyledButton("btn.backToMainMenu", Constants.backTMMBP, Constants.backTMMBS);
-		goBackToMenu.setOnAction(event ->
-		{
-			Main.SwitchPane(new MainMenu());
-		});
-		Vector2 personPos = new Vector2(180, 240);
-		Vector2 orderPos = new Vector2(520, 240);
-		Vector2 productPos = new Vector2(860, 240);
+		getChildren().add(new BackToMainMenuButton());
+
+		Vector2 personPos = new Vector2(ScreenProperties.getScreenWidth() / 3 - 100, 240);
+		Vector2 orderPos = new Vector2(ScreenProperties.getScreenWidth() / 2 - 100, 240);
+		Vector2 productPos = new Vector2((ScreenProperties.getScreenWidth() / 3) * 2 - 100, 240);
 		Vector2 headerPos = new Vector2(800, 20);
+
 		StyledLabel headerLabel = new StyledLabel("lbl.history", headerPos);
 		StyledLabel personLabel = new StyledLabel("lbl.persons", personPos);
 		StyledLabel orderLabel = new StyledLabel("lbl.orders", orderPos);
 		StyledLabel productLabel = new StyledLabel("lbl.products", productPos);
-		getChildren().addAll(personLabel, orderLabel, productLabel, goBackToMenu, headerLabel);
+		getChildren().addAll(personLabel, orderLabel, productLabel, headerLabel);
+
 		createPersonVBox();
 		createEmptyOrderVBox();
 		createEmptyProductVBox();
@@ -49,9 +45,8 @@ public class OrderHistory extends StyledPane
 	{
 		ArrayList<CustomerInfo> customers = DatabaseOrder.getAllCustomers();
 		VBox vbox = new VBox();
-		vbox.setLayoutX(160);
-		vbox.setLayoutY(270);
-		Vector2 pos = new Vector2(160, 270);
+
+		Vector2 pos = new Vector2(ScreenProperties.getScreenWidth() / 3 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		for (CustomerInfo info : customers)
 		{
@@ -63,15 +58,14 @@ public class OrderHistory extends StyledPane
 	public void createOrderVBox(int Customerid)
 	{
 		VBox vboxOrder = new VBox();
-		vboxOrder.setLayoutX(500);
-		vboxOrder.setLayoutY(270);
 		List<Integer> orders;
 		orders = DatabaseOrder.getOrdersFromId(Customerid);
 		for (Integer ordernr : orders)
 		{
 			vboxOrder.getChildren().add(new OrderPane(ordernr, this));
 		}
-		Vector2 pos = new Vector2(500, 270);
+
+		Vector2 pos = new Vector2(ScreenProperties.getScreenWidth() / 2 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxOrder, pos, size));
 	}
@@ -79,15 +73,13 @@ public class OrderHistory extends StyledPane
 	public void createProductVBox(int Ordernr)
 	{
 		VBox vboxProduct = new VBox();
-		vboxProduct.setLayoutX(840);
-		vboxProduct.setLayoutY(270);
 		List<Integer> products;
 		products = DatabaseOrder.getProductsIDFromOrder(Ordernr);
 		for (Integer productid : products)
 		{
 			vboxProduct.getChildren().add(new ProductPaneHistory(DatabaseOrder.getProductByID(productid), this));
 		}
-		Vector2 pos = new Vector2(840, 270);
+		Vector2 pos = new Vector2((ScreenProperties.getScreenWidth() / 3) * 2 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxProduct, pos, size));
 	}
@@ -96,9 +88,7 @@ public class OrderHistory extends StyledPane
 	private void createEmptyOrderVBox()
 	{
 		VBox vboxOrder = new VBox();
-		vboxOrder.setLayoutX(500);
-		vboxOrder.setLayoutY(270);
-		Vector2 pos = new Vector2(500, 270);
+		Vector2 pos = new Vector2(ScreenProperties.getScreenWidth() / 2 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxOrder, pos, size));
 	}
@@ -107,9 +97,7 @@ public class OrderHistory extends StyledPane
 	private void createEmptyProductVBox()
 	{
 		VBox vboxProduct = new VBox();
-		vboxProduct.setLayoutX(840);
-		vboxProduct.setLayoutY(270);
-		Vector2 pos = new Vector2(840, 270);
+		Vector2 pos = new Vector2(((ScreenProperties.getScreenWidth() / 3) * 2) - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxProduct, pos, size));
 	}
