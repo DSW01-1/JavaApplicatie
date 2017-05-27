@@ -17,7 +17,7 @@ import main.java.main.product.Product;
 
 public class DatabaseOrder
 {
-	//method to get all orders in the database
+	// method to get all orders in the database
 	public static ArrayList<Order> GetAllOrders()
 	{
 		ArrayList<Order> orderList = new ArrayList<Order>();
@@ -64,16 +64,16 @@ public class DatabaseOrder
 		return orderList;
 	}
 
-	//method to add order to the database.
+	// method to add order to the database.
 	public static void addOrderToDatabase(Order order)
 	{
-		//setting all tables as a String
+		// setting all tables as a String
 		String customerTable = Constants.databaseName + "." + Constants.customerTableName;
 		String orderTable = Constants.databaseName + "." + Constants.orderTableName;
 		String receiptTable = Constants.databaseName + "." + Constants.receiptTableName;
-		//create connection
+		// create connection
 		Connection conn = DatabaseConnection.Connect();
-		//setting statements
+		// setting statements
 		String customerStatement = "INSERT INTO " + customerTable
 				+ "(Firstname,Lastname, Address,Zipcode,City) VALUES (?, ?, ?, ?,?);";
 		String orderStatement = "INSERT INTO " + orderTable + "(Customerid, Orderdate) VALUES (?,?);";
@@ -81,23 +81,23 @@ public class DatabaseOrder
 
 		try
 		{
-			//preparing statements
+			// preparing statements
 			PreparedStatement preparedStatementReceipt = conn.prepareStatement(receiptStatement);
-			//setting parameters
+			// setting parameters
 			preparedStatementReceipt.setString(1, String.valueOf(getLastReceiptIndex() + 1));
 			for (String productnr : order.getProducts())
 			{
-				//for each product add a new row with the same orderid
+				// for each product add a new row with the same orderid
 				preparedStatementReceipt.setString(2, productnr);
 				preparedStatementReceipt.executeUpdate();
 			}
 
-			//insert order into order database
+			// insert order into order database
 			PreparedStatement preparedStatementOrder = conn.prepareStatement(orderStatement);
 			preparedStatementOrder.setString(1, String.valueOf(getLastCustomerId() + 1));
 			preparedStatementOrder.setString(2, order.getDate());
 
-			//insert curtomer in customer database
+			// insert curtomer in customer database
 			PreparedStatement preparedStatementCustomer = conn.prepareStatement(customerStatement);
 			preparedStatementCustomer.setString(1, order.getCustomerinfo().getFirstname());
 			preparedStatementCustomer.setString(2, order.getCustomerinfo().getLastname());
@@ -115,7 +115,7 @@ public class DatabaseOrder
 		}
 	}
 
-	//get last receipt index number
+	// get last receipt index number
 	public static int getLastReceiptIndex()
 	{
 		int toReturn = 0;
@@ -139,7 +139,7 @@ public class DatabaseOrder
 		return toReturn;
 	}
 
-	//gets highest customer id. Useful when creating a new customer
+	// gets highest customer id. Useful when creating a new customer
 	public static int getLastCustomerId()
 	{
 		int toReturn = 0;
@@ -163,7 +163,7 @@ public class DatabaseOrder
 		return toReturn;
 	}
 
-	//returns all customers in database
+	// returns all customers in database
 	public static ArrayList<CustomerInfo> getAllCustomers()
 	{
 		String customerTable = Constants.databaseName + "." + Constants.customerTableName;
@@ -194,7 +194,7 @@ public class DatabaseOrder
 		return customers;
 	}
 
-	//returns all order from one person
+	// returns all order from one person
 	public static List<Integer> getOrdersFromId(int id)
 	{
 		List<Integer> OrderList = new ArrayList<Integer>();
@@ -204,7 +204,7 @@ public class DatabaseOrder
 		try
 		{
 			PreparedStatement preparedOrderes = conn.prepareStatement(statement);
-			preparedOrderes.setInt(1,id);
+			preparedOrderes.setInt(1, id);
 			ResultSet rs = preparedOrderes.executeQuery();
 			while (rs.next())
 			{
@@ -220,7 +220,7 @@ public class DatabaseOrder
 		return OrderList;
 	}
 
-	//gets all products from an order
+	// gets all products from an order
 	public static List<Integer> getProductsIDFromOrder(int orderid)
 	{
 		ArrayList<Integer> productList = new ArrayList<Integer>();
@@ -230,7 +230,7 @@ public class DatabaseOrder
 		{
 			Connection conn = DatabaseConnection.Connect();
 			PreparedStatement preparedReceipt = conn.prepareStatement(statement);
-			preparedReceipt.setInt(1,orderid);
+			preparedReceipt.setInt(1, orderid);
 			ResultSet rs = preparedReceipt.executeQuery();
 			while (rs.next())
 			{
@@ -245,7 +245,7 @@ public class DatabaseOrder
 		return productList;
 	}
 
-	//get product information by id
+	// get product information by id
 	public static Product getProductByID(int productid)
 	{
 		Product product = new Product(0, "No product", new Vector2(0, 0), 0);
@@ -255,7 +255,7 @@ public class DatabaseOrder
 		{
 			Connection conn = DatabaseConnection.Connect();
 			PreparedStatement preparedProduct = conn.prepareStatement(statement);
-			preparedProduct.setInt(1,productid);
+			preparedProduct.setInt(1, productid);
 			ResultSet rs = preparedProduct.executeQuery();
 			while (rs.next())
 			{
