@@ -33,7 +33,12 @@ public class ColorConstants
 	public static boolean GetBlzitNumber(double number)
 	{
 		String value = String.valueOf(number);
-
 		return (value.contains("420") || value.contains("42.0") || value.contains("4.20"));
+	}
+
+	public static boolean GetNootianNumber(double number)
+	{
+		String value = String.valueOf(number);
+		return (value.contains("1.2151520") || value.contains("12.151520") || value.contains("121.51520"));
 	}
 }

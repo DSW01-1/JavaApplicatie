@@ -153,6 +153,16 @@ public class TspSimulation extends BaseSimulation
 				{
 					addConsoleItem("420 Blaze it!", "DANK");
 				}
+				
+				if(ColorConstants.GetNootianNumber(pathLength))
+				{
+					addConsoleItem("Noot Noot!", "DANK");
+				}
+				
+				if(ColorConstants.GetNootianNumber(pathLength))
+				{
+					addConsoleItem("Noot Noot!", "DANK");
+				}
 
 				if (ColorConstants.GetBlzitNumber(pathLength))
 				{
@@ -193,6 +203,11 @@ public class TspSimulation extends BaseSimulation
 		if (ColorConstants.GetBlzitNumber(0))
 		{
 			addConsoleItem("420 Blaze it!", "DANK");
+		}
+		
+		if(ColorConstants.GetNootianNumber(0))
+		{
+			addConsoleItem("Noot Noot!", "DANK");
 		}
 
 		grid.Redraw(vector, 0);

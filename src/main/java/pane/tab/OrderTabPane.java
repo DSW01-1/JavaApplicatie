@@ -7,6 +7,7 @@ import main.java.database.DatabaseConnection;
 import main.java.database.DatabaseOrder;
 import main.java.handler.JsonHandler;
 import main.java.handler.LogHandler;
+import main.java.main.ConnectionStatus;
 import main.java.main.product.Order;
 import main.java.main.product.Product;
 import main.java.pane.base.BaseTabPane;
@@ -33,7 +34,13 @@ public class OrderTabPane extends BaseTabPane
 		this.tabArray = tabArray;
 
 		controller = new ArduinoController();
-		controller.EstablishConnection();
+
+		boolean didConnect = controller.EstablishConnection();
+
+		RobotTspTab robotTab = ((RobotTspTab) tabArray[0]);
+
+		robotTab.statusCanvas.StartAnimation();
+		robotTab.statusCanvas.SetStatus(didConnect ? ConnectionStatus.ACTIVE : ConnectionStatus.INACTIVE);
 	}
 
 	/**

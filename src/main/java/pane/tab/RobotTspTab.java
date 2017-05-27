@@ -22,7 +22,7 @@ public class RobotTspTab extends StyledPane
 {
 	private MainAppGrid grid;
 	private ArduinoController controller;
-	private StatusCanvas statusCanvas;
+	public StatusCanvas statusCanvas;
 
 	public RobotTspTab()
 	{
@@ -82,9 +82,7 @@ public class RobotTspTab extends StyledPane
 			styledButton.setOnAction(event ->
 			{
 				boolean didOutput = controller.HandleOutput(new Command(commandArray[j]));
-
 				statusCanvas.SetStatus(didOutput ? ConnectionStatus.ACTIVE : ConnectionStatus.INACTIVE);
-
 			});
 			gridPane.add(styledButton, 0, i);
 		}
