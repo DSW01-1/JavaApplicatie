@@ -7,18 +7,17 @@ import java.util.TimerTask;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
+import main.java.main.ConnectionStatus;
 import main.java.main.Vector2;
 
 public class StatusCanvas extends Canvas
 {
 	private GraphicsContext gc;
-	private Status currentStatus = Status.INACTIVE;
+	private ConnectionStatus currentStatus = ConnectionStatus.INACTIVE;
+	private ConnectionStatus newStatus;
 	private int canvasSize;
 
 	private int rotationPoint = 360;
-	private int counter = 0;
-	private int external = 0;
 
 	public StatusCanvas(Vector2 pos, int canvasSize)
 	{
@@ -36,10 +35,8 @@ public class StatusCanvas extends Canvas
 
 	public void StartAnimation()
 	{
-		currentStatus = Status.PENDING;
+		currentStatus = ConnectionStatus.PENDING;
 		rotationPoint = 360;
-		counter = 0;
-		external = 0;
 		Timer timer = new Timer();
 		TimerTask task = new TimerTask()
 		{
@@ -52,16 +49,11 @@ public class StatusCanvas extends Canvas
 				{
 					rotationPoint = 360;
 				}
-				counter++;
 
-				if (counter >= 200 && counter <= 220)
+				// Time to turn the timer off
+				if (newStatus == ConnectionStatus.ACTIVE || newStatus == ConnectionStatus.INACTIVE)
 				{
-					external += 2;
-					currentStatus = Status.ACTIVE;
-				}
-
-				if (counter >= 220)
-				{
+					currentStatus = newStatus;
 					timer.cancel();
 				}
 				DrawCircle();
@@ -74,9 +66,6 @@ public class StatusCanvas extends Canvas
 	{
 		gc.clearRect(0, 0, canvasSize, canvasSize);
 		gc.setFill(Color.CORNFLOWERBLUE);
-		gc.setLineWidth(2);
-		gc.strokeArc(1 + (external / 2), 1 + (external / 2), (canvasSize - 2) - external, (canvasSize - 2) - external,
-				rotationPoint, 90, ArcType.OPEN);
 
 		switch (currentStatus)
 		{
@@ -97,9 +86,9 @@ public class StatusCanvas extends Canvas
 		int oLW = 13;
 		gc.fillOval(oLW / 2, oLW / 2, canvasSize - oLW, canvasSize - oLW);
 	}
-}
 
-enum Status
-{
-	ACTIVE, PENDING, INACTIVE
+	public void SetStatus(ConnectionStatus status)
+	{
+		newStatus = status;
+	}
 }

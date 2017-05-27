@@ -6,8 +6,10 @@ import java.util.Map;
 import main.java.constant.ArduinoConstants;
 import main.java.constant.Constants;
 import main.java.controller.ArduinoController;
+import main.java.graphs.StatusCanvas;
 import main.java.graphs.grid.RobotGrid;
 import main.java.main.Command;
+import main.java.main.ConnectionStatus;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.pane.base.BackToMainMenuButton;
@@ -19,6 +21,7 @@ public class RobotSimulation extends StyledPane
 
 	private RobotGrid grid;
 	private ArduinoController controller;
+	private StatusCanvas statusCanvas;
 
 	public RobotSimulation()
 	{
@@ -34,6 +37,9 @@ public class RobotSimulation extends StyledPane
 		getChildren().add(new BackToMainMenuButton());
 		CreateGrid();
 		CreateButtons();
+
+		statusCanvas = new StatusCanvas(new Vector2(ScreenProperties.getScreenWidth() - 150, 25), 70);
+		getChildren().add(statusCanvas);
 	}
 
 	private void CreateButtons()
@@ -43,16 +49,17 @@ public class RobotSimulation extends StyledPane
 		Map<String, String> cmdButtonMap = new HashMap<String, String>();
 
 		String[] buttonNames =
-		{ "btn.connectArduino", "btn.moveXAxis", "btn.moveYAxis", "btn.moveToCoord", "btn.getPackageAt",
+		{ "btn.connectArduino", "btn.sendTest", "btn.moveXAxis", "btn.moveYAxis", "btn.moveToCoord", "btn.getPackageAt",
 				"btn.unloadPackage", "btn.dumpPackage" };
 
 		String[] cmdArray =
 		{ ArduinoConstants.cmdMoveXAxis, ArduinoConstants.cmdMoveYAxis, ArduinoConstants.cmdUnloadPackage,
-				ArduinoConstants.cmdDumpPackage };
+				ArduinoConstants.cmdDumpPackage, ArduinoConstants.cmdSendTest };
 
-		cmdButtonMap.put(buttonNames[1], cmdArray[0]);
-		cmdButtonMap.put(buttonNames[2], cmdArray[1]);
-		cmdButtonMap.put(buttonNames[5], cmdArray[2]);
+		cmdButtonMap.put(buttonNames[2], cmdArray[0]);
+		cmdButtonMap.put(buttonNames[3], cmdArray[1]);
+		cmdButtonMap.put(buttonNames[6], cmdArray[2]);
+		cmdButtonMap.put(buttonNames[1], cmdArray[3]);
 
 		for (int i = 0; i < buttonNames.length; i++)
 		{
@@ -72,7 +79,12 @@ public class RobotSimulation extends StyledPane
 				switch (buttonNames[j])
 				{
 				case "btn.connectArduino":
-					controller.EstablishConnection();
+					statusCanvas.StartAnimation();
+					boolean established = controller.EstablishConnection();
+
+					ConnectionStatus status = established ? ConnectionStatus.ACTIVE : ConnectionStatus.INACTIVE;
+					statusCanvas.SetStatus(status);
+
 					break;
 				case "btn.moveToCoord":
 					controller.HandleOutput(new Command(ArduinoConstants.cmdMoveToCoord, coordString));

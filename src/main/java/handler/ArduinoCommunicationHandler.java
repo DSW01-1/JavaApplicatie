@@ -65,8 +65,10 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 
 	/**
 	 * Setup a connection with the arduino, set the input and output
+	 * 
+	 * @return
 	 */
-	public void EstablishConnection()
+	public boolean EstablishConnection()
 	{
 		CommPortIdentifier portId = GetArduinoPort();
 
@@ -86,10 +88,12 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 			// add event listeners
 			serialPort.addEventListener(this);
 			serialPort.notifyOnDataAvailable(true);
+			return true;
 		}
 		catch (Exception e)
 		{
 			LogHandler.WriteErrorToLogFile(e, "Could not establish connection with the Arduino");
+			return false;
 		}
 	}
 

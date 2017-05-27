@@ -5,6 +5,8 @@ public class ArduinoConstants
 	public static final String comPort = "COM3";
 
 	// Commands to Send
+	public static final String cmdSendTest = "cmd.sendtest";
+	
 	public static final String cmdMoveXAxis = "cmd.movexaxis";
 	public static final String cmdMoveYAxis = "cmd.moveyaxis";
 	public static final String cmdMoveToCoord = "cmd.movecoord";
