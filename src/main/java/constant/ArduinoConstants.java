@@ -10,7 +10,7 @@ public class ArduinoConstants
 	public static final String cmdMoveToCoord = "cmd.movecoord";
 	public static final String cmdGetPackage = "cmd.getpackage";
 	public static final String cmdUnloadPackage = "cmd.unloadpackage";
-	public static final String cmdDumpPackage = "cmd.dumpPackage";
+	public static final String cmdDumpPackage = "cmd.dumppackage";
 
 	public static final String cmdStart = "cmd.start";
 	public static final String cmdPause = "cmd.pauze";

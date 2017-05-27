@@ -27,7 +27,7 @@ public class RobotTspTab extends StyledPane
 		CreateGrid();
 		CreateControlButtons();
 
-		StatusCanvas canvas = new StatusCanvas();
+		StatusCanvas canvas = new StatusCanvas(new Vector2(15, 200), 60);
 		getChildren().add(canvas);
 	}
 
