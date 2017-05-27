@@ -1,6 +1,8 @@
 package main.java.pane.order;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
@@ -68,6 +70,9 @@ public class NewOrder extends StyledPane
 	{
 		// Get all products available
 		ArrayList<Product> productList = DatabaseConnection.GetAvailableProducts();
+
+		long seed = System.nanoTime();
+		Collections.shuffle(productList, new Random(seed));
 
 		// If there are products in the database, add them to the list
 		if (productList.size() > 0)

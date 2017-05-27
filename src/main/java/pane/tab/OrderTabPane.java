@@ -37,7 +37,7 @@ public class OrderTabPane extends BaseTabPane
 	}
 
 	/**
-	 * The Order tab pane
+	 * The Order tab pane loaded from an existing file
 	 * 
 	 * @param name
 	 *            The names of the tabs

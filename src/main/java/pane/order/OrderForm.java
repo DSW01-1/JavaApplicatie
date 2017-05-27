@@ -34,6 +34,11 @@ public class OrderForm extends GridPane
 	private boolean isOrderLoaded = false;
 	private Order order;
 
+	/**
+	 * The order form for the New Order
+	 * 
+	 * @param newOrder
+	 */
 	public OrderForm(NewOrder newOrder)
 	{
 		super();
@@ -50,6 +55,9 @@ public class OrderForm extends GridPane
 		AddButtons();
 	}
 
+	/**
+	 * Add the labels
+	 */
 	public void AddLabels()
 	{
 		formItems = new TextField[labelArray.length];
@@ -64,6 +72,9 @@ public class OrderForm extends GridPane
 		}
 	}
 
+	/**
+	 * Add the buttons
+	 */
 	public void AddButtons()
 	{
 		Button button = new Button("Skip");
@@ -158,6 +169,9 @@ public class OrderForm extends GridPane
 		add(orderButton, 1, labelArray.length);
 	}
 
+	/**
+	 * Process the form, create a JsonFile for the order
+	 */
 	private void ProcessForm()
 	{
 		String[] userData = new String[formItems.length];
