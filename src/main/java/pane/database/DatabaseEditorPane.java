@@ -2,6 +2,7 @@ package main.java.pane.database;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import main.java.constant.Constants;
 import main.java.database.DatabaseManagement;
 import main.java.graphs.grid.ProductGrid;
@@ -13,9 +14,8 @@ import main.java.main.product.Product;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledChoiceBox;
 import main.java.pane.base.StyledLabel;
-import main.java.pane.base.StyledPane;
 
-public class DatabaseEditorPane extends StyledPane
+public class DatabaseEditorPane extends GridPane
 {
 	private static int paneHeight = ScreenProperties.getScreenHeight() / 2;
 	private Product product;
@@ -25,44 +25,51 @@ public class DatabaseEditorPane extends StyledPane
 
 	public DatabaseEditorPane(Product product, ProductGrid grid)
 	{
-		super(new Vector2(ScreenProperties.getScreenWidth() - 500, paneHeight - (paneHeight / 3) * 2));
 		this.product = product;
 		this.grid = grid;
+		setLayoutX(ScreenProperties.getScreenWidth() - 450);
+		setLayoutY(paneHeight - (paneHeight / 3) * 2);
+		setHgap(20);
+		setVgap(10);
 
 		AddName();
 		AddCoord();
 		AddSize();
 		AddConfirmButton();
+		AddDeleteButton();
 	}
 
 	private void AddName()
 	{
 		StyledLabel nameLabel = new StyledLabel("lbl.name", new Vector2(0, 0));
-		getChildren().add(nameLabel);
+		add(nameLabel, 0, 0);
 
 		nameField = new TextField(product.GetName());
 		nameField.setLayoutX(100);
 		nameField.setLayoutY(0);
-		getChildren().add(nameField);
+		add(nameField, 1, 0);
 	}
 
 	private void AddCoord()
 	{
 		StyledLabel coordNameLabel = new StyledLabel("lbl.coord", new Vector2(0, 50));
-		getChildren().add(coordNameLabel);
+		add(coordNameLabel, 0, 1);
 
 		Label coordLabel = new Label(
 				"(" + (int) product.GetCoords().getX() + "," + (int) product.GetCoords().getY() + ")");
 		coordLabel.setLayoutX(100);
 		coordLabel.setLayoutY(50);
-		getChildren().add(coordLabel);
+		add(coordLabel, 1, 1);
 	}
 
 	private void AddSize()
 	{
+		StyledLabel coordNameLabel = new StyledLabel("lbl.size", new Vector2(0, 50));
+		add(coordNameLabel, 0, 2);
+
 		sizeChoiceBox = new StyledChoiceBox(GetChoiceOptions(Constants.baseBoxSize), new Vector2(100, 100));
 		sizeChoiceBox.getSelectionModel().select(product.GetSizeInInt());
-		getChildren().add(sizeChoiceBox);
+		add(sizeChoiceBox, 1, 2);
 	}
 
 	private String[] GetChoiceOptions(int theOptions)
@@ -95,9 +102,24 @@ public class DatabaseEditorPane extends StyledPane
 				DatabaseManagement.UpdateProduct(product);
 			}
 			grid.UpdateProductArray();
-			System.out.println("Test");
-			LogHandler.ShowWarning(Language.getTranslation("warning.productAdded"),"Ok");
+			LogHandler.ShowWarning(Language.getTranslation("warning.productAdded"), "Ok");
 		});
-		getChildren().add(confirmButton);
+		add(confirmButton, 1, 4);
+	}
+
+	private void AddDeleteButton()
+	{
+		String buttonName = product.GetId() == 0 ? "btn.cancel" : "btn.delete";
+
+		StyledButton deleteButton = new StyledButton(buttonName, new Vector2(280, 200));
+		deleteButton.setOnAction(event ->
+		{
+			if (product.GetId() != 0)
+			{
+				DatabaseManagement.DeleteProduct(product.GetCoords());
+			}
+			grid.UpdateProductArray();
+		});
+		add(deleteButton, 2, 4);
 	}
 }

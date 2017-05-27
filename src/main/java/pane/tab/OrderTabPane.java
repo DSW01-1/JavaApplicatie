@@ -19,6 +19,14 @@ public class OrderTabPane extends BaseTabPane
 	private Order order;
 	private ArduinoController controller;
 
+	/**
+	 * The Order tab pane
+	 * 
+	 * @param name
+	 *            The names of the tabs
+	 * @param tabArray
+	 *            The tab panes
+	 */
 	public OrderTabPane(String[] name, StyledPane[] tabArray)
 	{
 		super(name, tabArray);
@@ -28,6 +36,16 @@ public class OrderTabPane extends BaseTabPane
 		controller.EstablishConnection();
 	}
 
+	/**
+	 * The Order tab pane
+	 * 
+	 * @param name
+	 *            The names of the tabs
+	 * @param tabArray
+	 *            The tab panes
+	 * @param order
+	 *            The order needed to load in
+	 */
 	public OrderTabPane(String[] name, StyledPane[] tabArray, Order order)
 	{
 		this(name, tabArray);
@@ -60,8 +78,7 @@ public class OrderTabPane extends BaseTabPane
 			for (String product : productArray)
 			{
 				products.add(DatabaseConnection.GetProductInfo(Integer.parseInt(product)));
-			}		
-			
+			}
 
 			((RobotTspTab) tabArray[0]).Setup(controller, products);
 			((BPPTab) tabArray[1]).Setup(controller, products);

@@ -104,7 +104,11 @@ public class ProductGrid extends BaseGrid
 			double x = product.GetCoords().getX() * tileSize - tileSize + 15;
 			double y = product.GetCoords().getY() * tileSize - tileSize + 15;
 
-			gc.setFill(new Color(1 - (product.GetSize() / 10), 1 - (product.GetSize() / 10), 1, 1));
+			double r = 0.1 + (product.GetSize() / 20);
+			double g = 0.2 + (product.GetSize() / 40);
+			double b = 0.8;
+
+			gc.setFill(new Color(1 - r, 1 - g, b, 1));
 			gc.fillRoundRect(x, y, tileSize - 30, tileSize - 30, 8, 8);
 		}
 
