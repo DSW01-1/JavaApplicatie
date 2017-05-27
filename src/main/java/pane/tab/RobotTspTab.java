@@ -10,6 +10,7 @@ import main.java.controller.ArduinoController;
 import main.java.graphs.StatusCanvas;
 import main.java.graphs.grid.MainAppGrid;
 import main.java.main.Command;
+import main.java.main.ConnectionStatus;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.Product;
@@ -21,14 +22,19 @@ public class RobotTspTab extends StyledPane
 {
 	private MainAppGrid grid;
 	private ArduinoController controller;
+	private StatusCanvas statusCanvas;
 
 	public RobotTspTab()
 	{
 		CreateGrid();
 		CreateControlButtons();
+		CreateStatusCanvas();
+	}
 
-		StatusCanvas canvas = new StatusCanvas(new Vector2(15, 200), 60);
-		getChildren().add(canvas);
+	private void CreateStatusCanvas()
+	{
+		statusCanvas = new StatusCanvas(new Vector2(ScreenProperties.getScreenWidth() - 150, 15), 60);
+		getChildren().add(statusCanvas);
 	}
 
 	/**
@@ -62,21 +68,23 @@ public class RobotTspTab extends StyledPane
 		getChildren().add(gridPane);
 
 		String[] buttonNameArray =
-		{ "btn.start", "btn.pause", "btn.reset", "btn.hardEmpty", "btn.softEmpty" };
+		{ "btn.start", "btn.pause", "btn.reset" };
 
 		Runnable[] codeArray = new Runnable[buttonNameArray.length];
 
 		String[] commandArray =
-		{ ArduinoConstants.cmdStart, ArduinoConstants.cmdPause, ArduinoConstants.cmdReset,
-				ArduinoConstants.cmdDumpPackage, ArduinoConstants.cmdUnloadPackage };
+		{ ArduinoConstants.cmdStart, ArduinoConstants.cmdPause, ArduinoConstants.cmdReset };
 
-		for (int i = 0; i < 5; i++)
+		for (int i = 0; i < buttonNameArray.length; i++)
 		{
 			final int j = i;
 			StyledButton styledButton = new StyledButton(buttonNameArray[i], codeArray[i]);
 			styledButton.setOnAction(event ->
 			{
-				controller.HandleOutput(new Command(commandArray[j]));
+				boolean didOutput = controller.HandleOutput(new Command(commandArray[j]));
+
+				statusCanvas.SetStatus(didOutput ? ConnectionStatus.ACTIVE : ConnectionStatus.INACTIVE);
+
 			});
 			gridPane.add(styledButton, 0, i);
 		}

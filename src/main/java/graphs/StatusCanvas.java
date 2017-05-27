@@ -16,6 +16,7 @@ public class StatusCanvas extends Canvas
 	private ConnectionStatus currentStatus = ConnectionStatus.INACTIVE;
 	private ConnectionStatus newStatus;
 	private int canvasSize;
+	private boolean isRunning = false;
 
 	private int rotationPoint = 360;
 
@@ -35,31 +36,36 @@ public class StatusCanvas extends Canvas
 
 	public void StartAnimation()
 	{
-		currentStatus = ConnectionStatus.PENDING;
-		rotationPoint = 360;
-		Timer timer = new Timer();
-		TimerTask task = new TimerTask()
+		if (!isRunning)
 		{
-			@Override
-			public void run()
+			isRunning = true;
+			currentStatus = ConnectionStatus.PENDING;
+			rotationPoint = 360;
+			Timer timer = new Timer();
+			TimerTask task = new TimerTask()
 			{
-				rotationPoint -= 4;
-
-				if (rotationPoint == 0)
+				@Override
+				public void run()
 				{
-					rotationPoint = 360;
-				}
+					rotationPoint -= 4;
 
-				// Time to turn the timer off
-				if (newStatus == ConnectionStatus.ACTIVE || newStatus == ConnectionStatus.INACTIVE)
-				{
-					currentStatus = newStatus;
-					timer.cancel();
+					if (rotationPoint == 0)
+					{
+						rotationPoint = 360;
+					}
+
+					// Time to turn the timer off
+					if (newStatus == ConnectionStatus.ACTIVE || newStatus == ConnectionStatus.INACTIVE)
+					{
+						currentStatus = newStatus;
+						timer.cancel();
+						isRunning = false;
+					}
+					DrawCircle();
 				}
-				DrawCircle();
-			}
-		};
-		timer.schedule(task, new Date(), 20);
+			};
+			timer.schedule(task, new Date(), 20);
+		}
 	}
 
 	public void DrawCircle()

@@ -18,6 +18,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 	private BufferedReader input;
 	private OutputStream output;
 	private ArduinoController controller;
+	private CommPortIdentifier portId;
 
 	/** Milliseconds to block while waiting for port open */
 	private static final int TIME_OUT = 2000;
@@ -70,7 +71,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 	 */
 	public boolean EstablishConnection()
 	{
-		CommPortIdentifier portId = GetArduinoPort();
+		portId = GetArduinoPort();
 
 		try
 		{
@@ -126,15 +127,17 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 		}
 	}
 
-	public synchronized void WriteToArduino(String data)
+	public synchronized boolean WriteToArduino(String data)
 	{
 		try
 		{
 			output.write(data.getBytes());
+			return true;
 		}
 		catch (Exception e)
 		{
 			LogHandler.WriteErrorToLogFile(e, "Could not write to Arduino");
+			return false;
 		}
 	}
 }

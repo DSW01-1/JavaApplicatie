@@ -35,7 +35,7 @@ public class ArduinoController
 		}
 	}
 
-	public void HandleOutput(Command command)
+	public boolean HandleOutput(Command command)
 	{
 		String cmdString = "<" + command.getCommand();
 
@@ -44,6 +44,7 @@ public class ArduinoController
 			cmdString = cmdString.concat(command.getExtraInfo());
 		}
 		cmdString = cmdString.concat(">");
-		comHandler.WriteToArduino(cmdString);
+
+		return comHandler.WriteToArduino(cmdString);
 	}
 }
