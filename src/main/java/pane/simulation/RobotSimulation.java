@@ -22,6 +22,7 @@ public class RobotSimulation extends StyledPane
 	private RobotGrid grid;
 	private ArduinoController controller;
 	private StatusCanvas statusCanvas;
+	private ConsolePane consolePane;
 
 	public RobotSimulation()
 	{
@@ -37,7 +38,10 @@ public class RobotSimulation extends StyledPane
 		getChildren().add(new BackToMainMenuButton());
 		CreateGrid();
 		CreateButtons();
+		AddConsolePane();
 
+		controller.AddRobotSimulation(this);
+		
 		statusCanvas = new StatusCanvas(new Vector2(ScreenProperties.getScreenWidth() - 150, 25), 70);
 		getChildren().add(statusCanvas);
 	}
@@ -50,11 +54,11 @@ public class RobotSimulation extends StyledPane
 
 		String[] buttonNames =
 		{ "btn.connectArduino", "btn.sendTest", "btn.moveXAxis", "btn.moveYAxis", "btn.moveToCoord", "btn.getPackageAt",
-				"btn.unloadPackage", "btn.dumpPackage" };
+				"btn.unloadPackage" };
 
 		String[] cmdArray =
 		{ ArduinoConstants.cmdMoveXAxis, ArduinoConstants.cmdMoveYAxis, ArduinoConstants.cmdUnloadPackage,
-				ArduinoConstants.cmdDumpPackage, ArduinoConstants.cmdSendTest };
+				ArduinoConstants.cmdSendTest };
 
 		cmdButtonMap.put(buttonNames[2], cmdArray[0]);
 		cmdButtonMap.put(buttonNames[3], cmdArray[1]);
@@ -84,6 +88,11 @@ public class RobotSimulation extends StyledPane
 
 					ConnectionStatus status = established ? ConnectionStatus.ACTIVE : ConnectionStatus.INACTIVE;
 					statusCanvas.SetStatus(status);
+					
+					if(established == false)
+					{
+						addConsoleItem("Connection could not be established", "ERROR");
+					}
 
 					break;
 				case "btn.moveToCoord":
@@ -108,5 +117,17 @@ public class RobotSimulation extends StyledPane
 		grid.setLayoutY(10);
 		getChildren().add(grid);
 		grid.Redraw();
+	}
+
+	private void AddConsolePane()
+	{
+		consolePane = new ConsolePane(15,
+				ScreenProperties.getScreenHeight() - (ScreenProperties.getScreenHeight() / 3) - 100);
+		getChildren().add(consolePane);
+	}
+
+	public void addConsoleItem(String message, String msgType)
+	{
+		consolePane.getItems().add(consolePane.getItems().size(), String.format("[%s] %s", msgType, message));
 	}
 }

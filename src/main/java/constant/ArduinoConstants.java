@@ -7,6 +7,7 @@ public class ArduinoConstants
 	// Commands to Send
 	public static final String cmdSendTest = "cmdSendTest";
 
+	public static final String cmdDoCycle = "cmdDoCycle";
 	public static final String cmdMoveXAxis = "cmdMoveXAxis";
 	public static final String cmdMoveYAxis = "cmdMoveYAxis";
 	public static final String cmdMoveToCoord = "cmdMoveCoord";

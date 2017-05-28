@@ -5,11 +5,18 @@ import main.java.graphs.grid.BaseGrid;
 import main.java.handler.ArduinoCommunicationHandler;
 import main.java.main.Command;
 import main.java.main.Vector2;
+import main.java.pane.simulation.RobotSimulation;
 
 public class ArduinoController
 {
 	private ArduinoCommunicationHandler comHandler;
 	private BaseGrid grid;
+	private RobotSimulation robotSimulation;
+
+	public void AddRobotSimulation(RobotSimulation simulation)
+	{
+		robotSimulation = simulation;
+	}
 
 	public boolean EstablishConnection()
 	{
@@ -19,9 +26,18 @@ public class ArduinoController
 
 	public void HandleInput(String input)
 	{
-		Command command = Command.SortCommand(input);
+		Command command = null;
 
-		System.out.println(input);
+		if (input.contains("<") && input.contains(">"))
+		{
+			command = Command.SortCommand(input);
+		}
+
+		if (robotSimulation != null)
+		{
+			System.out.println("Adding to Console!");
+			robotSimulation.addConsoleItem(input, "MSG");
+		}
 
 		switch (command.getCommand())
 		{
@@ -30,6 +46,7 @@ public class ArduinoController
 			Vector2 pos = new Vector2(Integer.parseInt(posArray[0]), Integer.parseInt(posArray[1]));
 			grid.SetRobotPos(pos);
 			break;
+		case "Pong!":
 		default:
 			break;
 		}
