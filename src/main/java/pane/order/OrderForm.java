@@ -10,12 +10,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import main.java.constant.Constants;
-import main.java.database.DatabaseConnection;
 import main.java.handler.JsonHandler;
 import main.java.main.Main;
 import main.java.main.ScreenProperties;
 import main.java.main.product.Order;
-import main.java.main.product.Product;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledLabel;
 import main.java.pane.base.StyledPane;
@@ -99,34 +97,7 @@ public class OrderForm extends GridPane
 				isOrderLoaded = true;
 				order = JsonHandler.FileToJson(selectedFile);
 
-				for (int i = 0; i < textFields.length; i++)
-				{
-					String[] cusInfo = order.getCustomerinfoArray();
-
-					textFields[i].setText(cusInfo[i]);
-				}
-
-				for (int i = 0; i < order.getProducts().size(); i++)
-				{
-					Product product = DatabaseConnection.GetProductInfo(Integer.parseInt(order.getProducts().get(i)));
-
-					ProductPane productPane = new ProductPane(product, "right", newOrder);
-					rightColumnVBox.getChildren().add(productPane);
-
-					for (int j = 0; j < leftColumnVBox.getChildren().size(); j++)
-					{
-						if (leftColumnVBox.getChildren().get(j) instanceof ProductPane)
-						{
-							ProductPane leftProductPane = (ProductPane) leftColumnVBox.getChildren().get(j);
-
-							if (leftProductPane.GetProduct().GetId() == productPane.GetProduct().GetId())
-							{
-								leftColumnVBox.getChildren().remove(j);
-							}
-						}
-					}
-				}
-
+				SwitchToMainApp();
 			}
 		});
 		add(loadOrderButton, 0, labelArray.length);
@@ -165,7 +136,6 @@ public class OrderForm extends GridPane
 				ProcessForm();
 			}
 		});
-
 		add(orderButton, 1, labelArray.length);
 	}
 
@@ -188,12 +158,8 @@ public class OrderForm extends GridPane
 			ProductPane product = (ProductPane) rightColumnVBox.getChildren().get(i);
 			productID.add(Integer.toString(product.GetProduct().GetId()));
 		}
-
-		if (!isOrderLoaded)
-		{
-			order = JsonHandler.DataToOrder(userData, productID);
-			JsonHandler.SaveOrderToJSON(order);
-		}
+		order = JsonHandler.DataToOrder(userData, productID);
+		JsonHandler.SaveOrderToJSON(order);
 
 		SwitchToMainApp();
 	}

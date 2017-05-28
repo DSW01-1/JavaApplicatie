@@ -5,19 +5,19 @@ public class ArduinoConstants
 	public static final String comPort = "COM3";
 
 	// Commands to Send
-	public static final String cmdSendTest = "cmd.sendtest";
-	
-	public static final String cmdMoveXAxis = "cmd.movexaxis";
-	public static final String cmdMoveYAxis = "cmd.moveyaxis";
-	public static final String cmdMoveToCoord = "cmd.movecoord";
-	public static final String cmdGetPackage = "cmd.getpackage";
-	public static final String cmdUnloadPackage = "cmd.unloadpackage";
-	public static final String cmdDumpPackage = "cmd.dumppackage";
+	public static final String cmdSendTest = "cmdSendTest";
 
-	public static final String cmdStart = "cmd.start";
-	public static final String cmdPause = "cmd.pauze";
-	public static final String cmdReset = "cmd.reset";
+	public static final String cmdMoveXAxis = "cmdMoveXAxis";
+	public static final String cmdMoveYAxis = "cmdMoveYAxis";
+	public static final String cmdMoveToCoord = "cmdMoveCoord";
+	public static final String cmdGetPackage = "cmdGetPackage";
+	public static final String cmdUnloadPackage = "cmdUnloadPackage";
+	public static final String cmdDumpPackage = "cmdDumpPackage";
+
+	public static final String cmdStart = "cmdStart";
+	public static final String cmdPause = "cmdPauze";
+	public static final String cmdReset = "cmdReset";
 
 	// Commands to receive
-	public static final String cmdMoveRobot = "cmd.moveRobot";
+	public static final String cmdMoveRobot = "cmdMoveRobot";
 }

@@ -284,7 +284,7 @@ public class BppSimulation extends BaseSimulation
 			long endTime = System.nanoTime();
 			// time needed to execute algorithm = end time - start time. Divided
 			// by 1000000 because Nanotime is in nanoseconds.
-			long duration = (endTime - startTime) / 1000000;
+			float duration = (endTime - startTime) / 100000f;
 			addConsoleItem("Duration (milliseconds): " + duration, "INFO");
 			boxPane.AddBoxList(returnBoxes);
 		}
