@@ -89,6 +89,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 			// add event listeners
 			serialPort.addEventListener(this);
 			serialPort.notifyOnDataAvailable(true);
+
 			return true;
 		}
 		catch (Exception e)
@@ -122,7 +123,7 @@ public class ArduinoCommunicationHandler implements SerialPortEventListener
 			}
 			catch (Exception e)
 			{
-				System.err.println(e.toString());
+				// Ignore because it's stupid
 			}
 		}
 	}

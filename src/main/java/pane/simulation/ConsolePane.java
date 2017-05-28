@@ -23,4 +23,9 @@ public class ConsolePane extends ListView<String>
 		setPrefWidth(width);
 		setPrefHeight(height);
 	}
+
+	public void addConsoleItem(String input, String string)
+	{
+		getItems().add(getItems().size(), String.format("[%s] %s", string, input));
+	}
 }

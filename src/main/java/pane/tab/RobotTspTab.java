@@ -9,6 +9,7 @@ import main.java.constant.Constants;
 import main.java.controller.ArduinoController;
 import main.java.graphs.StatusCanvas;
 import main.java.graphs.grid.MainAppGrid;
+import main.java.handler.LogHandler;
 import main.java.main.Command;
 import main.java.main.ConnectionStatus;
 import main.java.main.ScreenProperties;
@@ -17,12 +18,14 @@ import main.java.main.product.Product;
 import main.java.pane.base.BackToMainMenuButton;
 import main.java.pane.base.StyledButton;
 import main.java.pane.base.StyledPane;
+import main.java.pane.simulation.ConsolePane;
 
 public class RobotTspTab extends StyledPane
 {
 	private MainAppGrid grid;
 	private ArduinoController controller;
 	public StatusCanvas statusCanvas;
+	private ConsolePane consolePane;
 
 	public RobotTspTab()
 	{
@@ -95,8 +98,17 @@ public class RobotTspTab extends StyledPane
 	 */
 	public void Setup(ArduinoController controller, ArrayList<Product> products)
 	{
-		CalculateAndDrawPath(products);
 		this.controller = controller;
+		CreateConsolePane();
+		CalculateAndDrawPath(products);
+
+	}
+
+	private void CreateConsolePane()
+	{
+		consolePane = new ConsolePane();
+		getChildren().add(consolePane);
+		controller.AddConsole(consolePane);
 	}
 
 	/**
@@ -124,6 +136,32 @@ public class RobotTspTab extends StyledPane
 		ArrayList<Vector2> shortestPath = scissorEdge.CalculatePathLength(shortestPathOne) < scissorEdge
 				.CalculatePathLength(shortestPathTwo) ? shortestPathOne : shortestPathTwo;
 
+		// Redraw the visual path
 		grid.Redraw(shortestPath, products);
+
+		try
+		{
+			Thread.sleep(4000);
+
+			// Send the path to the arduino
+			String coords = "";
+
+			for (int i = 0; i < shortestPath.size(); i++)
+			{
+				coords = coords.concat(shortestPath.get(i).getX() + "!" + shortestPath.get(i).getY());
+				if (i < shortestPath.size() - 1)
+				{
+					coords = coords.concat("@");
+				}
+			}
+
+			Command commandToSend = new Command(ArduinoConstants.cmdDoCycle, coords);
+			controller.HandleOutput(commandToSend);
+
+		}
+		catch (InterruptedException e)
+		{
+			LogHandler.WriteErrorToLogFile(e, "Sleep got interrupted");
+		}
 	}
 }

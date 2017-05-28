@@ -40,8 +40,8 @@ public class RobotSimulation extends StyledPane
 		CreateButtons();
 		AddConsolePane();
 
-		controller.AddRobotSimulation(this);
-		
+		controller.AddConsole(consolePane);
+
 		statusCanvas = new StatusCanvas(new Vector2(ScreenProperties.getScreenWidth() - 150, 25), 70);
 		getChildren().add(statusCanvas);
 	}
@@ -88,10 +88,10 @@ public class RobotSimulation extends StyledPane
 
 					ConnectionStatus status = established ? ConnectionStatus.ACTIVE : ConnectionStatus.INACTIVE;
 					statusCanvas.SetStatus(status);
-					
-					if(established == false)
+
+					if (established == false)
 					{
-						addConsoleItem("Connection could not be established", "ERROR");
+						consolePane.addConsoleItem("Connection could not be established", "ERROR");
 					}
 
 					break;
@@ -124,10 +124,5 @@ public class RobotSimulation extends StyledPane
 		consolePane = new ConsolePane(15,
 				ScreenProperties.getScreenHeight() - (ScreenProperties.getScreenHeight() / 3) - 100);
 		getChildren().add(consolePane);
-	}
-
-	public void addConsoleItem(String message, String msgType)
-	{
-		consolePane.getItems().add(consolePane.getItems().size(), String.format("[%s] %s", msgType, message));
 	}
 }

@@ -5,17 +5,17 @@ import main.java.graphs.grid.BaseGrid;
 import main.java.handler.ArduinoCommunicationHandler;
 import main.java.main.Command;
 import main.java.main.Vector2;
-import main.java.pane.simulation.RobotSimulation;
+import main.java.pane.simulation.ConsolePane;
 
 public class ArduinoController
 {
 	private ArduinoCommunicationHandler comHandler;
 	private BaseGrid grid;
-	private RobotSimulation robotSimulation;
+	private ConsolePane console;
 
-	public void AddRobotSimulation(RobotSimulation simulation)
+	public void AddConsole(ConsolePane console)
 	{
-		robotSimulation = simulation;
+		this.console = console;
 	}
 
 	public boolean EstablishConnection()
@@ -33,10 +33,9 @@ public class ArduinoController
 			command = Command.SortCommand(input);
 		}
 
-		if (robotSimulation != null)
+		if (console != null)
 		{
-			System.out.println("Adding to Console!");
-			robotSimulation.addConsoleItem(input, "MSG");
+			console.addConsoleItem(input, "IN");
 		}
 
 		switch (command.getCommand())
@@ -46,7 +45,6 @@ public class ArduinoController
 			Vector2 pos = new Vector2(Integer.parseInt(posArray[0]), Integer.parseInt(posArray[1]));
 			grid.SetRobotPos(pos);
 			break;
-		case "Pong!":
 		default:
 			break;
 		}
@@ -58,9 +56,14 @@ public class ArduinoController
 
 		if (command.getExtraInfo() != "")
 		{
-			cmdString = cmdString.concat(command.getExtraInfo());
+			cmdString = cmdString.concat("[" + command.getExtraInfo() + "]");
 		}
 		cmdString = cmdString.concat(">");
+
+		if (console != null)
+		{
+			console.addConsoleItem(cmdString, "OUT");
+		}
 
 		return comHandler.WriteToArduino(cmdString);
 	}
