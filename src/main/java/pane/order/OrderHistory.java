@@ -3,8 +3,10 @@ package main.java.pane.order;
 import java.util.ArrayList;
 import java.util.List;
 
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 import main.java.database.DatabaseOrder;
+import main.java.main.Language;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
 import main.java.main.product.CustomerInfo;
@@ -51,6 +53,14 @@ public class OrderHistory extends StyledPane
 		for (CustomerInfo info : customers)
 		{
 			vbox.getChildren().add(new PersonPane(info, this));
+		}
+		if(vbox.getChildren().size()==0){
+			TextArea text = new TextArea(Language.getTranslation("warning.nopersons"));
+			text.setWrapText(true);
+			text.setMinWidth(200);
+			text.setPrefHeight(30);
+			text.setEditable(false);
+			vbox.getChildren().add(text);
 		}
 		getChildren().add(new StyledScrollPane(vbox, pos, size));
 	}
