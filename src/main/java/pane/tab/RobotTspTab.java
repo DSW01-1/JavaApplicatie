@@ -1,8 +1,11 @@
 package main.java.pane.tab;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.layout.GridPane;
+import main.java.algorithms.bpp.DecreasingFirstFit;
 import main.java.algorithms.tsp.ScissorEdge;
 import main.java.constant.ArduinoConstants;
 import main.java.constant.Constants;
@@ -14,6 +17,7 @@ import main.java.main.Command;
 import main.java.main.ConnectionStatus;
 import main.java.main.ScreenProperties;
 import main.java.main.Vector2;
+import main.java.main.product.Box;
 import main.java.main.product.Product;
 import main.java.pane.base.BackToMainMenuButton;
 import main.java.pane.base.StyledButton;
@@ -26,6 +30,7 @@ public class RobotTspTab extends StyledPane
 	private ArduinoController controller;
 	public StatusCanvas statusCanvas;
 	private ConsolePane consolePane;
+	private BPPTab bpptab;
 
 	public RobotTspTab()
 	{
@@ -96,9 +101,10 @@ public class RobotTspTab extends StyledPane
 	 * 
 	 * @param products
 	 */
-	public void Setup(ArduinoController controller, ArrayList<Product> products)
+	public void Setup(ArduinoController controller, ArrayList<Product> products, BPPTab tab)
 	{
 		this.controller = controller;
+		this.bpptab = tab;
 		CreateConsolePane();
 		CalculateAndDrawPath(products);
 
@@ -143,9 +149,22 @@ public class RobotTspTab extends StyledPane
 		{
 			Thread.sleep(4000);
 
+			ArrayList<Box> boxesArray = bpptab.runAlgorithm(new DecreasingFirstFit());
+
+			// CHECK IF ZERO POINT IS ACTUALLY NEEDED
+			/*
+			 * boolean contains
+			 * 
+			 * if (boxesArray.size() < shortestPath.size()) { for(Product
+			 * product : boxesArray.get(i)) { if(product.getCoords()) {
+			 * 
+			 * } } }
+			 */
+
 			// Send the path to the arduino
 			String coords = "";
 
+			// Add the coords as extra info
 			for (int i = 0; i < shortestPath.size(); i++)
 			{
 				coords = coords.concat(shortestPath.get(i).getX() + "!" + shortestPath.get(i).getY());
@@ -155,7 +174,29 @@ public class RobotTspTab extends StyledPane
 				}
 			}
 
-			Command commandToSend = new Command(ArduinoConstants.cmdDoCycle, coords);
+			String boxes = "";
+
+			// Add the boxes as extra Info
+			for (int i = 0; i < boxesArray.size(); i++)
+			{
+
+				for (int j = 0; j < boxesArray.get(i).GetProductArray().size(); j++)
+				{
+					boxes = boxes.concat(Integer.toString(i + 1));
+					if (j < boxesArray.get(i).GetProductArray().size() - 1)
+					{
+						boxes = boxes.concat("!");
+					}
+				}
+				if (i < boxesArray.size() - 1)
+				{
+					boxes = boxes.concat("!");
+				}
+			}
+
+			boxes = new StringBuilder(boxes).reverse().toString();
+
+			Command commandToSend = new Command(ArduinoConstants.cmdDoCycle, coords + "][" + boxes);
 			controller.HandleOutput(commandToSend);
 
 		}
@@ -163,5 +204,10 @@ public class RobotTspTab extends StyledPane
 		{
 			LogHandler.WriteErrorToLogFile(e, "Sleep got interrupted");
 		}
+	}
+
+	private boolean compareVector(Vector2 vec1, Vector2 vec2)
+	{
+		return (vec1.getX() == vec2.getX() && vec1.getY() == vec2.getY());
 	}
 }
