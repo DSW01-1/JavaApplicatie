@@ -205,9 +205,4 @@ public class RobotTspTab extends StyledPane
 			LogHandler.WriteErrorToLogFile(e, "Sleep got interrupted");
 		}
 	}
-
-	private boolean compareVector(Vector2 vec1, Vector2 vec2)
-	{
-		return (vec1.getX() == vec2.getX() && vec1.getY() == vec2.getY());
-	}
 }
