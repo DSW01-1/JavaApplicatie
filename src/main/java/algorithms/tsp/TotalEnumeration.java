@@ -221,11 +221,11 @@ public class TotalEnumeration extends Thread
 			shortestPath = new EnumPath(this.pathLength, tileCoordinates);
 		}
 
-		//if (logging)
-		//{
-		//	double calc = (double) this.progress / factor;
-		//	simulation.progression.setProgress(calc);
-		//}
+		if (logging)
+		{
+			double calc = (double) this.progress / factor;
+			simulation.progression.setProgress(calc);
+		}
 	}
 
 
