@@ -6,14 +6,9 @@ import main.java.main.product.Product;
 
 public class ProductPaneHistory extends Pane
 {
-	//TODO What to do with this?
-	private Product product;
-	private OrderHistory parentScript;
 
 	public ProductPaneHistory(Product product, OrderHistory parentScript)
 	{
-		this.product = product;
-		this.parentScript = parentScript;
 		setPrefSize(200, 90);
 		setId("customer");
 		AddText("Product ID: " + product.GetId(), 0, 0);

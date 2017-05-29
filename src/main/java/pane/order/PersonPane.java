@@ -13,6 +13,7 @@ public class PersonPane extends Pane {
     private CustomerInfo info;
     private OrderHistory parentScript;
 
+
     public PersonPane(CustomerInfo info, OrderHistory parentScript){
         this.info=info;
         this.parentScript=parentScript;
@@ -37,6 +38,7 @@ public class PersonPane extends Pane {
         getChildren().add(text);
     }
 
+    //function so the box is clickable and the application shows the orders in the next pane.
     private void addClickable(){
         Pane clickPane = new Pane();
         clickPane.setPrefSize(200,50);
