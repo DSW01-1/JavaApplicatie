@@ -78,6 +78,14 @@ public class OrderHistory extends StyledPane
 		Vector2 pos = new Vector2(ScreenProperties.getScreenWidth() / 2 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxOrder, pos, size));
+		if(vboxOrder.getChildren().size()==0){
+			TextArea text = new TextArea(Language.getTranslation("warning.noorders"));
+			text.setWrapText(true);
+			text.setMinWidth(200);
+			text.setPrefHeight(30);
+			text.setEditable(false);
+			vboxOrder.getChildren().add(text);
+		}
 	}
 
 	public void createProductVBox(int Ordernr)
@@ -92,6 +100,14 @@ public class OrderHistory extends StyledPane
 		Vector2 pos = new Vector2((ScreenProperties.getScreenWidth() / 3) * 2 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxProduct, pos, size));
+		if(vboxProduct.getChildren().size()==0){
+			TextArea text = new TextArea(Language.getTranslation("warning.noproducts"));
+			text.setWrapText(true);
+			text.setMinWidth(200);
+			text.setPrefHeight(30);
+			text.setEditable(false);
+			vboxProduct.getChildren().add(text);
+		}
 	}
 
 	// ik weet dat dit beter kan :P
