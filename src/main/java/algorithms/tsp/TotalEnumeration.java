@@ -221,6 +221,17 @@ public class TotalEnumeration extends Thread
 			shortestPath = new EnumPath(this.pathLength, tileCoordinates);
 		}
 
+		if(simulation.isFancy.isSelected()){
+			EnumPath curPath = new EnumPath(this.pathLength, tileCoordinates);
+
+			if(frameCounter >= 50000){
+				simulation.updatePath(curPath.getTiles());
+				frameCounter = 0;
+			}else{
+				frameCounter++;
+			}
+		}
+
 		if (logging)
 		{
 			double calc = (double) this.progress / factor;
