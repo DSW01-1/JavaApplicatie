@@ -136,6 +136,9 @@ public class DatabaseOrder
 		{
 			LogHandler.WriteErrorToLogFile(e, "Could not get last receiptIndex info");
 		}
+		catch(Exception e){
+			LogHandler.ShowWarning("Could not get last receiptIndex info.");
+		}
 		return toReturn;
 	}
 
@@ -143,11 +146,11 @@ public class DatabaseOrder
 	public static int getLastCustomerId()
 	{
 		int toReturn = 0;
-		String customerTable = Constants.databaseName + "." + Constants.customerTableName;
-		String customerid = "select * from " + customerTable + " order by customerid desc limit 1;";
-		Connection conn = DatabaseConnection.Connect();
 		try
 		{
+			String customerTable = Constants.databaseName + "." + Constants.customerTableName;
+			String customerid = "select * from " + customerTable + " order by customerid desc limit 1;";
+			Connection conn = DatabaseConnection.Connect();
 			PreparedStatement preparedStatementReceipt = conn.prepareStatement(customerid);
 			ResultSet rs = preparedStatementReceipt.executeQuery();
 			while (rs.next())
@@ -158,6 +161,9 @@ public class DatabaseOrder
 		}
 		catch (SQLException e)
 		{
+			LogHandler.ShowWarning("Kon geen verbinding maken met de database.");
+		}
+		catch(Exception e){
 			LogHandler.ShowWarning("Kon geen verbinding maken met de database.");
 		}
 		return toReturn;
@@ -191,6 +197,9 @@ public class DatabaseOrder
 		{
 			LogHandler.ShowWarning("Er kon klanten niet ophalen uit de database.");
 		}
+		catch(Exception e){
+			LogHandler.ShowWarning("Er kon klanten niet ophalen uit de database.");
+		}
 		return customers;
 	}
 
@@ -216,7 +225,9 @@ public class DatabaseOrder
 		{
 			LogHandler.ShowWarning("Kon order niet ophalen");
 		}
-
+		catch(Exception e){
+			LogHandler.ShowWarning("Kon order niet ophalen");
+		}
 		return OrderList;
 	}
 
@@ -242,6 +253,9 @@ public class DatabaseOrder
 		{
 			LogHandler.ShowWarning("Kon producten niet ophalen");
 		}
+		catch(Exception e){
+			LogHandler.ShowWarning("Kon producten niet ophalen.");
+		}
 		return productList;
 	}
 
@@ -265,7 +279,10 @@ public class DatabaseOrder
 		}
 		catch (SQLException e)
 		{
-			LogHandler.ShowWarning("Kon productinformatie niet ophalen.");
+			LogHandler.ShowWarning("Er kon geen productinformatie opgehaald worden");
+		}
+		catch(Exception e){
+			LogHandler.ShowWarning("Er kon geen productinformatie opgehaald worden.");
 		}
 		return product;
 	}
