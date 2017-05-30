@@ -43,7 +43,6 @@ public class MainAppGrid extends PathGrid
 
 		if (robotPos != null)
 		{
-			System.out.println(robotPos);
 			DrawRobotPos(robotPos);
 		}
 
