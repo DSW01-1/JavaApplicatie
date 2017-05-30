@@ -2,7 +2,7 @@ package main.java.constant;
 
 public class ArduinoConstants
 {
-	public static final String comPort = "COM3";
+	public static final String comPort = "COM13";
 
 	// Commands to Send
 	public static final String cmdSendTest = "cmdSendTest";
