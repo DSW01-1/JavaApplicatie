@@ -67,7 +67,7 @@ public class ArduinoController
 		{
 		case ArduinoConstants.cmdMoveRobot:
 			String[] posArray = command.getExtraInfo().split("\\!");
-			Vector2 pos = new Vector2(Integer.parseInt(posArray[0]), Integer.parseInt(posArray[1]));
+			Vector2 pos = new Vector2(Integer.parseInt(posArray[0]) - 1, Integer.parseInt(posArray[1]) - 1);
 			grid.SetRobotPos(pos);
 			break;
 		default:
