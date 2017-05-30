@@ -73,7 +73,7 @@ public class ProductGrid extends BaseGrid
 
 		for (Product product : productArray)
 		{
-			if (product.CheckCoords(tileCoord) && returnProduct == null)
+			if (product.CompareCoord(tileCoord) && returnProduct == null)
 			{
 				returnProduct = product;
 			}

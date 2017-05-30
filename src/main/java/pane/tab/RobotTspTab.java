@@ -1,8 +1,6 @@
 package main.java.pane.tab;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import javafx.scene.layout.GridPane;
 import main.java.algorithms.bpp.DecreasingFirstFit;
@@ -152,14 +150,31 @@ public class RobotTspTab extends StyledPane
 			ArrayList<Box> boxesArray = bpptab.runAlgorithm(new DecreasingFirstFit());
 
 			// CHECK IF ZERO POINT IS ACTUALLY NEEDED
-			/*
-			 * boolean contains
-			 * 
-			 * if (boxesArray.size() < shortestPath.size()) { for(Product
-			 * product : boxesArray.get(i)) { if(product.getCoords()) {
-			 * 
-			 * } } }
-			 */
+			boolean boxContainsOrigin = false;
+
+			for (Box box : boxesArray)
+			{
+				for (Product product : box.GetProductArray())
+				{
+					if (product.CompareCoord(new Vector2(0, 0)))
+					{
+						boxContainsOrigin = true;
+					}
+				}
+			}
+
+			// If the first point is the origin point remove it, except if the
+			// origin point actually needs to be visited
+			if (shortestPath.get(0).Compare(new Vector2(1, 1)) && boxContainsOrigin == false)
+			{
+				shortestPath.remove(0);
+			}
+
+			// If the last point is the origin point, remove it anyway
+			if (shortestPath.get(shortestPath.size() - 1).Compare(new Vector2(1, 1)))
+			{
+				shortestPath.remove(shortestPath.size() - 1);
+			}
 
 			// Send the path to the arduino
 			String coords = "";
@@ -196,8 +211,11 @@ public class RobotTspTab extends StyledPane
 
 			boxes = new StringBuilder(boxes).reverse().toString();
 
-			Command commandToSend = new Command(ArduinoConstants.cmdDoCycle, coords + "][" + boxes);
-			controller.HandleOutput(commandToSend);
+			System.out.println("[" + coords + "][" + boxes + "]");
+
+			// Command commandToSend = new Command(ArduinoConstants.cmdDoCycle,
+			// coords + "][" + boxes);
+			// controller.HandleOutput(commandToSend);
 
 		}
 		catch (InterruptedException e)

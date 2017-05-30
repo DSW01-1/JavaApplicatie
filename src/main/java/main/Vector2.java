@@ -29,11 +29,16 @@ public class Vector2
 	{
 		this.y = y;
 	}
-	
+
 	@Override
 	public String toString()
 	{
 		return getX() + "." + getY();
+	}
+
+	public boolean Compare(Vector2 vector)
+	{
+		return getX() == vector.getX() && getY() == vector.getY() ? true : false;
 	}
 
 }
