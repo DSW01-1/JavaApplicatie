@@ -87,7 +87,6 @@ public class RobotGrid extends PathGrid
 	public void SetRobotPos(Vector2 vector2)
 	{
 		super.SetRobotPos(vector2);
-
 		Redraw();
 	}
 

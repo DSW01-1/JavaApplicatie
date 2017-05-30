@@ -13,7 +13,6 @@ public class MainAppGrid extends PathGrid
 	public MainAppGrid()
 	{
 		super(Constants.baseWareHouseSize);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -30,6 +29,14 @@ public class MainAppGrid extends PathGrid
 		Redraw();
 	}
 
+	@Override
+	public void SetRobotPos(Vector2 vector2)
+	{
+		super.SetRobotPos(vector2);
+		Redraw();
+	}
+
+	@Override
 	public void Redraw()
 	{
 		gc.clearRect(0, 0, getWidth(), getHeight());
@@ -38,12 +45,11 @@ public class MainAppGrid extends PathGrid
 		{
 			DrawRobotPos(robotPos);
 		}
-		
-		if(pathList != null)
+
+		if (pathList != null)
 		{
 			DrawPathLines(pathList);
 		}
-		
 
 		for (Product product : productArray)
 		{

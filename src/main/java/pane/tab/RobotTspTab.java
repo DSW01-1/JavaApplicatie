@@ -31,7 +31,8 @@ public class RobotTspTab extends StyledPane
 	private BPPTab bpptab;
 
 	/**
-	 * The combined Robot and TSP tab, info about the robot and the path will be shown
+	 * The combined Robot and TSP tab, info about the robot and the path will be
+	 * shown
 	 */
 	public RobotTspTab()
 	{
@@ -54,7 +55,7 @@ public class RobotTspTab extends StyledPane
 	 */
 	private void CreateGrid()
 	{
-		grid = new MainAppGrid();		
+		grid = new MainAppGrid();
 		grid.setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2);
 		grid.setLayoutY(15);
 		getChildren().add(grid);
@@ -111,9 +112,8 @@ public class RobotTspTab extends StyledPane
 		this.bpptab = tab;
 		CreateConsolePane();
 		CalculateAndDrawPath(products);
-		
-		controller.SetGrid(grid);
 
+		controller.SetGrid(grid);
 	}
 
 	/**
@@ -222,7 +222,7 @@ public class RobotTspTab extends StyledPane
 
 			boxes = new StringBuilder(boxes).reverse().toString();
 
-			//send the path and boxes to the robor
+			// send the path and boxes to the robor
 			Command commandToSend = new Command(ArduinoConstants.cmdDoCycle, coords + "][" + boxes);
 			controller.HandleOutput(commandToSend);
 		}
