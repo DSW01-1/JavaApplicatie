@@ -67,7 +67,7 @@ public class ArduinoController
 		{
 		case ArduinoConstants.cmdMoveRobot:
 			String[] posArray = command.getExtraInfo().split("\\!");
-			Vector2 pos = new Vector2(Integer.parseInt(posArray[0]), Integer.parseInt(posArray[1]));
+			Vector2 pos = new Vector2(Integer.parseInt(posArray[0]) - 1, Integer.parseInt(posArray[1]));
 			grid.SetRobotPos(pos);
 			break;
 		default:
@@ -83,19 +83,27 @@ public class ArduinoController
 	 */
 	public boolean HandleOutput(Command command)
 	{
-		String cmdString = "<" + command.getCommand();
-
-		if (!("".equals(command.getExtraInfo())))
+		if (comHandler != null)
 		{
-			cmdString = cmdString.concat("[" + command.getExtraInfo() + "]");
-		}
-		cmdString = cmdString.concat(">");
+			String cmdString = "<" + command.getCommand();
 
-		if (console != null)
+			if (!("".equals(command.getExtraInfo())))
+			{
+				cmdString = cmdString.concat("[" + command.getExtraInfo() + "]");
+			}
+			cmdString = cmdString.concat(">");
+
+			if (console != null)
+			{
+				console.addConsoleItem(cmdString, "OUT");
+			}
+
+			return comHandler.WriteToArduino(cmdString);
+		}
+		else
 		{
-			console.addConsoleItem(cmdString, "OUT");
+			return false;
 		}
 
-		return comHandler.WriteToArduino(cmdString);
 	}
 }
