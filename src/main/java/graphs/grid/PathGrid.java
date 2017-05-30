@@ -23,7 +23,7 @@ public class PathGrid extends BaseGrid
 	@Override
 	protected void AddMouseEventHandler()
 	{
-		//TODO
+		// TODO
 	}
 
 	/**
@@ -90,27 +90,15 @@ public class PathGrid extends BaseGrid
 		return line;
 	}
 
-	/**
-	 * Set the current Position of the robot
-	 * 
-	 * @param transPos
-	 */
-	public void SetRobotPos(Vector2 transPos)
+	@Override
+	public void SetRobotPos(Vector2 newPos)
 	{
 		if (robotPos == null)
 		{
 			robotPos = new Vector2(0, 0);
 		}
 
-		if (robotPos.getX() + transPos.getX() >= 0 && robotPos.getX() + transPos.getX() < tileAmount)
-		{
-			robotPos.setX((int) (robotPos.getX() + transPos.getX()));
-		}
-
-		if (robotPos.getY() > transPos.getY())
-		{
-			robotPos.setY((int) (robotPos.getY() + transPos.getY()));
-		}
+		robotPos = newPos;
 	}
 
 }

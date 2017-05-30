@@ -7,7 +7,7 @@ import main.java.main.product.Product;
 public class ProductPaneHistory extends Pane
 {
 
-	public ProductPaneHistory(Product product, OrderHistory parentScript)
+	public ProductPaneHistory(Product product)
 	{
 		setPrefSize(200, 90);
 		setId("customer");

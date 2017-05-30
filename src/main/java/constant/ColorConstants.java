@@ -9,7 +9,8 @@ public class ColorConstants
 	public static final Color standardTileColor = Color.GRAY;
 	public static final Color standardProductColor = Color.TAN;
 	public static final Color standardBlzitColor = Color.FORESTGREEN;
-	public static final Color standardSelectColor = Color.AQUAMARINE;
+	public static final Color standardSelectColor = Color.LIGHTBLUE;
+	public static final Color robotColor = Color.CORNFLOWERBLUE;
 
 	// Rainbow Colors
 	public static final String[] rainbowColors =

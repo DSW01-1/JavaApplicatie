@@ -30,6 +30,9 @@ public class RobotTspTab extends StyledPane
 	private ConsolePane consolePane;
 	private BPPTab bpptab;
 
+	/**
+	 * The combined Robot and TSP tab, info about the robot and the path will be shown
+	 */
 	public RobotTspTab()
 	{
 		CreateGrid();
@@ -37,6 +40,9 @@ public class RobotTspTab extends StyledPane
 		CreateStatusCanvas();
 	}
 
+	/**
+	 * Create the canvas for drawing the path
+	 */
 	private void CreateStatusCanvas()
 	{
 		statusCanvas = new StatusCanvas(new Vector2(ScreenProperties.getScreenWidth() - 150, 15), 60);
@@ -108,6 +114,9 @@ public class RobotTspTab extends StyledPane
 
 	}
 
+	/**
+	 * Create the console pane, input from the robot will be shown here
+	 */
 	private void CreateConsolePane()
 	{
 		consolePane = new ConsolePane();
@@ -211,8 +220,7 @@ public class RobotTspTab extends StyledPane
 
 			boxes = new StringBuilder(boxes).reverse().toString();
 
-			System.out.println("[" + coords + "][" + boxes + "]");
-
+			//send the path and boxes to the robor
 			Command commandToSend = new Command(ArduinoConstants.cmdDoCycle, coords + "][" + boxes);
 			controller.HandleOutput(commandToSend);
 		}

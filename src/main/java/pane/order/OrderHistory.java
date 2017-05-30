@@ -22,48 +22,49 @@ public class OrderHistory extends StyledPane
 		super();
 	}
 
-	//create initializefunction
+	// create initializefunction
 	@Override
 	public void InitPane()
 	{
-		//terug naar menu knop
+		// terug naar menu knop
 		getChildren().add(new BackToMainMenuButton());
 
-		//posities van lijsten
+		// posities van lijsten
 		Vector2 personPos = new Vector2(ScreenProperties.getScreenWidth() / 3 - 100, 240);
 		Vector2 orderPos = new Vector2(ScreenProperties.getScreenWidth() / 2 - 100, 240);
 		Vector2 productPos = new Vector2((ScreenProperties.getScreenWidth() / 3) * 2 - 100, 240);
 		Vector2 headerPos = new Vector2(800, 20);
 
-		//alle labels
+		// alle labels
 		StyledLabel headerLabel = new StyledLabel("lbl.history", headerPos);
 		StyledLabel personLabel = new StyledLabel("lbl.persons", personPos);
 		StyledLabel orderLabel = new StyledLabel("lbl.orders", orderPos);
 		StyledLabel productLabel = new StyledLabel("lbl.products", productPos);
 		getChildren().addAll(personLabel, orderLabel, productLabel, headerLabel);
 
-		//eerste instanties maken
+		// eerste instanties maken
 		createPersonVBox();
 		createEmptyOrderVBox();
 		createEmptyProductVBox();
 	}
 
-	//create Person list
+	// create Person list
 	private void createPersonVBox()
 	{
-		//get customers to add to list
+		// get customers to add to list
 		ArrayList<CustomerInfo> customers = DatabaseOrder.getAllCustomers();
 		VBox vbox = new VBox();
 
 		Vector2 pos = new Vector2(ScreenProperties.getScreenWidth() / 3 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
-		//add all customers to list
+		// add all customers to list
 		for (CustomerInfo info : customers)
 		{
 			vbox.getChildren().add(new PersonPane(info, this));
 		}
-		//if there are no persons add this message
-		if(vbox.getChildren().size()==0){
+		// if there are no persons add this message
+		if (vbox.getChildren().size() == 0)
+		{
 			TextArea text = new TextArea(Language.getTranslation("warning.nopersons"));
 			text.setWrapText(true);
 			text.setMinWidth(200);
@@ -74,14 +75,14 @@ public class OrderHistory extends StyledPane
 		getChildren().add(new StyledScrollPane(vbox, pos, size));
 	}
 
-	//create Order list
+	// create Order list
 	public void createOrderVBox(int Customerid)
 	{
 		VBox vboxOrder = new VBox();
 		List<Integer> orders;
-		//get all order ID's from the database
+		// get all order ID's from the database
 		orders = DatabaseOrder.getOrdersFromId(Customerid);
-		//add all orders to list
+		// add all orders to list
 		for (Integer ordernr : orders)
 		{
 			vboxOrder.getChildren().add(new OrderPane(ordernr, this));
@@ -90,8 +91,9 @@ public class OrderHistory extends StyledPane
 		Vector2 pos = new Vector2(ScreenProperties.getScreenWidth() / 2 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxOrder, pos, size));
-		//display message if there are no orders
-		if(vboxOrder.getChildren().size()==0){
+		// display message if there are no orders
+		if (vboxOrder.getChildren().size() == 0)
+		{
 			TextArea text = new TextArea(Language.getTranslation("warning.noorders"));
 			text.setWrapText(true);
 			text.setMinWidth(200);
@@ -101,23 +103,28 @@ public class OrderHistory extends StyledPane
 		}
 	}
 
-	//create Product list
+	/**
+	 * Create the procuct box
+	 * 
+	 * @param Ordernr
+	 */
 	public void createProductVBox(int Ordernr)
 	{
 		VBox vboxProduct = new VBox();
 		List<Integer> products;
-		//get products from database from the order.
+		// get products from database from the order.
 		products = DatabaseOrder.getProductsIDFromOrder(Ordernr);
-		//add all products to the list
+		// add all products to the list
 		for (Integer productid : products)
 		{
-			vboxProduct.getChildren().add(new ProductPaneHistory(DatabaseOrder.getProductByID(productid), this));
+			vboxProduct.getChildren().add(new ProductPaneHistory(DatabaseOrder.getProductByID(productid)));
 		}
 		Vector2 pos = new Vector2((ScreenProperties.getScreenWidth() / 3) * 2 - 100, 270);
 		Vector2 size = new Vector2(200, 500);
 		getChildren().add(new StyledScrollPane(vboxProduct, pos, size));
-		//display message if there are no products
-		if(vboxProduct.getChildren().size()==0){
+		// display message if there are no products
+		if (vboxProduct.getChildren().size() == 0)
+		{
 			TextArea text = new TextArea(Language.getTranslation("warning.noproducts"));
 			text.setWrapText(true);
 			text.setMinWidth(200);
@@ -137,7 +144,7 @@ public class OrderHistory extends StyledPane
 	}
 
 	// ik weet dat dit beter kan :P
-	//creeërt lege lijst voor eerste scherm
+	// creeërt lege lijst voor eerste scherm
 	private void createEmptyProductVBox()
 	{
 		VBox vboxProduct = new VBox();
