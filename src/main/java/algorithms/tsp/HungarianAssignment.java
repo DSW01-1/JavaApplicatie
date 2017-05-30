@@ -197,6 +197,7 @@ public class HungarianAssignment
 			System.out.println();
 			System.out.println("----------------------------");
 		}
+		System.out.println(shortestPath.toString());
 		return shortestPath;
 	}
 
