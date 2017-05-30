@@ -154,7 +154,7 @@ public class BppSimulation extends BaseSimulation
 
 		// create a button to confirm the product size input
 		StyledButton productsInputButton = new StyledButton("btn.confirmProduct",
-				new Vector2((ScreenProperties.getScreenWidth() / 2) - (ScreenProperties.getScreenWidth() / 3 / 2) + 200,
+				new Vector2((ScreenProperties.getScreenWidth() / 2) - (ScreenProperties.getScreenWidth() / 3 / 2) + 230,
 						ScreenProperties.getScreenHeight() - 200));
 		getChildren().add(productsInputButton);
 		// check if the enter key is pressed while in the ProductsInput

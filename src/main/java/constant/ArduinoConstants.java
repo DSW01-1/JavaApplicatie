@@ -14,6 +14,7 @@ public class ArduinoConstants
 	public static final String cmdGetPackage = "cmdGetPackage";
 	public static final String cmdUnloadPackage = "cmdUnloadPackage";
 	public static final String cmdDumpPackage = "cmdDumpPackage";
+	public static final String cmdGetLocation = "cmdGetLocation";
 
 	public static final String cmdStart = "cmdStart";
 	public static final String cmdPause = "cmdPauze";

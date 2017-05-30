@@ -6,6 +6,8 @@ import main.java.graphs.DistanceGrid;
 import main.java.graphs.grid.GridTile;
 import main.java.main.Vector2;
 
+//Hungarian not functional AS OF YET
+
 public class HungarianAssignment
 {
 	// Punten lijst
@@ -15,7 +17,7 @@ public class HungarianAssignment
 	// Distance Grid klasse
 	private DistanceGrid dG;
 	// uitgerekende route's tussen punten
-	public int[][] routeTSP;
+	public int[][][] routeTSP;
 	// aantal berkende route's
 	private int berekend;
 	// penalty van zero tabel
@@ -28,7 +30,7 @@ public class HungarianAssignment
 		// Nieuw DistanceGrid berekenen aan de hand van de coordinaten lijst
 		dG = new DistanceGrid(coordList);
 		// RouteTSP array net zo lang als het aantal punten
-		routeTSP = new int[dG.distanceGrid.length][2];
+		routeTSP = new int[dG.distanceGrid.length][2][2];
 	}
 
 	public double[] getColumn(double[][] grid, int colNumber)
@@ -145,7 +147,6 @@ public class HungarianAssignment
 			for (double columnPlace : rowPlace)
 			{
 				// TODO Geen System.out.println! alleen voor testen
-				System.out.println(columnNumber);
 				if (columnPlace == 0.0 && penaltyZero[rowNumber][columnNumber] < lowestNumber)
 				{
 					lowestNumber = penaltyZero[rowNumber][columnNumber];
@@ -178,21 +179,30 @@ public class HungarianAssignment
 			rowNumber++;
 		}
 		// from is de index van het begin punt
-		routeTSP[berekend][0] = from;
-		routeTSP[berekend][1] = to;
-
+		if(from==999||to==999) {}else {
+			routeTSP[berekend][0][0] = coordList.get(from).getXcoord();
+			routeTSP[berekend][0][1] = coordList.get(from).getYcoord();
+			routeTSP[berekend][1][0] = coordList.get(to).getXcoord();
+			routeTSP[berekend][1][1] = coordList.get(to).getYcoord();
+		}
+		if(from==999||to==999) {
+		}else{
+			shortestPath.add(new Vector2(coordList.get(from).getXcoord(),coordList.get(from).getYcoord()));
+			shortestPath.add(new Vector2(coordList.get(to).getXcoord(), coordList.get(to).getYcoord()));
+		}
 		berekend++;
 		dG.distanceGrid = newDistanceGrid;
 	}
 
 	public ArrayList<Vector2> runHungarian()
 	{
-		for (int i = 0; i < dG.distanceGrid.length - 1; i++)
+		for (int i = 0; i < dG.distanceGrid.length; i++)
 		{
 			rowMin();
 			columnMin();
 			penaltyZero();
 			reducegrid();
+			printPath();
 			printDGrid();
 			System.out.println();
 			System.out.println("----------------------------");
@@ -211,6 +221,22 @@ public class HungarianAssignment
 				System.out.print(column);
 			}
 			System.out.println();
+		}
+	}
+
+	private void printPath(){
+		int puntC=0;
+		for(int[][] punt:routeTSP){
+			puntC++;
+			int fromToC=0;
+			for(int[] fromTo:punt){
+				fromToC++;
+				int xyC = 0;
+				for(int xy: fromTo) {
+					xyC++;
+					System.out.println(String.format("%s | %s | %s",puntC,fromToC,xy));
+				}
+			}
 		}
 	}
 }

@@ -83,7 +83,7 @@ public class Product implements Comparable<Object>
 		return returnedInt;
 	}
 
-	public boolean CheckCoords(Vector2 tileCoord)
+	public boolean CompareCoord(Vector2 tileCoord)
 	{
 		return GetCoords().getX() == tileCoord.getX() && GetCoords().getY() == tileCoord.getY() ? true : false;
 	}

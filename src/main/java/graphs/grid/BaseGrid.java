@@ -132,10 +132,10 @@ public abstract class BaseGrid extends Canvas
 	 * @param coords
 	 */
 	protected void DrawRobotPos(Vector2 coords)
-	{
-		if (robotPos.getX() == coords.getX() && robotPos.getY() == coords.getY())
+	{		
+		if (robotPos.Compare(coords))
 		{
-			gc.setFill(Color.ANTIQUEWHITE);
+			gc.setFill(ColorConstants.robotColor);			
 			gc.fillRect(robotPos.getX() * tileSize, robotPos.getY() * tileSize, tileSize, tileSize);
 		}
 	}
@@ -155,11 +155,21 @@ public abstract class BaseGrid extends Canvas
 		gc.fillRoundRect(x, y, miniGrid * 4, miniGrid * 4, 8, 8);
 	}
 
+	/**
+	 * Set the current Position of the robot
+	 * 
+	 * @param transPos
+	 */
 	public void SetRobotPos(Vector2 newPos)
 	{
 		robotPos = newPos;
 	}
 
+	/**
+	 * Set the grid line and tile color
+	 * 
+	 * @param color
+	 */
 	public void SetGridColor(String color)
 	{
 		switch (color)

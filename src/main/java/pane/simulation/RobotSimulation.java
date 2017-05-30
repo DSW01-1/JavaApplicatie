@@ -50,11 +50,13 @@ public class RobotSimulation extends StyledPane
 	{
 		controller = new ArduinoController();
 
+		controller.SetGrid(grid);
+
 		Map<String, String> cmdButtonMap = new HashMap<String, String>();
 
 		String[] buttonNames =
 		{ "btn.connectArduino", "btn.sendTest", "btn.moveXAxis", "btn.moveYAxis", "btn.moveToCoord", "btn.getPackageAt",
-				"btn.unloadPackage" };
+				"btn.unloadPackage", "btn.getLocation" };
 
 		String[] cmdArray =
 		{ ArduinoConstants.cmdMoveXAxis, ArduinoConstants.cmdMoveYAxis, ArduinoConstants.cmdUnloadPackage,
@@ -101,6 +103,9 @@ public class RobotSimulation extends StyledPane
 				case "btn.getPackageAt":
 					controller.HandleOutput(new Command(ArduinoConstants.cmdGetPackage, coordString));
 					break;
+				case "btn.getLocation":
+					controller.HandleOutput(new Command(ArduinoConstants.cmdGetLocation));
+					break;
 				default:
 					controller.HandleOutput(new Command(cmdButtonMap.get(buttonNames[j])));
 					break;
@@ -113,6 +118,7 @@ public class RobotSimulation extends StyledPane
 	private void CreateGrid()
 	{
 		grid = new RobotGrid();
+
 		grid.setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2);
 		grid.setLayoutY(10);
 		getChildren().add(grid);

@@ -28,13 +28,12 @@ public class BPPTab extends StyledPane
 		boxPane = new BoxPane();
 		getChildren().add(boxPane);
 
-		runAlgorithm(new DecreasingFirstFit());
+		boxPane.AddBoxList(runAlgorithm(new DecreasingFirstFit()));
 	}
 
-	public void runAlgorithm(BPPAlgorithm algorithmToRun)
+	public ArrayList<Box> runAlgorithm(BPPAlgorithm algorithmToRun)
 	{
-		ArrayList<Box> returnBoxes = algorithmToRun.getBoxes(products, 10);
-		boxPane.AddBoxList(returnBoxes);
+		return algorithmToRun.getBoxes(products, 10);
 	}
 
 }

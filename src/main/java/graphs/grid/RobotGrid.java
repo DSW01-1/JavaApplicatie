@@ -4,9 +4,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import main.java.main.Vector2;
 
-public class RobotGrid extends BaseGrid
+public class RobotGrid extends PathGrid
 {
-	private Vector2 currentRobotPos = new Vector2(1, 1);
 	private GridTile selectedTile;
 
 	public RobotGrid()
@@ -60,9 +59,9 @@ public class RobotGrid extends BaseGrid
 		for (GridTile tile : gridTileArray)
 		{
 			// Draw the Robot position if possible
-			if (currentRobotPos == tile.GetPos())
+			if (robotPos.Compare(tile.GetPos()))
 			{
-				DrawRobotPos(currentRobotPos);
+				DrawRobotPos(robotPos);
 			}
 
 			// Draw a tile if it is selected
@@ -84,17 +83,21 @@ public class RobotGrid extends BaseGrid
 		gc.fillRoundRect(x, y, miniGrid * 4, miniGrid * 4, 8, 8);
 	}
 
+	@Override
 	public void SetRobotPos(Vector2 vector2)
 	{
-		// TODO Auto-generated method stub
+		super.SetRobotPos(vector2);
+
+		Redraw();
 	}
-	
+
 	/**
 	 * Get the current selected tile
-	 * @return  GridTile
+	 * 
+	 * @return GridTile
 	 */
 	public GridTile GetSelectedTile()
 	{
-		return selectedTile;		
+		return selectedTile;
 	}
 }

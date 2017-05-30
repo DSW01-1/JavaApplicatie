@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import main.java.algorithms.tsp.HungarianAssignment;
@@ -24,6 +25,7 @@ public class TspSimulation extends BaseSimulation
 	private boolean isInteractive = true;
 	public ConsolePane consolePane;
 	public ProgressBar progression;
+	public CheckBox isFancy;
 	public Label lblProgSec;
 	private TotalEnumeration algorithm = new TotalEnumeration(this);
 
@@ -37,6 +39,7 @@ public class TspSimulation extends BaseSimulation
 		// Add a default grid
 		AddGrid(Constants.baseWareHouseSize);
 		AddConsolePane();
+		AddFancyMode();
 		AddProgressBar();
 	}
 
@@ -55,6 +58,14 @@ public class TspSimulation extends BaseSimulation
 		progression.setPrefHeight(30);
 		progression.setProgress(0);
 		getChildren().add(progression);
+
+	}
+
+	private void AddFancyMode(){
+		isFancy = new CheckBox("Fancy mode (Beta)");
+		isFancy.setLayoutX(205);
+		isFancy.setLayoutY(175);
+		getChildren().add(isFancy);
 	}
 
 	/**
@@ -71,6 +82,8 @@ public class TspSimulation extends BaseSimulation
 
 		addColorChoicebox();
 		addGridSizeChoicebox();
+
+
 	}
 
 	/**

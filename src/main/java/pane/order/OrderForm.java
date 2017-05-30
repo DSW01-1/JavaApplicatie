@@ -24,8 +24,7 @@ import main.java.pane.tab.RobotTspTab;
 public class OrderForm extends GridPane
 {
 	private TextField[] formItems;
-	private VBox rightColumnVBox, leftColumnVBox;
-	private final NewOrder newOrder;
+	private VBox rightColumnVBox;
 	private String[] labelArray =
 	{ "form.firstname", "form.lastname", "form.address", "form.zipcode", "form.city" };
 	private TextField[] textFields = new TextField[labelArray.length];
@@ -40,9 +39,7 @@ public class OrderForm extends GridPane
 	public OrderForm(NewOrder newOrder)
 	{
 		super();
-		this.newOrder = newOrder;
 		rightColumnVBox = newOrder.rightColumnVBox;
-		leftColumnVBox = newOrder.leftColumnVBox;
 
 		setLayoutX(ScreenProperties.getScreenWidth() / 4 * 2.5f);
 		setLayoutY(300);

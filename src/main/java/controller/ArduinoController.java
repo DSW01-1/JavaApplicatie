@@ -13,17 +13,42 @@ public class ArduinoController
 	private BaseGrid grid;
 	private ConsolePane console;
 
+	/**
+	 * Add the console to the controller if available, will be used to log
+	 * 
+	 * @param console
+	 */
 	public void AddConsole(ConsolePane console)
 	{
 		this.console = console;
 	}
 
+	/**
+	 * Try to get a connection with the Arduino
+	 * 
+	 * @return true if connected, false if not
+	 */
 	public boolean EstablishConnection()
 	{
 		comHandler = new ArduinoCommunicationHandler(this);
 		return comHandler.EstablishConnection();
 	}
 
+	/**
+	 * Set the grid if needed
+	 * 
+	 * @param grid
+	 */
+	public void SetGrid(BaseGrid grid)
+	{
+		this.grid = grid;
+	}
+
+	/**
+	 * Handle the input gotten from the arduino
+	 * 
+	 * @param input
+	 */
 	public void HandleInput(String input)
 	{
 		Command command = null;
@@ -50,11 +75,17 @@ public class ArduinoController
 		}
 	}
 
+	/**
+	 * Handle the output to the arduino
+	 * 
+	 * @param command
+	 * @return true if succeeded
+	 */
 	public boolean HandleOutput(Command command)
 	{
 		String cmdString = "<" + command.getCommand();
 
-		if (command.getExtraInfo() != "")
+		if (!("".equals(command.getExtraInfo())))
 		{
 			cmdString = cmdString.concat("[" + command.getExtraInfo() + "]");
 		}
