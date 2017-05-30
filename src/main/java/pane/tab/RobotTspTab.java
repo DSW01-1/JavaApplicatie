@@ -213,10 +213,8 @@ public class RobotTspTab extends StyledPane
 
 			System.out.println("[" + coords + "][" + boxes + "]");
 
-			// Command commandToSend = new Command(ArduinoConstants.cmdDoCycle,
-			// coords + "][" + boxes);
-			// controller.HandleOutput(commandToSend);
-
+			Command commandToSend = new Command(ArduinoConstants.cmdDoCycle, coords + "][" + boxes);
+			controller.HandleOutput(commandToSend);
 		}
 		catch (InterruptedException e)
 		{
