@@ -54,10 +54,7 @@ public class RobotTspTab extends StyledPane
 	 */
 	private void CreateGrid()
 	{
-		grid = new MainAppGrid();
-		
-		controller.SetGrid(grid);
-		
+		grid = new MainAppGrid();		
 		grid.setLayoutX(ScreenProperties.getScreenWidth() / 2 - Constants.drawnGridSize / 2);
 		grid.setLayoutY(15);
 		getChildren().add(grid);
@@ -114,6 +111,8 @@ public class RobotTspTab extends StyledPane
 		this.bpptab = tab;
 		CreateConsolePane();
 		CalculateAndDrawPath(products);
+		
+		controller.SetGrid(grid);
 
 	}
 
