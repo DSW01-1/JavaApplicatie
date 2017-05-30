@@ -132,12 +132,9 @@ public abstract class BaseGrid extends Canvas
 	 * @param coords
 	 */
 	protected void DrawRobotPos(Vector2 coords)
-	{		
-		if (robotPos.Compare(coords))
-		{
-			gc.setFill(ColorConstants.robotColor);			
-			gc.fillRect(robotPos.getX() * tileSize, robotPos.getY() * tileSize, tileSize, tileSize);
-		}
+	{
+		gc.setFill(ColorConstants.robotColor);
+		gc.fillRect(coords.getX() * tileSize, coords.getY() * tileSize, tileSize, tileSize);
 	}
 
 	/**

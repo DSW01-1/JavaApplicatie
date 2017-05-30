@@ -114,6 +114,7 @@ public class RobotTspTab extends StyledPane
 		CalculateAndDrawPath(products);
 
 		controller.SetGrid(grid);
+		controller.HandleInput("<cmdMoveRobot[2!2]>");
 	}
 
 	/**
